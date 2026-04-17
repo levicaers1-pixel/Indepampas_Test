@@ -50,10 +50,10 @@ function ContactPage() {
               <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">E-mail</dt>
               <dd>
                 <a
-                  href="mailto:hallo@pampaspodcast.be"
+                  href="mailto:pampas.podcast@gmail.com"
                   className="font-serif italic text-2xl text-charcoal hover:text-sage transition-colors"
                 >
-                  hallo@pampaspodcast.be
+                  pampas.podcast@gmail.com
                 </a>
               </dd>
             </div>
@@ -61,10 +61,10 @@ function ContactPage() {
               <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">Sponsors</dt>
               <dd>
                 <a
-                  href="mailto:sponsors@pampaspodcast.be"
+                  href="mailto:pampas.podcast@gmail.com"
                   className="font-serif italic text-2xl text-charcoal hover:text-sage transition-colors"
                 >
-                  sponsors@pampaspodcast.be
+                  pampas.podcast@gmail.com
                 </a>
               </dd>
             </div>
@@ -72,7 +72,7 @@ function ContactPage() {
               <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
                 Thuishaven
               </dt>
-              <dd className="text-charcoal/80">Knokke-Heist · Antwerpen · Oostende</dd>
+              <dd className="text-charcoal/80">Antwerpen</dd>
             </div>
           </dl>
         </div>
