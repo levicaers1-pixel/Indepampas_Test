@@ -38,7 +38,7 @@ function HostsPage() {
           De Hosts<span className="text-sage">.</span>
         </h1>
         <p className="text-lg lg:text-xl text-charcoal/75 max-w-2xl leading-relaxed mb-20">
-          Drie vrienden, met elks een uniek traject doorheen de golfsport, geven hun verschillende
+          Drie vrienden, met elk een uniek traject doorheen de golfsport, geven hun verschillende
           kijk op de golf sport.
         </p>
 
