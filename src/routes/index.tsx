@@ -64,7 +64,7 @@ function Hero() {
           className="lg:col-span-7"
         >
           <p className="text-sage uppercase tracking-[0.3em] text-xs lg:text-sm mb-6 font-medium">
-            Belgische Golfcultuur · Sinds 2024
+            BELGISCHE GOLFCULTUUR · SINDS 2026
           </p>
 
           <h1 className="font-serif text-[5rem] sm:text-[8rem] lg:text-[11rem] leading-[0.82] font-light tracking-tighter uppercase text-charcoal mb-10">
@@ -72,8 +72,7 @@ function Hero() {
           </h1>
 
           <p className="text-lg sm:text-xl lg:text-2xl font-light text-pretty max-w-[44ch] leading-relaxed mb-12 text-charcoal/80">
-            Meer dan achttien holes. Drie vrienden, de meedogenloze zeewind, en de eeuwige zoektocht
-            naar een bal in hoog gras.
+            Voor golfers, door golfers.
           </p>
 
           {/* Spotify-style CTA pill */}
