@@ -68,8 +68,16 @@ function Hero() {
             BELGISCHE GOLFCULTUUR · SINDS 2026
           </p>
 
-          <h1 className="font-display text-[5rem] sm:text-[8rem] lg:text-[11rem] leading-[0.82] font-normal tracking-tight uppercase text-charcoal mb-10">
-            Pampas<span className="text-sage">.</span>
+          <h1 className="mb-10 -ml-2 sm:-ml-4">
+            <span className="sr-only">Pampas.</span>
+            <img
+              src={pampasWordmark}
+              alt="PAMPAS"
+              width={1024}
+              height={1024}
+              className="w-full max-w-[560px] sm:max-w-[720px] lg:max-w-[900px] h-auto select-none"
+              draggable={false}
+            />
           </h1>
 
           <p className="text-lg sm:text-xl lg:text-2xl font-light text-pretty max-w-[44ch] leading-relaxed mb-12 text-charcoal/80">
