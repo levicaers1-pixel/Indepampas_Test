@@ -27,7 +27,7 @@ export const hosts: Host[] = [
     name: "Levi Caers",
     role: "De Professor",
     handicap: "3.2",
-    bio: "Bio volgt.",
+    bio: "De host die golf bekijkt als een exacte wetenschap. Ook een 20-tal jaren actief in het eeuwige mysterie dat de naam Golf draagt.\nLange tijd heeft hij kunnen dingen naar de titel van snelste tempo van de Lange Landen, toen kwam het verstand en werd de zoektocht naar efficientie in gezet.\nDoor zijn voorliefde voor blades is hij geevolueerd naar een ball-striker pur sang, de keerzijde is dat een halve wedge hem dan weer een stuk minder goed ligt.\nAls hij één ding kan bekenen is dat hij geen 75% kent, enkel 110%\nZo sprak hij ooit de wijze woorden: \"Ik geloof nooit dat Rory zich inhoudt\"",
     favoriteCourse: "Ternesse Golf & Country Club",
     image: host2,
   },
