@@ -58,13 +58,13 @@ function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">Sponsors</dt>
+              <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">{"\n"}</dt>
               <dd>
                 <a
                   href="mailto:pampas.podcast@gmail.com"
                   className="font-serif italic text-2xl text-charcoal hover:text-sage transition-colors"
                 >
-                  pampas.podcast@gmail.com
+                  
                 </a>
               </dd>
             </div>
