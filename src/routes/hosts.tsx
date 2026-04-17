@@ -77,7 +77,7 @@ function HostsPage() {
                 <h2 className="font-serif text-6xl lg:text-8xl leading-[0.9] tracking-tighter text-charcoal mb-8">
                   {h.name}
                 </h2>
-                <p className="text-charcoal/80 text-lg leading-relaxed mb-10 max-w-xl">{h.bio}</p>
+                <p className="text-charcoal/80 text-lg leading-relaxed mb-10 max-w-xl font-serif whitespace-pre-line">{h.bio}</p>
 
                 <dl className="grid grid-cols-2 gap-x-8 gap-y-6 max-w-md border-t border-charcoal/10 pt-6">
                   <div>
