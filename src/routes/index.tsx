@@ -67,7 +67,7 @@ function Hero() {
             BELGISCHE GOLFCULTUUR · SINDS 2026
           </p>
 
-          <h1 className="font-serif text-[5rem] sm:text-[8rem] lg:text-[11rem] leading-[0.82] font-light tracking-tighter uppercase text-charcoal mb-10">
+          <h1 className="font-display text-[5rem] sm:text-[8rem] lg:text-[11rem] leading-[0.82] font-normal tracking-tight uppercase text-charcoal mb-10">
             Pampas<span className="text-sage">.</span>
           </h1>
 
