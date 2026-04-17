@@ -38,8 +38,8 @@ function HostsPage() {
           De Hosts<span className="text-sage">.</span>
         </h1>
         <p className="text-lg lg:text-xl text-charcoal/75 max-w-2xl leading-relaxed mb-20">
-          Drie vrienden uit verschillende hoeken van België, verbonden door één gemeenschappelijke
-          frustratie: het korte spel.
+          Drie vrienden, met elks een uniek traject doorheen de golfsport, geven hun verschillende
+          kijk op de golf sport.
         </p>
 
         <div className="space-y-32">
