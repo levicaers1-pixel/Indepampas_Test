@@ -204,7 +204,7 @@ function HostsTeaser() {
               De drie stemmen
             </p>
             <h2 className="font-serif text-5xl lg:text-7xl leading-[0.95] tracking-tight text-charcoal max-w-2xl">
-              Drie vrienden, drie handicaps, één <em className="font-serif italic text-sage">kort spel</em>.
+              Drie vrienden, drie handicaps, één <em className="font-serif italic text-sage">liefde</em>.
             </h2>
           </div>
           <Link
