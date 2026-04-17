@@ -37,7 +37,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden md:block text-xs uppercase tracking-[0.2em] font-medium text-charcoal/60 text-right pt-2">
-          <div>Knokke · BE</div>
+          <div>ANTWERPEN· BE</div>
           <div className="text-sage">Vol. I — 2025</div>
         </div>
 
