@@ -7,6 +7,7 @@ import { hosts } from "@/data/hosts";
 import hostsWalking from "@/assets/hosts-walking.jpg";
 import pampasGrass from "@/assets/pampas-grass.jpg";
 import golfDetail from "@/assets/golf-detail.jpg";
+import pampasWordmark from "@/assets/pampas-wordmark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
