@@ -45,6 +45,10 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PAMPAS — Belgische Golf Podcast" },
+      { name: "description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
+      { property: "og:description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
+      { name: "twitter:description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
