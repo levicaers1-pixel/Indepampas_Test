@@ -36,7 +36,7 @@ export const hosts: Host[] = [
     name: "Niels Jacoby",
     role: "De Romanticus",
     handicap: "2.4",
-    bio: "De host met de ludieke verhalen, gekke toevoegingen en ongezouten mening. Ondertussen al 23 jaar bezig met golf, golvend tussen diepe dalen en hoge hoogtes. Van bijna landskampioen in de interclubs van België tot niet meer weten hoe een fatsoenlijke golfbal te slaan. Dankzij golf al op zeer mooie plekken in de wereld geweest, zoals St Andrews in Schotland waar je letterlijk op de geboorte fairways van de golfsport loopt. Putten is mijn favoriet een ijzer 4 slaan kan ik dan weer niet. Hopelijk mogen onze golfshots elkaar kruisen tijdens een wedstrijd of een potje bier golf.   XOXO je kapoen Niels",
+    bio: "De host met de ludieke verhalen, gekke toevoegingen en ongezouten mening. Ondertussen al 23 jaar bezig met golf, golvend tussen diepe dalen en hoge hoogtes. Van bijna landskampioen in de interclubs van België tot niet meer weten hoe een fatsoenlijke golfbal te slaan. Dankzij golf al op zeer mooie plekken in de wereld geweest, zoals St Andrews in Schotland waar je letterlijk op de geboorte fairways van de golfsport loopt. Putten is mijn favoriet een ijzer 4 slaan kan ik dan weer niet. Hopelijk mogen onze golfshots elkaar kruisen tijdens een wedstrijd of een potje bier golf.   XOXO je kapoen Niels",
     favoriteCourse: "Ternesse Golf & Country Club",
     image: host3,
   },
