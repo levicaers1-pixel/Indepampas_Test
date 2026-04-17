@@ -35,7 +35,7 @@ function Afleveringen() {
           Afleveringen<span className="text-sage">.</span>
         </h1>
         <p className="text-lg lg:text-xl text-charcoal/75 max-w-2xl leading-relaxed mb-16">
-          Elke woensdag een nieuwe aflevering. Klik om te luisteren, of open in Spotify voor de
+          Elke dinsdag een nieuwe episode. Klik om te luisteren, of open in Spotify voor de
           volledige show.
         </p>
 
