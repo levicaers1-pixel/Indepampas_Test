@@ -39,10 +39,10 @@ function ContactPage() {
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
         <div className="lg:col-span-5">
           <p className="text-[11px] uppercase tracking-[0.3em] text-sage font-medium mb-6">
-            STUUR EEN BERICHT -&nbsp; IN PROGRESS&nbsp;
+            STUUR EEN BERICHT
           </p>
           <h1 className="font-serif text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-charcoal mb-8">
-            Contact<span className="text-sage">.</span> - in progress
+            Contact<span className="text-sage">.</span>
           </h1>
           <p className="text-lg text-charcoal/75 leading-relaxed mb-10">
             Sponsoring, een uitnodiging op je baan, of gewoon een verhaal dat verteld moet worden —
