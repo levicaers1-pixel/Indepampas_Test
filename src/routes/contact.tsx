@@ -21,8 +21,12 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [reason, setReason] = useState("hello");
 
   return (
@@ -81,9 +85,39 @@ function ContactPage() {
 
         <div className="lg:col-span-7">
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              setSent(true);
+              if (sending || sent) return;
+              setError(null);
+              setSending(true);
+              const formEl = e.currentTarget;
+              const formData = new FormData(formEl);
+              formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+              formData.append("reason", reason);
+              formData.append("from_name", "PAMPAS Podcast Website");
+              formData.append(
+                "subject",
+                `[PAMPAS contact - ${reason}] ${formData.get("subject") ?? ""}`,
+              );
+              try {
+                const res = await fetch("https://api.web3forms.com/submit", {
+                  method: "POST",
+                  body: formData,
+                });
+                const json = (await res.json().catch(() => null)) as
+                  | { success?: boolean; message?: string }
+                  | null;
+                if (res.ok && json?.success) {
+                  setSent(true);
+                  formEl.reset();
+                } else {
+                  setError(json?.message ?? "Er ging iets mis. Probeer het opnieuw.");
+                }
+              } catch {
+                setError("Geen verbinding. Probeer het opnieuw.");
+              } finally {
+                setSending(false);
+              }
             }}
             className="bg-white p-8 lg:p-12 rounded-2xl border border-charcoal/10 shadow-sm space-y-6"
           >
@@ -130,15 +164,17 @@ function ContactPage() {
                 <p className="text-sage font-serif italic text-lg">
                   Bedankt — we komen snel bij je terug.
                 </p>
+              ) : error ? (
+                <p className="text-sm text-red-600">{error}</p>
               ) : (
                 <p className="text-xs text-charcoal/50">We antwoorden meestal binnen 48 uur.</p>
               )}
               <button
                 type="submit"
-                disabled={sent}
+                disabled={sent || sending}
                 className="rounded-full px-6 py-3 bg-charcoal text-mist text-sm uppercase tracking-[0.18em] hover:bg-sage transition-colors disabled:opacity-50"
               >
-                {sent ? "Verstuurd" : "Versturen"}
+                {sent ? "Verstuurd" : sending ? "Versturen…" : "Versturen"}
               </button>
             </div>
           </form>
