@@ -21,7 +21,7 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = "53e7aa49-deb0-4e21-8060-498fa043cedc";
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
