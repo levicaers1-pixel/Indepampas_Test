@@ -54,7 +54,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="md:hidden mt-6 pt-6 border-t border-charcoal/10 flex flex-col gap-5 text-sm uppercase tracking-[0.2em] font-medium">
+        <nav className="md:hidden mt-6 pt-6 border-t border-charcoal/10 flex flex-col gap-5 text-sm uppercase tracking-[0.2em] font-medium bg-cream rounded-md px-4 pb-6 shadow-sm relative z-40">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -62,7 +62,7 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               activeProps={{ className: "!text-charcoal" }}
               activeOptions={{ exact: n.to === "/" }}
-              className="text-charcoal/60 hover:text-charcoal"
+              className="text-charcoal/70 hover:text-charcoal"
             >
               {n.label}
             </Link>
