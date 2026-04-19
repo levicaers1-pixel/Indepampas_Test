@@ -26,7 +26,7 @@ function Afleveringen() {
   const [openId, setOpenId] = useState<string | null>(episodes[0].number);
 
   return (
-    <section className="pt-40 lg:pt-48 pb-12 px-6 lg:px-12">
+    <section className="pt-28 sm:pt-36 lg:pt-48 pb-12 px-6 lg:px-12">
       <div className="max-w-[1200px] mx-auto">
         <p className="text-[11px] uppercase tracking-[0.3em] text-sage font-medium mb-6">
           Het Archief

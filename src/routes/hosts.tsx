@@ -24,7 +24,7 @@ export const Route = createFileRoute("/hosts")({
 
 function HostsPage() {
   return (
-    <section className="pt-40 lg:pt-48 pb-12 px-6 lg:px-12 relative overflow-hidden">
+    <section className="pt-28 sm:pt-36 lg:pt-48 pb-12 px-6 lg:px-12 relative overflow-hidden">
       <PampasMark
         className="hidden lg:block absolute top-32 right-12 w-16 h-56 text-sage/30"
         sway
