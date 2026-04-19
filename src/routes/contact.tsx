@@ -26,7 +26,7 @@ function ContactPage() {
   const [reason, setReason] = useState("hello");
 
   return (
-    <section className="pt-40 lg:pt-48 pb-12 px-6 lg:px-12 relative overflow-hidden">
+    <section className="pt-28 sm:pt-36 lg:pt-48 pb-12 px-6 lg:px-12 relative overflow-hidden">
       <PampasMark
         className="hidden lg:block absolute top-40 right-16 w-20 h-64 text-sage/30"
         sway

@@ -42,7 +42,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-40 pb-24 lg:pt-48 lg:pb-32 px-6 lg:px-12">
+    <section className="relative overflow-hidden pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-48 lg:pb-32 px-6 lg:px-12">
       {/* Atmospheric blurred backgrounds */}
       <div className="pointer-events-none absolute -top-32 -right-32 size-[800px] rounded-full bg-dune/40 blur-[140px]" />
       <div className="pointer-events-none absolute bottom-0 -left-64 size-[900px] rounded-full bg-sage/15 blur-[160px]" />
