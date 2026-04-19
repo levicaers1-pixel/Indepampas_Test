@@ -29,6 +29,7 @@ export function SiteFooter() {
             <li><a href="https://open.spotify.com" target="_blank" rel="noreferrer" className="hover:text-charcoal hover:underline underline-offset-4">Spotify</a></li>
             <li><a href="https://podcasts.apple.com" target="_blank" rel="noreferrer" className="hover:text-charcoal hover:underline underline-offset-4">Apple Podcasts</a></li>
             <li><a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-charcoal hover:underline underline-offset-4">YouTube</a></li>
+            <li><a href="https://www.instagram.com/pampas.golfpodcast?igsh=MTJiemJ1MHlncG14bA==" target="_blank" rel="noreferrer" className="hover:text-charcoal hover:underline underline-offset-4">Instagram</a></li>
           </ul>
         </div>
       </div>
