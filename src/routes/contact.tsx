@@ -58,13 +58,15 @@ function ContactPage() {
               </dd>
             </div>
             <div>
-              <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">{"\n"}</dt>
+              <dt className="text-[10px] uppercase tracking-[0.25em] text-sage mb-1">Instagram</dt>
               <dd>
                 <a
-                  href="mailto:pampas.podcast@gmail.com"
+                  href="https://www.instagram.com/pampas.golfpodcast?igsh=MTJiemJ1MHlncG14bA=="
+                  target="_blank"
+                  rel="noreferrer"
                   className="font-serif italic text-2xl text-charcoal hover:text-sage transition-colors"
                 >
-                  
+                  @pampas.golfpodcast
                 </a>
               </dd>
             </div>
