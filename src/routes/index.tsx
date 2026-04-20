@@ -4,10 +4,10 @@ import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { PampasMark } from "@/components/PampasMark";
 import { episodes, latestEpisode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
-import hostsWalking from "@/assets/hosts-walking.jpg";
-import pampasGrass from "@/assets/pampas-grass.jpg";
-import golfDetail from "@/assets/golf-detail.jpg";
-import pampasWordmark from "@/assets/pampas-wordmark.png";
+import hostsWalking from "@/assets/hosts-walking.webp";
+import pampasGrass from "@/assets/pampas-grass.webp";
+import golfDetail from "@/assets/golf-detail.webp";
+import pampasWordmark from "@/assets/pampas-wordmark.webp";
 
 const SITE_URL = "https://indepampas.be";
 const HOME_DESCRIPTION =
