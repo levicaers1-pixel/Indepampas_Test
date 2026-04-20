@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://indepampas.be/sitemap.xml

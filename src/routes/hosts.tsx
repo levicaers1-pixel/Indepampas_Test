@@ -5,7 +5,7 @@ import { PampasMark } from "@/components/PampasMark";
 
 const SITE_URL = "https://indepampas.be";
 const HOSTS_DESCRIPTION =
-  "Maak kennis met Lars, Levi en Niels — de drie Belgische golfers achter de PAMPAS podcast.";
+  "Maak kennis met Lars, Levi en Niels — drie Belgische vrienden, drie handicaps, één liefde voor golf. De stemmen achter de PAMPAS podcast.";
 
 export const Route = createFileRoute("/hosts")({
   head: () => ({
