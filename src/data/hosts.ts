@@ -1,6 +1,6 @@
-import host1 from "@/assets/host-1.jpg";
-import host2 from "@/assets/host-2.jpg";
-import host3 from "@/assets/host-3.jpg";
+import host1 from "@/assets/host-1.webp";
+import host2 from "@/assets/host-2.webp";
+import host3 from "@/assets/host-3.webp";
 
 export type Host = {
   id: string;
