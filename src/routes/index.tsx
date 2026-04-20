@@ -26,7 +26,12 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: HOME_DESCRIPTION },
       { name: "twitter:image", content: SITE_URL + hostsWalking },
     ],
-    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    links: [
+      { rel: "canonical", href: SITE_URL + "/" },
+      { rel: "preload", as: "image", href: pampasWordmark, fetchPriority: "high" },
+      { rel: "preconnect", href: "https://open.spotify.com" },
+      { rel: "preconnect", href: "https://image-cdn-fa.spotifycdn.com", crossOrigin: "anonymous" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
