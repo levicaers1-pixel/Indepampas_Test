@@ -5,7 +5,7 @@ import { episodes } from "@/data/episodes";
 
 const SITE_URL = "https://indepampas.be";
 const EPISODES_DESCRIPTION =
-  "Het volledige archief van PAMPAS. Beluister elke aflevering rechtstreeks via Spotify.";
+  "Het volledige archief van PAMPAS — de Belgische golfpodcast. Beluister elke aflevering rechtstreeks via Spotify, elke dinsdag een nieuwe episode.";
 
 export const Route = createFileRoute("/afleveringen")({
   head: () => ({

@@ -90,8 +90,9 @@ function Hero() {
             <img
               src={pampasWordmark}
               alt="PAMPAS"
-              width={1024}
-              height={1024}
+              width={680}
+              height={190}
+              fetchPriority="high"
               className="w-full max-w-[560px] sm:max-w-[720px] lg:max-w-[900px] h-auto select-none"
               draggable={false}
             />
