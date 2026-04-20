@@ -10,12 +10,12 @@ export const Route = createFileRoute("/hosts")({
       {
         name: "description",
         content:
-          "Maak kennis met Lars, Bram en Thijs — de drie Belgische golfers achter de PAMPAS podcast.",
+          "Maak kennis met Lars, Levi en Niels — de drie Belgische golfers achter de PAMPAS podcast.",
       },
       { property: "og:title", content: "De Hosts — PAMPAS Podcast" },
       {
         property: "og:description",
-        content: "Maak kennis met Lars, Bram en Thijs — de drie hosts van PAMPAS.",
+        content: "Maak kennis met Lars, Levi en Niels — de drie hosts van PAMPAS.",
       },
     ],
   }),
