@@ -21,7 +21,7 @@ export const episodes: Episode[] = [
     date: "",
     duration: "",
     spotifyId: "1hKEnYGCgL5ujRSqpXt4Ix",
-    topics: ["Intro", "Ternesse"],
+    topics: ["Intro", "Ternesse", "The Masters", "Golf", "PGA", "Rollback", "Golf Analyse"],
   },
 ];
 
