@@ -1,8 +1,11 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import ogImage from "@/assets/hosts-walking.jpg";
 
 import appCss from "../styles.css?url";
+
+const SITE_URL = "https://indepampas.be";
 
 function NotFoundComponent() {
   return (
@@ -31,24 +34,12 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PAMPAS — Belgische Golf Podcast" },
-      {
-        name: "description",
-        content:
-          "PAMPAS is een Belgische golfpodcast door drie vrienden. Wekelijks nieuwe afleveringen over de fairway, de rough en alles ertussen.",
-      },
       { name: "author", content: "PAMPAS Podcast" },
-      { property: "og:title", content: "PAMPAS — Belgische Golf Podcast" },
-      {
-        property: "og:description",
-        content: "Drie vrienden, achttien holes, één microfoon. Wekelijks op Spotify.",
-      },
+      { name: "theme-color", content: "#1a1a1a" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "PAMPAS Podcast" },
+      { property: "og:locale", content: "nl_BE" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "PAMPAS — Belgische Golf Podcast" },
-      { name: "description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
-      { property: "og:description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
-      { name: "twitter:description", content: "PAMPAS Golf Hub is a modern, reactive website for a golf podcast, featuring Spotify integrations and golf-themed design." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

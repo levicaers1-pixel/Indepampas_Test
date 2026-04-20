@@ -3,19 +3,32 @@ import { useState } from "react";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { episodes } from "@/data/episodes";
 
+const SITE_URL = "https://indepampas.be";
+const EPISODES_DESCRIPTION =
+  "Het volledige archief van PAMPAS. Beluister elke aflevering rechtstreeks via Spotify.";
+
 export const Route = createFileRoute("/afleveringen")({
   head: () => ({
     meta: [
       { title: "Afleveringen — PAMPAS Podcast" },
-      {
-        name: "description",
-        content:
-          "Het volledige archief van PAMPAS. Beluister elke aflevering rechtstreeks via Spotify.",
-      },
+      { name: "description", content: EPISODES_DESCRIPTION },
       { property: "og:title", content: "Afleveringen — PAMPAS Podcast" },
+      { property: "og:description", content: EPISODES_DESCRIPTION },
+      { property: "og:url", content: SITE_URL + "/afleveringen" },
+      { name: "twitter:title", content: "Afleveringen — PAMPAS Podcast" },
+      { name: "twitter:description", content: EPISODES_DESCRIPTION },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/afleveringen" }],
+    scripts: [
       {
-        property: "og:description",
-        content: "Het volledige archief van de Belgische golfpodcast PAMPAS.",
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Afleveringen — PAMPAS Podcast",
+          description: EPISODES_DESCRIPTION,
+          url: SITE_URL + "/afleveringen",
+        }),
       },
     ],
   }),

@@ -3,19 +3,34 @@ import { motion } from "framer-motion";
 import { hosts } from "@/data/hosts";
 import { PampasMark } from "@/components/PampasMark";
 
+const SITE_URL = "https://indepampas.be";
+const HOSTS_DESCRIPTION =
+  "Maak kennis met Lars, Levi en Niels — de drie Belgische golfers achter de PAMPAS podcast.";
+
 export const Route = createFileRoute("/hosts")({
   head: () => ({
     meta: [
       { title: "De Hosts — PAMPAS Podcast" },
-      {
-        name: "description",
-        content:
-          "Maak kennis met Lars, Levi en Niels — de drie Belgische golfers achter de PAMPAS podcast.",
-      },
+      { name: "description", content: HOSTS_DESCRIPTION },
       { property: "og:title", content: "De Hosts — PAMPAS Podcast" },
+      { property: "og:description", content: HOSTS_DESCRIPTION },
+      { property: "og:url", content: SITE_URL + "/hosts" },
+      { property: "og:image", content: SITE_URL + hosts[0].image },
+      { name: "twitter:title", content: "De Hosts — PAMPAS Podcast" },
+      { name: "twitter:description", content: HOSTS_DESCRIPTION },
+      { name: "twitter:image", content: SITE_URL + hosts[0].image },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/hosts" }],
+    scripts: [
       {
-        property: "og:description",
-        content: "Maak kennis met Lars, Levi en Niels — de drie hosts van PAMPAS.",
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "De Hosts — PAMPAS Podcast",
+          description: HOSTS_DESCRIPTION,
+          url: SITE_URL + "/hosts",
+        }),
       },
     ],
   }),
