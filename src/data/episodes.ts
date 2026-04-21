@@ -26,7 +26,7 @@ export const episodes: Episode[] = [
   {
     number: "01",
     season: "S01",
-    title: "Aflevering 1",
+    title: "Aflevering 1 - Tea Olive",
     description:
       "De allereerste aflevering van PAMPAS. Lars, Levi en Niels stellen zichzelf voor en zetten de toon voor wat komen gaat.",
     date: "",
