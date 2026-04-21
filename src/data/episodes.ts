@@ -13,6 +13,16 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "02",
+    season: "S01",
+    title: "Aflevering 2",
+    description: "",
+    date: "",
+    duration: "",
+    spotifyId: "1d1ToR0WFfe7vCRFmGNR5T",
+    topics: [],
+  },
+  {
     number: "01",
     season: "S01",
     title: "Aflevering 1",
