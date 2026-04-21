@@ -15,12 +15,13 @@ export const episodes: Episode[] = [
   {
     number: "02",
     season: "S01",
-    title: "Aflevering 2",
-    description: "",
-    date: "",
+    title: "Episode 2 - Pink Dogwood",
+    description:
+      "In deze aflevering blikken we terug op het eerste Interclub weekend en de RBC Heritage. Daarbij komen er twee nieuwe formats: De Groenen hoek & De Pikante Prikkelvraag.",
+    date: "21/04/2026",
     duration: "",
     spotifyId: "1d1ToR0WFfe7vCRFmGNR5T",
-    topics: [],
+    topics: ["Golf", "Interclub", "PGA", "Matt Fitzpatrick", "Mental Game"],
   },
   {
     number: "01",
