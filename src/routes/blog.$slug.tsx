@@ -3,6 +3,7 @@ import { getPostBySlug, posts } from "@/data/posts";
 
 const SITE_URL = "https://indepampas.be";
 
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = getPostBySlug(params.slug);
