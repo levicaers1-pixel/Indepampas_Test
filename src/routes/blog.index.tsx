@@ -5,7 +5,7 @@ const SITE_URL = "https://indepampas.be";
 const BLOG_DESCRIPTION =
   "De Pampas blog — verdiepende stukken, opinies en analyses bij de onderwerpen uit de Belgische golfpodcast.";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog — PAMPAS Podcast" },
