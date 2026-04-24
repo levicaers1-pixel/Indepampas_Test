@@ -110,19 +110,19 @@ function Hero() {
           {/* Spotify-style CTA pill */}
           <Link
             to="/afleveringen"
-            className="group flex flex-col sm:flex-row sm:items-center gap-5 p-2 pr-8 bg-white/60 backdrop-blur-md border border-charcoal/5 shadow-sm rounded-full w-max hover:bg-white/90 transition-all duration-500"
+            className="group flex items-center gap-3 sm:gap-5 p-2 pr-5 sm:pr-8 bg-white/60 backdrop-blur-md border border-charcoal/5 shadow-sm rounded-full w-full max-w-md sm:w-max hover:bg-white/90 transition-all duration-500"
           >
-            <div className="size-16 rounded-full bg-charcoal flex items-center justify-center shrink-0 shadow-lg shadow-charcoal/20 group-hover:scale-105 transition-transform duration-500">
-              <div className="w-0 h-0 border-y-[7px] border-y-transparent border-l-[12px] border-l-mist ml-1" />
+            <div className="size-12 sm:size-16 rounded-full bg-charcoal flex items-center justify-center shrink-0 shadow-lg shadow-charcoal/20 group-hover:scale-105 transition-transform duration-500">
+              <div className="w-0 h-0 border-y-[6px] sm:border-y-[7px] border-y-transparent border-l-[10px] sm:border-l-[12px] border-l-mist ml-0.5 sm:ml-1" />
             </div>
-            <div className="py-2 sm:py-0 pl-4 sm:pl-0">
-              <div className="flex items-center gap-3 mb-1">
-                <span className="size-2 rounded-full bg-sage animate-pulse" />
-                <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-sage">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1">
+                <span className="size-1.5 sm:size-2 rounded-full bg-sage animate-pulse shrink-0" />
+                <p className="text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.18em] text-sage">
                   Nieuwste aflevering
                 </p>
               </div>
-              <p className="text-lg font-serif italic text-charcoal">
+              <p className="text-sm sm:text-lg font-serif italic text-charcoal truncate">
                 {latestEpisode.season} · E{latestEpisode.number} — {latestEpisode.title}
               </p>
             </div>
