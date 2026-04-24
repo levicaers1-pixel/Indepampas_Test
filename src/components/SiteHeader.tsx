@@ -45,7 +45,7 @@ export function SiteHeader() {
 
           <div className="hidden lg:block text-xs uppercase tracking-[0.2em] font-medium text-charcoal/60 text-right pt-2">
             <div>ANTWERPEN· BE</div>
-            <div className="text-sage">Vol. I — 2025</div>
+            <div className="text-sage">VOL. I — 2026</div>
           </div>
 
           <button
