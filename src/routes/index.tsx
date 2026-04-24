@@ -87,7 +87,7 @@ function Hero() {
           className="lg:col-span-7"
         >
           <p className="text-sage uppercase tracking-[0.3em] text-xs lg:text-sm mb-6 font-medium">
-            BELGISCHE GOLFCULTUUR · SINDS 2026
+            BELGISCHE GOLFPASSIE· SINDS 2026
           </p>
 
           <h1 className="mb-10 -ml-2 sm:-ml-4">
