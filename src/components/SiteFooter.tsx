@@ -18,6 +18,7 @@ export function SiteFooter() {
           <div className="text-[10px] uppercase tracking-[0.25em] text-sage font-medium mb-4">Navigatie</div>
           <ul className="space-y-2 text-sm text-charcoal/80">
             <li><Link to="/afleveringen" className="hover:text-charcoal hover:underline underline-offset-4">Afleveringen</Link></li>
+            <li><Link to="/blog" className="hover:text-charcoal hover:underline underline-offset-4">Blog</Link></li>
             <li><Link to="/hosts" className="hover:text-charcoal hover:underline underline-offset-4">De Hosts</Link></li>
             <li><Link to="/contact" className="hover:text-charcoal hover:underline underline-offset-4">Contact & Sponsors</Link></li>
           </ul>
