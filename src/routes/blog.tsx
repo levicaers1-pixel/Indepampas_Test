@@ -44,8 +44,8 @@ function BlogIndex() {
           Blog<span className="text-sage">.</span>
         </h1>
         <p className="text-lg lg:text-xl text-charcoal/75 max-w-2xl leading-relaxed mb-16">
-          Verdiepende stukken bij de onderwerpen uit de podcast. Opinies, banenreviews en af en toe
-          een hete take.
+          Verdiepende stukken bij de onderwerpen uit de podcast. Opinies, banenreviews, hot takes of
+          soms gewoon een ludiek lijstje.
         </p>
 
         {posts.length === 0 ? (
