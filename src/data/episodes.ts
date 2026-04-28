@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "03",
+    season: "S01",
+    title: "Episode 3 - Yellow Jasmine",
+    description:
+      "De derde aflevering van PAMPAS.",
+    date: "28/04/2026",
+    duration: "",
+    spotifyId: "6Nq4yoihhd1HzYordyNV7w",
+    topics: ["Golf", "PGA", "Podcast"],
+  },
+  {
     number: "02",
     season: "S01",
     title: "Episode 2 - Pink Dogwood",
