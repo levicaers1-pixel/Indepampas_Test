@@ -15,13 +15,13 @@ export const episodes: Episode[] = [
   {
     number: "03",
     season: "S01",
-    title: "Episode 3 - Yellow Jasmine",
+    title: "Episode 3 - Flowering Peach",
     description:
-      "De derde aflevering van PAMPAS.",
+      "In deze aflevering blikken we terug op het Belgisch en Internationaal golfnieuws. We gaan van de PGA tour naar de European Tour met een tussenstop langs LIV. Onze twee blijvende formats komen ook terug aan bod: De Pikante Prikkelvraag & De Groenen Hoek.",
     date: "28/04/2026",
-    duration: "",
+    duration: "1u 14min",
     spotifyId: "6Nq4yoihhd1HzYordyNV7w",
-    topics: ["Golf", "PGA", "Podcast"],
+    topics: ["Golf", "PGA Tour", "European Tour", "LIV", "Prikkelvraag", "Groenen Hoek"],
   },
   {
     number: "02",
