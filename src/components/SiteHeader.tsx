@@ -52,16 +52,19 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <button
-            aria-label="Menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden flex flex-col gap-1.5 pt-2 -mr-1 p-2 relative z-50"
-          >
-            <span className={`block h-px w-7 bg-charcoal transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`block h-px w-7 bg-charcoal transition-opacity ${open ? "opacity-0" : ""}`} />
-            <span className={`block h-px w-7 bg-charcoal transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
-          </button>
+          <div className="md:hidden flex items-center gap-2 pt-1">
+            <VersionToggle />
+            <button
+              aria-label="Menu"
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="flex flex-col gap-1.5 -mr-1 p-2 relative z-50"
+            >
+              <span className={`block h-px w-7 bg-charcoal transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`block h-px w-7 bg-charcoal transition-opacity ${open ? "opacity-0" : ""}`} />
+              <span className={`block h-px w-7 bg-charcoal transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            </button>
+          </div>
         </div>
 
         {open && (
