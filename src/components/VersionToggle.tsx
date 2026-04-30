@@ -33,22 +33,24 @@ export function useVersion() {
 export function VersionToggle({ className = "" }: { className?: string }) {
   const { version, setVersion } = useVersion();
   return (
-    <div className={`bg-black/85 backdrop-blur-md rounded-full p-1 flex items-center shadow-lg shadow-black/20 border border-white/10 ${className}`}>
+    <div className={`bg-black/85 backdrop-blur-md rounded-full p-0.5 sm:p-1 flex items-center shadow-lg shadow-black/20 border border-white/10 ${className}`}>
       <button
         onClick={() => setVersion("old")}
-        className={`px-4 py-1.5 text-[10px] uppercase tracking-[0.18em] font-medium rounded-full transition-colors ${
+        className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.18em] font-medium rounded-full transition-colors whitespace-nowrap ${
           version === "old" ? "bg-white text-black" : "text-white/70 hover:text-white"
         }`}
       >
-        Old version
+        <span className="sm:hidden">Old</span>
+        <span className="hidden sm:inline">Old version</span>
       </button>
       <button
         onClick={() => setVersion("new")}
-        className={`px-4 py-1.5 text-[10px] uppercase tracking-[0.18em] font-medium rounded-full transition-colors ${
+        className={`px-2.5 sm:px-4 py-1 sm:py-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.14em] sm:tracking-[0.18em] font-medium rounded-full transition-colors whitespace-nowrap ${
           version === "new" ? "bg-[#8FBF4A] text-[#1C3D2A]" : "text-white/70 hover:text-white"
         }`}
       >
-        New version
+        <span className="sm:hidden">New</span>
+        <span className="hidden sm:inline">New version</span>
       </button>
     </div>
   );
