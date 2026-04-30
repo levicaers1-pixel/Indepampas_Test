@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { VersionToggle } from "@/components/VersionToggle";
 
 const nav = [
   { to: "/", label: "Thuis" },
@@ -43,9 +44,12 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="hidden lg:block text-xs uppercase tracking-[0.2em] font-medium text-charcoal/60 text-right pt-2">
-            <div>ANTWERPEN· BE</div>
-            <div className="text-sage">VOL. I — 2026</div>
+          <div className="hidden lg:flex flex-col items-end gap-2 pt-2">
+            <VersionToggle />
+            <div className="text-xs uppercase tracking-[0.2em] font-medium text-charcoal/60 text-right">
+              <div>ANTWERPEN· BE</div>
+              <div className="text-sage">VOL. I — 2026</div>
+            </div>
           </div>
 
           <button

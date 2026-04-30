@@ -1,7 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { VersionProvider, VersionToggle, useVersion } from "@/components/VersionToggle";
+import { VersionProvider, useVersion } from "@/components/VersionToggle";
 import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
 import ogImage from "@/assets/hosts-walking.jpg";
@@ -98,7 +98,6 @@ function ShellSwitcher() {
   if (version === "new") {
     return (
       <div className="theme-new min-h-screen flex flex-col">
-        <VersionToggle />
         <NewHeader />
         <Ticker />
         <main className="flex-1 pt-[92px]">
@@ -111,7 +110,6 @@ function ShellSwitcher() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <VersionToggle />
       <SiteHeader />
       <main className="flex-1">
         <Outlet />
