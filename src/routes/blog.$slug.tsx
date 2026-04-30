@@ -77,19 +77,19 @@ function BlogPost() {
   const next = posts[currentIndex - 1];
   const { version } = useVersion();
 
-  if (version === "new") {
-    return (
-      <Suspense fallback={null}>
-        <NewBlogPost post={post} prev={prev} next={next} />
-      </Suspense>
-    );
-  }
-
   if (post.richContent) {
     return (
       <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
         <RichBlogPost post={post} prev={prev} next={next} />
       </div>
+    );
+  }
+
+  if (version === "new") {
+    return (
+      <Suspense fallback={null}>
+        <NewBlogPost post={post} prev={prev} next={next} />
+      </Suspense>
     );
   }
 
