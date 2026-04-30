@@ -67,15 +67,18 @@ export function NewHeader() {
         </a>
       </div>
 
-      <button
-        aria-label="Menu"
-        onClick={() => setOpen((v) => !v)}
-        className="md:hidden flex flex-col gap-1 p-2"
-      >
-        <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`} />
-        <span className={`block h-px w-6 bg-[#1C3D2A] transition-opacity ${open ? "opacity-0" : ""}`} />
-        <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
-      </button>
+      <div className="md:hidden flex items-center gap-2">
+        <VersionToggle />
+        <button
+          aria-label="Menu"
+          onClick={() => setOpen((v) => !v)}
+          className="flex flex-col gap-1 p-2"
+        >
+          <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`} />
+          <span className={`block h-px w-6 bg-[#1C3D2A] transition-opacity ${open ? "opacity-0" : ""}`} />
+          <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
+        </button>
+      </div>
 
       {open && (
         <nav className="md:hidden absolute top-[60px] left-0 right-0 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)] flex flex-col">
