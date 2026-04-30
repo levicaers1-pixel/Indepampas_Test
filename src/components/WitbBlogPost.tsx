@@ -41,13 +41,13 @@ const LEVI_ROWS: EquipmentRow[] = [
     shaftDetail: "Hybride shaft",
   },
   {
-    category: "I2 / UDI",
+    category: "I2",
     club: "TaylorMade UDI 2",
     shaftBrand: "Tour AD Utility",
     shaftDetail: "AD-95 X · Extra Stiff",
   },
   {
-    category: "I2",
+    category: "I4 - PW",
     club: "TaylorMade P730",
     shaftBrand: "Project X",
     shaftDetail: "6.5 · Extra Stiff",
@@ -104,14 +104,7 @@ const SHAFTS = [
   { name: "KBS Wedge", where: "Wedges" },
 ];
 
-const FLEX_TAGS = [
-  "X-Stiff Driver",
-  "X-Stiff Utility",
-  "Stiff 3W",
-  "6.5 Irons",
-  "Blades",
-  "Pro V1",
-];
+const FLEX_TAGS = ["X-Stiff Driver", "X-Stiff Utility", "Stiff 3W", "6.5 Irons", "Blades", "Pro V1"];
 
 const PILLS = [
   { initials: "LC", name: "Levi Caers", hcp: "HCP 3.2", active: true },
@@ -122,15 +115,7 @@ const PILLS = [
 const MONO = "'DM Mono', ui-monospace, monospace";
 const SERIF = "'Cormorant Garamond', ui-serif, Georgia, serif";
 
-export function WitbBlogPost({
-  post,
-  prev,
-  next,
-}: {
-  post: Post;
-  prev?: Post;
-  next?: Post;
-}) {
+export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; next?: Post }) {
   return (
     <article className="bg-[#F4EFE5] text-[#18180F] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16">
       {/* HERO */}
@@ -195,9 +180,7 @@ export function WitbBlogPost({
                 <div
                   key={p.name}
                   className={`flex items-center gap-3.5 px-3.5 py-2.5 border ${
-                    p.active
-                      ? "border-[#8FBF4A] bg-[#8FBF4A]/[0.08]"
-                      : "border-[#F4EFE5]/12"
+                    p.active ? "border-[#8FBF4A] bg-[#8FBF4A]/[0.08]" : "border-[#F4EFE5]/12"
                   }`}
                 >
                   <div
@@ -242,11 +225,10 @@ export function WitbBlogPost({
               style={{ fontSize: "1.05rem" }}
             >
               <span style={{ fontFamily: SERIF }} className="contents">
-                Een klassieker in de golfwereld: de What's In The Bag. Tijd om de tassen
-                van Team Pampas open te trekken en eerlijk te zijn over wat er werkt, wat
-                er blijft liggen, en wat er stiekem aan vervanging toe is. In deze eerste
-                editie duiken we in de tas van Levi — de man die golf bekijkt als een
-                exacte wetenschap en zijn set samenstelt met de precisie van een chirurg.
+                Een klassieker in de golfwereld: de What's In The Bag. Tijd om de tassen van Team Pampas open te trekken
+                en eerlijk te zijn over wat er werkt, wat er blijft liggen, en wat er stiekem aan vervanging toe is. In
+                deze eerste editie duiken we in de tas van Levi — de man die golf bekijkt als een exacte wetenschap en
+                zijn set samenstelt met de precisie van een chirurg.
               </span>
             </p>
           </div>
@@ -263,10 +245,7 @@ export function WitbBlogPost({
                 </div>
                 <div className="px-5 sm:px-10 py-5 flex items-center justify-between gap-4">
                   <div>
-                    <div
-                      className="text-[#1C3D2A]"
-                      style={{ fontFamily: SERIF, fontSize: "1.6rem", fontWeight: 600 }}
-                    >
+                    <div className="text-[#1C3D2A]" style={{ fontFamily: SERIF, fontSize: "1.6rem", fontWeight: 600 }}>
                       {host.name}
                     </div>
                     <div
@@ -312,8 +291,8 @@ export function WitbBlogPost({
                 const rowBg = isBall
                   ? "bg-[#1C3D2A] hover:bg-[#2B5C3E]"
                   : isHi
-                  ? "bg-[#8FBF4A]/[0.06] hover:bg-[#EDE6D9]"
-                  : "hover:bg-[#EDE6D9]";
+                    ? "bg-[#8FBF4A]/[0.06] hover:bg-[#EDE6D9]"
+                    : "hover:bg-[#EDE6D9]";
                 const borderC = isBall ? "border-[#F4EFE5]/10" : "border-[#1C3D2A]/15";
                 return (
                   <div
@@ -326,18 +305,12 @@ export function WitbBlogPost({
                         fontFamily: MONO,
                         fontSize: "0.6rem",
                         letterSpacing: "0.12em",
-                        color: isBall
-                          ? "rgba(244,239,229,0.45)"
-                          : isHi
-                          ? "#8FBF4A"
-                          : "#7A7260",
+                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#8FBF4A" : "#7A7260",
                       }}
                     >
                       {row.category}
                     </div>
-                    <div
-                      className={`px-4 sm:px-6 py-4 flex items-center border-r ${borderC}`}
-                    >
+                    <div className={`px-4 sm:px-6 py-4 flex items-center border-r ${borderC}`}>
                       <div
                         className="leading-[1.3]"
                         style={{
@@ -395,10 +368,7 @@ export function WitbBlogPost({
                   >
                     "
                   </div>
-                  <p
-                    className="italic text-[#1C3D2A] leading-[1.5]"
-                    style={{ fontFamily: SERIF, fontSize: "1.35rem" }}
-                  >
+                  <p className="italic text-[#1C3D2A] leading-[1.5]" style={{ fontFamily: SERIF, fontSize: "1.35rem" }}>
                     {host.quote}
                   </p>
                 </div>
@@ -423,8 +393,7 @@ export function WitbBlogPost({
                 <em>hun tassen volgen binnenkort.</em>
               </h3>
               <p className="text-[#7A7260] mt-2" style={{ fontSize: "0.9rem" }}>
-                Van de Callaway AI Smoke Triple Diamond (= rechts weg) tot de romantische
-                bag van de Romanticus.
+                Van de Callaway AI Smoke Triple Diamond (= rechts weg) tot de romantische bag van de Romanticus.
               </p>
             </div>
             <div className="flex">
@@ -514,9 +483,7 @@ export function WitbBlogPost({
           </SidebarSection>
 
           <SidebarSection label="Hosts" last>
-            <div className="text-sm leading-[1.65]">
-              Lars Masyn · Levi Caers · Niels Jacoby
-            </div>
+            <div className="text-sm leading-[1.65]">Lars Masyn · Levi Caers · Niels Jacoby</div>
           </SidebarSection>
         </aside>
       </div>
@@ -543,11 +510,7 @@ export function WitbBlogPost({
             <span />
           )}
           {next && (
-            <Link
-              to="/blog/$slug"
-              params={{ slug: next.slug }}
-              className="group block sm:text-right"
-            >
+            <Link to="/blog/$slug" params={{ slug: next.slug }} className="group block sm:text-right">
               <span
                 className="text-[#7A7260] uppercase block"
                 style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.15em" }}
@@ -587,19 +550,9 @@ function MetaVal({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SidebarSection({
-  label,
-  children,
-  last,
-}: {
-  label: string;
-  children: React.ReactNode;
-  last?: boolean;
-}) {
+function SidebarSection({ label, children, last }: { label: string; children: React.ReactNode; last?: boolean }) {
   return (
-    <div
-      className={`mb-8 pb-8 ${last ? "" : "border-b border-[#1C3D2A]/15"}`}
-    >
+    <div className={`mb-8 pb-8 ${last ? "" : "border-b border-[#1C3D2A]/15"}`}>
       <div
         className="text-[#7A7260] uppercase mb-3"
         style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.18em" }}
