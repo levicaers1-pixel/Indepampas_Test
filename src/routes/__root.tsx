@@ -1,12 +1,15 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { VersionProvider, useVersion } from "@/components/VersionToggle";
-import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
-import { NewFooter } from "@/components/rebrand/NewFooter";
 import ogImage from "@/assets/hosts-walking.jpg";
 
 import appCss from "../styles.css?url";
+
+const NewHeader = lazy(() => import("@/components/rebrand/NewHeader").then((m) => ({ default: m.NewHeader })));
+const Ticker = lazy(() => import("@/components/rebrand/NewHeader").then((m) => ({ default: m.Ticker })));
+const NewFooter = lazy(() => import("@/components/rebrand/NewFooter").then((m) => ({ default: m.NewFooter })));
 
 const SITE_URL = "https://indepampas.be";
 
@@ -83,12 +86,16 @@ function ShellSwitcher() {
   if (version === "new") {
     return (
       <div className="theme-new min-h-screen flex flex-col">
-        <NewHeader />
-        <Ticker />
+        <Suspense fallback={null}>
+          <NewHeader />
+          <Ticker />
+        </Suspense>
         <main className="flex-1 pt-[92px]">
           <Outlet />
         </main>
-        <NewFooter />
+        <Suspense fallback={null}>
+          <NewFooter />
+        </Suspense>
       </div>
     );
   }
