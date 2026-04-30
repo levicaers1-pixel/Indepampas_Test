@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { episodes } from "@/data/episodes";
 import { VersionSwitch } from "@/components/VersionToggle";
-import { NewEpisodes } from "@/components/rebrand/NewEpisodes";
+const NewEpisodes = lazy(() => import("@/components/rebrand/NewEpisodes").then((m) => ({ default: m.NewEpisodes })));
 
 const SITE_URL = "https://indepampas.be";
 const EPISODES_DESCRIPTION =

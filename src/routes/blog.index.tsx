@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { lazy } from "react";
 import { posts } from "@/data/posts";
 import { VersionSwitch } from "@/components/VersionToggle";
-import { NewBlogIndex } from "@/components/rebrand/NewBlog";
+const NewBlogIndex = lazy(() => import("@/components/rebrand/NewBlog").then((m) => ({ default: m.NewBlogIndex })));
 
 const SITE_URL = "https://indepampas.be";
 const BLOG_DESCRIPTION =
