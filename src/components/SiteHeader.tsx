@@ -44,6 +44,10 @@ export function SiteHeader() {
             ))}
           </nav>
 
+          <div className="hidden md:flex lg:hidden pt-2">
+            <VersionToggle />
+          </div>
+
           <div className="hidden lg:flex flex-col items-end gap-2 pt-2">
             <VersionToggle />
             <div className="text-xs uppercase tracking-[0.2em] font-medium text-charcoal/60 text-right">
