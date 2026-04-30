@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { posts } from "@/data/posts";
+import { VersionSwitch } from "@/components/VersionToggle";
+import { NewBlogIndex } from "@/components/rebrand/NewBlog";
 
 const SITE_URL = "https://indepampas.be";
 const BLOG_DESCRIPTION =
@@ -34,6 +36,10 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
+  return <VersionSwitch Old={OldBlogIndex} New={NewBlogIndex} />;
+}
+
+function OldBlogIndex() {
   return (
     <section className="pt-28 sm:pt-36 lg:pt-48 pb-12 px-6 lg:px-12">
       <div className="max-w-[1200px] mx-auto">

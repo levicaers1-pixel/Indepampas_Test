@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PampasMark } from "@/components/PampasMark";
+import { VersionSwitch } from "@/components/VersionToggle";
+import { NewContact } from "@/components/rebrand/NewContact";
 
 const SITE_URL = "https://indepampas.be";
 const CONTACT_DESCRIPTION =
@@ -38,6 +40,10 @@ export const Route = createFileRoute("/contact")({
 const WEB3FORMS_ACCESS_KEY = "53e7aa49-deb0-4e21-8060-498fa043cedc";
 
 function ContactPage() {
+  return <VersionSwitch Old={OldContact} New={NewContact} />;
+}
+
+function OldContact() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);

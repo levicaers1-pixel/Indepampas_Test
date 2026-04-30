@@ -1,5 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getPostBySlug, posts } from "@/data/posts";
+import { useVersion } from "@/components/VersionToggle";
+import { NewBlogPost } from "@/components/rebrand/NewBlog";
 
 const SITE_URL = "https://indepampas.be";
 
@@ -68,10 +70,16 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function BlogPost() {
   const { post } = Route.useLoaderData();
-  const paragraphs = post.content.split(/\n\n+/);
   const currentIndex = posts.findIndex((p) => p.slug === post.slug);
   const prev = posts[currentIndex + 1];
   const next = posts[currentIndex - 1];
+  const { version } = useVersion();
+
+  if (version === "new") {
+    return <NewBlogPost post={post} prev={prev} next={next} />;
+  }
+
+  const paragraphs = post.content.split(/\n\n+/);
 
   return (
     <article className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
