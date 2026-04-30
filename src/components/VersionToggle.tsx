@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode, type ComponentType } from "react";
 
 type Version = "old" | "new";
 const STORAGE_KEY = "pampas-version";
@@ -55,7 +55,7 @@ export function VersionToggle() {
 }
 
 /** Helper for routes: render `New` when rebrand is on, otherwise `Old`. */
-export function VersionSwitch({ Old, New }: { Old: () => JSX.Element; New: () => JSX.Element }) {
+export function VersionSwitch({ Old, New }: { Old: ComponentType; New: ComponentType }) {
   const { version } = useVersion();
   return version === "new" ? <New /> : <Old />;
 }
