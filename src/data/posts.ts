@@ -60,7 +60,7 @@ export const posts: Post[] = [
           { num: "3.000+", label: "drop-outs per jaar" },
           { num: "50%", label: "stopt binnen 2 jaar" },
           { num: "54", label: "eerste officiële hcp" },
-          { num: "6", label: "badges te verzamelen" },
+          { num: "14", label: "badges te verzamelen" },
         ],
       },
       { type: "h2", text: "Waarom bestaat Route 36?" },
