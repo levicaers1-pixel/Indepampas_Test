@@ -101,12 +101,6 @@ function BlogPost() {
       </Suspense>
     );
   }
-    return (
-      <Suspense fallback={null}>
-        <NewBlogPost post={post} prev={prev} next={next} />
-      </Suspense>
-    );
-  }
 
   const paragraphs = post.content.split(/\n\n+/);
 
