@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAMPAS — Belgische Golf Podcast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Instrument+Sans:wght@300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F4EFE5;
+  --cream-2: #EDE6D9;
+  --cream-3: #E2D9C8;
+  --green: #1C3D2A;
+  --green-2: #2B5C3E;
+  --green-3: #3A7A52;
+  --lime: #8FBF4A;
+  --lime-pale: #D6EBBA;
+  --text: #18180F;
+  --muted: #7A7260;
+  --rule: rgba(28,61,42,0.15);
+  --rule-strong: rgba(28,61,42,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--green-3); }
+
+/* ─── NAVIGATION ─── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3.5rem;
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+  transition: box-shadow 0.3s;
+}
+#nav.scrolled { box-shadow: 0 2px 24px rgba(28,61,42,0.08); }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--green); text-decoration: none; text-transform: uppercase;
+}
+.nav-logo span { font-style: italic; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.05em; color: var(--muted); margin-left: 0.4rem; vertical-align: middle; }
+
+.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links a {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 0.5rem 1.1rem;
+  border-right: 1px solid var(--rule); transition: color 0.2s;
+}
+.nav-links li:first-child a { border-left: 1px solid var(--rule); }
+.nav-links a:hover, .nav-links a.active { color: var(--green); }
+.nav-links a.active { background: var(--cream-2); }
+
+.nav-listen {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream); background: var(--green); text-decoration: none;
+  padding: 0.55rem 1.2rem; transition: background 0.2s;
+}
+.nav-listen:hover { background: var(--green-2); }
+
+/* ─── PAGES ─── */
+.page { display: none; padding-top: 60px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ─── TICKER ─── */
+.ticker-wrap {
+  overflow: hidden; border-bottom: 1px solid var(--rule);
+  background: var(--green); height: 32px; display: flex; align-items: center;
+}
+.ticker {
+  display: flex; white-space: nowrap;
+  animation: ticker 28s linear infinite;
+}
+.ticker span {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,239,229,0.6); padding: 0 2.5rem;
+}
+.ticker span.sep { color: var(--lime); }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── HOME ─── */
+.home-hero {
+  display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 92px);
+  border-bottom: 1px solid var(--rule);
+}
+.hero-left {
+  padding: 5rem 4rem; border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--lime);
+}
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 6vw, 5.5rem);
+  font-weight: 300; line-height: 0.95; letter-spacing: -0.02em;
+  color: var(--green); margin-bottom: 2rem;
+}
+.hero-h1 em { font-style: italic; }
+.hero-sub {
+  font-size: 1rem; color: var(--muted); max-width: 420px; line-height: 1.75;
+  margin-bottom: 3rem;
+}
+.hero-actions { display: flex; gap: 1rem; align-items: center; }
+.btn-primary {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream); background: var(--green); border: none;
+  padding: 0.9rem 2rem; cursor: pointer; text-decoration: none; transition: background 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--green-2); }
+.btn-ghost {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); background: none; border: 1px solid var(--rule-strong);
+  padding: 0.9rem 2rem; cursor: pointer; text-decoration: none; transition: all 0.2s;
+  display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--green); background: var(--cream-2); }
+
+.hero-right {
+  background: var(--green); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem;
+}
+.hero-bg-text {
+  position: absolute; top: -0.15em; left: -0.05em;
+  font-family: 'Cormorant Garamond', serif; font-size: 22vw; font-weight: 700;
+  color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; user-select: none;
+  white-space: nowrap;
+}
+.hero-latest-label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,239,229,0.4); margin-bottom: 1.5rem;
+}
+.hero-ep-card { position: relative; z-index: 2; }
+.hero-ep-num {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 0.5rem;
+}
+.hero-ep-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400;
+  color: var(--cream); line-height: 1.2; margin-bottom: 1rem;
+}
+.hero-ep-desc {
+  font-size: 0.9rem; color: rgba(244,239,229,0.65); line-height: 1.7; max-width: 380px; margin-bottom: 2rem;
+}
+.hero-ep-meta { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 2rem; }
+.hero-ep-date {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  color: rgba(244,239,229,0.4);
+}
+.hero-ep-dur {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  color: rgba(244,239,229,0.4);
+}
+.btn-listen {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); background: var(--lime); border: none;
+  padding: 0.9rem 2rem; cursor: pointer; text-decoration: none; transition: background 0.2s;
+  display: inline-block;
+}
+.btn-listen:hover { background: #a0d45a; }
+
+/* ─── HOME BOTTOM STRIP ─── */
+.home-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--rule);
+}
+.strip-block {
+  padding: 3rem 3.5rem; border-right: 1px solid var(--rule);
+}
+.strip-block:last-child { border-right: none; }
+.strip-label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1rem;
+}
+.strip-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--green); line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.strip-text { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+/* ─── HOME HOSTS PREVIEW ─── */
+.home-hosts {
+  display: grid; grid-template-columns: 1fr 2fr;
+  border-bottom: 1px solid var(--rule); min-height: 280px;
+}
+.home-hosts-left {
+  padding: 3.5rem; border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.home-hosts-left h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--green); line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.home-hosts-left h2 em { font-style: italic; }
+.home-hosts-left p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.home-hosts-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.host-mini {
+  padding: 2.5rem 2rem; border-right: 1px solid var(--rule);
+  cursor: pointer; transition: background 0.2s;
+}
+.host-mini:last-child { border-right: none; }
+.host-mini:hover { background: var(--cream-2); }
+.host-mini-num {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em;
+  color: var(--muted); margin-bottom: 0.75rem;
+}
+.host-mini-avatar {
+  width: 56px; height: 56px; border-radius: 50%; background: var(--green-3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--cream);
+  margin-bottom: 1rem;
+}
+.host-mini-role {
+  font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 0.3rem;
+}
+.host-mini-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--green);
+}
+.host-mini-hcp {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--muted); margin-top: 0.3rem;
+}
+
+/* ─── NEWSLETTER ─── */
+.newsletter {
+  padding: 4rem 3.5rem; background: var(--green);
+  display: flex; align-items: center; gap: 4rem;
+  border-bottom: 1px solid var(--rule);
+}
+.newsletter-text h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--cream); margin-bottom: 0.5rem;
+}
+.newsletter-text h3 em { font-style: italic; }
+.newsletter-text p { font-size: 0.88rem; color: rgba(244,239,229,0.55); max-width: 360px; }
+.newsletter-form { display: flex; gap: 0; flex: 1; max-width: 440px; }
+.newsletter-form input {
+  flex: 1; padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(244,239,229,0.2); border-right: none; color: var(--cream);
+  font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem; outline: none;
+}
+.newsletter-form input::placeholder { color: rgba(244,239,229,0.3); }
+.newsletter-form button {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+  background: var(--lime); color: var(--green); border: none; padding: 0 1.5rem; cursor: pointer;
+  font-weight: 500; transition: background 0.2s;
+}
+.newsletter-form button:hover { background: #a0d45a; }
+
+/* ─── AFLEVERINGEN ─── */
+.page-header {
+  padding: 4rem 3.5rem 3rem; border-bottom: 1px solid var(--rule);
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.page-header-text {}
+.page-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1rem;
+}
+.page-title {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 300; color: var(--green); line-height: 1;
+}
+.page-title em { font-style: italic; }
+.page-subtitle { font-size: 0.95rem; color: var(--muted); margin-top: 0.75rem; }
+.page-header-meta {
+  text-align: right;
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); line-height: 2;
+}
+
+.episodes-list { padding: 0 3.5rem; }
+
+.episode-row {
+  display: grid; grid-template-columns: 120px 1fr auto;
+  gap: 2.5rem; align-items: start;
+  padding: 2.5rem 0; border-bottom: 1px solid var(--rule);
+  transition: background 0.2s; cursor: pointer;
+}
+.episode-row:hover { background: var(--cream-2); margin: 0 -3.5rem; padding-left: 3.5rem; padding-right: 3.5rem; }
+
+.ep-num-block {}
+.ep-season {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.25rem;
+}
+.ep-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--cream-3);
+  line-height: 1;
+}
+
+.ep-body {}
+.ep-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--green);
+  margin-bottom: 0.5rem; line-height: 1.25;
+}
+.ep-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; max-width: 520px; margin-bottom: 1rem; }
+.ep-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ep-tag {
+  font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.25rem 0.6rem; border: 1px solid var(--rule-strong); color: var(--muted);
+}
+
+.ep-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.ep-date {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted);
+}
+.ep-dur {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--lime);
+}
+.ep-play {
+  width: 40px; height: 40px; border: 1px solid var(--rule-strong);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green); font-size: 0.75rem; margin-top: 0.75rem;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.ep-play:hover { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+/* ─── PLATFORMS ─── */
+.platforms-bar {
+  display: flex; align-items: center; gap: 0;
+  padding: 2rem 3.5rem; border-bottom: 1px solid var(--rule);
+}
+.platforms-label {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin-right: 2rem; flex-shrink: 0;
+}
+.platform-link {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); text-decoration: none; padding: 0.6rem 1.5rem;
+  border: 1px solid var(--rule); border-left: none; transition: all 0.2s;
+}
+.platform-link:first-of-type { border-left: 1px solid var(--rule); }
+.platform-link:hover { background: var(--green); color: var(--cream); }
+
+/* ─── HOSTS PAGE ─── */
+.hosts-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.host-card {
+  border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 3.5rem;
+}
+.host-card:nth-child(3n) { border-right: none; }
+.host-card-top { margin-bottom: 2rem; }
+.host-number {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.25rem;
+}
+.host-avatar {
+  width: 80px; height: 80px; background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+.host-role {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--lime); margin-bottom: 0.4rem;
+}
+.host-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--green);
+  margin-bottom: 0.25rem;
+}
+.host-hcp-badge {
+  display: inline-block; margin-top: 0.5rem;
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em;
+  background: var(--green); color: var(--lime); padding: 0.3rem 0.75rem;
+}
+.host-bio {
+  font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem;
+}
+.host-facts { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+.host-fact {
+  display: flex; justify-content: space-between; padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.82rem;
+}
+.host-fact-label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.host-fact-val { color: var(--green); font-weight: 400; font-size: 0.82rem; }
+
+/* ─── BLOG PAGE ─── */
+.blog-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+}
+.blog-card {
+  border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  padding: 3rem 3.5rem; cursor: pointer; transition: background 0.2s;
+}
+.blog-card:nth-child(2n) { border-right: none; }
+.blog-card:hover { background: var(--cream-2); }
+.blog-card-eyebrow {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+}
+.blog-tag {
+  font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  background: var(--green); color: var(--cream); padding: 0.3rem 0.65rem;
+}
+.blog-date {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted);
+}
+.blog-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 400; color: var(--green);
+  line-height: 1.2; margin-bottom: 1rem;
+}
+.blog-title em { font-style: italic; }
+.blog-excerpt { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+.blog-read {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); display: flex; align-items: center; gap: 0.5rem;
+}
+.blog-read::after { content: '→'; }
+
+/* ─── CONTACT PAGE ─── */
+.contact-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 160px);
+}
+.contact-left {
+  padding: 4rem 3.5rem; border-right: 1px solid var(--rule);
+  background: var(--green);
+}
+.contact-left h2 {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--cream);
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.contact-left h2 em { font-style: italic; }
+.contact-left p { font-size: 0.9rem; color: rgba(244,239,229,0.6); line-height: 1.7; margin-bottom: 3rem; max-width: 380px; }
+.contact-info-row {
+  display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
+}
+.contact-info-label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(244,239,229,0.4); padding-top: 0.1rem; min-width: 72px;
+}
+.contact-info-val {
+  font-size: 0.9rem; color: var(--cream); text-decoration: none; line-height: 1.5;
+}
+.contact-info-val:hover { color: var(--lime); }
+
+.contact-right { padding: 4rem 3.5rem; }
+.contact-right h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--green);
+  margin-bottom: 2rem;
+}
+.contact-tabs { display: flex; gap: 0; margin-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
+.contact-tab {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); padding: 0.75rem 1.5rem; cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; margin-bottom: -1px; background: none; border-top: none; border-left: none; border-right: none;
+}
+.contact-tab.active { color: var(--green); border-bottom-color: var(--lime); }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted);
+}
+.form-group input, .form-group textarea, .form-group select {
+  padding: 0.8rem 1rem; background: var(--cream-2); border: 1px solid var(--rule);
+  color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 0.9rem;
+  outline: none; transition: border-color 0.2s; resize: none;
+}
+.form-group input:focus, .form-group textarea:focus { border-color: var(--green); }
+.form-submit {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream); background: var(--green); border: none;
+  padding: 0.9rem 2rem; cursor: pointer; align-self: flex-start; transition: background 0.2s;
+}
+.form-submit:hover { background: var(--green-2); }
+.form-note { font-size: 0.8rem; color: var(--muted); }
+
+/* ─── FOOTER ─── */
+#footer {
+  background: var(--green); border-top: 1px solid rgba(244,239,229,0.1);
+}
+.footer-main {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 0; padding: 4rem 3.5rem 3rem;
+  border-bottom: 1px solid rgba(244,239,229,0.1);
+}
+.footer-brand {}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
+  color: var(--cream); letter-spacing: 0.08em; display: block; margin-bottom: 1rem;
+}
+.footer-tagline { font-size: 0.88rem; color: rgba(244,239,229,0.45); line-height: 1.7; max-width: 260px; margin-bottom: 2rem; }
+.footer-social { display: flex; gap: 0.5rem; }
+.footer-social a {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244,239,229,0.5); text-decoration: none;
+  padding: 0.4rem 0.75rem; border: 1px solid rgba(244,239,229,0.15); transition: all 0.2s;
+}
+.footer-social a:hover { color: var(--cream); border-color: rgba(244,239,229,0.4); }
+.footer-col { padding-left: 3rem; }
+.footer-col-label {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(244,239,229,0.35); margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col a {
+  font-size: 0.88rem; color: rgba(244,239,229,0.6); text-decoration: none; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--cream); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 3.5rem;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em;
+  color: rgba(244,239,229,0.25);
+}
+.footer-made {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic;
+  color: rgba(244,239,229,0.25);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  #nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .home-hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 420px; }
+  .home-strip { grid-template-columns: 1fr; }
+  .strip-block { border-right: none; border-bottom: 1px solid var(--rule); }
+  .home-hosts { grid-template-columns: 1fr; }
+  .home-hosts-left { border-right: none; border-bottom: 1px solid var(--rule); }
+  .home-hosts-grid { grid-template-columns: 1fr; }
+  .host-mini { border-right: none; border-bottom: 1px solid var(--rule); }
+  .hosts-grid { grid-template-columns: 1fr; }
+  .host-card { border-right: none; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card { border-right: none; }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .contact-left { border-right: none; }
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-col { padding-left: 0; }
+  .newsletter { flex-direction: column; align-items: flex-start; gap: 2rem; }
+  .episode-row { grid-template-columns: 64px 1fr; }
+  .ep-right { display: none; }
+  .page-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a class="nav-logo" href="#" onclick="showPage('home')">PAMPAS<span>Belgian Golf Podcast</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Thuis</a></li>
+    <li><a href="#" onclick="showPage('afleveringen')" id="nav-afleveringen">Afleveringen</a></li>
+    <li><a href="#" onclick="showPage('blog')" id="nav-blog">Blog</a></li>
+    <li><a href="#" onclick="showPage('hosts')" id="nav-hosts">De Hosts</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <a class="nav-listen" href="https://open.spotify.com" target="_blank">Luister nu</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>Antwerpen · BE</span><span class="sep">·</span>
+      <span>Vol. I — 2026</span><span class="sep">·</span>
+      <span>Elke dinsdag een nieuwe aflevering</span><span class="sep">·</span>
+      <span>Voor golfers, door golfers</span><span class="sep">·</span>
+      <span>Drie vrienden · één microfoon · achttien holes</span><span class="sep">·</span>
+      <span>Onafhankelijk geproduceerd</span><span class="sep">·</span>
+      <span>Antwerpen · BE</span><span class="sep">·</span>
+      <span>Vol. I — 2026</span><span class="sep">·</span>
+      <span>Elke dinsdag een nieuwe aflevering</span><span class="sep">·</span>
+      <span>Voor golfers, door golfers</span><span class="sep">·</span>
+      <span>Drie vrienden · één microfoon · achttien holes</span><span class="sep">·</span>
+      <span>Onafhankelijk geproduceerd</span><span class="sep">·</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="home-hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Belgische Golf Podcast · S01 · 2026</div>
+      <h1 class="hero-h1">Voor golfers,<br><em>door golfers.</em></h1>
+      <p class="hero-sub">Een Belgische golfpodcast over de mooie, harde en soms belachelijke kanten van het spel. Drie vrienden, één microfoon, achttien holes.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#" onclick="showPage('afleveringen')">Alle afleveringen</a>
+        <a class="btn-ghost" href="#" onclick="showPage('hosts')">De hosts</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-bg-text">P</div>
+      <div class="hero-latest-label">Nieuwste aflevering</div>
+      <div class="hero-ep-card">
+        <div class="hero-ep-num">S01 · E03</div>
+        <div class="hero-ep-title">Episode 3 —<br>Flowering Peach</div>
+        <p class="hero-ep-desc">Van de PGA Tour naar de European Tour met een tussenstop langs LIV. De Pikante Prikkelvraag & De Groenen Hoek komen ook terug aan bod.</p>
+        <div class="hero-ep-meta">
+          <span class="hero-ep-date">28 / 04 / 2026</span>
+          <span class="hero-ep-dur">1u 14min</span>
+        </div>
+        <a class="btn-listen" href="https://open.spotify.com" target="_blank">Luister op Spotify</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <div class="home-strip">
+    <div class="strip-block">
+      <div class="strip-label">Seizoen</div>
+      <div class="strip-num">S01</div>
+      <div class="strip-text">Vol. I — 2026. Antwerpen, België. Onafhankelijk geproduceerd.</div>
+    </div>
+    <div class="strip-block">
+      <div class="strip-label">Afleveringen</div>
+      <div class="strip-num">03</div>
+      <div class="strip-text">Elke dinsdag een nieuwe episode. Van tee tot green, van PGA tot bier golf.</div>
+    </div>
+    <div class="strip-block">
+      <div class="strip-label">Gecombineerde HCP</div>
+      <div class="strip-num">+6.2</div>
+      <div class="strip-text">Drie friends met drie handicaps en één gedeelde obsessie voor het spel.</div>
+    </div>
+  </div>
+
+  <!-- Hosts preview -->
+  <section class="home-hosts">
+    <div class="home-hosts-left">
+      <h2>Drie vrienden,<br><em>drie handicaps.</em></h2>
+      <p>Lars, Levi en Niels. Elk met een eigen kijk op het spel. Samen leveren ze de eerlijkste, grappigste en meest opinionated Belgische golf podcast.</p>
+      <a class="btn-ghost" href="#" onclick="showPage('hosts')">Leer ze kennen →</a>
+    </div>
+    <div class="home-hosts-grid">
+      <div class="host-mini" onclick="showPage('hosts')">
+        <div class="host-mini-num">01</div>
+        <div class="host-mini-avatar">LM</div>
+        <div class="host-mini-role">De Diplomaat</div>
+        <div class="host-mini-name">Lars Masyn</div>
+        <div class="host-mini-hcp">HCP +0.6</div>
+      </div>
+      <div class="host-mini" onclick="showPage('hosts')">
+        <div class="host-mini-num">02</div>
+        <div class="host-mini-avatar">LC</div>
+        <div class="host-mini-role">De Professor</div>
+        <div class="host-mini-name">Levi Caers</div>
+        <div class="host-mini-hcp">HCP 3.2</div>
+      </div>
+      <div class="host-mini" onclick="showPage('hosts')">
+        <div class="host-mini-num">03</div>
+        <div class="host-mini-avatar">NJ</div>
+        <div class="host-mini-role">De Romanticus</div>
+        <div class="host-mini-name">Niels Jacoby</div>
+        <div class="host-mini-hcp">HCP 2.4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <div class="newsletter">
+    <div class="newsletter-text">
+      <h3>Eerst horen wanneer<br>er een <em>nieuwe aflevering</em> valt.</h3>
+      <p>Geen spam. Alleen een e-mail per nieuwe aflevering, en af en toe een verhaal dat niet de microfoon haalde.</p>
+    </div>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input type="email" placeholder="jouw@email.be">
+      <button type="submit">Inschrijven</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     AFLEVERINGEN PAGE
+══════════════════════════════════════════ -->
+<div id="page-afleveringen" class="page">
+  <div class="page-header">
+    <div class="page-header-text">
+      <div class="page-eyebrow">Het Archief</div>
+      <h1 class="page-title"><em>Afleveringen.</em></h1>
+      <p class="page-subtitle">Elke dinsdag een nieuwe episode. Klik om te luisteren.</p>
+    </div>
+    <div class="page-header-meta">
+      PAMPAS · Vol. I<br>
+      Seizoen 01 · 2026<br>
+      3 Afleveringen
+    </div>
+  </div>
+
+  <div class="platforms-bar">
+    <span class="platforms-label">Luister op</span>
+    <a class="platform-link" href="https://open.spotify.com" target="_blank">Spotify</a>
+    <a class="platform-link" href="https://podcasts.apple.com" target="_blank">Apple Podcasts</a>
+    <a class="platform-link" href="https://youtube.com" target="_blank">YouTube</a>
+  </div>
+
+  <div class="episodes-list">
+    <div class="episode-row">
+      <div class="ep-num-block">
+        <div class="ep-season">S01 · E</div>
+        <div class="ep-num">03</div>
+      </div>
+      <div class="ep-body">
+        <div class="ep-name">Flowering Peach</div>
+        <p class="ep-desc">In deze aflevering blikken we terug op het Belgisch en Internationaal golfnieuws. We gaan van de PGA Tour naar de European Tour met een tussenstop langs LIV. Onze twee blijvende formats komen ook terug aan bod: De Pikante Prikkelvraag & De Groenen Hoek.</p>
+        <div class="ep-tags">
+          <span class="ep-tag">Golf</span>
+          <span class="ep-tag">PGA Tour</span>
+          <span class="ep-tag">European Tour</span>
+          <span class="ep-tag">LIV</span>
+          <span class="ep-tag">Prikkelvraag</span>
+          <span class="ep-tag">Groenen Hoek</span>
+        </div>
+      </div>
+      <div class="ep-right">
+        <span class="ep-date">28 / 04 / 2026</span>
+        <span class="ep-dur">1u 14min</span>
+        <div class="ep-play">▶</div>
+      </div>
+    </div>
+
+    <div class="episode-row">
+      <div class="ep-num-block">
+        <div class="ep-season">S01 · E</div>
+        <div class="ep-num">02</div>
+      </div>
+      <div class="ep-body">
+        <div class="ep-name">Pink Dogwood</div>
+        <p class="ep-desc">In deze aflevering blikken we terug op het eerste Interclub weekend en de RBC Heritage. Daarnaast introduceren we twee nieuwe formats: De Groenen Hoek & De Pikante Prikkelvraag.</p>
+        <div class="ep-tags">
+          <span class="ep-tag">Interclub</span>
+          <span class="ep-tag">RBC Heritage</span>
+          <span class="ep-tag">Groenen Hoek</span>
+          <span class="ep-tag">Prikkelvraag</span>
+        </div>
+      </div>
+      <div class="ep-right">
+        <span class="ep-date">21 / 04 / 2026</span>
+        <span class="ep-dur">1u 01min</span>
+        <div class="ep-play">▶</div>
+      </div>
+    </div>
+
+    <div class="episode-row">
+      <div class="ep-num-block">
+        <div class="ep-season">S01 · E</div>
+        <div class="ep-num">01</div>
+      </div>
+      <div class="ep-body">
+        <div class="ep-name">Tea Olive</div>
+        <p class="ep-desc">De allereerste aflevering van PAMPAS. Lars, Levi en Niels stellen zichzelf voor en zetten de toon voor wat komen gaat. Voor vragen en opmerkingen: pampas.podcast@gmail.com of via IG @pampas.golfpodcast.</p>
+        <div class="ep-tags">
+          <span class="ep-tag">Introductie</span>
+          <span class="ep-tag">Hosts</span>
+          <span class="ep-tag">Belgische Golf</span>
+        </div>
+      </div>
+      <div class="ep-right">
+        <span class="ep-date">14 / 04 / 2026</span>
+        <span class="ep-dur">50min</span>
+        <div class="ep-play">▶</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BLOG PAGE
+══════════════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <div class="page-header">
+    <div class="page-header-text">
+      <div class="page-eyebrow">Het Archief</div>
+      <h1 class="page-title"><em>Blog.</em></h1>
+      <p class="page-subtitle">Verhalen, analyses en weetjes van de fairway.</p>
+    </div>
+    <div class="page-header-meta">PAMPAS · Redactie<br>Vol. I · 2026</div>
+  </div>
+
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-eyebrow">
+        <span class="blog-tag">Beginners Golf</span>
+        <span class="blog-date">30 / 04 / 2026</span>
+      </div>
+      <h2 class="blog-title">Route 36 — Jouw persoonlijk <em>startpistool</em>.</h2>
+      <p class="blog-excerpt">Hoe Golf Vlaanderen het leren golfen hertekende van een stresstest naar een spelenderwijs avontuur. Alles wat je moet weten over het Just Golf traject.</p>
+      <span class="blog-read">Lees meer</span>
+    </div>
+    <div class="blog-card" style="background: var(--cream-2);">
+      <div class="blog-card-eyebrow">
+        <span class="blog-tag" style="background: var(--cream-3); color: var(--green);">Binnenkort</span>
+        <span class="blog-date">— / — / 2026</span>
+      </div>
+      <h2 class="blog-title" style="color: var(--muted);">Meer verhalen <em>onderweg.</em></h2>
+      <p class="blog-excerpt">Nieuwe blogposts verschijnen regelmatig. Schrijf je in op de nieuwsbrief om als eerste op de hoogte te zijn.</p>
+      <span class="blog-read" style="color: var(--muted);">Schrijf je in</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HOSTS PAGE
+══════════════════════════════════════════ -->
+<div id="page-hosts" class="page">
+  <div class="page-header">
+    <div class="page-header-text">
+      <div class="page-eyebrow">De drie stemmen</div>
+      <h1 class="page-title"><em>De Hosts.</em></h1>
+      <p class="page-subtitle">Drie vrienden, met elk een uniek traject en kijk op de golfsport.</p>
+    </div>
+    <div class="page-header-meta">Ternesse Golf &amp; CC<br>Antwerpen · België</div>
+  </div>
+
+  <div class="hosts-grid">
+    <div class="host-card">
+      <div class="host-card-top">
+        <div class="host-number">01 / 03</div>
+        <div class="host-avatar">LM</div>
+        <div class="host-role">De Diplomaat</div>
+        <div class="host-name">Lars Masyn</div>
+        <span class="host-hcp-badge">HCP +0.6</span>
+      </div>
+      <p class="host-bio">De host die probeert het gesprek op de fairway te houden… maar af en toe toch in de Pampas belandt. Al sinds zijn derde besmet met het golfvirus en sindsdien heel wat terreinen verkend: van de Lilse naar Steenhoven, via Millennium en Rinkven, tot de huidige thuisbasis op Ternesse. Vorig jaar een selectie voor het Belgisch Mid-Am Team.</p>
+      <div class="host-facts">
+        <div class="host-fact">
+          <span class="host-fact-label">Handicap</span>
+          <span class="host-fact-val">+0.6</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Thuisbaan</span>
+          <span class="host-fact-val">Ternesse G&amp;CC</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Fav. shot</span>
+          <span class="host-fact-val">Wedge van 93 meter</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Fav. baan</span>
+          <span class="host-fact-val">Royal Antwerp GC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="host-card">
+      <div class="host-card-top">
+        <div class="host-number">02 / 03</div>
+        <div class="host-avatar">LC</div>
+        <div class="host-role">De Professor</div>
+        <div class="host-name">Levi Caers</div>
+        <span class="host-hcp-badge">HCP 3.2</span>
+      </div>
+      <p class="host-bio">De host die golf bekijkt als een exacte wetenschap. Ook een 20-tal jaren actief in het eeuwige mysterie dat de naam Golf draagt. Door zijn voorliefde voor blades is hij geëvolueerd naar een ball-striker pur sang. Als hij één ding kan bekennen: hij kent geen 75%, enkel 110%. "If you're not using DECADE, you're doing it wrong."</p>
+      <div class="host-facts">
+        <div class="host-fact">
+          <span class="host-fact-label">Handicap</span>
+          <span class="host-fact-val">3.2</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Thuisbaan</span>
+          <span class="host-fact-val">Ternesse G&amp;CC</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Stijl</span>
+          <span class="host-fact-val">Ball-striker pur sang</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Methode</span>
+          <span class="host-fact-val">DECADE Golf</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="host-card">
+      <div class="host-card-top">
+        <div class="host-number">03 / 03</div>
+        <div class="host-avatar">NJ</div>
+        <div class="host-role">De Romanticus</div>
+        <div class="host-name">Niels Jacoby</div>
+        <span class="host-hcp-badge">HCP 2.4</span>
+      </div>
+      <p class="host-bio">De host met de ludieke verhalen, gekke toevoegingen en ongezouten mening. Ondertussen al 23 jaar bezig met golf, golvend tussen diepe dalen en hoge hoogtes. Dankzij golf al op zeer mooie plekken in de wereld geweest — waaronder St Andrews, waar je letterlijk op de geboorteplek van de golfsport loopt. Putten is zijn favoriet.</p>
+      <div class="host-facts">
+        <div class="host-fact">
+          <span class="host-fact-label">Handicap</span>
+          <span class="host-fact-val">2.4</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Thuisbaan</span>
+          <span class="host-fact-val">Ternesse G&amp;CC</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Fav. shot</span>
+          <span class="host-fact-val">Putten</span>
+        </div>
+        <div class="host-fact">
+          <span class="host-fact-label">Bucket list</span>
+          <span class="host-fact-val">St Andrews, Schotland ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="page-header" style="border-bottom: none; padding-bottom: 0;">
+    <div class="page-header-text">
+      <div class="page-eyebrow">Stuur een bericht</div>
+      <h1 class="page-title"><em>Contact.</em></h1>
+    </div>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-left">
+      <h2>Sponsoring, een uitnodiging<br>op je baan, of gewoon een<br><em>verhaal dat verteld<br>moet worden.</em></h2>
+      <p>We lezen alles. En we antwoorden ook — meestal binnen 48 uur.</p>
+
+      <div class="contact-info-row">
+        <span class="contact-info-label">E-mail</span>
+        <a class="contact-info-val" href="mailto:pampas.podcast@gmail.com">pampas.podcast@gmail.com</a>
+      </div>
+      <div class="contact-info-row">
+        <span class="contact-info-label">Instagram</span>
+        <a class="contact-info-val" href="https://www.instagram.com/pampas.golfpodcast" target="_blank">@pampas.golfpodcast</a>
+      </div>
+      <div class="contact-info-row">
+        <span class="contact-info-label">Thuishaven</span>
+        <span class="contact-info-val">Antwerpen, België</span>
+      </div>
+      <div class="contact-info-row">
+        <span class="contact-info-label">Luister</span>
+        <a class="contact-info-val" href="https://open.spotify.com" target="_blank">Spotify · Apple · YouTube</a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h3>Stuur ons een bericht.</h3>
+      <div class="contact-tabs">
+        <button class="contact-tab active" onclick="setTab(this)">Algemeen</button>
+        <button class="contact-tab" onclick="setTab(this)">Sponsoring</button>
+        <button class="contact-tab" onclick="setTab(this)">Gast</button>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Naam</label>
+            <input type="text" placeholder="Jouw naam">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" placeholder="jouw@email.be">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Onderwerp</label>
+          <input type="text" placeholder="Waar gaat het over?">
+        </div>
+        <div class="form-group">
+          <label>Bericht</label>
+          <textarea rows="5" placeholder="Jouw bericht..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Versturen →</button>
+        <p class="form-note">We antwoorden meestal binnen 48 uur.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <span class="footer-logo">PAMPAS.</span>
+      <p class="footer-tagline">Een Belgische golfpodcast over de mooie, harde en soms belachelijke kanten van het spel. Drie vrienden, één microfoon, achttien holes.</p>
+      <div class="footer-social">
+        <a href="https://open.spotify.com" target="_blank">Spotify</a>
+        <a href="https://podcasts.apple.com" target="_blank">Apple</a>
+        <a href="https://youtube.com" target="_blank">YouTube</a>
+        <a href="https://www.instagram.com/pampas.golfpodcast" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Navigatie</div>
+      <ul>
+        <li><a href="#" onclick="showPage('afleveringen')">Afleveringen</a></li>
+        <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+        <li><a href="#" onclick="showPage('hosts')">De Hosts</a></li>
+        <li><a href="#" onclick="showPage('contact')">Contact & Sponsors</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Luister</div>
+      <ul>
+        <li><a href="https://open.spotify.com" target="_blank">Spotify</a></li>
+        <li><a href="https://podcasts.apple.com" target="_blank">Apple Podcasts</a></li>
+        <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+        <li><a href="https://www.instagram.com/pampas.golfpodcast" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Contact</div>
+      <ul>
+        <li><a href="mailto:pampas.podcast@gmail.com">pampas.podcast@gmail.com</a></li>
+        <li><a href="#">Antwerpen, België</a></li>
+        <li><a href="#" onclick="showPage('contact')">Sponsoring</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 PAMPAS Podcast — Onafhankelijk geproduceerd in België</span>
+    <span class="footer-made">Made on the back nine</span>
+  </div>
+</footer>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const navEl = document.getElementById('nav-' + name);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+  return false;
+}
+
+function setTab(el) {
+  document.querySelectorAll('.contact-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+</script>
+</body>
+</html>
