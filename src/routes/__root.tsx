@@ -1,7 +1,9 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { VersionToggle, useVersion } from "@/components/VersionToggle";
+import { VersionProvider, VersionToggle, useVersion } from "@/components/VersionToggle";
+import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
+import { NewFooter } from "@/components/rebrand/NewFooter";
 import ogImage from "@/assets/hosts-walking.jpg";
 
 import appCss from "../styles.css?url";
