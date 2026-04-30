@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { VersionToggle } from "@/components/VersionToggle";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -54,14 +55,17 @@ export function NewHeader() {
         })}
       </nav>
 
-      <a
-        href="https://open.spotify.com/show/3Mi5qC8RDqL5RDqDxDxYqZ"
-        target="_blank"
-        rel="noreferrer"
-        className="hidden md:inline-block font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-[1.2rem] py-[0.55rem] hover:bg-[#2B5C3E] transition-colors"
-      >
-        ▶ Listen
-      </a>
+      <div className="hidden md:flex items-center gap-3">
+        <VersionToggle />
+        <a
+          href="https://open.spotify.com/show/3Mi5qC8RDqL5RDqDxDxYqZ"
+          target="_blank"
+          rel="noreferrer"
+          className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-[1.2rem] py-[0.55rem] hover:bg-[#2B5C3E] transition-colors"
+        >
+          ▶ Listen
+        </a>
+      </div>
 
       <button
         aria-label="Menu"
