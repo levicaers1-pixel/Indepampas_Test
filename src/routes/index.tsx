@@ -4,6 +4,8 @@ import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { PampasMark } from "@/components/PampasMark";
 import { episodes, latestEpisode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
+import { VersionSwitch } from "@/components/VersionToggle";
+import { NewHome } from "@/components/rebrand/NewHome";
 import hostsWalking from "@/assets/hosts-walking.webp";
 import pampasGrass from "@/assets/pampas-grass.webp";
 import golfDetail from "@/assets/golf-detail.webp";
