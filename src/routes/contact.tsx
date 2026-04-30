@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { PampasMark } from "@/components/PampasMark";
 import { VersionSwitch } from "@/components/VersionToggle";
-import { NewContact } from "@/components/rebrand/NewContact";
+const NewContact = lazy(() => import("@/components/rebrand/NewContact").then((m) => ({ default: m.NewContact })));
 
 const SITE_URL = "https://indepampas.be";
 const CONTACT_DESCRIPTION =

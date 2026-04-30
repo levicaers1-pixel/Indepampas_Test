@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { getPostBySlug, posts } from "@/data/posts";
 import { useVersion } from "@/components/VersionToggle";
-import { NewBlogPost } from "@/components/rebrand/NewBlog";
+const NewBlogPost = lazy(() => import("@/components/rebrand/NewBlog").then((m) => ({ default: m.NewBlogPost })));
 
 const SITE_URL = "https://indepampas.be";
 
@@ -76,7 +77,11 @@ function BlogPost() {
   const { version } = useVersion();
 
   if (version === "new") {
-    return <NewBlogPost post={post} prev={prev} next={next} />;
+    return (
+      <Suspense fallback={null}>
+        <NewBlogPost post={post} prev={prev} next={next} />
+      </Suspense>
+    );
   }
 
   const paragraphs = post.content.split(/\n\n+/);

@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy } from "react";
 import { motion } from "framer-motion";
 import { hosts } from "@/data/hosts";
 import { PampasMark } from "@/components/PampasMark";
 import { VersionSwitch } from "@/components/VersionToggle";
-import { NewHosts } from "@/components/rebrand/NewHosts";
+const NewHosts = lazy(() => import("@/components/rebrand/NewHosts").then((m) => ({ default: m.NewHosts })));
 
 const SITE_URL = "https://indepampas.be";
 const HOSTS_DESCRIPTION =
