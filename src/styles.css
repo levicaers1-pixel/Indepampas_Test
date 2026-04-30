@@ -2,6 +2,22 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* ─── Rebrand fonts (new version) ─── */
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/instrumentsans/v1/pxiTypc9vsFDm051Uf6KVwgkfoSbSnNPooZAN0lInHGpCWNE3Q.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Mono";
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/dmmono/v14/aFTU7PB1QTsUX8KYthqQBK6PYK0.woff2") format("woff2");
+}
+
 /* Inline font-face declarations to eliminate critical request chain via fonts.googleapis.com */
 @font-face {
   font-family: "DM Sans";
