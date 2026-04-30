@@ -33,7 +33,6 @@ export const Route = createFileRoute("/")({
       { rel: "canonical", href: SITE_URL + "/" },
       { rel: "preload", as: "image", href: pampasWordmark, fetchPriority: "high" },
       { rel: "preconnect", href: "https://open.spotify.com" },
-      { rel: "preconnect", href: "https://image-cdn-fa.spotifycdn.com", crossOrigin: "anonymous" },
     ],
     scripts: [
       {
