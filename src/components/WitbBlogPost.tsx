@@ -41,13 +41,13 @@ const LEVI_ROWS: EquipmentRow[] = [
     shaftDetail: "Hybride shaft",
   },
   {
-    category: "IJZERS",
+    category: "I2",
     club: "TaylorMade UDI 2",
     shaftBrand: "Tour AD Utility",
     shaftDetail: "AD-95 X · Extra Stiff",
   },
   {
-    category: "I4 - PW",
+    category: "IJZERS",
     club: "TaylorMade P730",
     shaftBrand: "Project X",
     shaftDetail: "6.5 · Extra Stiff",
