@@ -481,7 +481,7 @@ export function WitbBlogPost({
               className="block text-[#1C3D2A] leading-none mb-1"
               style={{ fontFamily: SERIF, fontSize: "2.5rem", fontWeight: 300 }}
             >
-              8
+              14
             </span>
             <div className="text-sm leading-[1.65]">clubs + bal · Vol. I editie</div>
           </SidebarSection>
