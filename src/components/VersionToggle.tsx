@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode, type ComponentType } from "react";
+import { createContext, Suspense, useContext, useEffect, useState, type ReactNode, type ComponentType } from "react";
 
 type Version = "old" | "new";
 const STORAGE_KEY = "pampas-version";
@@ -56,8 +56,16 @@ export function VersionToggle({ className = "" }: { className?: string }) {
   );
 }
 
-/** Helper for routes: render `New` when rebrand is on, otherwise `Old`. */
+/** Helper for routes: render `New` when rebrand is on, otherwise `Old`.
+ * `New` may be a `React.lazy` component — it will only be loaded when the user is on the new version. */
 export function VersionSwitch({ Old, New }: { Old: ComponentType; New: ComponentType }) {
   const { version } = useVersion();
-  return version === "new" ? <New /> : <Old />;
+  if (version === "new") {
+    return (
+      <Suspense fallback={null}>
+        <New />
+      </Suspense>
+    );
+  }
+  return <Old />;
 }
