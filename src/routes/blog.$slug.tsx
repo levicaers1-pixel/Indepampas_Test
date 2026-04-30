@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 import { getPostBySlug, posts } from "@/data/posts";
 import { useVersion } from "@/components/VersionToggle";
+import { RichBlogPost } from "@/components/RichBlogPost";
 const NewBlogPost = lazy(() => import("@/components/rebrand/NewBlog").then((m) => ({ default: m.NewBlogPost })));
 
 const SITE_URL = "https://indepampas.be";
@@ -81,6 +82,14 @@ function BlogPost() {
       <Suspense fallback={null}>
         <NewBlogPost post={post} prev={prev} next={next} />
       </Suspense>
+    );
+  }
+
+  if (post.richContent) {
+    return (
+      <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
+        <RichBlogPost post={post} prev={prev} next={next} />
+      </div>
     );
   }
 
