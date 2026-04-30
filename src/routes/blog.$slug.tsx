@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { getPostBySlug, posts } from "@/data/posts";
 import { useVersion } from "@/components/VersionToggle";
 import { RichBlogPost } from "@/components/RichBlogPost";
+import { WitbBlogPost } from "@/components/WitbBlogPost";
 const NewBlogPost = lazy(() => import("@/components/rebrand/NewBlog").then((m) => ({ default: m.NewBlogPost })));
 
 const SITE_URL = "https://indepampas.be";
