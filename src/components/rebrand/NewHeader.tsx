@@ -24,13 +24,13 @@ export function NewHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 h-[60px] flex items-center justify-between px-6 lg:px-14 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)] transition-shadow ${
+      className={`fixed top-0 left-0 right-0 z-40 h-[60px] flex items-center justify-between px-4 sm:px-6 lg:px-14 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)] transition-shadow ${
         scrolled ? "shadow-[0_2px_24px_rgba(28,61,42,0.08)]" : ""
       }`}
     >
-      <Link to="/" className="font-rb-serif text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline">
+      <Link to="/" className="font-rb-serif text-[1.1rem] sm:text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline shrink-0">
         PAMPAS
-        <span className="font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
+        <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
           / Belgian Golf Podcast
         </span>
       </Link>
