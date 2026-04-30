@@ -25,6 +25,8 @@ export type Post = {
   category?: string;
   sourceName?: string;
   sourceUrl?: string;
+  /** Optional custom layout key for one-off post designs. */
+  customLayout?: "witb";
 };
 
 export const posts: Post[] = [
