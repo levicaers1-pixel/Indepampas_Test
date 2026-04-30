@@ -98,7 +98,6 @@ function ShellSwitcher() {
   if (version === "new") {
     return (
       <div className="theme-new min-h-screen flex flex-col">
-        <VersionToggle />
         <NewHeader />
         <Ticker />
         <main className="flex-1 pt-[92px]">
@@ -111,7 +110,6 @@ function ShellSwitcher() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <VersionToggle />
       <SiteHeader />
       <main className="flex-1">
         <Outlet />
