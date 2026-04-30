@@ -30,10 +30,10 @@ export function useVersion() {
   return useContext(VersionContext);
 }
 
-export function VersionToggle() {
+export function VersionToggle({ className = "" }: { className?: string }) {
   const { version, setVersion } = useVersion();
   return (
-    <div className="fixed top-3 left-1/2 -translate-x-1/2 z-[9999] bg-black/85 backdrop-blur-md rounded-full p-1 flex items-center shadow-xl shadow-black/30 border border-white/10">
+    <div className={`bg-black/85 backdrop-blur-md rounded-full p-1 flex items-center shadow-lg shadow-black/20 border border-white/10 ${className}`}>
       <button
         onClick={() => setVersion("old")}
         className={`px-4 py-1.5 text-[10px] uppercase tracking-[0.18em] font-medium rounded-full transition-colors ${
