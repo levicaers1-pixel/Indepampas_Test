@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { getPostBySlug, posts } from "@/data/posts";
 import { useVersion } from "@/components/VersionToggle";
 import { RichBlogPost } from "@/components/RichBlogPost";
+import { WitbBlogPost } from "@/components/WitbBlogPost";
 const NewBlogPost = lazy(() => import("@/components/rebrand/NewBlog").then((m) => ({ default: m.NewBlogPost })));
 
 const SITE_URL = "https://indepampas.be";
@@ -76,6 +77,14 @@ function BlogPost() {
   const prev = posts[currentIndex + 1];
   const next = posts[currentIndex - 1];
   const { version } = useVersion();
+
+  if (post.customLayout === "witb") {
+    return (
+      <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
+        <WitbBlogPost post={post} prev={prev} next={next} />
+      </div>
+    );
+  }
 
   if (post.richContent) {
     return (
