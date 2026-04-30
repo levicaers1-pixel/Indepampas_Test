@@ -53,6 +53,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  return <VersionSwitch Old={OldHome} New={NewHome} />;
+}
+
+function OldHome() {
   return (
     <>
       <Hero />
