@@ -47,7 +47,7 @@ const LEVI_ROWS: EquipmentRow[] = [
     shaftDetail: "AD-95 X · Extra Stiff",
   },
   {
-    category: "Ijzers",
+    category: "I2",
     club: "TaylorMade P730",
     shaftBrand: "Project X",
     shaftDetail: "6.5 · Extra Stiff",
@@ -100,7 +100,7 @@ const SHAFTS = [
   { name: "Fujikura Ventus TR", where: "Driver" },
   { name: "Mitsubishi Chem.", where: "3 Wood" },
   { name: "Tour AD", where: "Utility" },
-  { name: "Project X", where: "Ijzers" },
+  { name: "Project X", where: "I2" },
   { name: "KBS Wedge", where: "Wedges" },
 ];
 
