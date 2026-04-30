@@ -1,7 +1,9 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { VersionToggle, useVersion } from "@/components/VersionToggle";
+import { VersionProvider, VersionToggle, useVersion } from "@/components/VersionToggle";
+import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
+import { NewFooter } from "@/components/rebrand/NewFooter";
 import ogImage from "@/assets/hosts-walking.jpg";
 
 import appCss from "../styles.css?url";
@@ -83,24 +85,33 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  const [version, setVersion] = useVersion();
+  return (
+    <VersionProvider>
+      <ShellSwitcher />
+    </VersionProvider>
+  );
+}
+
+function ShellSwitcher() {
+  const { version } = useVersion();
 
   if (version === "new") {
     return (
-      <>
-        <VersionToggle version={version} onChange={setVersion} />
-        <iframe
-          src="/new-version/index.html"
-          title="PAMPAS — Nieuwe versie"
-          className="fixed inset-0 w-full h-full border-0"
-        />
-      </>
+      <div className="theme-new min-h-screen flex flex-col">
+        <VersionToggle />
+        <NewHeader />
+        <Ticker />
+        <main className="flex-1 pt-[92px]">
+          <Outlet />
+        </main>
+        <NewFooter />
+      </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <VersionToggle version={version} onChange={setVersion} />
+      <VersionToggle />
       <SiteHeader />
       <main className="flex-1">
         <Outlet />

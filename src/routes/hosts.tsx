@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { hosts } from "@/data/hosts";
 import { PampasMark } from "@/components/PampasMark";
+import { VersionSwitch } from "@/components/VersionToggle";
+import { NewHosts } from "@/components/rebrand/NewHosts";
 
 const SITE_URL = "https://indepampas.be";
 const HOSTS_DESCRIPTION =
@@ -38,6 +40,10 @@ export const Route = createFileRoute("/hosts")({
 });
 
 function HostsPage() {
+  return <VersionSwitch Old={OldHosts} New={NewHosts} />;
+}
+
+function OldHosts() {
   return (
     <section className="pt-28 sm:pt-36 lg:pt-48 pb-12 px-6 lg:px-12 relative overflow-hidden">
       <PampasMark

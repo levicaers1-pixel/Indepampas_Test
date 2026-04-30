@@ -2,6 +2,22 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* ─── Rebrand fonts (new version) ─── */
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/instrumentsans/v1/pxiTypc9vsFDm051Uf6KVwgkfoSbSnNPooZAN0lInHGpCWNE3Q.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Mono";
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/dmmono/v14/aFTU7PB1QTsUX8KYthqQBK6PYK0.woff2") format("woff2");
+}
+
 /* Inline font-face declarations to eliminate critical request chain via fonts.googleapis.com */
 @font-face {
   font-family: "DM Sans";
@@ -156,3 +172,37 @@
   animation: pampas-sway 6s ease-in-out infinite;
   transform-origin: bottom center;
 }
+
+/* ============================================================
+   REBRAND THEME — scoped to .theme-new
+   Editorial cream + green + lime palette from uploaded HTML
+   ============================================================ */
+.theme-new {
+  --rb-cream: #F4EFE5;
+  --rb-cream-2: #EDE6D9;
+  --rb-cream-3: #E2D9C8;
+  --rb-green: #1C3D2A;
+  --rb-green-2: #2B5C3E;
+  --rb-green-3: #3A7A52;
+  --rb-lime: #8FBF4A;
+  --rb-lime-pale: #D6EBBA;
+  --rb-text: #18180F;
+  --rb-muted: #7A7260;
+  --rb-rule: rgba(28, 61, 42, 0.15);
+  --rb-rule-strong: rgba(28, 61, 42, 0.3);
+
+  background: var(--rb-cream);
+  color: var(--rb-text);
+  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+.theme-new .font-rb-serif { font-family: "Cormorant Garamond", ui-serif, Georgia, serif; }
+.theme-new .font-rb-mono { font-family: "DM Mono", ui-monospace, monospace; }
+.theme-new .font-rb-sans { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+
+@keyframes rb-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.theme-new .rb-ticker { animation: rb-ticker 28s linear infinite; }

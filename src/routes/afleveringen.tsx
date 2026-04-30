@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { episodes } from "@/data/episodes";
+import { VersionSwitch } from "@/components/VersionToggle";
+import { NewEpisodes } from "@/components/rebrand/NewEpisodes";
 
 const SITE_URL = "https://indepampas.be";
 const EPISODES_DESCRIPTION =
@@ -36,6 +38,10 @@ export const Route = createFileRoute("/afleveringen")({
 });
 
 function Afleveringen() {
+  return <VersionSwitch Old={OldAfleveringen} New={NewEpisodes} />;
+}
+
+function OldAfleveringen() {
   const [openId, setOpenId] = useState<string | null>(episodes[0].number);
 
   return (
