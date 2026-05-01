@@ -443,17 +443,16 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                 className="text-[#1C3D2A] leading-[1.2] [&_em]:italic"
                 style={{ fontFamily: SERIF, fontSize: "1.8rem", fontWeight: 300 }}
               >
-                Lars &amp; Niels —<br />
-                <em>hun tassen volgen binnenkort.</em>
+                Lars Masyn —<br />
+                <em>zijn tas volgt binnenkort.</em>
               </h3>
               <p className="text-[#7A7260] mt-2" style={{ fontSize: "0.9rem" }}>
-                Van de Callaway AI Smoke Triple Diamond (= rechts weg) tot de romantische bag van de Romanticus.
+                De laatste tas van Team Pampas — wordt binnenkort opengetrokken.
               </p>
             </div>
             <div className="flex">
               {[
                 { i: "LM", placeholder: false },
-                { i: "NJ", placeholder: false },
                 { i: "+", placeholder: true },
               ].map((h, idx) => (
                 <div
