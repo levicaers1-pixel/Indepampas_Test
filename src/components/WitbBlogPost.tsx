@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import type { Post } from "@/data/posts";
+import { hosts } from "@/data/hosts";
+
+const hostByName = (name: string) => hosts.find((h) => name.toLowerCase().includes(h.name.split(" ")[0].toLowerCase()));
+const hcpFor = (name: string) => {
+  const h = hostByName(name);
+  return h ? `HCP ${h.handicap}` : "HCP —";
+};
 
 type EquipmentRow = {
   category: string;
