@@ -117,7 +117,7 @@ const NIELS_ROWS: EquipmentRow[] = [
     category: "Putter",
     club: "Odyssey White Hot OG #1",
     shaftBrand: "Stroke Lab",
-    shaftDetail: "Steel/Graphite hybrid",
+    shaftDetail: "Steel · Standaard",
   },
 ];
 
