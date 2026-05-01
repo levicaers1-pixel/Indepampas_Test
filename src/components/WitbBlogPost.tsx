@@ -75,6 +75,52 @@ const LEVI_ROWS: EquipmentRow[] = [
   },
 ];
 
+const NIELS_ROWS: EquipmentRow[] = [
+  {
+    category: "Driver",
+    club: "Callaway AI Smoke Triple Diamond Max",
+    clubSmall: "9.5°",
+    shaftBrand: "Project X HZRDUS",
+    shaftDetail: "6.5 Stiff · 76g",
+    variant: "highlight",
+  },
+  {
+    category: "3 Wood",
+    club: "Titleist 910Fd",
+    clubSmall: "15°",
+    shaftBrand: "Diamana",
+    shaftDetail: "Stiff 82 · Low-Mid",
+  },
+  {
+    category: "I2",
+    club: "Ping G410",
+    clubSmall: "Blue Dot · 17°",
+    shaftBrand: "Tensei CK Series",
+    shaftDetail: "80 HY · Stiff",
+  },
+  {
+    category: "IJZERS",
+    club: "Ping Blueprint S",
+    clubSmall: "Black Dot · 4–W",
+    shaftBrand: "Dynamic Gold 105",
+    shaftDetail: "S300 · Stiff",
+    variant: "highlight",
+  },
+  {
+    category: "Wedges",
+    club: "Titleist Vokey",
+    clubSmall: "50-12F · 54-14F · 58-14K",
+    shaftBrand: "Vokey Wedge Shaft",
+    shaftDetail: "Standaard",
+  },
+  {
+    category: "Putter",
+    club: "Odyssey White Hot OG #1",
+    shaftBrand: "Stroke Lab",
+    shaftDetail: "Steel/Graphite hybrid",
+  },
+];
+
 const HOSTS: HostSection[] = [
   {
     num: "01",
@@ -85,7 +131,15 @@ const HOSTS: HostSection[] = [
     quote:
       "De P730's zijn mijn trouwste partner op de baan. Blades voor wie niet bang is van eerlijkheid — elke mis-hit voelt je meteen in je handen. Maar raak je ze puur, dan is er geen gevoel zoals dat.",
   },
+  {
+    num: "02",
+    name: "Niels Jacoby",
+    role: "De Romanticus · Ping-loyalist",
+    hcp: "HCP —",
+    rows: NIELS_ROWS,
+  },
 ];
+
 
 const BRANDS = [
   { name: "TaylorMade", count: "3×" },
@@ -108,8 +162,8 @@ const FLEX_TAGS = ["X-Stiff Driver", "X-Stiff Utility", "Stiff 3W", "6.5 Irons",
 
 const PILLS = [
   { initials: "LC", name: "Levi Caers", hcp: "HCP 3.2", active: true },
+  { initials: "NJ", name: "Niels Jacoby", hcp: "In post", active: true },
   { initials: "LM", name: "Lars Masyn", hcp: "Binnenkort", active: false },
-  { initials: "NJ", name: "Niels Jacoby", hcp: "Binnenkort", active: false },
 ];
 
 const MONO = "'DM Mono', ui-monospace, monospace";
@@ -389,17 +443,16 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                 className="text-[#1C3D2A] leading-[1.2] [&_em]:italic"
                 style={{ fontFamily: SERIF, fontSize: "1.8rem", fontWeight: 300 }}
               >
-                Lars &amp; Niels —<br />
-                <em>hun tassen volgen binnenkort.</em>
+                Lars Masyn —<br />
+                <em>zijn tas volgt binnenkort.</em>
               </h3>
               <p className="text-[#7A7260] mt-2" style={{ fontSize: "0.9rem" }}>
-                Van de Callaway AI Smoke Triple Diamond (= rechts weg) tot de romantische bag van de Romanticus.
+                De laatste tas van Team Pampas — wordt binnenkort opengetrokken.
               </p>
             </div>
             <div className="flex">
               {[
                 { i: "LM", placeholder: false },
-                { i: "NJ", placeholder: false },
                 { i: "+", placeholder: true },
               ].map((h, idx) => (
                 <div
