@@ -1,15 +1,8 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { VersionProvider, useVersion } from "@/components/VersionToggle";
-import ogImage from "@/assets/hosts-walking.jpg";
+import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
+import { NewFooter } from "@/components/rebrand/NewFooter";
 
 import appCss from "../styles.css?url";
-
-const NewHeader = lazy(() => import("@/components/rebrand/NewHeader").then((m) => ({ default: m.NewHeader })));
-const Ticker = lazy(() => import("@/components/rebrand/NewHeader").then((m) => ({ default: m.Ticker })));
-const NewFooter = lazy(() => import("@/components/rebrand/NewFooter").then((m) => ({ default: m.NewFooter })));
 
 const SITE_URL = "https://indepampas.be";
 
@@ -82,39 +75,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <VersionProvider>
-      <ShellSwitcher />
-    </VersionProvider>
-  );
-}
-
-function ShellSwitcher() {
-  const { version } = useVersion();
-
-  if (version === "new") {
-    return (
-      <div className="theme-new min-h-screen flex flex-col">
-        <Suspense fallback={null}>
-          <NewHeader />
-          <Ticker />
-        </Suspense>
-        <main className="flex-1 pt-[92px]">
-          <Outlet />
-        </main>
-        <Suspense fallback={null}>
-          <NewFooter />
-        </Suspense>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
-      <SiteHeader />
-      <main className="flex-1">
+    <div className="theme-new min-h-screen flex flex-col">
+      <NewHeader />
+      <Ticker />
+      <main className="flex-1 pt-[92px]">
         <Outlet />
       </main>
-      <SiteFooter />
+      <NewFooter />
     </div>
   );
 }
