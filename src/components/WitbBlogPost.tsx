@@ -23,6 +23,7 @@ const LEVI_ROWS: EquipmentRow[] = [
   {
     category: "Driver",
     club: "Callaway Rogue ST LS Triple Diamond",
+    clubSmall: "10.5°",
     shaftBrand: "Fujikura Ventus TR Black",
     shaftDetail: "7-X · Extra Stiff",
     variant: "highlight",
@@ -30,6 +31,7 @@ const LEVI_ROWS: EquipmentRow[] = [
   {
     category: "3 Wood",
     club: "TaylorMade Stealth 2+",
+    clubSmall: "15°",
     shaftBrand: "Mitsubishi Chem. 304SS",
     shaftDetail: "70 S · Stiff",
   },
@@ -139,7 +141,6 @@ const HOSTS: HostSection[] = [
     rows: NIELS_ROWS,
   },
 ];
-
 
 const BRANDS = [
   { name: "TaylorMade", count: "3×" },
