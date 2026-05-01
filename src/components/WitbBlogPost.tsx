@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import type { Post } from "@/data/posts";
+import { hosts } from "@/data/hosts";
+
+const hostByName = (name: string) => hosts.find((h) => name.toLowerCase().includes(h.name.split(" ")[0].toLowerCase()));
+const hcpFor = (name: string) => {
+  const h = hostByName(name);
+  return h ? `HCP ${h.handicap}` : "HCP —";
+};
 
 type EquipmentRow = {
   category: string;
@@ -128,7 +135,7 @@ const HOSTS: HostSection[] = [
     num: "01",
     name: "Levi Caers",
     role: "De Professor · Ball-striker pur sang",
-    hcp: "HCP 3.2",
+    hcp: hcpFor("Levi Caers"),
     rows: LEVI_ROWS,
     quote:
       "De P730's zijn mijn trouwste partner op de baan. Blades voor wie niet bang is van eerlijkheid — elke mis-hit voelt je meteen in je handen. Maar raak je ze puur, dan is er geen gevoel zoals dat.",
@@ -137,7 +144,7 @@ const HOSTS: HostSection[] = [
     num: "02",
     name: "Niels Jacoby",
     role: "De Romanticus · Ping-loyalist",
-    hcp: "HCP —",
+    hcp: hcpFor("Niels Jacoby"),
     rows: NIELS_ROWS,
   },
 ];
@@ -162,8 +169,8 @@ const SHAFTS = [
 const FLEX_TAGS = ["X-Stiff Driver", "X-Stiff Utility", "Stiff 3W", "6.5 Irons", "Blades", "Pro V1"];
 
 const PILLS = [
-  { initials: "LC", name: "Levi Caers", hcp: "HCP 3.2", active: true },
-  { initials: "NJ", name: "Niels Jacoby", hcp: "In post", active: true },
+  { initials: "LC", name: "Levi Caers", hcp: hcpFor("Levi Caers"), active: true },
+  { initials: "NJ", name: "Niels Jacoby", hcp: hcpFor("Niels Jacoby"), active: true },
   { initials: "LM", name: "Lars Masyn", hcp: "Binnenkort", active: false },
 ];
 
