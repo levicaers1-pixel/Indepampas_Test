@@ -29,11 +29,19 @@ export function NewHeader() {
       }`}
     >
       <Link to="/" className="font-rb-serif text-[1.1rem] sm:text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline shrink-0 flex items-center gap-2">
-        <img
-          src={monogram}
-          alt=""
+        <span
           aria-hidden="true"
-          className="h-7 sm:h-8 w-auto"
+          className="inline-block h-7 sm:h-8 w-7 sm:w-8 bg-[#1C3D2A]"
+          style={{
+            WebkitMaskImage: `url(${monogram})`,
+            maskImage: `url(${monogram})`,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+          }}
         />
         PAMPAS
         <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
