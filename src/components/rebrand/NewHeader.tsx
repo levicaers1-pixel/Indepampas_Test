@@ -34,7 +34,6 @@ export function NewHeader() {
           alt=""
           aria-hidden="true"
           className="h-7 sm:h-8 w-auto"
-          style={{ filter: "brightness(0)" }}
         />
         PAMPAS
         <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
