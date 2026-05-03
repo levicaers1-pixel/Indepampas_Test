@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const WEB3FORMS_ACCESS_KEY = "53e7aa49-deb0-4e21-8060-498fa043cedc";
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
 
 export function NewContact() {
   const [sent, setSent] = useState(false);
