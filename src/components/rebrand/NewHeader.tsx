@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import monogram from "@/assets/monogram.png";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -27,7 +28,14 @@ export function NewHeader() {
         scrolled ? "shadow-[0_2px_24px_rgba(28,61,42,0.08)]" : ""
       }`}
     >
-      <Link to="/" className="font-rb-serif text-[1.1rem] sm:text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline shrink-0">
+      <Link to="/" className="font-rb-serif text-[1.1rem] sm:text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline shrink-0 flex items-center gap-2">
+        <img
+          src={monogram}
+          alt=""
+          aria-hidden="true"
+          className="h-7 sm:h-8 w-auto"
+          style={{ filter: "brightness(0)" }}
+        />
         PAMPAS
         <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
           / Belgian Golf Podcast
