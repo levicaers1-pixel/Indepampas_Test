@@ -31,6 +31,66 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "einde-liv-golf",
+    title: "Bedankt voor de biljarden, sheik — het einde van LIV Golf",
+    titleHtml: "Bedankt voor de<br/>biljarden, sheik —<br/><em>het einde van LIV Golf.</em>",
+    excerpt:
+      "Saudi-Arabië trekt de stekker eruit. Bryson wil terug. Phil Mickelson zit ergens op een jacht. Een terugblik met gepaste — en eerlijk gezegd verdiende — leedvermaak.",
+    date: "03/05/2026",
+    author: "PAMPAS Redactie",
+    readTime: "6 min",
+    topics: ["LIV Golf", "PGA Tour", "Saudi-Arabië", "Rahm", "DeChambeau"],
+    category: "Tours · Profgolf · LIV · PGA",
+    sourceName: "CBS Sports · Golf Digest · Sky Sports · Athlon Sports",
+    content:
+      "Vier jaar geleden denderde LIV Golf de golfwereld binnen alsof iemand een olievat had aangestoken op de 18de green van Augusta.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "Saudi-Arabië trekt de stekker eruit. Bryson wil terug. Phil Mickelson zit ergens op een jacht. Een terugblik met gepaste — en eerlijk gezegd verdiende — leedvermaak.",
+      },
+      {
+        type: "p",
+        text: "Vier jaar geleden denderde LIV Golf de golfwereld binnen alsof iemand een olievat had aangestoken op de 18de green van Augusta. Geld? Zoveel als je wil. Spelers? Die kopen we gewoon. Publiek? Tja — dat hadden ze eigenlijk niet echt voorzien. En nu, terwijl de stofwolken optrekken, blijkt het allemaal een beetje anders te zijn gelopen dan de PowerPoint-presentaties van 2022 hadden beloofd.",
+      },
+      {
+        type: "p",
+        text: "Saudi-Arabië's Public Investment Fund — het fonds dat met naar schatting meer dan vijf miljard dollar LIV Golf had gefinancierd — heeft beslist dat het genoeg is geweest. De financiering stopt eind 2026. Chairman Yasir Al-Rumayyan, de architect van het hele avontuur, is al vertrokken. Een toernooi werd onlangs uitgesteld wegens \"hitte en een voetbalconflict\" — wat eerlijk gezegd de meest Belgische reden voor annulatie is die ik ooit heb gehoord, maar dan in de Arabische woestijn.",
+      },
+      {
+        type: "stats",
+        items: [
+          { num: "$5 mrd", label: "totale investering PIF" },
+          { num: "175K", label: "kijkers per toernooi" },
+          { num: "3,1 M", label: "PGA Tour gemiddeld" },
+          { num: "4 jaar", label: "van launch tot uitdoof" },
+        ],
+      },
+      { type: "h2", text: "Hoe gaat het met de spelers?" },
+      {
+        type: "p",
+        text: "Brooks Koepka is al weg. Patrick Reed ook. En Bryson DeChambeau — het gezicht van LIV, de man die volgens bronnen een contract vroeg dat ruim boven de 300 miljoen van Jon Rahm lag — laat nu via zijn entourage weten dat hij \"openstaat voor opties\". Vertaling: hij neemt LIV's oproepen niet meer op. Rahm zelf zit nog geblokkeerd op de DP World Tour, wat zijn Ryder Cup-toekomst gecompliceerd maakt. De ironie wil dat Rahm in 2023 precies het moment koos om over te stappen waarop LIV al op zijn retour was — en daarmee het conflict een jaar langer rekte dan nodig was.",
+      },
+      {
+        type: "quote",
+        text: "LIV Golf was geen golfcompetitie. Het was een geopolitiek instrument. En zodra het zijn doel had gediend — of niet had gediend — werd de stekker eruit getrokken. Zo simpel is het.",
+      },
+      { type: "h2", text: "Wat blijft er over?" },
+      {
+        type: "p",
+        text: "Het grappige is dat LIV Golf, in zijn wanhopige poging om serieus genomen te worden, zichzelf volledig omvormde tot datgene waartegen het zich had afgezet. Van 54 naar 72 holes, van shotgun naar gewone startlijsten, wereldranking-punten voor enkel de top tien — ze werden de PGA Tour, maar dan zonder de kijkers, de geschiedenis, of het gevoel dat er iets op het spel staat. Zoals een coverband die besluit exact hetzelfde te spelen als het origineel, maar in een lege parking.",
+      },
+      {
+        type: "p",
+        text: "Zullen we LIV missen? Een klein beetje. Het was tenminste drama. In een sport waar het grootste nieuws normaal \"Rory McIlroy heeft een nieuwe putter\" is, was dat soms verfrissend. Maar uiteindelijk gold voor LIV Golf hetzelfde als voor elke poging om iets te kopen dat je niet kan kopen: het publiek pikt het gewoon niet.",
+      },
+      {
+        type: "source",
+        text: "Bronnen: CBS Sports · Golf Digest · Sky Sports · Athlon Sports — april/mei 2026",
+      },
+    ],
+  },
+  {
     slug: "route-36-just-golf",
     title: "Route 36 — Jouw persoonlijk startpistool",
     titleHtml: "Route 36 —<br/>Jouw persoonlijk<br/><em>startpistool</em>.",
