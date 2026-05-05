@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "04",
+    season: "S01",
+    title: "Episode 4 - Flowering Crab Apple",
+    description:
+      "Vandaag krijgen we bezoek van iemand die alles weet rondom het reilen en zeilen bij de enige Belgische European tour manche. Hij komt ons enkele leuke insights geven die bij zo'n tornooi komen kijken.",
+    date: "05/05/2026",
+    duration: "1u 10min",
+    spotifyId: "6sOfgheg4DrROHDYdFNzhs",
+    topics: ["Golf", "European Tour", "Belgium", "Interview", "Insights"],
+  },
+  {
     number: "03",
     season: "S01",
     title: "Episode 3 - Flowering Peach",
