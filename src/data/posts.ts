@@ -92,8 +92,8 @@ export const posts: Post[] = [
   },
   {
     slug: "route-36-just-golf",
-    title: "Route 36 — Jouw persoonlijk startpistool",
-    titleHtml: "Route 36 —<br/>Jouw persoonlijk<br/><em>startpistool</em>.",
+    title: "Just Golf — Jouw persoonlijk startpistool",
+    titleHtml: "Just Golf —<br/>Jouw persoonlijk<br/><em>startpistool</em>.",
     excerpt:
       "Hoe Golf Vlaanderen het leren golfen hertekende van een stresstest naar een spelenderwijs avontuur — met badges, een app en geen examenstress.",
     date: "30/04/2026",
@@ -104,7 +104,7 @@ export const posts: Post[] = [
     sourceName: "Golf Vlaanderen",
     sourceUrl: "https://www.golfvlaanderen.be/justgolfroute",
     content:
-      "Wil je beginnen met golf in België maar heb je geen idee waar te starten? Dan is Route 36 — intussen officieel omgedoopt tot de Just Golf route — precies wat je nodig hebt.",
+      "Wil je beginnen met golf in België maar heb je geen idee waar te starten? Dan is de Just Golf route — voorheen bekend als Route 36 — precies wat je nodig hebt.",
     richContent: [
       {
         type: "subtitle",
@@ -112,7 +112,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Wil je beginnen met golf in België maar heb je geen idee waar te starten? Dan is <strong>Route 36</strong> — intussen officieel omgedoopt tot de <strong>Just Golf route</strong> — precies wat je nodig hebt. Dit persoonlijk begeleidingstraject van Golf Vlaanderen vervangt het vroegere GVB-systeem met zijn zware examens en verplichte testen. Het doel is simpel: elke nieuwe golfer spelenderwijs naar een eerste officiële handicap begeleiden.",
+        text: "Wil je beginnen met golf in België maar heb je geen idee waar te starten? Dan is de <strong>Just Golf route</strong> — voorheen bekend als <strong>Route 36</strong> — precies wat je nodig hebt. Dit persoonlijk begeleidingstraject van Golf Vlaanderen vervangt het vroegere GVB-systeem met zijn zware examens en verplichte testen. Het doel is simpel: elke nieuwe golfer spelenderwijs naar een eerste officiële handicap begeleiden.",
       },
       {
         type: "stats",
@@ -123,10 +123,10 @@ export const posts: Post[] = [
           { num: "14", label: "badges te verzamelen" },
         ],
       },
-      { type: "h2", text: "Waarom bestaat Route 36?" },
+      { type: "h2", text: "Waarom bestaat de Just Golf route?" },
       {
         type: "p",
-        text: "Golf Vlaanderen stelde een ongemakkelijke waarheid vast: de helft van alle drop-out — meer dan 3.000 golfers per jaar — stopt bij spelers die nog geen twee jaar actief zijn én de drempel van handicap 36 nog niet gehaald hebben. Het waren mensen die de sport graag zagen, maar ergens onderweg afhaken. Route 36 is het antwoord op die stilte.",
+        text: "Golf Vlaanderen stelde een ongemakkelijke waarheid vast: de helft van alle drop-out — meer dan 3.000 golfers per jaar — stopt bij spelers die nog geen twee jaar actief zijn én de drempel van handicap 36 nog niet gehaald hebben. Het waren mensen die de sport graag zagen, maar ergens onderweg afhaken. De Just Golf route is het antwoord op die stilte.",
       },
       {
         type: "quote",
@@ -179,17 +179,17 @@ export const posts: Post[] = [
       { type: "h2", text: "De BEgolf-app: jouw digitale caddie" },
       {
         type: "p",
-        text: "De app is de centrale plek voor je volledige Route 36-traject. Je installeert hem via je federatienummer en persoonlijk wachtwoord. Je volgt er je voortgang op, oefent je regelkennis, boekt greenfees op andere clubs en schrijft je in voor clubwedstrijden. Elke badge die je behaalt, verschijnt er live — een kleine, maar merkbare motivatie om door te zetten.",
+        text: "De app is de centrale plek voor je volledige Just Golf-traject. Je installeert hem via je federatienummer en persoonlijk wachtwoord. Je volgt er je voortgang op, oefent je regelkennis, boekt greenfees op andere clubs en schrijft je in voor clubwedstrijden. Elke badge die je behaalt, verschijnt er live — een kleine, maar merkbare motivatie om door te zetten.",
       },
       { type: "quote", text: "\u201CGeen zorgen, Just Golf.\u201D — Golf Vlaanderen" },
       { type: "h2", text: "Klaar om te starten?" },
       {
         type: "p",
-        text: "Route 36 maakt van golf wat het altijd had moeten zijn: toegankelijk, plezierig en op jouw tempo. Geen zware examens, geen onnodige druk op slechte rondes. Gewoon stap voor stap, badge per badge, richting je eerste officiële handicap. Contacteer een golfclub bij jou in de buurt en vraag naar het Just Golf traject.",
+        text: "De Just Golf route maakt van golf wat het altijd had moeten zijn: toegankelijk, plezierig en op jouw tempo. Geen zware examens, geen onnodige druk op slechte rondes. Gewoon stap voor stap, badge per badge, richting je eerste officiële handicap. Contacteer een golfclub bij jou in de buurt en vraag naar het Just Golf traject.",
       },
       {
         type: "source",
-        text: "Bron: Golf Vlaanderen & golfvlaanderen.be — Route 36 / Just Golf route documentatie",
+        text: "Bron: Golf Vlaanderen & golfvlaanderen.be — Just Golf route documentatie",
       },
     ],
   },
