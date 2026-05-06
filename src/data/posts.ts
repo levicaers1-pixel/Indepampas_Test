@@ -31,6 +31,138 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "grip-academy-kempense-golf",
+    title: "Wij gingen langs bij grip.academy — dit hebben we geleerd",
+    titleHtml: "Wij gingen langs bij<br/>grip.academy —<br/><em>dit hebben we geleerd.</em>",
+    excerpt:
+      "Op de Kempense Golf testten we Trackman, HackMotion, Golfbox AI en 3D drukplaten. Een eerlijke, enthousiaste terugblik op een sessie die ons kijk op golf voorgoed veranderde.",
+    date: "06/05/2026",
+    author: "PAMPAS Redactie",
+    readTime: "8 min",
+    topics: ["Technologie", "grip.academy", "Kempense Golf", "Trackman", "HackMotion"],
+    category: "Technologie · Coaching · Analyse",
+    sourceName: "grip.academy · Kempense Golf",
+    content:
+      "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "Op de Kempense Golf testten we Trackman, HackMotion, Golfbox AI en 3D drukplaten. Een eerlijke, enthousiaste terugblik op een sessie die ons kijk op golf voorgoed veranderde.",
+      },
+      {
+        type: "p",
+        text: "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen. Een sessie bij grip.academy — een naam die je in de Belgische golfwereld steeds vaker hoort — zou ons laten kennismaken met vier technologieën die professionele coaches wereldwijd gebruiken. Wat we niet verwacht hadden, was dat we twee uur later de baan zouden verlaten met een fundamenteel ander begrip van onze eigen swing. Gevoel is waardevol, maar data liegt niet. En bij grip.academy hebben ze de tools én de expertise om die data voor je tot leven te brengen.",
+      },
+      {
+        type: "stats",
+        items: [
+          { num: "26+", label: "Trackman parameters" },
+          { num: "±1°", label: "HackMotion precisie" },
+          { num: "1000/s", label: "Drukplaat metingen" },
+          { num: "4", label: "tools · 1 systeem" },
+        ],
+      },
+      { type: "h2", text: "Trackman — de radar die alles ziet" },
+      {
+        type: "p",
+        text: "De sessie bij grip.academy begon met Trackman, en dat is geen toeval. Trackman is wereldwijd de gouden standaard in balvluchtanalyse, en de coaches bij grip.academy gebruiken het als vertrekpunt voor élke analyse. Gebruik makend van dubbele Doppler-radartechnologie volgt het systeem tegelijkertijd de clubkop én de bal — van het moment van impact tot aan het neerkomen op de fairway. Geen enkel ander systeem geeft je zo'n compleet beeld van wat er werkelijk gebeurt bij elke slag.",
+      },
+      {
+        type: "quote",
+        text: "De coach bij grip.academy legde het perfect uit: Trackman vertelt je niet wat je denkt dat er gebeurt. Het vertelt je wat er écht gebeurt. En dat verschil was voor ons ronduit schokkend — en ongelooflijk verhelderend.",
+      },
+      {
+        type: "p",
+        text: "Wat maakt Trackman zo bijzonder? De combinatie van meer dan 26 parameters die het tegelijk registreert. Van spin rate en launch angle tot attack angle, smash factor en carry distance — elk gegeven helpt coach én speler begrijpen waarom een bal links krult, te hoog vliegt of te weinig carry produceert. Bij grip.academy worden de resultaten live gedeeld via een tablet, zodat je als golfer exact meekijkt met wat de coach ziet. Die gedeelde taal verandert de dynamiek van een les volledig.",
+      },
+      {
+        type: "p",
+        text: "We sloegen een tiental ballen en zagen voor het eerst met eigen ogen waarom onze slice al jaren hardnekkig bleef. Tien minuten Trackman gaf meer inzicht dan maanden van raden en gissen. De coaches op de Kempense Golf gebruiken het bovendien voor club- en golfbalfitting: kies je materiaal op basis van harde cijfers, niet op gevoel of verkooppraatjes.",
+      },
+      { type: "h2", text: "HackMotion — biofeedback voor je polsen" },
+      {
+        type: "p",
+        text: "Vervolgens werden de HackMotion-sensoren om onze polsen bevestigd — en begon het pas echt interessant te worden. Als Trackman je vertelt wat de bal doet, dan vertelt HackMotion je wat je handen doen. En in golf is polspositie — zowel in de backswing, op de top als door impact — misschien wel de meest ondergewaardeerde factor in consistentie. De coaches bij grip.academy zweren bij deze tool om technische correcties sneller en duurzamer in te slijpen dan via klassieke visuele instructie ooit mogelijk zou zijn.",
+      },
+      {
+        type: "badges",
+        items: [
+          {
+            num: "Meting 01",
+            title: "Flexie & extensie",
+            text: "De sensor meet nauwkeurig hoeveel je pols buigt of strekt doorheen de volledige swingbeweging. Een te geklopte pols op de top van de backswing is een van de meest voorkomende oorzaken van inconsistentie — HackMotion maakt dat patroon onmiddellijk zichtbaar én voelbaar.",
+          },
+          {
+            num: "Meting 02",
+            title: "Ulnaire & radiale deviatie",
+            text: "De zijwaartse beweging van de pols — naar pink of duim toe — heeft een enorme impact op de clubface bij impact. HackMotion kwantificeert dit tot op één graad nauwkeurig en vergelijkt jouw waarden real-time met referentiedata van PGA- en LET-tourspelers.",
+          },
+          {
+            num: "Meting 03",
+            title: "Real-time audiofeedback",
+            text: "Zodra jouw polspositie buiten het ingestelde streefbereik valt, geeft de app een geluidssignaal. Die directe koppeling tussen beweging en feedback versnelt motorisch leren drastisch. Je leert het juiste gevoel — niet alleen het juiste beeld.",
+          },
+          {
+            num: "Meting 04",
+            title: "Putting & short game",
+            text: "HackMotion stopt niet bij de volledige swing. Voor putting is polsstabiliteit door impact cruciaal — en meetbaar. De tool is inzetbaar voor wedge play, chippen en de putt, waardoor het een volwaardig analysesysteem is voor alle onderdelen van het spel.",
+          },
+        ],
+      },
+      {
+        type: "p",
+        text: "Wat onze sessie bij grip.academy duidelijk maakte: een coach kan honderd keer zeggen \"houd je pols vlakker op de top\" — maar met HackMotion vóél je het exact op het juiste moment. Die combinatie van een ervaren oog en directe biofeedback is wat grip.academy onderscheidt van een gewone golfles. Alle sessiedata wordt opgeslagen, zodat je bij elke volgende les meteen ziet of je progressie hebt geboekt.",
+      },
+      { type: "h2", text: "Golfbox AI — jouw digitale caddie op de baan" },
+      {
+        type: "p",
+        text: "Technologie stopt bij grip.academy niet aan de rand van de drivingrange. Na de fysieke analyse namen de coaches de tijd om onze Golfbox-data te bekijken — en dat opende een tweede front van inzichten. Golfbox AI brengt data-gedreven analyse naar het daadwerkelijke spel op de baan. Geïntegreerd in de vertrouwde Golfbox-omgeving analyseert het systeem je rondescores, hole-per-hole prestaties, greens-in-regulation, fairway-accuraatheid en putaantallen.",
+      },
+      {
+        type: "quote",
+        text: "Onze coach bij grip.academy wees ons op een patroon dat we zelf nooit hadden opgemerkt: we verloren structureel slagen op par-3's — niet door een slechte swing, maar door systematisch de verkeerde club te kiezen.",
+      },
+      {
+        type: "p",
+        text: "Golfbox AI interpreteert de statistieken en geeft gepersonaliseerde aanbevelingen. Welk deel van jouw spel kost je de meeste slagen? Waar laat je strokes liggen die je kunt terugpakken? Het systeem geeft antwoorden op vragen die je zelf niet eens dacht te stellen. Bij grip.academy wordt die data actief gebruikt om lessen te sturen: zo werden onze oefeningen na de Golfbox-analyse direct aangepast op wat we écht nodig hadden.",
+      },
+      {
+        type: "p",
+        text: "Die combinatie van baan-data en oefenfaciliteit is precies waarom een bezoek aan grip.academy op de Kempense Golf zo waardevol is. Je vertrekt niet met een algemeen advies, maar met een plan dat op jou persoonlijk is afgestemd.",
+      },
+      { type: "h2", text: "3D drukplaten — de kracht die je niet ziet" },
+      {
+        type: "p",
+        text: "Het meest spectaculaire moment van onze sessie bij grip.academy was zonder twijfel het werken met de 3D drukplaten. We stapten op het platform, sloegen een bal, en keken in real-time toe hoe een heatmap onze gewichtsoverdracht in kaart bracht. De meest onderschatte component van een goede golfswing — hoe jij je kracht via de grond ontwikkelt — lag plots volledig bloot.",
+      },
+      {
+        type: "quote",
+        text: "We zagen live hoe we al ons gewicht naar onze achtervoet lieten hangen na impact. Dat kostte minstens 20 meter carry. Vijf slagen later, met de feedback van de coach en de drukplaat, begon het al te verbeteren.",
+      },
+      {
+        type: "p",
+        text: "Het systeem meet in real-time de druk onder beide voeten — links, rechts, voor, achter — tijdens elke fase van de swing. De resulterende data wordt omgezet in een heatmap en een temporele grafiek die laat zien hoe jouw gewicht beweegt doorheen de tijd. Met meer dan duizend metingen per seconde gaat geen enkele nuance verloren. Op de Kempense Golf is dit geïntegreerd in de analyseruimte van grip.academy, wat het gebruik ervan uitzonderlijk vlot en intuïtief maakt.",
+      },
+      {
+        type: "p",
+        text: "Wat 3D drukplaten zo onmisbaar maakt is dat ze bewegingspatronen onthullen die totaal niet zichtbaar zijn op video — en die de coaches bij grip.academy gebruiken om gericht en snel te corrigeren. Bovendien zijn ze een krachtig instrument voor blessurepreventie: asymmetrische belasting vroeg detecteren betekent rugklachten, kniepijn of heupproblemen voorkómen voor ze ontstaan.",
+      },
+      { type: "h2", text: "Ons verdict: ga erheen" },
+      {
+        type: "p",
+        text: "We vertrokken van de Kempense Golf met meer inzichten over onze swing dan na jaren van klassieke lessen. Dat is de kracht van grip.academy: de combinatie van vier complementaire technologieën, bediend door coaches die weten hoe ze die data moeten vertalen naar bruikbaar advies. Trackman onthult wat de bal doet, HackMotion wat de handen doen, de drukplaten wat de voeten doen, en Golfbox AI wat het allemaal betekent op de baan. Samen vormen ze een 360°-analyse die tien jaar geleden alleen voor tourspelers toegankelijk was.",
+      },
+      {
+        type: "p",
+        text: "grip.academy op de Kempense Golf is een adres dat elke serieuze golfer — van enthousiaste amateur tot gevorderde speler — minstens één keer zou moeten bezoeken. Niet omdat technologie golf vervangt, maar omdat het je eindelijk laat zien wat je zelf nooit kon waarnemen. En dan gaat het snel. Opvallend snel.",
+      },
+      {
+        type: "source",
+        text: "Bron: grip.academy · Kempense Golf — sessieverslag mei 2026",
+      },
+    ],
+  },
+  {
     slug: "einde-liv-golf",
     title: "Bedankt voor de biljarden, sheik — het einde van LIV Golf",
     titleHtml: "Bedankt voor de<br/>biljarden, sheik —<br/><em>het einde van LIV Golf.</em>",
