@@ -42,6 +42,7 @@ export const posts: Post[] = [
     topics: ["Technologie", "grip.academy", "Kempense Golf", "Trackman", "HackMotion"],
     category: "Technologie · Coaching · Analyse",
     sourceName: "grip.academy · Kempense Golf",
+    sourceUrl: "https://grip.academy/",
     content:
       "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen.",
     richContent: [
