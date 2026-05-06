@@ -217,8 +217,14 @@ export function RichBlogPost({ post, prev, next }: Props) {
             <SidebarBlock label="Categorie">{post.category}</SidebarBlock>
           )}
           {post.sourceName && (
-            <SidebarBlock label="Bron">
+            <SidebarBlock label={post.sourceLabel ?? "Bron"}>
               {post.sourceName}
+              {post.sourceSubtitle && (
+                <>
+                  <br />
+                  {post.sourceSubtitle}
+                </>
+              )}
               {post.sourceUrl && (
                 <>
                   <br />
@@ -233,7 +239,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                       letterSpacing: "0.1em",
                     }}
                   >
-                    Lees origineel →
+                    {post.sourceLinkLabel ?? "Lees origineel →"}
                   </a>
                 </>
               )}
