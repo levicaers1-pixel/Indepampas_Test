@@ -25,6 +25,9 @@ export type Post = {
   category?: string;
   sourceName?: string;
   sourceUrl?: string;
+  sourceLabel?: string;
+  sourceLinkLabel?: string;
+  sourceSubtitle?: string;
   /** Optional custom layout key for one-off post designs. */
   customLayout?: "witb";
 };
@@ -41,8 +44,11 @@ export const posts: Post[] = [
     readTime: "8 min",
     topics: ["Technologie", "grip.academy", "Kempense Golf", "Trackman", "HackMotion"],
     category: "Technologie · Coaching · Analyse",
-    sourceName: "grip.academy · Kempense Golf",
+    sourceName: "grip.academy",
     sourceUrl: "https://grip.academy/",
+    sourceLabel: "Locatie",
+    sourceLinkLabel: "Bezoek grip.academy →",
+    sourceSubtitle: "Kempense Golf · België",
     content:
       "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen.",
     richContent: [
