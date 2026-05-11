@@ -15,7 +15,7 @@ export const episodes: Episode[] = [
   {
     number: "04",
     season: "S01",
-    title: "Episode 4 - Flowering Crab Apple",
+    title: "#04 Flowering Crab Apple - Soudal uit de doeken | LIV Breakdown | Millenium golf in een notendop",
     description:
       "Vandaag krijgen we bezoek van iemand die alles weet rondom het reilen en zeilen bij de enige Belgische European tour manche. Hij komt ons enkele leuke insights geven die bij zo'n tornooi komen kijken.",
     date: "05/05/2026",
@@ -26,7 +26,7 @@ export const episodes: Episode[] = [
   {
     number: "03",
     season: "S01",
-    title: "Episode 3 - Flowering Peach",
+    title: "#03 Flowering Peach - LIV op instorten? | Efficient Scoren | What about EDS?",
     description:
       "In deze aflevering blikken we terug op het Belgisch en Internationaal golfnieuws. We gaan van de PGA tour naar de European Tour met een tussenstop langs LIV. Onze twee blijvende formats komen ook terug aan bod: De Pikante Prikkelvraag & De Groenen Hoek.",
     date: "28/04/2026",
@@ -37,7 +37,7 @@ export const episodes: Episode[] = [
   {
     number: "02",
     season: "S01",
-    title: "Episode 2 - Pink Dogwood",
+    title: "#02 Pink Dogwood - Belgische Top op de Interclubs | Europa boven in RBC Heritage | Dresscode, yea or nay",
     description:
       "In deze aflevering blikken we terug op het eerste Interclub weekend en de RBC Heritage. Daarnaast introduceren we twee nieuwe formats: De Groenen Hoek & De Pikante Prikkelvraag.",
     date: "21/04/2026",
@@ -48,7 +48,7 @@ export const episodes: Episode[] = [
   {
     number: "01",
     season: "S01",
-    title: "Episode 1 - Tea Olive",
+    title: "#01 Tea Olive - McIlroy heer en meester | De roll-back, een goed idee?",
     description:
       "De allereerste aflevering van PAMPAS. Lars, Levi en Niels stellen zichzelf voor en zetten de toon voor wat komen gaat. Voor vragen en opmerkingen: pampas.podcast@gmail.com of via IG @pampas.golfpodcast.",
     date: "14/04/2026",
