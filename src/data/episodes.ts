@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "05",
+    season: "S01",
+    title: "#05 Magnolia - PGA Championship Preview, Reitan wint & Golf Tech diepte-analyse",
+    description:
+      "In deze aflevering duiken we diep in de wereld van moderne golftechnologie na een bezoek aan de Grip Academy op de Kempense, waar instructeur Nicolas Mertens ons meeneemt door tools als Trackman, HackMotion, Sportbox AI en Pressure Plates. Verder: Rahm's deal met de DP World Tour, het Soudal Open, de Truist Championship, Myrtle Beach Classic, een PGA Championship preview en De Pikante Prikkelvraag over lidmaatschap vs pay-and-play.",
+    date: "12/05/2026",
+    duration: "1u 19min",
+    spotifyId: "1LMN79jkHOAvxz6JYb9b8q",
+    topics: ["Golf", "PGA Championship", "Golf Tech", "Trackman", "Soudal Open", "Prikkelvraag"],
+  },
+  {
     number: "04",
     season: "S01",
     title: "#04 Flowering Crab Apple - Soudal uit de doeken | LIV Breakdown | Millenium golf in een notendop",
