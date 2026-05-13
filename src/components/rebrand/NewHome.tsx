@@ -200,7 +200,7 @@ export function NewHome() {
             type="email"
             required
             placeholder="je@email.be"
-            className="flex-1 px-5 py-3 bg-white/[0.08] border border-[rgba(244,239,229,0.2)] border-r-0 text-[#F4EFE5] font-rb-sans text-sm outline-none placeholder:text-[rgba(244,239,229,0.3)]"
+            className="flex-1 px-5 py-3 bg-white/[0.08] border border-[rgba(244,239,229,0.2)] border-r-0 text-[#F4EFE5] font-rb-sans text-sm outline-none placeholder:text-[rgba(244,239,229,0.6)]"
           />
           <button
             type="submit"
