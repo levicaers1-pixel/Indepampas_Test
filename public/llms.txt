@@ -1,0 +1,21 @@
+# PAMPAS — Belgische Golf Podcast
+
+> PAMPAS is dé Belgische golfpodcast. Drie vrienden — Lars, Levi en Niels — praten wekelijks over alles wat de fairway én de rough te bieden heeft. Voor golfers, door golfers.
+
+## Pages
+
+- [Home](/): Introductie, nieuwste aflevering en Spotify-speler.
+- [Afleveringen](/afleveringen): Volledig archief van alle podcastafleveringen.
+- [Blog](/blog): Verdiepende stukken, opinies en analyses.
+- [De Hosts](/hosts): Maak kennis met Lars, Levi en Niels.
+- [Contact](/contact): Contact, sponsoring en samenwerkingen.
+
+## Blog
+
+- [PGA Championship 2026 — Aronimink preview](/blog/pga-championship-2026-aronimink): Europese kansen op de Wanamaker.
+- [Grip Academy — Kempense Golf](/blog/grip-academy-kempense-golf): Trackman, HackMotion en 3D drukplaten getest.
+- [Het einde van LIV Golf](/blog/einde-liv-golf): Terugblik op de val van LIV.
+- [Just Golf — Route 36](/blog/route-36-just-golf): Het persoonlijke startpistool voor beginnende golfers.
+- [De boom staat er gewoon](/blog/boom-in-de-fairway): Iconische bomen op Belgische banen.
+- [WITB — Team Pampas](/blog/witb-team-pampas): What's in the bag van de hosts.
+- [Welkom op de Pampas Blog](/blog/welkom-op-de-pampas-blog): Introductie van de blog.
