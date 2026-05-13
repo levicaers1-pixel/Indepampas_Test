@@ -301,6 +301,8 @@ export const posts: Post[] = [
     titleHtml: "Bedankt voor de<br/>biljarden, sheik —<br/><em>het einde van LIV Golf.</em>",
     excerpt:
       "Saudi-Arabië trekt de stekker eruit. Bryson wil terug. Phil Mickelson zit ergens op een jacht. Een terugblik met gepaste — en eerlijk gezegd verdiende — leedvermaak.",
+    seoDescription:
+      "Saudi-Arabië trekt de stekker eruit, Bryson wil terug, Phil zit op een jacht. Een terugblik op het einde van LIV Golf, met gepast leedvermaak.",
     date: "03/05/2026",
     author: "PAMPAS Redactie",
     readTime: "6 min",
