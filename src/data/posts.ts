@@ -163,6 +163,8 @@ export const posts: Post[] = [
     titleHtml: "Wij gingen langs bij<br/>grip.academy —<br/><em>dit hebben we geleerd.</em>",
     excerpt:
       "Op de Kempense Golf testten we Trackman, HackMotion, Golfbox AI en 3D drukplaten. Een eerlijke, enthousiaste terugblik op een sessie die ons kijk op golf voorgoed veranderde.",
+    seoDescription:
+      "We testten Trackman, HackMotion en 3D drukplaten bij grip.academy op de Kempense Golf. Een eerlijke terugblik op een sessie die alles veranderde.",
     date: "06/05/2026",
     author: "PAMPAS Redactie",
     readTime: "8 min",
