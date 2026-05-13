@@ -30,6 +30,8 @@ export type Post = {
   sourceSubtitle?: string;
   /** Optional custom layout key for one-off post designs. */
   customLayout?: "witb";
+  /** Optional SEO meta description override (50–160 chars). Falls back to excerpt. */
+  seoDescription?: string;
 };
 
 export const posts: Post[] = [
