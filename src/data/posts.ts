@@ -41,6 +41,8 @@ export const posts: Post[] = [
     titleHtml: "Aronimink wacht —<br/>kan Europa de<br/><em>Wanamaker veroveren?</em>",
     excerpt:
       "Rory jaagt op geschiedenis, Nicolai Hojgaard bruist van vertrouwen en het Europese contingent is sterker dan ooit. Een Belgische blik op het tweede major van 2026.",
+    seoDescription:
+      "Rory jaagt op geschiedenis en het Europese contingent is sterker dan ooit. Een Belgische blik op het PGA Championship 2026 in Aronimink.",
     date: "13/05/2026",
     author: "PAMPAS Redactie",
     readTime: "9 min",
