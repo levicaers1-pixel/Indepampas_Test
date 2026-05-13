@@ -30,6 +30,8 @@ export type Post = {
   sourceSubtitle?: string;
   /** Optional custom layout key for one-off post designs. */
   customLayout?: "witb";
+  /** Optional SEO meta description override (50–160 chars). Falls back to excerpt. */
+  seoDescription?: string;
 };
 
 export const posts: Post[] = [
@@ -39,6 +41,8 @@ export const posts: Post[] = [
     titleHtml: "Aronimink wacht —<br/>kan Europa de<br/><em>Wanamaker veroveren?</em>",
     excerpt:
       "Rory jaagt op geschiedenis, Nicolai Hojgaard bruist van vertrouwen en het Europese contingent is sterker dan ooit. Een Belgische blik op het tweede major van 2026.",
+    seoDescription:
+      "Rory jaagt op geschiedenis en het Europese contingent is sterker dan ooit. Een Belgische blik op het PGA Championship 2026 in Aronimink.",
     date: "13/05/2026",
     author: "PAMPAS Redactie",
     readTime: "9 min",
@@ -159,6 +163,8 @@ export const posts: Post[] = [
     titleHtml: "Wij gingen langs bij<br/>grip.academy —<br/><em>dit hebben we geleerd.</em>",
     excerpt:
       "Op de Kempense Golf testten we Trackman, HackMotion, Golfbox AI en 3D drukplaten. Een eerlijke, enthousiaste terugblik op een sessie die ons kijk op golf voorgoed veranderde.",
+    seoDescription:
+      "We testten Trackman, HackMotion en 3D drukplaten bij grip.academy op de Kempense Golf. Een eerlijke terugblik op een sessie die alles veranderde.",
     date: "06/05/2026",
     author: "PAMPAS Redactie",
     readTime: "8 min",
@@ -295,6 +301,8 @@ export const posts: Post[] = [
     titleHtml: "Bedankt voor de<br/>biljarden, sheik —<br/><em>het einde van LIV Golf.</em>",
     excerpt:
       "Saudi-Arabië trekt de stekker eruit. Bryson wil terug. Phil Mickelson zit ergens op een jacht. Een terugblik met gepaste — en eerlijk gezegd verdiende — leedvermaak.",
+    seoDescription:
+      "Saudi-Arabië trekt de stekker eruit, Bryson wil terug, Phil zit op een jacht. Een terugblik op het einde van LIV Golf, met gepast leedvermaak.",
     date: "03/05/2026",
     author: "PAMPAS Redactie",
     readTime: "6 min",
