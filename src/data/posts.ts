@@ -34,6 +34,126 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    slug: "pga-championship-2026-aronimink",
+    title: "Aronimink wacht — kan Europa de Wanamaker veroveren?",
+    titleHtml: "Aronimink wacht —<br/>kan Europa de<br/><em>Wanamaker veroveren?</em>",
+    excerpt:
+      "Rory jaagt op geschiedenis, Nicolai Hojgaard bruist van vertrouwen en het Europese contingent is sterker dan ooit. Een Belgische blik op het tweede major van 2026.",
+    date: "13/05/2026",
+    author: "PAMPAS Redactie",
+    readTime: "9 min",
+    topics: ["Major Preview", "PGA Championship", "Aronimink", "McIlroy", "Europa"],
+    category: "Major Preview · PGA Championship",
+    sourceName: "PAMPAS Redactie",
+    sourceLabel: "Bron",
+    content:
+      "Het is weer zover. Aronimink Golf Club opent donderdag de poorten voor de 108ste editie van het PGA Championship.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "Rory jaagt op geschiedenis, Nicolai Hojgaard bruist van vertrouwen en het Europese contingent is sterker dan ooit. Een Belgische blik op het tweede major van 2026.",
+      },
+      {
+        type: "p",
+        text: "Het is weer zover. Terwijl de rest van de wereld op het nieuws wacht, weten wij golfliefhebbers al weken dat deze week anders wordt. Aronimink Golf Club, net buiten Philadelphia, opent donderdag de poorten voor de 108ste editie van het PGA Championship — en van hieruit, vanuit de Lage Landen, kijken we met bijzondere interesse toe. Want de Europese golf staat er beter voor dan in jaren. En ook al heeft België geen speler in het veld, we have a dog in this fight. Zijn naam is Rory McIlroy.",
+      },
+      {
+        type: "stats",
+        items: [
+          { num: "108", label: "Editie PGA Championship" },
+          { num: "156", label: "Spelers in het veld" },
+          { num: "6", label: "Majors Rory McIlroy" },
+          { num: "1962", label: "Laatste PGA op Aronimink" },
+        ],
+      },
+      { type: "h2", text: "Het speelterrein: Aronimink Golf Club" },
+      {
+        type: "p",
+        text: "Aronimink Golf Club in Newtown Square, Pennsylvania, ontving voor het laatst een PGA Championship in 1962 — toen won de Zuid-Afrikaan Gary Player met één slag verschil. Sindsdien onderging het klassieke Donald Ross-ontwerp uit 1928 meerdere restauraties, waarbij architect Ron Prichard de baan in de jaren negentig en tweeduizenden zo dicht mogelijk terugbracht naar Ross' originele visie. Ross proclameerde destijds: \"I intended to make this my masterpiece\" — en wie de foto's ziet van de geraffineerde bunkering en de verraderlijke groencompeties, gelooft hem op zijn woord. Voor spelers die de baan niet goed kennen is dit een serieuze uitdaging. Rory McIlroy speelde Aronimink één keer competitief: in 2018 bij het BMW Championship, goed voor een vijfde plaats. Vertrouwdheid is er dus niet, maar zijn recente vormspiegel meer dan compenseert.",
+      },
+      {
+        type: "quote",
+        text: "Een Donald Ross-meesterwerk dat 64 jaar heeft gewacht op zijn volgende grootmeester. En die grootmeester vliegt mogelijk vanuit Noord-Ierland binnen.",
+      },
+      { type: "h2", text: "Rory McIlroy — man van het moment" },
+      {
+        type: "p",
+        text: "Laten we niet om de hete brij heen draaien: Rory McIlroy is de man die deze week alle aandacht trekt, en terecht. Na zijn tweede opeenvolgende Masters-titel in april — waarmee hij in het voetspoor trad van Jack Nicklaus, Nick Faldo en Tiger Woods — arriveert de Noord-Ier in Philadelphia met een zeldzame combinatie van momentum, zelfvertrouwen en honger. Een derde Wanamaker Trophy zou hem op gelijke hoogte brengen met een handvol legendes in PGA Championship-geschiedenis.",
+      },
+      {
+        type: "p",
+        text: "Zijn voorbereiding was niet vlekkeloos: bij het Truist Championship vorige week in Charlotte eindigde hij op een teleurstellende gedeelde 19de plaats. Maar wie de cijfers bekijkt, ziet iets anders dan een man in slechte vorm. Zijn balslag was de hele week scherp, met strokes gained/ball-striking-cijfers vergelijkbaar met die van toernooiwinnaar Kristoffer Reitan. Eén ongelukkige hook op de 14de hole zondag kostte hem zijn tee-statistieken voor de week. Bovendien liep hij deze week met een pijnlijke blaar onder de nagel van zijn kleine rechterteen — hij verwijderde de nagel maandagavond eigenhandig in bad, waarna hij dinsdag na drie holes zijn oefenronde afbrak. Geen zorgen maken? Misschien wel. Maar men vergeet niet dat deze man met een vergelijkbare kalme vastberadenheid zijn Grand Slam completeerde.",
+      },
+      {
+        type: "quote",
+        text: "Rory is nu in een beter hoofd dan vorig jaar, zei hij zelf dinsdag. En als er één speler is wiens lichaamstaal iets betekent, is hij het.",
+      },
+      { type: "h2", text: "De Europese uitdagers — een generatie in bloei" },
+      {
+        type: "p",
+        text: "Maar Rory staat niet alleen. De Europese golf brengt dit jaar een kwalitatief veld mee dat het hart van elke Old World-supporter sneller doet slaan. We lopen de voornaamste namen door.",
+      },
+      {
+        type: "badges",
+        items: [
+          {
+            num: "Speler 01",
+            title: "🇩🇰 Nicolai Hojgaard — de verrassing van het seizoen",
+            text: "Als er één naam is die u moet onthouden deze week, is het die van de Deense tweeling Nicolai Hojgaard. Hij eindigde vorige week op een gedeelde tweede plaats bij het Truist Championship — zijn vijfde top-6-finish dit seizoen. Statistisch gezien is hij de negende beste speler in dit veld, wint hij gemiddeld 1,25 strokes per ronde en zijn ijzerspel is ronduit dominant: hij won strokes on approach in vijftien opeenvolgende toernooien. Met drie overwinningen op de DP World Tour en negen cuts gemaakt in zijn laatste elf major-starts, is dit geen speculatie meer. Zijn prijskaartje van +5000 is verbluffend laag voor iemand van zijn kaliber.",
+          },
+          {
+            num: "Speler 02",
+            title: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Tommy Fleetwood — de eeuwige kandidaat",
+            text: "Fleetwood is de reigning FedEx Cup-kampioen en telde dit seizoen al vijf top-10-finishes, al blijft een eerste major-overwinning zijn grote witte walvis. De Engelsman ontdekte bij het Truist Championship eindelijk zijn puttingstap terug — de enige echte zwakke schakel in zijn spel dit seizoen. Als die putter meegaat bij Aronimink, is Fleetwood meer dan capabel om vier ronden consistent te leveren. Zijn ijzerspel en wedge game zijn ideaal voor de veeleisende Donald Ross-greens.",
+          },
+          {
+            num: "Speler 03",
+            title: "🇬🇧 Tyrrell Hatton — de stille gevaarlijke man",
+            text: "Hatton lijkt het grootste gedeelte van het jaar onder de radar te vliegen — tot hij bij een major opduikt in de top van het klassement. Een gedeelde derde plaats bij de Masters dit jaar, een bijna-overwinning bij de US Open vorig seizoen, en een gedeelde vierde plek bij Oakmont. Statistisch staat hij vijfde in dit veld in strokes gained/ball-striking over de voorbije 36 rondes, en eveneens vijfde in SG/par 4s en SG/total in moeilijke scoringsomstandigheden. Als het weer hem uitkomt — en er is regen in de voorspelling — zal Hatton zijn. Odds van +5500 zijn een geschenk.",
+          },
+          {
+            num: "Speler 04",
+            title: "🇸🇪 Ludvig Åberg — het Zweedse talent onder druk",
+            text: "Åberg miste de cut in zijn twee vorige PGA Championships — een statistisch anomalie voor een speler die dit jaar in bijna elk ander toernooi contendeerde. Zijn ijzerspel is wereldklasse, zijn short game is beduidend verbeterd ten opzichte van vorig seizoen, en zijn rijafstand geeft hem enorme voordelen op een baan als Aronimink. De grote vraag is zijn mentale weerbaarheid op zondag bij een major. Na zijn implosie bij The Players eerder dit jaar, staat hij voor zijn beproeving. Odds van +1800 tot +2000 weerspiegelen dat twijfel — maar ook de enorme opwaartse potentie.",
+          },
+          {
+            num: "Speler 05",
+            title: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Matt Fitzpatrick — stille reus",
+            text: "Fitzpatrick won drie keer sinds maart, waaronder de RBC Heritage, en verkeert in uitstekende doen. Zijn T8-finish bij het PGA Championship vorig jaar op Quail Hollow, een baan waar hij niet zijn beste spel vertoonde, was een teken van zijn niveau. De Engelsman is het prototype voor een Aronimink-winnaar: nauwkeurig van de tee, dodelijk met de ijzers, en onvermoeibaar consistent. Odds van +2200 zien er prima uit voor iemand die drie keer won dit seizoen en meerdere top-10's noteerde in majors de voorbije twee jaar.",
+          },
+          {
+            num: "Speler 06",
+            title: "🇪🇸 Jon Rahm — de comeback begint nu",
+            text: "Rahm heeft een teleurstellend 2026 achter de rug, en zijn aflopend LIV Golf-avontuur zorgt voor veel ruis buiten de baan. Maar de tweevoudig majorwinnaar is nog altijd een van de gevaarlijkste spelers ter wereld op zijn best. Zijn T8 vorig jaar op Quail Hollow verhult hoe dicht hij Scheffler achter zich had op zondag — tot zijn eigen agressiviteit hem de das omdeed. Rahm bij odds van +1500 kan een uitstekende speculatieve gok zijn voor wie gelooft dat hij zijn niveau terugvindt op een klassiek parcours.",
+          },
+        ],
+      },
+      { type: "h2", text: "De Amerikaanse favoriet — Scheffler is mens, maar nauwelijks" },
+      {
+        type: "p",
+        text: "We zouden onze favorieten tekortdoen als we de Amerikaanse dominantie niet erkennen. Scottie Scheffler is de verdedigend kampioen, de wereldnummer één, en de meest consistente golfer op de planeet. Zes PGA Championship-starts leverden hem vijf top-10's op, waaronder zijn verpletterende overwinning vorig jaar in Charlotte met vijf slagen voorsprong. Drie opeenvolgende tweede plaatsen in de aanloop naar deze week — waaronder verloren van McIlroy bij de Masters — tonen aan dat zelfs Scheffler kan verliezen. Maar zijn odds van +480 zijn de goedkoopste op het bord, en daarmee gerechtvaardigd. Cameron Young is in uitstekende vorm na zijn overwinning bij The Players en een dominante prestatie bij Doral, en verdient zeker aandacht bij +1200.",
+      },
+      {
+        type: "quote",
+        text: "Europa's kans is reëel. McIlroy is in vorm, Fitzpatrick wint toernooien, Hojgaard schittert consistenter dan ooit, en Hatton is — wederom — gevaarlijk onderschat. De Wanamaker Trophy heeft een Europees paspoort nodig.",
+      },
+      { type: "h2", text: "De kansen samengevat" },
+      {
+        type: "p",
+        text: "<strong>Scottie Scheffler</strong> 🇺🇸 — +480 · Terecht favoriet, maar duur.<br/><strong>Rory McIlroy</strong> 🇬🇧 — +850 · Onze topkeuze: momentum &amp; klasse.<br/><strong>Cameron Young</strong> 🇺🇸 — +1200 · In topvorm, gevaarlijk.<br/><strong>Jon Rahm</strong> 🇪🇸 — +1500 · Speculatief maar verleidelijk.<br/><strong>Ludvig Åberg</strong> 🇸🇪 — +1800 · Talent klopt aan de deur.<br/><strong>Matt Fitzpatrick</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2200 · Onderschat na drie zeges — koop.<br/><strong>Tommy Fleetwood</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2700 · Putter zoekt thuis — gevaarlijk.<br/><strong>Tyrrell Hatton</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +5500 · Beste waarde op het bord.<br/><strong>Nicolai Hojgaard</strong> 🇩🇰 — +5000 · Verbluffend goedkoop voor zijn vorm.",
+      },
+      { type: "h2", text: "Onze Belgische conclusie" },
+      {
+        type: "p",
+        text: "Vanuit de Lage Landen kijken we toe op een week die alles heeft om épisch te worden. Rory McIlroy kan als eerste speler ooit de Masters en de PGA Championship in hetzelfde jaar winnen én opeenvolgend de Masters verdedigen — een historische dubbel die zijn al indrukwekkende erfenis nog verder vergroot. De Europese golf is breed en diep, gevuld met spelers die de juiste combinatie van talent, ervaring en huidig niveau hebben om zondag de Wanamaker Trophy omhoog te houden.",
+      },
+      {
+        type: "source",
+        text: "Bron: PAMPAS Redactie · Major Preview — mei 2026",
+      },
+    ],
+  },
+  {
     slug: "grip-academy-kempense-golf",
     title: "Wij gingen langs bij grip.academy — dit hebben we geleerd",
     titleHtml: "Wij gingen langs bij<br/>grip.academy —<br/><em>dit hebben we geleerd.</em>",
