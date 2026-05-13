@@ -42,7 +42,7 @@ export function NewFooter() {
         </div>
       </div>
 
-      <div className="px-6 lg:px-14 py-6 border-t border-[rgba(244,239,229,0.1)] flex flex-col md:flex-row justify-between gap-3 font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[rgba(244,239,229,0.4)]">
+      <div className="px-6 lg:px-14 py-6 border-t border-[rgba(244,239,229,0.1)] flex flex-col md:flex-row justify-between gap-3 font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[rgba(244,239,229,0.7)]">
         <div>© {new Date().getFullYear()} PAMPAS — Onafhankelijk geproduceerd in België</div>
         <div className="text-[#8FBF4A]">Made on the back nine</div>
       </div>
