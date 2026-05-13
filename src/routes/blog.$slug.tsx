@@ -19,16 +19,17 @@ export const Route = createFileRoute("/blog/$slug")({
       return { meta: [{ title: "Post niet gevonden — PAMPAS" }] };
     }
     const url = `${SITE_URL}/blog/${post.slug}`;
+    const description = post.seoDescription ?? post.excerpt;
     return {
       meta: [
-        { title: `${post.title} — PAMPAS Blog` },
-        { name: "description", content: post.excerpt },
+        { title: post.title },
+        { name: "description", content: description },
         { property: "og:title", content: post.title },
-        { property: "og:description", content: post.excerpt },
+        { property: "og:description", content: description },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
         { name: "twitter:title", content: post.title },
-        { name: "twitter:description", content: post.excerpt },
+        { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
