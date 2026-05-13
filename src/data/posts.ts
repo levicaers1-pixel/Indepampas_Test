@@ -141,7 +141,11 @@ export const posts: Post[] = [
         type: "quote",
         text: "Europa's kans is reëel. McIlroy is in vorm, Fitzpatrick wint toernooien, Hojgaard schittert consistenter dan ooit, en Hatton is — wederom — gevaarlijk onderschat. De Wanamaker Trophy heeft een Europees paspoort nodig.",
       },
-      { type: "h2", text: "Scottie Scheffler 🇺🇸 — +480 · Terecht favoriet, maar duur.\nRory McIlroy 🇬🇧 — +850 · Onze topkeuze: momentum & klasse.\nCameron Young 🇺🇸 — +1200 · In topvorm, gevaarlijk.\nJon Rahm 🇪🇸 — +1500 · Speculatief maar verleidelijk.\nLudvig Åberg 🇸🇪 — +1800 · Talent klopt aan de deur.\nMatt Fitzpatrick 🇬🇧 — +2200 · Onderschat na drie zeges — koop.\nTommy Fleetwood 🇬🇧 — +2700 · Putter zoekt thuis — gevaarlijk.\nTyrrell Hatton 🇬🇧 — +5500 · Beste waarde op het bord.\nNicolai Hojgaard 🇩🇰 — +5000 · Verbluffend goedkoop voor zijn vorm." },
+      { type: "h2", text: "De kansen samengevat" },
+      {
+        type: "p",
+        text: "<strong>Scottie Scheffler</strong> 🇺🇸 — +480 · Terecht favoriet, maar duur.<br/><strong>Rory McIlroy</strong> 🇬🇧 — +850 · Onze topkeuze: momentum &amp; klasse.<br/><strong>Cameron Young</strong> 🇺🇸 — +1200 · In topvorm, gevaarlijk.<br/><strong>Jon Rahm</strong> 🇪🇸 — +1500 · Speculatief maar verleidelijk.<br/><strong>Ludvig Åberg</strong> 🇸🇪 — +1800 · Talent klopt aan de deur.<br/><strong>Matt Fitzpatrick</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2200 · Onderschat na drie zeges — koop.<br/><strong>Tommy Fleetwood</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2700 · Putter zoekt thuis — gevaarlijk.<br/><strong>Tyrrell Hatton</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +5500 · Beste waarde op het bord.<br/><strong>Nicolai Hojgaard</strong> 🇩🇰 — +5000 · Verbluffend goedkoop voor zijn vorm.",
+      },
       { type: "h2", text: "Onze Belgische conclusie" },
       {
         type: "p",
