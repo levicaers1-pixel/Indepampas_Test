@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HostsRoute = HostsRouteImport.update({
   id: '/hosts',
   path: '/hosts',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/afleveringen': typeof AfleveringenRoute
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -88,10 +97,18 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/hosts'
+    | '/sitemap.xml'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/afleveringen' | '/contact' | '/hosts' | '/blog/$slug' | '/blog'
+  to:
+    | '/'
+    | '/afleveringen'
+    | '/contact'
+    | '/hosts'
+    | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -99,6 +116,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/hosts'
+    | '/sitemap.xml'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -109,10 +127,18 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   HostsRoute: typeof HostsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/hosts': {
       id: '/hosts'
       path: '/hosts'
@@ -183,6 +209,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   HostsRoute: HostsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
