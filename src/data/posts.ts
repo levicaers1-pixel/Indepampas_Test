@@ -144,8 +144,19 @@ export const posts: Post[] = [
       },
       { type: "h2", text: "De kansen samengevat" },
       {
-        type: "p",
-        text: "<strong>Scottie Scheffler</strong> 🇺🇸 — +480 · Terecht favoriet, maar duur.<br/><strong>Rory McIlroy</strong> 🇬🇧 — +850 · Onze topkeuze: momentum &amp; klasse.<br/><strong>Cameron Young</strong> 🇺🇸 — +1200 · In topvorm, gevaarlijk.<br/><strong>Jon Rahm</strong> 🇪🇸 — +1500 · Speculatief maar verleidelijk.<br/><strong>Ludvig Åberg</strong> 🇸🇪 — +1800 · Talent klopt aan de deur.<br/><strong>Matt Fitzpatrick</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2200 · Onderschat na drie zeges — koop.<br/><strong>Tommy Fleetwood</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +2700 · Putter zoekt thuis — gevaarlijk.<br/><strong>Tyrrell Hatton</strong> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 — +5500 · Beste waarde op het bord.<br/><strong>Nicolai Hojgaard</strong> 🇩🇰 — +5000 · Verbluffend goedkoop voor zijn vorm.",
+        type: "table",
+        headers: ["Speler", "Land", "Odds", "Verdict"],
+        rows: [
+          ["Scottie Scheffler", "🇺🇸", "+480", "Terecht favoriet, maar duur."],
+          ["Rory McIlroy", "🇬🇧", "+850", "Onze topkeuze: momentum & klasse."],
+          ["Cameron Young", "🇺🇸", "+1200", "In topvorm, gevaarlijk."],
+          ["Jon Rahm", "🇪🇸", "+1500", "Speculatief maar verleidelijk."],
+          ["Ludvig Åberg", "🇸🇪", "+1800", "Talent klopt aan de deur."],
+          ["Matt Fitzpatrick", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+2200", "Onderschat na drie zeges — koop."],
+          ["Tommy Fleetwood", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+2700", "Putter zoekt thuis — gevaarlijk."],
+          ["Tyrrell Hatton", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+5500", "Beste waarde op het bord."],
+          ["Nicolai Hojgaard", "🇩🇰", "+5000", "Verbluffend goedkoop voor zijn vorm."],
+        ],
       },
       { type: "h2", text: "Onze Belgische conclusie" },
       {
