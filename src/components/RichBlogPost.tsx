@@ -192,6 +192,58 @@ export function RichBlogPost({ post, prev, next }: Props) {
                 </div>
               );
             }
+            if (block.type === "table") {
+              return (
+                <div key={i} className="my-12 overflow-x-auto border border-[#C8BFB0]">
+                  <table className="w-full border-collapse text-left">
+                    <thead className="bg-[#1A3D2B] text-[#F2EDE4]">
+                      <tr>
+                        {block.headers.map((h, hi) => (
+                          <th
+                            key={hi}
+                            className="px-4 py-3 uppercase"
+                            style={{
+                              fontFamily: "'DM Mono', ui-monospace, monospace",
+                              fontSize: "0.6rem",
+                              letterSpacing: "0.15em",
+                            }}
+                          >
+                            {h}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {block.rows.map((row, ri) => (
+                        <tr
+                          key={ri}
+                          className={ri % 2 === 0 ? "bg-[#F2EDE4]" : "bg-[#E8E0D3]"}
+                        >
+                          {row.map((cell, ci) => (
+                            <td
+                              key={ci}
+                              className="px-4 py-3 align-middle border-t border-[#C8BFB0] text-[#2E2B25]"
+                              style={{
+                                fontFamily:
+                                  ci === 0 || ci === 2
+                                    ? "'Cormorant Garamond', ui-serif, Georgia, serif"
+                                    : undefined,
+                                fontSize:
+                                  ci === 0 || ci === 2 ? "1.05rem" : "0.9rem",
+                                fontWeight: ci === 0 ? 600 : undefined,
+                                color: ci === 0 ? "#1A3D2B" : undefined,
+                              }}
+                            >
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            }
             if (block.type === "source") {
               return (
                 <p
