@@ -5,6 +5,7 @@ export type RichBlock =
   | { type: "quote"; text: string }
   | { type: "stats"; items: { num: string; label: string }[] }
   | { type: "badges"; items: { num: string; title: string; text: string }[] }
+  | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "source"; text: string };
 
 export type Post = {
