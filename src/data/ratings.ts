@@ -38,7 +38,7 @@ export const ratings: CourseRating[] = [
     feeBand: "€€€€",
     playedOn: "15/04/2026",
     criteria: { ontwerp: 9, onderhoud: 8, uitdaging: 7, landschap: 9, faciliteiten: 8, prijsKwaliteit: 5, gastvrijheid: 8 },
-    hostScores: { lars: 86, levi: 84, niels: 89 },
+    hostScores: { lars: 88, levi: 84, niels: 89 },
     pampasScore: 85,
     verdict: "Altijd",
     notes:
@@ -81,7 +81,7 @@ export const ratings: CourseRating[] = [
     greenfee: 125,
     feeBand: "€€€€",
     criteria: { ontwerp: 9, onderhoud: 7, uitdaging: 7, landschap: 9, faciliteiten: 5, prijsKwaliteit: 6, gastvrijheid: 8 },
-    hostScores: { lars: 86, levi: 80, niels: 83 },
+    hostScores: { lars: 88, levi: 80, niels: 83 },
     pampasScore: 81,
     verdict: "Altijd",
     notes:
