@@ -10,17 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RatingsRouteImport } from './routes/ratings'
 import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AfleveringenRouteImport } from './routes/afleveringen'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RatingsRoute = RatingsRouteImport.update({
+  id: '/ratings',
+  path: '/ratings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HostsRoute = HostsRouteImport.update({
@@ -48,10 +56,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RatingsIndexRoute = RatingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RatingsRoute,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BlogRoute,
+} as any)
+const RatingsSlugRoute = RatingsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => RatingsRoute,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
@@ -65,9 +83,12 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
+  '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ratings/': typeof RatingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,7 +97,9 @@ export interface FileRoutesByTo {
   '/hosts': typeof HostsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/ratings': typeof RatingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,9 +108,12 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
+  '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ratings/': typeof RatingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -97,9 +123,12 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/hosts'
+    | '/ratings'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog/'
+    | '/ratings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,7 +137,9 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog'
+    | '/ratings'
   id:
     | '__root__'
     | '/'
@@ -116,9 +147,12 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/hosts'
+    | '/ratings'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog/'
+    | '/ratings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -127,6 +161,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   HostsRoute: typeof HostsRoute
+  RatingsRoute: typeof RatingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -137,6 +172,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ratings': {
+      id: '/ratings'
+      path: '/ratings'
+      fullPath: '/ratings'
+      preLoaderRoute: typeof RatingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hosts': {
@@ -174,12 +216,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ratings/': {
+      id: '/ratings/'
+      path: '/'
+      fullPath: '/ratings/'
+      preLoaderRoute: typeof RatingsIndexRouteImport
+      parentRoute: typeof RatingsRoute
+    }
     '/blog/': {
       id: '/blog/'
       path: '/'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/ratings/$slug': {
+      id: '/ratings/$slug'
+      path: '/$slug'
+      fullPath: '/ratings/$slug'
+      preLoaderRoute: typeof RatingsSlugRouteImport
+      parentRoute: typeof RatingsRoute
     }
     '/blog/$slug': {
       id: '/blog/$slug'
@@ -203,23 +259,28 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface RatingsRouteChildren {
+  RatingsSlugRoute: typeof RatingsSlugRoute
+  RatingsIndexRoute: typeof RatingsIndexRoute
+}
+
+const RatingsRouteChildren: RatingsRouteChildren = {
+  RatingsSlugRoute: RatingsSlugRoute,
+  RatingsIndexRoute: RatingsIndexRoute,
+}
+
+const RatingsRouteWithChildren =
+  RatingsRoute._addFileChildren(RatingsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AfleveringenRoute: AfleveringenRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   HostsRoute: HostsRoute,
+  RatingsRoute: RatingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
