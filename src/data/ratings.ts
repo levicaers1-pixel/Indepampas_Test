@@ -89,7 +89,7 @@ export const ratings: CourseRating[] = [
     findings: [
       "Visueel de mooiste baan in de top 5 — paarse heide tegen dennen blijft een postcard.",
       "Layout-cijfer (9) ligt hoog: routing en hole-variatie zijn klasse, ook al is het onderhoud een tikje minder dan Ternesse.",
-      "Faciliteiten zijn het zwakke punt (5) — clubhuis voelt gedateerd, oefenruimte basis.",
+      "Layout-cijfer (9) ligt hoog: routing en hole-variatie zijn klasse, ook al is het onderhoud niet altijd van het hoogste niveau.",
       "Limburgse gastvrijheid maakt veel goed; mensen onthouden hier het onthaal evenveel als de baan.",
     ],
   },
