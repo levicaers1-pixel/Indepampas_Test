@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { posts } from "@/data/posts";
+import { ratings } from "@/data/ratings";
 
 const BASE_URL = "https://indepampas.be";
 
