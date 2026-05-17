@@ -18,6 +18,7 @@ import { Route as AfleveringenRouteImport } from './routes/afleveringen'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -65,6 +66,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BlogRoute,
 } as any)
+const RatingsSlugRoute = RatingsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => RatingsRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
 }
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/hosts': typeof HostsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
   '/ratings': typeof RatingsIndexRoute
 }
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
 }
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/ratings'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog/'
     | '/ratings/'
   fileRoutesByTo: FileRoutesByTo
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog'
     | '/ratings'
   id:
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/ratings'
     | '/sitemap.xml'
     | '/blog/$slug'
+    | '/ratings/$slug'
     | '/blog/'
     | '/ratings/'
   fileRoutesById: FileRoutesById
@@ -218,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/ratings/$slug': {
+      id: '/ratings/$slug'
+      path: '/$slug'
+      fullPath: '/ratings/$slug'
+      preLoaderRoute: typeof RatingsSlugRouteImport
+      parentRoute: typeof RatingsRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -241,10 +260,12 @@ const BlogRouteChildren: BlogRouteChildren = {
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface RatingsRouteChildren {
+  RatingsSlugRoute: typeof RatingsSlugRoute
   RatingsIndexRoute: typeof RatingsIndexRoute
 }
 
 const RatingsRouteChildren: RatingsRouteChildren = {
+  RatingsSlugRoute: RatingsSlugRoute,
   RatingsIndexRoute: RatingsIndexRoute,
 }
 
