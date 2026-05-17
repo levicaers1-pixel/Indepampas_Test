@@ -153,7 +153,7 @@ export const posts: Post[] = [
           ["Jon Rahm", "🇪🇸", "+1500", "Speculatief maar verleidelijk."],
           ["Ludvig Åberg", "🇸🇪", "+1800", "Talent klopt aan de deur."],
           ["Matt Fitzpatrick", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+2200", "Onderschat na drie zeges — koop."],
-          ["Tommy Fleetwood", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+2700", "Putter zoekt thuis — gevaarlijk."],
+          ["Tommy Fleetwood", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+2700", "Putter nog niet warm — gevaarlijk."],
           ["Tyrrell Hatton", "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "+5500", "Beste waarde op het bord."],
           ["Nicolai Hojgaard", "🇩🇰", "+5000", "Verbluffend goedkoop voor zijn vorm."],
         ],
