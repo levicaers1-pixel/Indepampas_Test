@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AfleveringenRouteImport } from './routes/afleveringen'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -54,6 +55,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RatingsIndexRoute = RatingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RatingsRoute,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -71,20 +77,21 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
-  '/ratings': typeof RatingsRoute
+  '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ratings/': typeof RatingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/afleveringen': typeof AfleveringenRoute
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
-  '/ratings': typeof RatingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
+  '/ratings': typeof RatingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,10 +100,11 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
-  '/ratings': typeof RatingsRoute
+  '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/ratings/': typeof RatingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,16 +118,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/blog/$slug'
     | '/blog/'
+    | '/ratings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/afleveringen'
     | '/contact'
     | '/hosts'
-    | '/ratings'
     | '/sitemap.xml'
     | '/blog/$slug'
     | '/blog'
+    | '/ratings'
   id:
     | '__root__'
     | '/'
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/blog/$slug'
     | '/blog/'
+    | '/ratings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -139,7 +149,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   HostsRoute: typeof HostsRoute
-  RatingsRoute: typeof RatingsRoute
+  RatingsRoute: typeof RatingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -194,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ratings/': {
+      id: '/ratings/'
+      path: '/'
+      fullPath: '/ratings/'
+      preLoaderRoute: typeof RatingsIndexRouteImport
+      parentRoute: typeof RatingsRoute
+    }
     '/blog/': {
       id: '/blog/'
       path: '/'
@@ -223,13 +240,24 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface RatingsRouteChildren {
+  RatingsIndexRoute: typeof RatingsIndexRoute
+}
+
+const RatingsRouteChildren: RatingsRouteChildren = {
+  RatingsIndexRoute: RatingsIndexRoute,
+}
+
+const RatingsRouteWithChildren =
+  RatingsRoute._addFileChildren(RatingsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AfleveringenRoute: AfleveringenRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   HostsRoute: HostsRoute,
-  RatingsRoute: RatingsRoute,
+  RatingsRoute: RatingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
