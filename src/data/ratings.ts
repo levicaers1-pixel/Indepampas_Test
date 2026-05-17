@@ -110,7 +110,7 @@ export const ratings: CourseRating[] = [
       "Inland-links concept werkt: wind speelt mee en bumps & rolls dwingen creatievere shots.",
       "Hole 1 is een gemiste kans — een zwakke opener voor een baan die daarna doorzet.",
       "Levi’s 88 trekt de score recht; Lars en Niels (beide 78) vonden de €120 te scherp voor wat je krijgt.",
-      "De moeite als je in Waals-Brabant zit, geen pure pelgrimage waard.",
+      "De moeite als je in Waals-Brabant bent, geen pure pelgrimage waard. Tenzij je Levi's mening blindelings volgt.",
     ],
   },
   {
