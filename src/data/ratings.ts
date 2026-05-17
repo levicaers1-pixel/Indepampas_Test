@@ -66,7 +66,7 @@ export const ratings: CourseRating[] = [
     notes:
       "Top baan rond Antwerpen. Zeer goed onderhouden en uitdagende layout. Correcte oefenfaciliteiten maar ook niets speciaals.",
     findings: [
-      "Onderhoud op het niveau van een private club — fairways en greens consequent strak.",
+      "Layout dwingt nadenken: doglegs, water in beeld, geen pure bommen-en-vergeven baan.",
       "Layout dwingt nadenken: dogleggen, water in beeld, geen pure bommen-en-vergeven baan.",
       "Sfeer is correct maar functioneel; je komt voor de baan, niet voor de range.",
       "Beste prijs-kwaliteit in onze top 3 — €95 voor dit niveau is een no-brainer.",
