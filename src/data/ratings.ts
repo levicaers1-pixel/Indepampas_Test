@@ -60,8 +60,8 @@ export const ratings: CourseRating[] = [
     feeBand: "€€€",
     playedOn: "28/04/2026",
     criteria: { ontwerp: 8, onderhoud: 9, uitdaging: 8, landschap: 6, faciliteiten: 6, prijsKwaliteit: 8, gastvrijheid: 8 },
-    hostScores: { lars: 82, levi: 80, niels: 86 },
-    pampasScore: 82,
+    hostScores: { lars: 83, levi: 80, niels: 86 },
+    pampasScore: 83,
     verdict: "Altijd",
     notes:
       "Top baan rond Antwerpen. Zeer goed onderhouden en uitdagende layout. Correcte oefenfaciliteiten maar ook niets speciaals.",
