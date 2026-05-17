@@ -102,7 +102,7 @@ export const ratings: CourseRating[] = [
     greenfee: 120,
     feeBand: "€€€€",
     criteria: { ontwerp: 8, onderhoud: 8, uitdaging: 8, landschap: 6, faciliteiten: 7, prijsKwaliteit: 6, gastvrijheid: 8 },
-    hostScores: { lars: 78, levi: 88, niels: 78 },
+    hostScores: { lars: 77, levi: 88, niels: 77 },
     pampasScore: 80,
     verdict: "Oui",
     notes: "Jammerlijke hole 1, verder prima baan met uitdagende condities mogelijk.",
