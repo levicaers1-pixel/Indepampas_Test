@@ -122,7 +122,7 @@ export function NewRatingArticle({ rating }: { rating: CourseRating }) {
             Greenfee: <span className="text-[#1A3D2B]">€{rating.greenfee} · {rating.feeBand}</span>
           </span>
           <span className="text-[#7A7468]">
-            Verdict: <span className="text-[#1A3D2B]">{rating.verdict}</span>
+            Terugkomen?: <span className="text-[#1A3D2B]">{rating.verdict}</span>
           </span>
         </div>
       </header>
@@ -226,7 +226,7 @@ export function NewRatingArticle({ rating }: { rating: CourseRating }) {
           <SidebarBlock label="Regio">{rating.region}</SidebarBlock>
           <SidebarBlock label="Greenfee">€{rating.greenfee} · {rating.feeBand}</SidebarBlock>
           {rating.playedOn && <SidebarBlock label="Gespeeld op">{rating.playedOn}</SidebarBlock>}
-          <SidebarBlock label="Verdict">{rating.verdict}</SidebarBlock>
+          <SidebarBlock label="Terugkomen?">{rating.verdict}</SidebarBlock>
         </aside>
       </div>
 

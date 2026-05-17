@@ -35,7 +35,7 @@ export function NewRatingsIndex() {
           <table className="w-full border-collapse text-left min-w-[760px]">
             <thead className="bg-[#1C3D2A] text-[#F4EFE5]">
               <tr>
-                {["#", "Parcours", "Regio", "Type", "Fee", "Score", "Verdict", ""].map((h) => (
+                {["#", "Parcours", "Regio", "Type", "Fee", "Score", "Terugkomen?", ""].map((h) => (
                   <th
                     key={h}
                     className="px-4 py-3 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase"
