@@ -2,10 +2,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 export const Route = createFileRoute("/admin")({
-  component: AdminPage,
+  component: () => (
+    <>
+      <Toaster richColors position="top-right" />
+      <AdminPage />
+    </>
+  ),
 });
 
 type Rating = Tables<"course_ratings">;
