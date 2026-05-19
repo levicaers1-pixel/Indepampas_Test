@@ -8,7 +8,7 @@ function tier(score: number) {
   return { label: "Gemiddeld", color: "#7A7260" };
 }
 
-export function NewRatingsIndex() {
+export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
   return (
     <>
       {/* HERO */}
