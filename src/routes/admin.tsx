@@ -419,28 +419,44 @@ function EditDrawer({
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div>{label("Slug")}{txt("slug")}</div>
-          <div>{label("Rank")}{num("rank")}</div>
           <div className="col-span-2">{label("Naam")}{txt("name")}</div>
           <div>{label("Regio")}{txt("region")}</div>
-          <div>{label("Type")}{txt("type")}</div>
+          <div>{label("Type (bv. Heide, Parkland)")}{txt("type")}</div>
           <div>{label("Greenfee €")}{num("greenfee")}</div>
-          <div>{label("Fee band")}{txt("fee_band")}</div>
-          <div>{label("Played on")}{txt("played_on")}</div>
-          <div>{label("Verdict")}{txt("verdict")}</div>
+          <div>{label("Played on (dd/mm/jjjj)")}{txt("played_on")}</div>
+          <div className="col-span-2">{label("Verdict (bv. Altijd, Oui, Nooit)")}{txt("verdict")}</div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3 bg-white/60 border border-[rgba(28,61,42,0.15)] p-3">
+          <div>
+            {label("Slug (auto)")}
+            <div className="font-rb-mono text-xs text-[#1C3D2A] py-1 truncate">{slug || "—"}</div>
+          </div>
+          <div>
+            {label("Fee band (auto)")}
+            <div className="font-rb-mono text-xs text-[#1C3D2A] py-1">{feeBand}</div>
+          </div>
+          <div>
+            {label("Rank (auto na opslaan)")}
+            <div className="font-rb-mono text-xs text-[#7A7260] py-1">
+              {isNew ? "—" : `#${(initial as Rating).rank}`}
+            </div>
+          </div>
         </div>
 
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">Criteria /10</p>
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">
+            Criteria /10 — bepalen automatisch de PAMPAS Score
+          </p>
           <div className="grid grid-cols-2 gap-3">
             {[
-              ["Ontwerp", "c_ontwerp"],
-              ["Onderhoud", "c_onderhoud"],
-              ["Uitdaging", "c_uitdaging"],
-              ["Landschap", "c_landschap"],
-              ["Faciliteiten", "c_faciliteiten"],
-              ["Prijs/Kwaliteit", "c_prijs_kwaliteit"],
-              ["Gastvrijheid", "c_gastvrijheid"],
+              ["Ontwerp (20%)", "c_ontwerp"],
+              ["Onderhoud (20%)", "c_onderhoud"],
+              ["Uitdaging (15%)", "c_uitdaging"],
+              ["Landschap (15%)", "c_landschap"],
+              ["Faciliteiten (10%)", "c_faciliteiten"],
+              ["Prijs/Kwaliteit (10%)", "c_prijs_kwaliteit"],
+              ["Gastvrijheid (10%)", "c_gastvrijheid"],
             ].map(([l, k]) => (
               <div key={k}>{label(l)}{num(k as keyof RatingInsert)}</div>
             ))}
@@ -456,7 +472,16 @@ function EditDrawer({
           </div>
         </div>
 
-        <div>{label("PAMPAS score /100")}{num("pampas_score")}</div>
+        <div className="bg-[#1C3D2A] text-[#F4EFE5] p-4 flex items-baseline justify-between">
+          <span className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase">
+            PAMPAS Score (auto)
+          </span>
+          <span className="font-rb-serif text-3xl">
+            {pampasScore}
+            <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase ml-1 opacity-70">/100</span>
+          </span>
+        </div>
+
 
         <div>
           {label("Notes")}
