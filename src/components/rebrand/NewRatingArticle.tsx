@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import type { CourseRating } from "@/data/ratings";
-import { ratings } from "@/data/ratings";
 
 const CRITERIA: { key: keyof CourseRating["criteria"]; label: string }[] = [
   { key: "ontwerp", label: "Ontwerp & Layout" },
