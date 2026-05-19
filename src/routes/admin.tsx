@@ -354,7 +354,8 @@ function EditDrawer({
     setForm((f) => ({ ...f, [k]: v }));
   }
 
-  const pampasScore = computePampasScore(form);
+  const criteriaScore = computeCriteriaScore(form);
+  const pampasScore = computePampasScore(form, form);
   const feeBand = deriveFeeBand(Number(form.greenfee) || 0);
   const slug = form.slug?.trim() || slugify(form.name ?? "");
 
