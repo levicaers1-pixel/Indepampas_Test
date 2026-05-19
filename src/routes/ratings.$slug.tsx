@@ -1,14 +1,19 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getRatingBySlug } from "@/data/ratings";
 import { NewRatingArticle } from "@/components/rebrand/NewRatingArticle";
+import { fetchRatings } from "@/data/ratings-db";
 
 const SITE_URL = "https://indepampas.be";
 
 export const Route = createFileRoute("/ratings/$slug")({
-  loader: ({ params }) => {
-    const rating = getRatingBySlug(params.slug);
-    if (!rating) throw notFound();
-    return { rating };
+  loader: async ({ params }) => {
+    const ratings = await fetchRatings();
+    const idx = ratings.findIndex((r) => r.slug === params.slug);
+    if (idx === -1) throw notFound();
+    return {
+      rating: ratings[idx],
+      prev: idx > 0 ? ratings[idx - 1] : undefined,
+      next: idx < ratings.length - 1 ? ratings[idx + 1] : undefined,
+    };
   },
   head: ({ loaderData }) => {
     const r = loaderData?.rating;
@@ -67,6 +72,6 @@ export const Route = createFileRoute("/ratings/$slug")({
 });
 
 function RatingPage() {
-  const { rating } = Route.useLoaderData();
-  return <NewRatingArticle rating={rating} />;
+  const { rating, prev, next } = Route.useLoaderData();
+  return <NewRatingArticle rating={rating} prev={prev} next={next} />;
 }
