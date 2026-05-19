@@ -18,10 +18,15 @@ function tier(score: number) {
   return "Gemiddeld";
 }
 
-export function NewRatingArticle({ rating }: { rating: CourseRating }) {
-  const idx = ratings.findIndex((r) => r.slug === rating.slug);
-  const prev = idx > 0 ? ratings[idx - 1] : undefined;
-  const next = idx < ratings.length - 1 ? ratings[idx + 1] : undefined;
+export function NewRatingArticle({
+  rating,
+  prev,
+  next,
+}: {
+  rating: CourseRating;
+  prev?: CourseRating;
+  next?: CourseRating;
+}) {
 
   return (
     <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-14 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
