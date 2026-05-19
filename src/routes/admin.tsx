@@ -18,6 +18,41 @@ type RatingInsert = TablesInsert<"course_ratings">;
 
 const EMAIL_DOMAIN = "indepampas.be";
 
+// Weights from ratingMethodology — sum to 1.0
+const CRITERIA_WEIGHTS = {
+  c_ontwerp: 0.20,
+  c_onderhoud: 0.20,
+  c_uitdaging: 0.15,
+  c_landschap: 0.15,
+  c_faciliteiten: 0.10,
+  c_prijs_kwaliteit: 0.10,
+  c_gastvrijheid: 0.10,
+} as const;
+
+function computePampasScore(c: Pick<RatingInsert,
+  "c_ontwerp" | "c_onderhoud" | "c_uitdaging" | "c_landschap"
+  | "c_faciliteiten" | "c_prijs_kwaliteit" | "c_gastvrijheid">): number {
+  const sum = (Object.keys(CRITERIA_WEIGHTS) as (keyof typeof CRITERIA_WEIGHTS)[])
+    .reduce((acc, k) => acc + (Number(c[k]) || 0) * CRITERIA_WEIGHTS[k], 0);
+  return Math.round(sum * 10);
+}
+
+function deriveFeeBand(greenfee: number): string {
+  if (greenfee >= 120) return "€€€€";
+  if (greenfee >= 90) return "€€€";
+  if (greenfee >= 60) return "€€";
+  return "€";
+}
+
+function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 const EMPTY: RatingInsert = {
   slug: "",
   rank: 0,
@@ -25,7 +60,7 @@ const EMPTY: RatingInsert = {
   region: "",
   type: "",
   greenfee: 0,
-  fee_band: "€€",
+  fee_band: "€",
   played_on: null,
   c_ontwerp: 0,
   c_onderhoud: 0,
@@ -42,6 +77,25 @@ const EMPTY: RatingInsert = {
   notes: "",
   findings: [],
 };
+
+// After insert/update, re-rank all rows by pampas_score desc (ties → name asc).
+async function recomputeRanks() {
+  const { data, error } = await supabase
+    .from("course_ratings")
+    .select("id, pampas_score, name, rank");
+  if (error || !data) return;
+  const sorted = [...data].sort(
+    (a, b) => b.pampas_score - a.pampas_score || a.name.localeCompare(b.name)
+  );
+  await Promise.all(
+    sorted.map((row, i) => {
+      const newRank = i + 1;
+      if (row.rank === newRank) return Promise.resolve();
+      return supabase.from("course_ratings").update({ rank: newRank }).eq("id", row.id);
+    })
+  );
+}
+
 
 function AdminPage() {
   const [session, setSession] = useState<unknown>(null);
