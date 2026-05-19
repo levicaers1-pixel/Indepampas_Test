@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
 import { NewRatingsIndex } from "@/components/rebrand/NewRatings";
+import { fetchRatings } from "@/data/ratings-db";
 
 const SITE_URL = "https://indepampas.be";
 const TITLE = "Pampas Ratings — Belgische golfbanen beoordeeld";
@@ -19,5 +20,12 @@ export const Route = createFileRoute("/ratings/")({
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/ratings" }],
   }),
-  component: NewRatingsIndex,
+  loader: () => fetchRatings(),
+  errorComponent: ({ error }) => <ErrorComponent error={error} />,
+  component: RatingsIndexPage,
 });
+
+function RatingsIndexPage() {
+  const ratings = Route.useLoaderData();
+  return <NewRatingsIndex ratings={ratings} />;
+}
