@@ -345,13 +345,23 @@ function EditDrawer({
     setForm((f) => ({ ...f, [k]: v }));
   }
 
+  const pampasScore = computePampasScore(form);
+  const feeBand = deriveFeeBand(Number(form.greenfee) || 0);
+  const slug = form.slug?.trim() || slugify(form.name ?? "");
+
   async function save(e: FormEvent) {
     e.preventDefault();
+    if (!form.name?.trim()) return toast.error("Naam is verplicht");
     setSaving(true);
     const payload: RatingInsert = {
       ...form,
+      slug,
+      fee_band: feeBand,
+      pampas_score: pampasScore,
       findings: findingsText.split("\n").map((s) => s.trim()).filter(Boolean),
       played_on: form.played_on || null,
+      // rank gets recomputed below; insert with a sentinel value
+      rank: isNew ? 9999 : (initial as Rating).rank,
     };
     let error;
     if (isNew) {
@@ -362,11 +372,16 @@ function EditDrawer({
         .update(payload)
         .eq("id", (initial as Rating).id));
     }
+    if (error) {
+      setSaving(false);
+      return toast.error(error.message);
+    }
+    await recomputeRanks();
     setSaving(false);
-    if (error) return toast.error(error.message);
     toast.success("Opgeslagen");
     onSaved();
   }
+
 
   const num = (k: keyof RatingInsert) => (
     <input
