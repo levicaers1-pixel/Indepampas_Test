@@ -29,12 +29,21 @@ const CRITERIA_WEIGHTS = {
   c_gastvrijheid: 0.10,
 } as const;
 
-function computePampasScore(c: Pick<RatingInsert,
+function computeCriteriaScore(c: Pick<RatingInsert,
   "c_ontwerp" | "c_onderhoud" | "c_uitdaging" | "c_landschap"
   | "c_faciliteiten" | "c_prijs_kwaliteit" | "c_gastvrijheid">): number {
   const sum = (Object.keys(CRITERIA_WEIGHTS) as (keyof typeof CRITERIA_WEIGHTS)[])
     .reduce((acc, k) => acc + (Number(c[k]) || 0) * CRITERIA_WEIGHTS[k], 0);
   return Math.round(sum * 10);
+}
+
+function computePampasScore(
+  c: Parameters<typeof computeCriteriaScore>[0],
+  hosts: Pick<RatingInsert, "host_lars" | "host_levi" | "host_niels">
+): number {
+  const criteria = computeCriteriaScore(c);
+  const avg = (criteria + (Number(hosts.host_lars) || 0) + (Number(hosts.host_levi) || 0) + (Number(hosts.host_niels) || 0)) / 4;
+  return Math.round(avg);
 }
 
 function deriveFeeBand(greenfee: number): string {
