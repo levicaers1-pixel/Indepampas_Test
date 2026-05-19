@@ -482,14 +482,20 @@ function EditDrawer({
           </div>
         </div>
 
-        <div className="bg-[#1C3D2A] text-[#F4EFE5] p-4 flex items-baseline justify-between">
-          <span className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase">
-            PAMPAS Score (auto)
-          </span>
-          <span className="font-rb-serif text-3xl">
-            {pampasScore}
-            <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase ml-1 opacity-70">/100</span>
-          </span>
+        <div className="bg-[#1C3D2A] text-[#F4EFE5] p-4 space-y-2">
+          <div className="flex items-baseline justify-between opacity-80">
+            <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase">Criteria score (gewogen)</span>
+            <span className="font-rb-mono text-sm">{criteriaScore}/100</span>
+          </div>
+          <div className="flex items-baseline justify-between border-t border-[#F4EFE5]/20 pt-2">
+            <span className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase">
+              PAMPAS Score (avg criteria + 3 hosts)
+            </span>
+            <span className="font-rb-serif text-3xl">
+              {pampasScore}
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase ml-1 opacity-70">/100</span>
+            </span>
+          </div>
         </div>
 
 
