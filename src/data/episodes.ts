@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "06",
+    season: "S01",
+    title: "#06 Juniper - Aaron Rai shocks Aronimink | Arthur Estas over zijn Soudal Open debuut & de PGA Championship onder de loep.",
+    description:
+      "De PGA Championship heeft een verrassende winnaar: Aaron Rai pakt zijn eerste major met een ijskoude slotfase, een roze tee en een TaylorMade M6 uit de prehistorie. Daarnaast schuift Belgisch amateurkampioen Arthur Estas aan tafel over zijn Soudal Open debuut op de DP World Tour. Ook: PAMPAS bereikt 2.500 streams en de winnaar van de giveaway wordt bekendgemaakt.",
+    date: "19/05/2026",
+    duration: "1u 19min",
+    spotifyId: "52Ax1cnKN45UcnTlNQLhvC",
+    topics: ["Golf", "PGA Championship", "Aaron Rai", "Arthur Estas", "Soudal Open", "DP World Tour"],
+  },
+  {
     number: "05",
     season: "S01",
     title: "#05 Magnolia - PGA Championship Preview, Reitan wint & Golf Tech diepte-analyse",
