@@ -23,7 +23,11 @@ function mapRow(r: Row): CourseRating {
       prijsKwaliteit: r.c_prijs_kwaliteit,
       gastvrijheid: r.c_gastvrijheid,
     },
+    countryCode: r.country_code,
+    latitude: r.latitude,
+    longitude: r.longitude,
     hostScores: { lars: r.host_lars, levi: r.host_levi, niels: r.host_niels },
+
     pampasScore: r.pampas_score,
     verdict: r.verdict,
     notes: r.notes,
