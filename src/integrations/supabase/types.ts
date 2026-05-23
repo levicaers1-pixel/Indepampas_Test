@@ -23,6 +23,7 @@ export type Database = {
           c_ontwerp: number
           c_prijs_kwaliteit: number
           c_uitdaging: number
+          country_code: string
           created_at: string
           fee_band: string
           findings: Json
@@ -31,6 +32,8 @@ export type Database = {
           host_levi: number
           host_niels: number
           id: string
+          latitude: number | null
+          longitude: number | null
           name: string
           notes: string
           pampas_score: number
@@ -50,6 +53,7 @@ export type Database = {
           c_ontwerp?: number
           c_prijs_kwaliteit?: number
           c_uitdaging?: number
+          country_code?: string
           created_at?: string
           fee_band: string
           findings?: Json
@@ -58,6 +62,8 @@ export type Database = {
           host_levi?: number
           host_niels?: number
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           name: string
           notes?: string
           pampas_score: number
@@ -77,6 +83,7 @@ export type Database = {
           c_ontwerp?: number
           c_prijs_kwaliteit?: number
           c_uitdaging?: number
+          country_code?: string
           created_at?: string
           fee_band?: string
           findings?: Json
@@ -85,6 +92,8 @@ export type Database = {
           host_levi?: number
           host_niels?: number
           id?: string
+          latitude?: number | null
+          longitude?: number | null
           name?: string
           notes?: string
           pampas_score?: number
