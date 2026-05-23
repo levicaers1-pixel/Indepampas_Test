@@ -73,6 +73,9 @@ const EMPTY: RatingInsert = {
   greenfee: 0,
   fee_band: "€",
   played_on: null,
+  country_code: "BE",
+  latitude: null,
+  longitude: null,
   c_ontwerp: 0,
   c_onderhoud: 0,
   c_uitdaging: 0,
@@ -88,6 +91,20 @@ const EMPTY: RatingInsert = {
   notes: "",
   findings: [],
 };
+
+const COUNTRIES: Array<{ code: string; label: string }> = [
+  { code: "BE", label: "België" },
+  { code: "NL", label: "Nederland" },
+  { code: "FR", label: "Frankrijk" },
+  { code: "LU", label: "Luxemburg" },
+  { code: "DE", label: "Duitsland" },
+  { code: "GB", label: "Verenigd Koninkrijk" },
+  { code: "ES", label: "Spanje" },
+  { code: "PT", label: "Portugal" },
+  { code: "IT", label: "Italië" },
+  { code: "IE", label: "Ierland" },
+];
+
 
 // After insert/update, re-rank all rows by pampas_score desc (ties → name asc).
 async function recomputeRanks() {
