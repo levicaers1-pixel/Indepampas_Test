@@ -1,4 +1,6 @@
+/// <reference types="google.maps" />
 import { useEffect, useRef } from "react";
+
 import type { CourseRating } from "@/data/ratings";
 
 declare global {
