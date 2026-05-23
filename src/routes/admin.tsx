@@ -382,11 +382,37 @@ function EditDrawer({
     e.preventDefault();
     if (!form.name?.trim()) return toast.error("Naam is verplicht");
     setSaving(true);
+
+    // Auto-geocode if lat/lng missing
+    let latitude = form.latitude ?? null;
+    let longitude = form.longitude ?? null;
+    if (latitude == null || longitude == null) {
+      try {
+        const query = [form.name, form.region].filter(Boolean).join(", ");
+        const res = await geocodeAddress({
+          data: { query, countryCode: form.country_code || "BE" },
+        });
+        if (res.lat != null && res.lng != null) {
+          latitude = res.lat;
+          longitude = res.lng;
+          toast.success(`Coördinaten gevonden: ${res.lat.toFixed(4)}, ${res.lng.toFixed(4)}`);
+        } else {
+          toast.warning("Geen coördinaten gevonden — vul handmatig in indien nodig.");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.warning("Geocoding mislukt — coördinaten leeg.");
+      }
+    }
+
     const payload: RatingInsert = {
       ...form,
       slug,
       fee_band: feeBand,
       pampas_score: pampasScore,
+      latitude,
+      longitude,
+      country_code: form.country_code || "BE",
       findings: findingsText.split("\n").map((s) => s.trim()).filter(Boolean),
       played_on: form.played_on || null,
       // rank gets recomputed below; insert with a sentinel value
@@ -410,6 +436,7 @@ function EditDrawer({
     toast.success("Opgeslagen");
     onSaved();
   }
+
 
 
   const num = (k: keyof RatingInsert) => (
