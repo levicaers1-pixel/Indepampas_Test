@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
+import { geocodeAddress } from "@/lib/geocode.functions";
 import { toast, Toaster } from "sonner";
+
 
 export const Route = createFileRoute("/admin")({
   component: () => (
@@ -71,6 +73,9 @@ const EMPTY: RatingInsert = {
   greenfee: 0,
   fee_band: "€",
   played_on: null,
+  country_code: "BE",
+  latitude: null,
+  longitude: null,
   c_ontwerp: 0,
   c_onderhoud: 0,
   c_uitdaging: 0,
@@ -86,6 +91,20 @@ const EMPTY: RatingInsert = {
   notes: "",
   findings: [],
 };
+
+const COUNTRIES: Array<{ code: string; label: string }> = [
+  { code: "BE", label: "België" },
+  { code: "NL", label: "Nederland" },
+  { code: "FR", label: "Frankrijk" },
+  { code: "LU", label: "Luxemburg" },
+  { code: "DE", label: "Duitsland" },
+  { code: "GB", label: "Verenigd Koninkrijk" },
+  { code: "ES", label: "Spanje" },
+  { code: "PT", label: "Portugal" },
+  { code: "IT", label: "Italië" },
+  { code: "IE", label: "Ierland" },
+];
+
 
 // After insert/update, re-rank all rows by pampas_score desc (ties → name asc).
 async function recomputeRanks() {
@@ -363,11 +382,37 @@ function EditDrawer({
     e.preventDefault();
     if (!form.name?.trim()) return toast.error("Naam is verplicht");
     setSaving(true);
+
+    // Auto-geocode if lat/lng missing
+    let latitude = form.latitude ?? null;
+    let longitude = form.longitude ?? null;
+    if (latitude == null || longitude == null) {
+      try {
+        const query = [form.name, form.region].filter(Boolean).join(", ");
+        const res = await geocodeAddress({
+          data: { query, countryCode: form.country_code || "BE" },
+        });
+        if (res.lat != null && res.lng != null) {
+          latitude = res.lat;
+          longitude = res.lng;
+          toast.success(`Coördinaten gevonden: ${res.lat.toFixed(4)}, ${res.lng.toFixed(4)}`);
+        } else {
+          toast.warning("Geen coördinaten gevonden — vul handmatig in indien nodig.");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.warning("Geocoding mislukt — coördinaten leeg.");
+      }
+    }
+
     const payload: RatingInsert = {
       ...form,
       slug,
       fee_band: feeBand,
       pampas_score: pampasScore,
+      latitude,
+      longitude,
+      country_code: form.country_code || "BE",
       findings: findingsText.split("\n").map((s) => s.trim()).filter(Boolean),
       played_on: form.played_on || null,
       // rank gets recomputed below; insert with a sentinel value
@@ -391,6 +436,7 @@ function EditDrawer({
     toast.success("Opgeslagen");
     onSaved();
   }
+
 
 
   const num = (k: keyof RatingInsert) => (
@@ -436,6 +482,50 @@ function EditDrawer({
           <div>{label("Played on (dd/mm/jjjj)")}{txt("played_on")}</div>
           <div className="col-span-2">{label("Verdict (bv. Altijd, Oui, Nooit)")}{txt("verdict")}</div>
         </div>
+
+        <div>
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">
+            Locatie — coördinaten worden auto-gegenereerd op basis van naam + regio + land
+          </p>
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              {label("Land")}
+              <select
+                value={form.country_code ?? "BE"}
+                onChange={(e) => set("country_code", e.target.value)}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
+              >
+                {COUNTRIES.map((c) => (
+                  <option key={c.code} value={c.code}>{c.code} — {c.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              {label("Latitude (optioneel)")}
+              <input
+                type="number"
+                step="any"
+                value={form.latitude ?? ""}
+                onChange={(e) => set("latitude", e.target.value === "" ? null : Number(e.target.value))}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
+              />
+            </div>
+            <div>
+              {label("Longitude (optioneel)")}
+              <input
+                type="number"
+                step="any"
+                value={form.longitude ?? ""}
+                onChange={(e) => set("longitude", e.target.value === "" ? null : Number(e.target.value))}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
+              />
+            </div>
+          </div>
+          <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] mt-2">
+            Laat lat/lng leeg om automatisch op te zoeken bij opslaan.
+          </p>
+        </div>
+
 
         <div className="grid grid-cols-3 gap-3 bg-white/60 border border-[rgba(28,61,42,0.15)] p-3">
           <div>
