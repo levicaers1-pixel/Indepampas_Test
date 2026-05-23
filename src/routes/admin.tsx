@@ -483,6 +483,50 @@ function EditDrawer({
           <div className="col-span-2">{label("Verdict (bv. Altijd, Oui, Nooit)")}{txt("verdict")}</div>
         </div>
 
+        <div>
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">
+            Locatie — coördinaten worden auto-gegenereerd op basis van naam + regio + land
+          </p>
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              {label("Land")}
+              <select
+                value={form.country_code ?? "BE"}
+                onChange={(e) => set("country_code", e.target.value)}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
+              >
+                {COUNTRIES.map((c) => (
+                  <option key={c.code} value={c.code}>{c.code} — {c.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              {label("Latitude (optioneel)")}
+              <input
+                type="number"
+                step="any"
+                value={form.latitude ?? ""}
+                onChange={(e) => set("latitude", e.target.value === "" ? null : Number(e.target.value))}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
+              />
+            </div>
+            <div>
+              {label("Longitude (optioneel)")}
+              <input
+                type="number"
+                step="any"
+                value={form.longitude ?? ""}
+                onChange={(e) => set("longitude", e.target.value === "" ? null : Number(e.target.value))}
+                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
+              />
+            </div>
+          </div>
+          <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] mt-2">
+            Laat lat/lng leeg om automatisch op te zoeken bij opslaan.
+          </p>
+        </div>
+
+
         <div className="grid grid-cols-3 gap-3 bg-white/60 border border-[rgba(28,61,42,0.15)] p-3">
           <div>
             {label("Slug (auto)")}
