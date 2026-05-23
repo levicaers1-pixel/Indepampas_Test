@@ -107,7 +107,11 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
         </div>
       </div>
 
+      {/* MAP */}
+      <CourseMap ratings={ratings} />
+
       {/* METHODE */}
+
       <div className="px-6 lg:px-14 py-14 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
         <div>
           <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
