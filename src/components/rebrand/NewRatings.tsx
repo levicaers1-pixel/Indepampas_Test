@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ratingMethodology, type CourseRating } from "@/data/ratings";
+import { CourseMap } from "@/components/CourseMap";
+
 
 function tier(score: number) {
   if (score >= 80) return { label: "Topklasse", color: "#1A3D2B" };
