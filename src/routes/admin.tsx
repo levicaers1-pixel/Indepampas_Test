@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
+import { geocodeAddress } from "@/lib/geocode.functions";
 import { toast, Toaster } from "sonner";
+
 
 export const Route = createFileRoute("/admin")({
   component: () => (
