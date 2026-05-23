@@ -11,6 +11,9 @@ export type CourseRating = {
   greenfee: number;
   feeBand: string; // €, €€, €€€, €€€€
   playedOn?: string;
+  countryCode?: string;
+  latitude?: number | null;
+  longitude?: number | null;
   criteria: {
     ontwerp: number;
     onderhoud: number;
@@ -26,6 +29,7 @@ export type CourseRating = {
   notes: string;
   findings: string[]; // bullet points for the per-course article
 };
+
 
 export const ratings: CourseRating[] = [
   {
