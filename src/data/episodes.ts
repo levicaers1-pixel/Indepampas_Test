@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "Bonus",
+    season: "S01",
+    title: "#Bonus Soudal Special - Birdies, bogeys en Belgische dromen – ft. Andrew Snoddy (DP World Tour)",
+    description:
+      "In deze aflevering duiken we in de Soudal Open 2026 op Rinkven International Golf Club in Antwerpen. We bespreken de hoogtepunten, de teleurstellingen en alles wat er op de fairways gebeurde. Hadden de Belgen iets te vieren? Wat mochten we verwachten van Thomas Detry op eigen bodem? En als kers op de taart sluiten we af met een exclusief interview met Andrew Snoddy, Tournament Director bij de DP World Tour, die ons een unieke blik achter de schermen geeft van het grootste golfevenement van België. Birdies, bogeys en Belgische dromen — we laten geen hole onbesproken.",
+    date: "23/05/2026",
+    duration: "45min 9sec",
+    spotifyId: "1NiFrN6lc0Dyx9sPuzcUD8",
+    topics: ["Golf", "Soudal Open", "DP World Tour", "Belgium", "Andrew Snoddy", "Interview"],
+  },
+  {
     number: "06",
     season: "S01",
     title: "#06 Juniper - Aaron Rai shocks Aronimink | Arthur Estas over zijn Soudal Open debuut & de PGA Championship onder de loep.",
