@@ -18,7 +18,7 @@ export function NewHome() {
             Achttien holes, <em className="italic">één</em> microfoon, <em className="italic">drie</em> vrienden.
           </h1>
           <p className="font-rb-sans text-base text-[#7A7260] max-w-md leading-[1.75] mb-12">
-            PAMPAS is dé Belgische golfpodcast. Wekelijks praten Lars, Levi en Niels over alles wat
+            PAMPAS is dé Belgische golfcommunity. Wekelijks praten Lars, Levi en Niels over alles wat
             de fairway én de rough te bieden heeft. Voor golfers, door golfers.
           </p>
           <div className="flex flex-wrap gap-4 items-center">
