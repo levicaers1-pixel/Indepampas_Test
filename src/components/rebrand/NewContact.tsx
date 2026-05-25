@@ -88,7 +88,7 @@ export function NewContact() {
               const fd = new FormData(formEl);
               fd.append("access_key", WEB3FORMS_ACCESS_KEY);
               fd.append("reason", reason);
-              fd.append("from_name", "PAMPAS Podcast Website");
+              fd.append("from_name", "PAMPAS Website");
               fd.append("subject", `[PAMPAS contact - ${reason}] ${fd.get("subject") ?? ""}`);
               try {
                 const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
