@@ -113,7 +113,7 @@ export function NewHeader() {
 
 export function Ticker() {
   const items = [
-    "Belgian Golf Podcast",
+    "Belgian Golf Community",
     "Vol. I — MMXXVI",
     "Antwerpen · BE",
     "Onafhankelijk geproduceerd",
