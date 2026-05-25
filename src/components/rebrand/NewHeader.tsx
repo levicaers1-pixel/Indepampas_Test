@@ -46,7 +46,7 @@ export function NewHeader() {
         />
         PAMPAS
         <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
-          / Belgian Golf Podcast
+          / Belgian Golf Community
         </span>
       </Link>
 
