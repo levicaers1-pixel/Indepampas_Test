@@ -92,6 +92,8 @@ const EMPTY: RatingInsert = {
   findings: [],
 };
 
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
+
 const COUNTRIES: Array<{ code: string; label: string }> = [
   { code: "BE", label: "België" },
   { code: "NL", label: "Nederland" },

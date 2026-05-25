@@ -8,7 +8,7 @@ export function NewFooter() {
           <div className="font-rb-serif text-3xl font-bold tracking-[0.1em] uppercase">
             PAMPAS
             <span className="font-rb-serif italic font-light text-base tracking-[0.05em] text-[rgba(244,239,229,0.5)] ml-2 normal-case">
-              / Belgian Golf Podcast
+              / Belgian Golf Community
             </span>
           </div>
           <p className="font-rb-sans text-sm text-[rgba(244,239,229,0.6)] leading-relaxed mt-6 max-w-md">
