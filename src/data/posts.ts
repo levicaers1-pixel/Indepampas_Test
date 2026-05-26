@@ -207,7 +207,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-72 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd — geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
+        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-69 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd — geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
       },
       {
         type: "p",
