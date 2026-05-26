@@ -146,7 +146,7 @@ export const posts: Post[] = [
           ["T13", "🇫🇷 Tom Vaillant", "65", "64", "70", "71", "270", "−14"],
           ["T41", "🇧🇪 Anthony De Schutter (BEL)", "67", "70", "68", "70", "275", "−9"],
           ["T47", "🇧🇪 Thomas Detry (BEL)", "68", "68", "73", "68", "277", "−7"],
-          ["T63", "🇧🇪 Arthur Haghedooren (BEL)", "72", "67", "68", "—", "—", "−4"],
+          ["T63", "🇧🇪 Arthur Haghedooren (BEL)", "72", "67", "68", "73", "280", "−4"],
         ],
       },
       { type: "h2", text: "Hoe deden de Belgen het?" },
