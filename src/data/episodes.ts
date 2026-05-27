@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "07",
+    season: "S01",
+    title: "#07 Pampas - Nico's Final Dance: het afscheid van The Belgian Bomber | Wyndham wins again",
+    description:
+      "Nicolas Colsaerts neemt afscheid op de Soudal Open — een emotioneel moment voor de Belgische golfwereld. We blikken terug op het afscheid van The Belgian Bomber en bespreken Wyndham Clark die opnieuw weet te winnen op de PGA Tour.",
+    date: "27/05/2026",
+    duration: "1u 5min",
+    spotifyId: "3rUqF8qY0ei3FJaIg3PDrO",
+    topics: ["Golf", "Soudal Open", "Nicolas Colsaerts", "PGA Tour", "Wyndham Clark", "Afscheid"],
+  },
+  {
     number: "Bonus",
     season: "S01",
     title: "#Bonus Soudal Special - Birdies, bogeys en Belgische dromen – ft. Andrew Snoddy (DP World Tour)",
