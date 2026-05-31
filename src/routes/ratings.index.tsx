@@ -1,11 +1,11 @@
 import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
-import { NewRatingsIndex } from "@/components/rebrand/NewRatings";
-import { fetchRatings } from "@/data/ratings-db";
+import { RatingsPage } from "@/components/ratings/RatingsPage";
+import { fetchCourses } from "@/data/courses-db";
 
 const SITE_URL = "https://indepampas.be";
-const TITLE = "Pampas Ratings — Belgische golfbanen beoordeeld";
+const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
-  "Onafhankelijke parcours-beoordelingen door Lars, Levi en Niels. Gewogen PAMPAS Score per baan, eerlijk verdict.";
+  "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
 
 export const Route = createFileRoute("/ratings/")({
   head: () => ({
@@ -20,12 +20,12 @@ export const Route = createFileRoute("/ratings/")({
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/ratings" }],
   }),
-  loader: () => fetchRatings(),
+  loader: () => fetchCourses(),
   errorComponent: ({ error }) => <ErrorComponent error={error} />,
   component: RatingsIndexPage,
 });
 
 function RatingsIndexPage() {
-  const ratings = Route.useLoaderData();
-  return <NewRatingsIndex ratings={ratings} />;
+  const courses = Route.useLoaderData();
+  return <RatingsPage courses={courses} />;
 }

@@ -107,6 +107,122 @@ export type Database = {
         }
         Relationships: []
       }
+      courses: {
+        Row: {
+          country: string
+          created_at: string
+          episode_url: string | null
+          fee_category: string | null
+          greenfee: number | null
+          holes: number
+          id: string
+          name: string
+          region: string | null
+          type: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          country?: string
+          created_at?: string
+          episode_url?: string | null
+          fee_category?: string | null
+          greenfee?: number | null
+          holes?: number
+          id?: string
+          name: string
+          region?: string | null
+          type?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          episode_url?: string | null
+          fee_category?: string | null
+          greenfee?: number | null
+          holes?: number
+          id?: string
+          name?: string
+          region?: string | null
+          type?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      ratings: {
+        Row: {
+          course_id: string
+          created_at: string
+          hole_of_day: string | null
+          host: string
+          host_score: number | null
+          id: string
+          one_word: string | null
+          played_on: string | null
+          review: string | null
+          score_challenge: number
+          score_condition: number
+          score_design: number
+          score_facilities: number
+          score_hospitality: number
+          score_scenery: number
+          score_value: number
+          updated_at: string
+          would_return: string | null
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          hole_of_day?: string | null
+          host: string
+          host_score?: number | null
+          id?: string
+          one_word?: string | null
+          played_on?: string | null
+          review?: string | null
+          score_challenge: number
+          score_condition: number
+          score_design: number
+          score_facilities: number
+          score_hospitality: number
+          score_scenery: number
+          score_value: number
+          updated_at?: string
+          would_return?: string | null
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          hole_of_day?: string | null
+          host?: string
+          host_score?: number | null
+          id?: string
+          one_word?: string | null
+          played_on?: string | null
+          review?: string | null
+          score_challenge?: number
+          score_condition?: number
+          score_design?: number
+          score_facilities?: number
+          score_hospitality?: number
+          score_scenery?: number
+          score_value?: number
+          updated_at?: string
+          would_return?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ratings_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
