@@ -1,633 +1,526 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState, useMemo, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
-import { geocodeAddress } from "@/lib/geocode.functions";
 import { toast, Toaster } from "sonner";
-
+import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/personas";
 
 export const Route = createFileRoute("/admin")({
   component: () => (
     <>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" theme="dark" />
       <AdminPage />
     </>
   ),
 });
 
-type Rating = Tables<"course_ratings">;
-type RatingInsert = TablesInsert<"course_ratings">;
+type Course = Tables<"courses">;
+type Rating = Tables<"ratings">;
+type CourseInsert = TablesInsert<"courses">;
+type RatingInsert = TablesInsert<"ratings">;
 
-const EMAIL_DOMAIN = "indepampas.be";
+const COUNTRIES = ["België", "Nederland", "Frankrijk", "Luxemburg", "Duitsland", "Verenigd Koninkrijk", "Ierland", "Spanje", "Portugal", "Italië"];
+const TYPES = ["Parkland", "Heide", "Inland Links", "Links"];
+const RETURN_OPTIONS = ["Altijd", "Ja", "Op invité", "Niet per sé", "Nooit"];
 
-// Weights from ratingMethodology — sum to 1.0
-const CRITERIA_WEIGHTS = {
-  c_ontwerp: 0.20,
-  c_onderhoud: 0.20,
-  c_uitdaging: 0.15,
-  c_landschap: 0.15,
-  c_faciliteiten: 0.10,
-  c_prijs_kwaliteit: 0.10,
-  c_gastvrijheid: 0.10,
-} as const;
-
-function computeCriteriaScore(c: Pick<RatingInsert,
-  "c_ontwerp" | "c_onderhoud" | "c_uitdaging" | "c_landschap"
-  | "c_faciliteiten" | "c_prijs_kwaliteit" | "c_gastvrijheid">): number {
-  const sum = (Object.keys(CRITERIA_WEIGHTS) as (keyof typeof CRITERIA_WEIGHTS)[])
-    .reduce((acc, k) => acc + (Number(c[k]) || 0) * CRITERIA_WEIGHTS[k], 0);
-  return Math.round(sum * 10);
+function deriveFee(g: number | null | undefined): string {
+  if (g == null) return "—";
+  if (g < 60) return "€";
+  if (g < 85) return "€€";
+  if (g < 120) return "€€€";
+  return "€€€€";
 }
 
-function computePampasScore(
-  c: Parameters<typeof computeCriteriaScore>[0],
-  hosts: Pick<RatingInsert, "host_lars" | "host_levi" | "host_niels">
-): number {
-  const criteria = computeCriteriaScore(c);
-  const avg = (criteria + (Number(hosts.host_lars) || 0) + (Number(hosts.host_levi) || 0) + (Number(hosts.host_niels) || 0)) / 4;
-  return Math.round(avg);
+function computeHostScore(r: Pick<RatingInsert, CriterionKey>): number {
+  const sum = CRITERIA.reduce((acc, c) => acc + (Number(r[c.key]) || 0) * c.weight, 0);
+  return Math.round(sum * 10 * 10) / 10;
 }
-
-function deriveFeeBand(greenfee: number): string {
-  if (greenfee >= 120) return "€€€€";
-  if (greenfee >= 90) return "€€€";
-  if (greenfee >= 60) return "€€";
-  return "€";
-}
-
-function slugify(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-const EMPTY: RatingInsert = {
-  slug: "",
-  rank: 0,
-  name: "",
-  region: "",
-  type: "",
-  greenfee: 0,
-  fee_band: "€",
-  played_on: null,
-  country_code: "BE",
-  latitude: null,
-  longitude: null,
-  c_ontwerp: 0,
-  c_onderhoud: 0,
-  c_uitdaging: 0,
-  c_landschap: 0,
-  c_faciliteiten: 0,
-  c_prijs_kwaliteit: 0,
-  c_gastvrijheid: 0,
-  host_lars: 0,
-  host_levi: 0,
-  host_niels: 0,
-  pampas_score: 0,
-  verdict: "",
-  notes: "",
-  findings: [],
-};
-
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
-
-const COUNTRIES: Array<{ code: string; label: string }> = [
-  { code: "BE", label: "België" },
-  { code: "NL", label: "Nederland" },
-  { code: "FR", label: "Frankrijk" },
-  { code: "LU", label: "Luxemburg" },
-  { code: "DE", label: "Duitsland" },
-  { code: "GB", label: "Verenigd Koninkrijk" },
-  { code: "ES", label: "Spanje" },
-  { code: "PT", label: "Portugal" },
-  { code: "IT", label: "Italië" },
-  { code: "IE", label: "Ierland" },
-];
-
-
-// After insert/update, re-rank all rows by pampas_score desc (ties → name asc).
-async function recomputeRanks() {
-  const { data, error } = await supabase
-    .from("course_ratings")
-    .select("id, pampas_score, name, rank");
-  if (error || !data) return;
-  const sorted = [...data].sort(
-    (a, b) => b.pampas_score - a.pampas_score || a.name.localeCompare(b.name)
-  );
-  await Promise.all(
-    sorted.map((row, i) => {
-      const newRank = i + 1;
-      if (row.rank === newRank) return Promise.resolve();
-      return supabase.from("course_ratings").update({ rank: newRank }).eq("id", row.id);
-    })
-  );
-}
-
 
 function AdminPage() {
-  const [session, setSession] = useState<unknown>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
+  const [session, setSession] = useState<any>(null);
   const [checking, setChecking] = useState(true);
+  const [tab, setTab] = useState<"courses" | "ratings">("courses");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
       setSession(s);
-      if (s?.user) checkAdmin(s.user.id);
-      else { setIsAdmin(false); setChecking(false); }
+      if (!s) navigate({ to: "/admin/login", replace: true });
     });
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
-      if (s?.user) checkAdmin(s.user.id);
-      else setChecking(false);
+      setChecking(false);
+      if (!s) navigate({ to: "/admin/login", replace: true });
     });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
-  async function checkAdmin(userId: string) {
-    setChecking(true);
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(!!data);
-    setChecking(false);
-  }
-
-  if (checking) {
-    return <div className="min-h-screen flex items-center justify-center font-rb-sans text-[#7A7260]">Even geduld…</div>;
-  }
-
-  if (!session) return <LoginForm />;
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center bg-[#F4EFE5]">
-        <p className="font-rb-serif text-2xl text-[#1C3D2A]">Geen toegang.</p>
-        <button
-          onClick={() => supabase.auth.signOut()}
-          className="font-rb-mono text-[0.65rem] tracking-[0.15em] uppercase text-[#3D7A52] underline"
-        >
-          Uitloggen
-        </button>
-      </div>
-    );
-  }
-
-  return <AdminDashboard />;
-}
-
-function LoginForm() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    const email = username.includes("@")
-      ? username
-      : `${username.toLowerCase()}@${EMAIL_DOMAIN}`;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) toast.error("Login mislukt: " + error.message);
+  if (checking || !session) {
+    return <div className="min-h-screen bg-[#0F0F0E] flex items-center justify-center text-[#8A8270] text-sm">Even geduld…</div>;
   }
 
   return (
-    <div className="min-h-screen bg-[#F4EFE5] flex items-center justify-center px-6">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white border border-[rgba(28,61,42,0.15)] p-8 space-y-6"
-      >
-        <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-2">
-            Beheer
-          </p>
-          <h1 className="font-rb-serif text-3xl text-[#1C3D2A]">Admin login</h1>
+    <div className="min-h-screen bg-[#0F0F0E] text-[#E8E4D8]">
+      <div className="h-[3px] w-full bg-[#BA7517]" />
+      <header className="border-b border-[#2A2A26] px-6 lg:px-10 py-5 flex items-center justify-between">
+        <div className="flex items-baseline gap-4">
+          <span className="font-serif italic text-xl text-[#E8E4D8]">PAMPAS</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-[#BA7517]">Beheer</span>
         </div>
-        <div className="space-y-2">
-          <label className="font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#1C3D2A]">
-            Gebruikersnaam
-          </label>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            autoComplete="username"
-            required
-            className="w-full border border-[rgba(28,61,42,0.25)] px-3 py-2 font-rb-sans text-sm bg-[#FAF8F2] focus:outline-none focus:border-[#1C3D2A]"
-          />
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-[#8A8270] hidden sm:inline">{session.user.email}</span>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="text-[10px] tracking-[0.15em] uppercase border border-[#2A2A26] px-3 py-1.5 hover:border-[#BA7517] hover:text-[#BA7517]"
+          >
+            Afmelden
+          </button>
         </div>
-        <div className="space-y-2">
-          <label className="font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#1C3D2A]">
-            Wachtwoord
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-            className="w-full border border-[rgba(28,61,42,0.25)] px-3 py-2 font-rb-sans text-sm bg-[#FAF8F2] focus:outline-none focus:border-[#1C3D2A]"
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-[#1C3D2A] text-[#F4EFE5] py-3 font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase hover:bg-[#3D7A52] transition-colors disabled:opacity-50"
-        >
-          {loading ? "Bezig…" : "Inloggen"}
-        </button>
-      </form>
+      </header>
+
+      <nav className="border-b border-[#2A2A26] px-6 lg:px-10 flex gap-6">
+        {(["courses", "ratings"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={`py-3 text-xs tracking-[0.15em] uppercase border-b-2 transition-colors ${
+              tab === t ? "border-[#BA7517] text-[#E8E4D8]" : "border-transparent text-[#8A8270] hover:text-[#E8E4D8]"
+            }`}
+          >
+            {t === "courses" ? "Parcours" : "Beoordelingen"}
+          </button>
+        ))}
+      </nav>
+
+      <main className="px-6 lg:px-10 py-8">
+        {tab === "courses" ? <CoursesTab /> : <RatingsTab />}
+      </main>
     </div>
   );
 }
 
-function AdminDashboard() {
-  const [items, setItems] = useState<Rating[]>([]);
+// ============ COURSES TAB ============
+
+function CoursesTab() {
+  const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editing, setEditing] = useState<Rating | "new" | null>(null);
+  const [editing, setEditing] = useState<Course | "new" | null>(null);
 
   async function load() {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("course_ratings")
-      .select("*")
-      .order("rank", { ascending: true });
+    const { data, error } = await supabase.from("courses").select("*").order("name");
     if (error) toast.error(error.message);
     setItems(data ?? []);
     setLoading(false);
   }
-
   useEffect(() => { load(); }, []);
 
-  async function remove(id: string) {
-    if (!confirm("Verwijderen?")) return;
-    const { error } = await supabase.from("course_ratings").delete().eq("id", id);
+  async function remove(c: Course) {
+    if (!confirm(`Ben je zeker? Dit verwijdert ook alle beoordelingen voor "${c.name}".`)) return;
+    await supabase.from("ratings").delete().eq("course_id", c.id);
+    const { error } = await supabase.from("courses").delete().eq("id", c.id);
     if (error) return toast.error(error.message);
     toast.success("Verwijderd");
     load();
   }
 
   return (
-    <div className="min-h-screen bg-[#F4EFE5]">
-      <header className="border-b border-[rgba(28,61,42,0.15)] px-6 lg:px-14 py-6 flex items-center justify-between bg-white">
-        <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260]">
-            Beheer
-          </p>
-          <h1 className="font-rb-serif text-2xl text-[#1C3D2A]">Course Ratings</h1>
-        </div>
-        <div className="flex gap-3">
-          <button
-            onClick={() => setEditing("new")}
-            className="bg-[#1C3D2A] text-[#F4EFE5] px-4 py-2 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase hover:bg-[#3D7A52]"
-          >
-            + Nieuw
-          </button>
-          <button
-            onClick={() => supabase.auth.signOut()}
-            className="border border-[rgba(28,61,42,0.25)] px-4 py-2 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#1C3D2A] hover:bg-[#1C3D2A] hover:text-[#F4EFE5]"
-          >
-            Uitloggen
-          </button>
-        </div>
-      </header>
-
-      <div className="px-6 lg:px-14 py-10">
-        {loading ? (
-          <p className="font-rb-sans text-[#7A7260]">Laden…</p>
-        ) : (
-          <div className="overflow-x-auto border border-[rgba(28,61,42,0.15)] bg-white">
-            <table className="w-full border-collapse text-left min-w-[760px]">
-              <thead className="bg-[#1C3D2A] text-[#F4EFE5]">
-                <tr>
-                  {["#", "Parcours", "Regio", "Score", "Verdict", ""].map((h) => (
-                    <th key={h} className="px-4 py-3 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((r) => (
-                  <tr key={r.id} className="border-t border-[rgba(28,61,42,0.12)]">
-                    <td className="px-4 py-3 font-rb-mono text-[0.7rem] text-[#7A7260]">{r.rank}</td>
-                    <td className="px-4 py-3 font-rb-serif text-[1rem] text-[#1C3D2A]">{r.name}</td>
-                    <td className="px-4 py-3 font-rb-sans text-[0.85rem]">{r.region}</td>
-                    <td className="px-4 py-3 font-rb-serif text-[1.2rem] text-[#1C3D2A]">{r.pampas_score}</td>
-                    <td className="px-4 py-3 font-rb-mono text-[0.6rem] tracking-[0.1em] uppercase">{r.verdict}</td>
-                    <td className="px-4 py-3 text-right space-x-3">
-                      <button
-                        onClick={() => setEditing(r)}
-                        className="font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
-                      >
-                        Bewerk
-                      </button>
-                      <button
-                        onClick={() => remove(r.id)}
-                        className="font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-red-700 hover:text-red-900"
-                      >
-                        Wis
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-                {items.length === 0 && (
-                  <tr><td colSpan={6} className="px-4 py-8 text-center font-rb-sans text-[#7A7260]">Nog geen ratings.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+    <>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-medium">Parcours ({items.length})</h2>
+        <button onClick={() => setEditing("new")} className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]">
+          + Parcours
+        </button>
       </div>
 
+      {loading ? (
+        <p className="text-sm text-[#8A8270]">Laden…</p>
+      ) : (
+        <div className="border border-[#2A2A26] overflow-x-auto">
+          <table className="w-full text-left text-sm min-w-[760px]">
+            <thead className="bg-[#1A1A18] text-[#8A8270]">
+              <tr>
+                {["#", "Naam", "Land", "Regio", "Type", "Greenfee", "Fee", ""].map((h) => (
+                  <th key={h} className="px-4 py-2.5 text-[10px] tracking-[0.15em] uppercase font-normal">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((c, i) => (
+                <tr key={c.id} className="border-t border-[#2A2A26]">
+                  <td className="px-4 py-3 text-[#8A8270] text-xs">{i + 1}</td>
+                  <td className="px-4 py-3 font-medium">{c.name}</td>
+                  <td className="px-4 py-3 text-[#8A8270]">{c.country}</td>
+                  <td className="px-4 py-3 text-[#8A8270]">{c.region ?? "—"}</td>
+                  <td className="px-4 py-3 text-[#8A8270]">{c.type ?? "—"}</td>
+                  <td className="px-4 py-3 text-[#8A8270]">{c.greenfee != null ? `€${Number(c.greenfee)}` : "—"}</td>
+                  <td className="px-4 py-3 text-[#BA7517]">{c.fee_category ?? "—"}</td>
+                  <td className="px-4 py-3 text-right space-x-3">
+                    <button onClick={() => setEditing(c)} className="text-xs text-[#BA7517] hover:underline">Bewerk</button>
+                    <button onClick={() => remove(c)} className="text-xs text-red-400 hover:underline">Wis</button>
+                  </td>
+                </tr>
+              ))}
+              {items.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Nog geen parcours.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
       {editing && (
-        <EditDrawer
-          initial={editing === "new" ? EMPTY : editing}
-          isNew={editing === "new"}
+        <CourseDrawer
+          initial={editing === "new" ? null : editing}
           onClose={() => setEditing(null)}
           onSaved={() => { setEditing(null); load(); }}
         />
       )}
-    </div>
+    </>
   );
 }
 
-function EditDrawer({
-  initial, isNew, onClose, onSaved,
-}: {
-  initial: RatingInsert | Rating;
-  isNew: boolean;
-  onClose: () => void;
-  onSaved: () => void;
-}) {
-  const [form, setForm] = useState<RatingInsert>({ ...(initial as RatingInsert) });
-  const [findingsText, setFindingsText] = useState(
-    Array.isArray(initial.findings) ? (initial.findings as string[]).join("\n") : ""
+function CourseDrawer({ initial, onClose, onSaved }: { initial: Course | null; onClose: () => void; onSaved: () => void }) {
+  const [form, setForm] = useState<CourseInsert>(
+    initial ?? { name: "", country: "België", region: "", type: "Parkland", greenfee: null, holes: 18, website: "", episode_url: "" }
   );
   const [saving, setSaving] = useState(false);
-
-  function set<K extends keyof RatingInsert>(k: K, v: RatingInsert[K]) {
-    setForm((f) => ({ ...f, [k]: v }));
-  }
-
-  const criteriaScore = computeCriteriaScore(form);
-  const pampasScore = computePampasScore(form, form);
-  const feeBand = deriveFeeBand(Number(form.greenfee) || 0);
-  const slug = form.slug?.trim() || slugify(form.name ?? "");
 
   async function save(e: FormEvent) {
     e.preventDefault();
     if (!form.name?.trim()) return toast.error("Naam is verplicht");
     setSaving(true);
-
-    // Auto-geocode if lat/lng missing
-    let latitude = form.latitude ?? null;
-    let longitude = form.longitude ?? null;
-    if (latitude == null || longitude == null) {
-      try {
-        const query = [form.name, form.region].filter(Boolean).join(", ");
-        const res = await geocodeAddress({
-          data: { query, countryCode: form.country_code || "BE" },
-        });
-        if (res.lat != null && res.lng != null) {
-          latitude = res.lat;
-          longitude = res.lng;
-          toast.success(`Coördinaten gevonden: ${res.lat.toFixed(4)}, ${res.lng.toFixed(4)}`);
-        } else {
-          toast.warning("Geen coördinaten gevonden — vul handmatig in indien nodig.");
-        }
-      } catch (err) {
-        console.error(err);
-        toast.warning("Geocoding mislukt — coördinaten leeg.");
-      }
-    }
-
-    const payload: RatingInsert = {
+    const payload: CourseInsert = {
       ...form,
-      slug,
-      fee_band: feeBand,
-      pampas_score: pampasScore,
-      latitude,
-      longitude,
-      country_code: form.country_code || "BE",
-      findings: findingsText.split("\n").map((s) => s.trim()).filter(Boolean),
-      played_on: form.played_on || null,
-      // rank gets recomputed below; insert with a sentinel value
-      rank: isNew ? 9999 : (initial as Rating).rank,
+      greenfee: form.greenfee != null && form.greenfee !== ("" as any) ? Number(form.greenfee) : null,
+      holes: Number(form.holes) || 18,
+      region: form.region?.trim() || null,
+      website: form.website?.trim() || null,
+      episode_url: form.episode_url?.trim() || null,
     };
-    let error;
-    if (isNew) {
-      ({ error } = await supabase.from("course_ratings").insert(payload));
-    } else {
-      ({ error } = await supabase
-        .from("course_ratings")
-        .update(payload)
-        .eq("id", (initial as Rating).id));
-    }
-    if (error) {
-      setSaving(false);
-      return toast.error(error.message);
-    }
-    await recomputeRanks();
+    const { error } = initial
+      ? await supabase.from("courses").update(payload).eq("id", initial.id)
+      : await supabase.from("courses").insert(payload);
     setSaving(false);
+    if (error) return toast.error(error.message);
     toast.success("Opgeslagen");
     onSaved();
   }
 
-
-
-  const num = (k: keyof RatingInsert) => (
-    <input
-      type="number"
-      value={(form[k] as number) ?? 0}
-      onChange={(e) => set(k, Number(e.target.value) as RatingInsert[typeof k])}
-      className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
-    />
+  return (
+    <Drawer title={initial ? "Bewerk parcours" : "Nieuw parcours"} onClose={onClose}>
+      <form onSubmit={save} className="space-y-4">
+        <Field label="Naam *">
+          <Input value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
+        </Field>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Land">
+            <Select value={form.country} onChange={(v) => setForm({ ...form, country: v })} options={COUNTRIES} />
+          </Field>
+          <Field label="Regio">
+            <Input value={form.region ?? ""} onChange={(v) => setForm({ ...form, region: v })} />
+          </Field>
+          <Field label="Type">
+            <Select value={form.type ?? "Parkland"} onChange={(v) => setForm({ ...form, type: v })} options={TYPES} />
+          </Field>
+          <Field label="Holes">
+            <Input type="number" value={String(form.holes ?? 18)} onChange={(v) => setForm({ ...form, holes: Number(v) })} />
+          </Field>
+          <Field label="Greenfee (EUR)">
+            <Input type="number" value={form.greenfee == null ? "" : String(form.greenfee)} onChange={(v) => setForm({ ...form, greenfee: v === "" ? null : Number(v) as any })} />
+          </Field>
+          <Field label="Fee categorie (auto)">
+            <div className="px-3 py-2 text-sm text-[#BA7517]">{deriveFee(form.greenfee as number | null)}</div>
+          </Field>
+        </div>
+        <Field label="Website">
+          <Input type="url" value={form.website ?? ""} onChange={(v) => setForm({ ...form, website: v })} placeholder="https://..." />
+        </Field>
+        <Field label="Episode link (Spotify)">
+          <Input type="url" value={form.episode_url ?? ""} onChange={(v) => setForm({ ...form, episode_url: v })} placeholder="https://open.spotify.com/..." />
+        </Field>
+        <DrawerActions saving={saving} onClose={onClose} />
+      </form>
+    </Drawer>
   );
+}
 
-  const txt = (k: keyof RatingInsert) => (
-    <input
-      value={(form[k] as string) ?? ""}
-      onChange={(e) => set(k, e.target.value as RatingInsert[typeof k])}
-      className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
-    />
-  );
+// ============ RATINGS TAB ============
 
-  const label = (s: string) => (
-    <label className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260]">{s}</label>
-  );
+type CourseWithRatings = Course & { ratings: Rating[] };
+
+function RatingsTab() {
+  const [items, setItems] = useState<CourseWithRatings[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<{ course: Course; host: HostName; rating: Rating | null } | null>(null);
+
+  async function load() {
+    setLoading(true);
+    const { data, error } = await supabase.from("courses").select("*, ratings(*)").order("name");
+    if (error) toast.error(error.message);
+    setItems((data ?? []) as CourseWithRatings[]);
+    setLoading(false);
+  }
+  useEffect(() => { load(); }, []);
 
   return (
-    <div className="fixed inset-0 bg-black/40 z-50 flex justify-end" onClick={onClose}>
-      <form
-        onClick={(e) => e.stopPropagation()}
-        onSubmit={save}
-        className="w-full max-w-2xl bg-[#F4EFE5] h-full overflow-y-auto p-8 space-y-6"
-      >
-        <div className="flex items-center justify-between">
-          <h2 className="font-rb-serif text-2xl text-[#1C3D2A]">
-            {isNew ? "Nieuwe rating" : "Bewerk rating"}
-          </h2>
-          <button type="button" onClick={onClose} className="font-rb-mono text-[0.6rem] uppercase text-[#7A7260]">Sluit</button>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2">{label("Naam")}{txt("name")}</div>
-          <div>{label("Regio")}{txt("region")}</div>
-          <div>{label("Type (bv. Heide, Parkland)")}{txt("type")}</div>
-          <div>{label("Greenfee €")}{num("greenfee")}</div>
-          <div>{label("Played on (dd/mm/jjjj)")}{txt("played_on")}</div>
-          <div className="col-span-2">{label("Verdict (bv. Altijd, Oui, Nooit)")}{txt("verdict")}</div>
-        </div>
-
-        <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">
-            Locatie — coördinaten worden auto-gegenereerd op basis van naam + regio + land
-          </p>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              {label("Land")}
-              <select
-                value={form.country_code ?? "BE"}
-                onChange={(e) => set("country_code", e.target.value)}
-                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
-              >
-                {COUNTRIES.map((c) => (
-                  <option key={c.code} value={c.code}>{c.code} — {c.label}</option>
-                ))}
-              </select>
+    <>
+      <h2 className="text-lg font-medium mb-4">Beoordelingen</h2>
+      {loading ? (
+        <p className="text-sm text-[#8A8270]">Laden…</p>
+      ) : items.length === 0 ? (
+        <p className="text-sm text-[#8A8270]">Voeg eerst een parcours toe.</p>
+      ) : (
+        <div className="space-y-3">
+          {items.map((c) => (
+            <div key={c.id} className="border border-[#2A2A26] bg-[#1A1A18]">
+              <div className="px-4 py-3 border-b border-[#2A2A26] flex items-baseline justify-between">
+                <span className="font-medium">{c.name}</span>
+                <span className="text-xs text-[#8A8270]">{c.region ?? c.country}</span>
+              </div>
+              <div className="divide-y divide-[#2A2A26]">
+                {HOSTS.map((host) => {
+                  const r = c.ratings.find((x) => x.host === host) ?? null;
+                  return (
+                    <div key={host} className="px-4 py-2.5 flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-3">
+                        <span className="w-14 text-[#8A8270] text-xs tracking-wider uppercase">{host}</span>
+                        {r ? (
+                          <>
+                            <span className="text-[#BA7517] font-medium tabular-nums">{Number(r.host_score).toFixed(1)} / 100</span>
+                            <span className="text-xs text-[#8A8270]">
+                              {r.played_on ? `Gespeeld: ${new Date(r.played_on).toLocaleDateString("nl-BE")}` : "Geen datum"}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-xs text-[#5A5448] italic">Geen beoordeling</span>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => setEditing({ course: c, host, rating: r })}
+                        className="text-xs text-[#BA7517] hover:underline"
+                      >
+                        {r ? "Bewerk" : "+ Beoordeling toevoegen"}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div>
-              {label("Latitude (optioneel)")}
-              <input
-                type="number"
-                step="any"
-                value={form.latitude ?? ""}
-                onChange={(e) => set("latitude", e.target.value === "" ? null : Number(e.target.value))}
-                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
-              />
+          ))}
+        </div>
+      )}
+
+      {editing && (
+        <RatingDrawer
+          course={editing.course}
+          host={editing.host}
+          initial={editing.rating}
+          onClose={() => setEditing(null)}
+          onSaved={() => { setEditing(null); load(); }}
+        />
+      )}
+    </>
+  );
+}
+
+function RatingDrawer({ course, host, initial, onClose, onSaved }: {
+  course: Course; host: HostName; initial: Rating | null; onClose: () => void; onSaved: () => void;
+}) {
+  const [form, setForm] = useState<RatingInsert>(
+    initial ?? {
+      course_id: course.id,
+      host,
+      played_on: null,
+      score_design: 7, score_condition: 7, score_challenge: 7, score_scenery: 7,
+      score_facilities: 7, score_value: 7, score_hospitality: 7,
+      hole_of_day: "", would_return: "Ja", one_word: "", review: "",
+    }
+  );
+  const [saving, setSaving] = useState(false);
+
+  const preview = useMemo(() => computeHostScore(form), [form]);
+
+  async function save(e: FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    const payload: RatingInsert = {
+      ...form,
+      course_id: course.id,
+      host,
+      host_score: preview,
+      played_on: form.played_on || null,
+      hole_of_day: form.hole_of_day?.trim() || null,
+      one_word: form.one_word?.trim() || null,
+      review: form.review?.trim() || null,
+    };
+    const { error } = initial
+      ? await supabase.from("ratings").update(payload).eq("id", initial.id)
+      : await supabase.from("ratings").insert(payload);
+    setSaving(false);
+    if (error) return toast.error(error.message);
+    toast.success("Opgeslagen");
+    onSaved();
+  }
+
+  async function remove() {
+    if (!initial) return;
+    if (!confirm("Beoordeling verwijderen?")) return;
+    const { error } = await supabase.from("ratings").delete().eq("id", initial.id);
+    if (error) return toast.error(error.message);
+    toast.success("Verwijderd");
+    onSaved();
+  }
+
+  return (
+    <Drawer title={`${initial ? "Bewerk" : "Nieuwe"} beoordeling`} onClose={onClose}>
+      <form onSubmit={save} className="space-y-4">
+        <div className="bg-[#0F0F0E] border border-[#2A2A26] p-3 text-xs space-y-1">
+          <div><span className="text-[#8A8270]">Parcours: </span><span className="text-[#E8E4D8]">{course.name}</span></div>
+          <div><span className="text-[#8A8270]">Host: </span><span className="text-[#E8E4D8]">{host}</span></div>
+        </div>
+
+        <Field label="Datum gespeeld">
+          <Input type="date" value={form.played_on ?? ""} onChange={(v) => setForm({ ...form, played_on: v })} />
+        </Field>
+
+        <div className="space-y-2.5 border-t border-[#2A2A26] pt-4">
+          <p className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270]">Scores</p>
+          {CRITERIA.map((c) => {
+            const v = Number(form[c.key]) || 0;
+            return (
+              <div key={c.key}>
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-[#E8E4D8]">{c.label} <span className="text-[#5A5448]">({Math.round(c.weight * 100)}%)</span></span>
+                  <span className="text-[#BA7517] tabular-nums">{v.toFixed(1)}</span>
+                </div>
+                <input
+                  type="range" min={1} max={10} step={0.5} value={v}
+                  onChange={(e) => setForm({ ...form, [c.key]: Number(e.target.value) })}
+                  className="w-full accent-[#BA7517]"
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="bg-[#0F0F0E] border border-[#BA7517]/30 p-3 flex items-center justify-between">
+          <span className="text-xs tracking-[0.15em] uppercase text-[#8A8270]">PAMPAS Score</span>
+          <div className="flex items-center gap-3">
+            <div className="w-32 h-2 bg-[#2A2A26]">
+              <div className="h-full bg-[#BA7517]" style={{ width: `${Math.min(preview, 100)}%` }} />
             </div>
-            <div>
-              {label("Longitude (optioneel)")}
-              <input
-                type="number"
-                step="any"
-                value={form.longitude ?? ""}
-                onChange={(e) => set("longitude", e.target.value === "" ? null : Number(e.target.value))}
-                className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-mono text-sm bg-white"
-              />
-            </div>
-          </div>
-          <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] mt-2">
-            Laat lat/lng leeg om automatisch op te zoeken bij opslaan.
-          </p>
-        </div>
-
-
-        <div className="grid grid-cols-3 gap-3 bg-white/60 border border-[rgba(28,61,42,0.15)] p-3">
-          <div>
-            {label("Slug (auto)")}
-            <div className="font-rb-mono text-xs text-[#1C3D2A] py-1 truncate">{slug || "—"}</div>
-          </div>
-          <div>
-            {label("Fee band (auto)")}
-            <div className="font-rb-mono text-xs text-[#1C3D2A] py-1">{feeBand}</div>
-          </div>
-          <div>
-            {label("Rank (auto na opslaan)")}
-            <div className="font-rb-mono text-xs text-[#7A7260] py-1">
-              {isNew ? "—" : `#${(initial as Rating).rank}`}
-            </div>
+            <span className="text-[#BA7517] font-medium tabular-nums">{preview.toFixed(1)} / 100</span>
           </div>
         </div>
 
-        <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">
-            Criteria /10 — bepalen automatisch de PAMPAS Score
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              ["Ontwerp (20%)", "c_ontwerp"],
-              ["Onderhoud (20%)", "c_onderhoud"],
-              ["Uitdaging (15%)", "c_uitdaging"],
-              ["Landschap (15%)", "c_landschap"],
-              ["Faciliteiten (10%)", "c_faciliteiten"],
-              ["Prijs/Kwaliteit (10%)", "c_prijs_kwaliteit"],
-              ["Gastvrijheid (10%)", "c_gastvrijheid"],
-            ].map(([l, k]) => (
-              <div key={k}>{label(l)}{num(k as keyof RatingInsert)}</div>
-            ))}
+        <div className="space-y-3 border-t border-[#2A2A26] pt-4">
+          <Field label="Hole van de dag">
+            <Input value={form.hole_of_day ?? ""} onChange={(v) => setForm({ ...form, hole_of_day: v })} />
+          </Field>
+          <Field label="Terugkomen?">
+            <Select value={form.would_return ?? "Ja"} onChange={(v) => setForm({ ...form, would_return: v })} options={RETURN_OPTIONS} />
+          </Field>
+          <Field label="Eén woord (max 20)">
+            <Input value={form.one_word ?? ""} onChange={(v) => setForm({ ...form, one_word: v.slice(0, 20) })} />
+          </Field>
+          <Field label="Review / notities">
+            <textarea
+              value={form.review ?? ""}
+              onChange={(e) => setForm({ ...form, review: e.target.value })}
+              rows={4}
+              className="w-full bg-[#0F0F0E] border border-[#2A2A26] px-3 py-2 text-sm text-[#E8E4D8] focus:outline-none focus:border-[#BA7517]"
+            />
+          </Field>
+        </div>
+
+        <DrawerActions saving={saving} onClose={onClose} />
+
+        {initial && (
+          <div className="pt-3 border-t border-[#2A2A26]">
+            <button type="button" onClick={remove} className="text-xs text-red-400 hover:underline">
+              Beoordeling verwijderen
+            </button>
           </div>
-        </div>
-
-        <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-2">Host scores /100</p>
-          <div className="grid grid-cols-3 gap-3">
-            <div>{label("Lars")}{num("host_lars")}</div>
-            <div>{label("Levi")}{num("host_levi")}</div>
-            <div>{label("Niels")}{num("host_niels")}</div>
-          </div>
-        </div>
-
-        <div className="bg-[#1C3D2A] text-[#F4EFE5] p-4 space-y-2">
-          <div className="flex items-baseline justify-between opacity-80">
-            <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase">Criteria score (gewogen)</span>
-            <span className="font-rb-mono text-sm">{criteriaScore}/100</span>
-          </div>
-          <div className="flex items-baseline justify-between border-t border-[#F4EFE5]/20 pt-2">
-            <span className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase">
-              PAMPAS Score (avg criteria + 3 hosts)
-            </span>
-            <span className="font-rb-serif text-3xl">
-              {pampasScore}
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase ml-1 opacity-70">/100</span>
-            </span>
-          </div>
-        </div>
-
-
-        <div>
-          {label("Notes")}
-          <textarea
-            value={form.notes ?? ""}
-            onChange={(e) => set("notes", e.target.value)}
-            rows={3}
-            className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
-          />
-        </div>
-
-        <div>
-          {label("Findings (één per regel)")}
-          <textarea
-            value={findingsText}
-            onChange={(e) => setFindingsText(e.target.value)}
-            rows={6}
-            className="w-full border border-[rgba(28,61,42,0.25)] px-2 py-1 font-rb-sans text-sm bg-white"
-          />
-        </div>
-
-        <div className="flex gap-3 pt-4 border-t border-[rgba(28,61,42,0.15)]">
-          <button
-            type="submit"
-            disabled={saving}
-            className="bg-[#1C3D2A] text-[#F4EFE5] px-6 py-3 font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase hover:bg-[#3D7A52] disabled:opacity-50"
-          >
-            {saving ? "Bezig…" : "Opslaan"}
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="border border-[rgba(28,61,42,0.25)] px-6 py-3 font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A]"
-          >
-            Annuleer
-          </button>
-        </div>
+        )}
       </form>
+    </Drawer>
+  );
+}
+
+// ============ SHARED UI ============
+
+function Drawer({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  return (
+    <div className="fixed inset-0 bg-black/60 z-50 flex justify-end" onClick={onClose}>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-xl bg-[#1A1A18] border-l border-[#2A2A26] h-full overflow-y-auto"
+      >
+        <div className="h-[3px] bg-[#BA7517]" />
+        <div className="px-6 py-5 border-b border-[#2A2A26] flex items-center justify-between sticky top-0 bg-[#1A1A18] z-10">
+          <h3 className="font-medium text-[#E8E4D8]">{title}</h3>
+          <button onClick={onClose} className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270] hover:text-[#E8E4D8]">Sluit</button>
+        </div>
+        <div className="px-6 py-5">{children}</div>
+      </div>
     </div>
+  );
+}
+
+function DrawerActions({ saving, onClose }: { saving: boolean; onClose: () => void }) {
+  return (
+    <div className="flex gap-3 pt-2">
+      <button
+        type="submit"
+        disabled={saving}
+        className="bg-[#BA7517] text-[#0F0F0E] px-5 py-2.5 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714] disabled:opacity-50"
+      >
+        {saving ? "Bezig…" : "Opslaan"}
+      </button>
+      <button
+        type="button"
+        onClick={onClose}
+        className="border border-[#2A2A26] text-[#E8E4D8] px-5 py-2.5 text-xs tracking-[0.15em] uppercase hover:border-[#BA7517]"
+      >
+        Annuleer
+      </button>
+    </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-1.5">
+      <label className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270]">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+function Input(props: {
+  value: string; onChange: (v: string) => void; type?: string; required?: boolean; placeholder?: string;
+}) {
+  return (
+    <input
+      type={props.type ?? "text"}
+      value={props.value}
+      required={props.required}
+      placeholder={props.placeholder}
+      onChange={(e) => props.onChange(e.target.value)}
+      className="w-full bg-[#0F0F0E] border border-[#2A2A26] px-3 py-2 text-sm text-[#E8E4D8] focus:outline-none focus:border-[#BA7517]"
+    />
+  );
+}
+
+function Select({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: string[] }) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-[#0F0F0E] border border-[#2A2A26] px-3 py-2 text-sm text-[#E8E4D8] focus:outline-none focus:border-[#BA7517]"
+    >
+      {options.map((o) => <option key={o} value={o}>{o}</option>)}
+    </select>
   );
 }
