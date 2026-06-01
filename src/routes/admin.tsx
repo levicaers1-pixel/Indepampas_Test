@@ -215,7 +215,7 @@ function CourseDrawer({ initial, onClose, onSaved }: { initial: Course | null; o
         </Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Land">
-            <Select value={form.country} onChange={(v) => setForm({ ...form, country: v })} options={COUNTRIES} />
+            <Select value={form.country ?? "België"} onChange={(v) => setForm({ ...form, country: v })} options={COUNTRIES} />
           </Field>
           <Field label="Regio">
             <Input value={form.region ?? ""} onChange={(v) => setForm({ ...form, region: v })} />
