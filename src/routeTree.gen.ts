@@ -21,6 +21,7 @@ import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -82,16 +83,22 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/afleveringen': typeof AfleveringenRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -99,11 +106,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/afleveringen': typeof AfleveringenRoute
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -112,13 +120,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/afleveringen': typeof AfleveringenRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/hosts': typeof HostsRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/ratings'
     | '/sitemap.xml'
+    | '/admin/login'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/hosts'
     | '/sitemap.xml'
+    | '/admin/login'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/ratings'
     | '/sitemap.xml'
+    | '/admin/login'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -169,7 +181,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AfleveringenRoute: typeof AfleveringenRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
@@ -264,8 +276,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminLoginRoute: typeof AdminLoginRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminLoginRoute: AdminLoginRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
@@ -294,7 +323,7 @@ const RatingsRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   AfleveringenRoute: AfleveringenRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
