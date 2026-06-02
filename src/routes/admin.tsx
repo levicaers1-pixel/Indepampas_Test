@@ -36,28 +36,67 @@ function computeHostScore(r: Pick<RatingInsert, CriterionKey>): number {
   return Math.round(sum * 10 * 10) / 10;
 }
 
+const AUTH_CHECK_TIMEOUT_MS = 5000;
+
+function authCheckTimedOut() {
+  return new Promise<"timeout">((resolve) => {
+    window.setTimeout(() => resolve("timeout"), AUTH_CHECK_TIMEOUT_MS);
+  });
+}
+
+async function getVerifiedUser() {
+  const check = supabase.auth
+    .getUser()
+    .then(({ data, error }) => ({ user: data.user ?? null, error }))
+    .catch((error) => ({ user: null, error }));
+
+  const result = await Promise.race([check, authCheckTimedOut()]);
+  if (result === "timeout") return null;
+
+  if (result.error) {
+    await supabase.auth.signOut({ scope: "local" });
+    return null;
+  }
+
+  return result.user;
+}
+
 function AdminPage() {
   const navigate = useNavigate();
-  const [session, setSession] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
   const [tab, setTab] = useState<"courses" | "ratings">("courses");
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
-      setSession(s);
-      if (!s) navigate({ to: "/admin/login", replace: true });
-    });
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
+    let cancelled = false;
+
+    getVerifiedUser().then((verifiedUser) => {
+      if (cancelled) return;
+      setUser(verifiedUser);
       setChecking(false);
-      if (!s) navigate({ to: "/admin/login", replace: true });
+      if (!verifiedUser) navigate({ to: "/admin/login", replace: true });
     });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const nextUser = session?.user ?? null;
+      setUser(nextUser);
+      setChecking(false);
+      if (!nextUser) navigate({ to: "/admin/login", replace: true });
+    });
+
+    window.setTimeout(() => {
+      if (cancelled) return;
+      setChecking(false);
+    }, AUTH_CHECK_TIMEOUT_MS + 500);
+
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  if (checking || !session) {
+  if (checking) {
     return <div className="min-h-screen bg-[#0F0F0E] flex items-center justify-center text-[#8A8270] text-sm">Even geduld…</div>;
   }
+
+  if (!user) return null;
 
   return (
     <div className="min-h-screen bg-[#0F0F0E] text-[#E8E4D8]">
@@ -68,7 +107,7 @@ function AdminPage() {
           <span className="text-[10px] tracking-[0.2em] uppercase text-[#BA7517]">Beheer</span>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-xs text-[#8A8270] hidden sm:inline">{session.user.email}</span>
+          <span className="text-xs text-[#8A8270] hidden sm:inline">{user.email}</span>
           <button
             onClick={() => supabase.auth.signOut()}
             className="text-[10px] tracking-[0.15em] uppercase border border-[#2A2A26] px-3 py-1.5 hover:border-[#BA7517] hover:text-[#BA7517]"
