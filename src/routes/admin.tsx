@@ -89,7 +89,10 @@ function AdminPage() {
       setChecking(false);
     }, AUTH_CHECK_TIMEOUT_MS + 500);
 
-    return () => subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
   }, [navigate]);
 
   if (checking) {
