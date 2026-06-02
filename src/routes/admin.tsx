@@ -6,13 +6,23 @@ import { toast, Toaster } from "sonner";
 import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/personas";
 
 export const Route = createFileRoute("/admin")({
-  component: () => (
+  component: AdminRoute,
+});
+
+function AdminRoute() {
+  const location = useLocation();
+
+  if (location.pathname !== "/admin") {
+    return <Outlet />;
+  }
+
+  return (
     <>
       <Toaster richColors position="top-right" theme="dark" />
       <AdminPage />
     </>
-  ),
-});
+  );
+}
 
 type Course = Tables<"courses">;
 type Rating = Tables<"ratings">;
@@ -63,14 +73,9 @@ async function getVerifiedUser() {
 
 function AdminPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
   const [tab, setTab] = useState<"courses" | "ratings">("courses");
-
-  if (location.pathname !== "/admin") {
-    return <Outlet />;
-  }
 
   useEffect(() => {
     let cancelled = false;
