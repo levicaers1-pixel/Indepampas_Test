@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, useMemo, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
@@ -63,9 +63,14 @@ async function getVerifiedUser() {
 
 function AdminPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
   const [tab, setTab] = useState<"courses" | "ratings">("courses");
+
+  if (location.pathname !== "/admin") {
+    return <Outlet />;
+  }
 
   useEffect(() => {
     let cancelled = false;
