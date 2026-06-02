@@ -18,8 +18,9 @@ function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate({ to: "/admin", replace: true });
+    supabase.auth.getUser().then(({ data, error }) => {
+      if (!error && data.user) navigate({ to: "/admin", replace: true });
+      if (error) supabase.auth.signOut({ scope: "local" });
     });
   }, [navigate]);
 
@@ -31,9 +32,15 @@ function AdminLoginPage() {
 
     if (mode === "signin") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      setLoading(false);
       if (error) {
+        setLoading(false);
         setError(error.message || "Aanmelden mislukt");
+        return;
+      }
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      setLoading(false);
+      if (userError || !userData.user) {
+        setError("Aanmelden gelukt, maar de sessie kon niet worden bevestigd. Probeer opnieuw.");
         return;
       }
       navigate({ to: "/admin", replace: true });
