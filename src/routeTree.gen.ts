@@ -21,6 +21,7 @@ import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -83,6 +84,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/hosts': typeof HostsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/ratings'
     | '/sitemap.xml'
     | '/admin/login'
+    | '/admin/reset-password'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/sitemap.xml'
     | '/admin/login'
+    | '/admin/reset-password'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/ratings'
     | '/sitemap.xml'
     | '/admin/login'
+    | '/admin/reset-password'
     | '/blog/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -276,6 +288,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/reset-password': {
+      id: '/admin/reset-password'
+      path: '/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -288,10 +307,12 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
+  AdminResetPasswordRoute: typeof AdminResetPasswordRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
+  AdminResetPasswordRoute: AdminResetPasswordRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
