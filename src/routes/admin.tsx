@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { toast, Toaster } from "sonner";
 import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/personas";
+import { getVerifiedAdminUser } from "@/lib/adminAuth";
 
 export const Route = createFileRoute("/admin")({
   component: AdminRoute,
@@ -55,20 +56,11 @@ function authCheckTimedOut() {
 }
 
 async function getVerifiedUser() {
-  const check = supabase.auth
-    .getUser()
-    .then(({ data, error }) => ({ user: data.user ?? null, error }))
-    .catch((error) => ({ user: null, error }));
+  const check = getVerifiedAdminUser().catch(() => null);
 
   const result = await Promise.race([check, authCheckTimedOut()]);
   if (result === "timeout") return null;
-
-  if (result.error) {
-    await supabase.auth.signOut({ scope: "local" });
-    return null;
-  }
-
-  return result.user;
+  return result;
 }
 
 function AdminPage() {
@@ -88,10 +80,11 @@ function AdminPage() {
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      const nextUser = session?.user ?? null;
-      setUser(nextUser);
-      setChecking(false);
-      if (!nextUser) navigate({ to: "/admin/login", replace: true });
+      if (!session?.user) {
+        setUser(null);
+        setChecking(false);
+        navigate({ to: "/admin/login", replace: true });
+      }
     });
 
     window.setTimeout(() => {
@@ -398,19 +391,27 @@ function RatingDrawer({ course, host, initial, onClose, onSaved }: {
     setSaving(true);
     const { host_score: _ignored, ...rest } = form as any;
     const payload: RatingInsert = {
-      ...rest,
       course_id: course.id,
       host,
       played_on: form.played_on || null,
+      score_design: Number(rest.score_design),
+      score_condition: Number(rest.score_condition),
+      score_challenge: Number(rest.score_challenge),
+      score_scenery: Number(rest.score_scenery),
+      score_facilities: Number(rest.score_facilities),
+      score_value: Number(rest.score_value),
+      score_hospitality: Number(rest.score_hospitality),
       hole_of_day: form.hole_of_day?.trim() || null,
       one_word: form.one_word?.trim() || null,
       review: form.review?.trim() || null,
+      would_return: form.would_return?.trim() || null,
     };
-    const { error } = initial
-      ? await supabase.from("ratings").update(payload).eq("id", initial.id)
-      : await supabase.from("ratings").insert(payload);
+    const { data, error } = initial
+      ? await supabase.from("ratings").update(payload).eq("id", initial.id).select("id").maybeSingle()
+      : await supabase.from("ratings").insert(payload).select("id").maybeSingle();
     setSaving(false);
     if (error) return toast.error(error.message);
+    if (!data) return toast.error("Niet opgeslagen. Meld opnieuw aan met het admin-account.");
     toast.success("Opgeslagen");
     onSaved();
   }
