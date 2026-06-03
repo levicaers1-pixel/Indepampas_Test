@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { getVerifiedAdminUser } from "@/lib/adminAuth";
 
 export const Route = createFileRoute("/admin/login")({
   component: AdminLoginPage,
@@ -18,9 +19,8 @@ function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data, error }) => {
-      if (!error && data.user) navigate({ to: "/admin", replace: true });
-      if (error) supabase.auth.signOut({ scope: "local" });
+    getVerifiedAdminUser().then((user) => {
+      if (user) navigate({ to: "/admin", replace: true });
     });
   }, [navigate]);
 
@@ -37,10 +37,10 @@ function AdminLoginPage() {
         setError(error.message || "Aanmelden mislukt");
         return;
       }
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      const user = await getVerifiedAdminUser();
       setLoading(false);
-      if (userError || !userData.user) {
-        setError("Aanmelden gelukt, maar de sessie kon niet worden bevestigd. Probeer opnieuw.");
+      if (!user) {
+        setError("Deze gebruiker heeft geen adminrechten.");
         return;
       }
       navigate({ to: "/admin", replace: true });
