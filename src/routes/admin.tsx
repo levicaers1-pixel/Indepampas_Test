@@ -396,11 +396,11 @@ function RatingDrawer({ course, host, initial, onClose, onSaved }: {
   async function save(e: FormEvent) {
     e.preventDefault();
     setSaving(true);
+    const { host_score: _ignored, ...rest } = form as any;
     const payload: RatingInsert = {
-      ...form,
+      ...rest,
       course_id: course.id,
       host,
-      host_score: preview,
       played_on: form.played_on || null,
       hole_of_day: form.hole_of_day?.trim() || null,
       one_word: form.one_word?.trim() || null,
