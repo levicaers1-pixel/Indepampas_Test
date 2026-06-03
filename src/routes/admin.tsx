@@ -406,11 +406,12 @@ function RatingDrawer({ course, host, initial, onClose, onSaved }: {
       review: form.review?.trim() || null,
       would_return: form.would_return?.trim() || null,
     };
-    const { error } = initial
-      ? await supabase.from("ratings").update(payload).eq("id", initial.id)
-      : await supabase.from("ratings").insert(payload);
+    const { data, error } = initial
+      ? await supabase.from("ratings").update(payload).eq("id", initial.id).select("id").maybeSingle()
+      : await supabase.from("ratings").insert(payload).select("id").maybeSingle();
     setSaving(false);
     if (error) return toast.error(error.message);
+    if (!data) return toast.error("Niet opgeslagen. Meld opnieuw aan met het admin-account.");
     toast.success("Opgeslagen");
     onSaved();
   }
