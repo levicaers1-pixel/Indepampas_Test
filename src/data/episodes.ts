@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "08",
+    season: "S01",
+    title: "#08 Yellow Jasmine - Golfreizen van Herkenbosch tot Belek, Henley's Jeep & Hole 18 van The National",
+    description:
+      "Van een weekend Herkenbosch tot de zonbeschenen resorts van Belek — in deze aflevering van PAMPAS duiken we in de beste golfbestemmingen per auto én vliegtuig. Welke luchtvaartmaatschappij vervoert je golftas het beste? (Spoiler: vlieg nooit met Ryanair.) En hoe stel je zelf de perfecte golftrip samen zonder in een all-in hotel vol luidruchtige Britten te belanden? Verder: Russell Henley wint de Charles Schwab Challenge in een playoff én rijdt naar huis in een Jeep Scrambler uit 1982, Kaneko Kota pakt de Austrian Alpine Open na een bizarre botsing op een sprinkler op hole 18, en de Belgische heren presteren uitstekend in Estland. In de Groene Hoek lichten we hole 18 van The National toe, en in de Pikante Prikkelvraag: moet het altijd plaatsen zijn op de fairway — of niet?",
+    date: "03/06/2026",
+    duration: "1u 10min",
+    spotifyId: "1xTgDPLUoVEdn1JMcJipar",
+    topics: ["Golf", "Golfreizen", "Charles Schwab Challenge", "Russell Henley", "The National", "Prikkelvraag"],
+  },
+  {
     number: "07",
     season: "S01",
     title: "#07 Pampas - Nico's Final Dance: het afscheid van The Belgian Bomber | Wyndham wins again",
