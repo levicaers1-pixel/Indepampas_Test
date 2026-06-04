@@ -21,7 +21,7 @@ function PampasScoreBadge({ score, small }: { score: number | null; small?: bool
         style={{
           width: size,
           height: size,
-          background: `radial-gradient(circle at 30% 30%, ${hex}22, transparent 70%)`,
+          background: `radial-gradient(circle at 30% 30%, ${hex}18, transparent 70%)`,
           border: `2px solid ${hex}`,
         }}
       >
@@ -56,18 +56,18 @@ function HostDot({
   const p = HOST_PERSONAS[host];
   return (
     <div
-      className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[0.7rem] font-rb-sans"
+      className="inline-flex items-center gap-1.5 px-2 py-1 text-[0.7rem] font-rb-sans border"
       style={{
-        background: rated ? `${p.color}1F` : "#2A2A27",
-        color: rated ? p.color : "#5C5C58",
-        border: `1px solid ${rated ? p.color + "55" : "#3A3A36"}`,
+        background: rated ? `${p.color}14` : "transparent",
+        color: rated ? p.color : "#A09684",
+        borderColor: rated ? `${p.color}55` : "rgba(28,61,42,0.15)",
       }}
     >
       <span
         className="inline-block w-2 h-2 rounded-full"
         style={{
           background: rated ? p.color : "transparent",
-          border: rated ? "none" : `1.5px solid #5C5C58`,
+          border: rated ? "none" : "1.5px solid #A09684",
         }}
       />
       {host}
@@ -89,18 +89,18 @@ function CriteriaBars({
         const vals = ratings.map((r) => r[key]);
         const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
         const pct = (avg / 10) * 100;
-        const col = avg >= 8 ? "#1D9E75" : avg >= 7 ? "#378ADD" : avg >= 5.5 ? "#BA7517" : "#A32D2D";
+        const col = avg >= 8 ? "#3D7A52" : avg >= 7 ? "#8FBF4A" : avg >= 5.5 ? "#BA7517" : "#A32D2D";
         return (
           <div key={key} className="grid grid-cols-[140px_1fr_60px] items-center gap-3">
-            <span className="font-rb-sans text-[0.78rem] text-[#C8C5BC]">{label}</span>
-            <div className="h-[6px] bg-[#2A2A27] rounded-full overflow-hidden">
+            <span className="font-rb-sans text-[0.78rem] text-[#2E2B25]">{label}</span>
+            <div className="h-[6px] bg-[#EDE6D9] rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.7rem] text-[#8C8A85] text-right">
-              {avg.toFixed(1)} <span className="opacity-50">· {Math.round(weight * 100)}%</span>
+            <span className="font-rb-mono text-[0.7rem] text-[#7A7260] text-right">
+              {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
         );
@@ -124,7 +124,6 @@ export function CourseCard({
     [course.ratings, activePersona],
   );
 
-  // Disagreement: spread > 15 between top and bottom host_score
   const scores = course.ratings.map((r) => r.host_score);
   const spread = scores.length >= 2 ? Math.max(...scores) - Math.min(...scores) : 0;
   const disagree = spread > 15;
@@ -133,7 +132,7 @@ export function CourseCard({
   const reviewSnippet = course.ratings.find((r) => r.review)?.review ?? "";
 
   return (
-    <div className="bg-[#1E1E1C] border border-[#2E2E2B] hover:border-[#3A3A36] transition-colors">
+    <div className="bg-white border border-[rgba(28,61,42,0.15)] hover:border-[rgba(28,61,42,0.35)] transition-colors">
       {/* COLLAPSED HEADER */}
       <button
         onClick={() => setOpen((o) => !o)}
@@ -142,13 +141,13 @@ export function CourseCard({
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
             {course.region && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase text-[#8C8A85]">
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase text-[#7A7260]">
                 {course.region}
                 {course.country !== "België" ? ` · ${course.country}` : ""}
               </span>
             )}
             {course.type && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[#252523] text-[#C8C5BC] rounded-sm">
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[#EDE6D9] text-[#1C3D2A]">
                 {course.type}
               </span>
             )}
@@ -156,17 +155,17 @@ export function CourseCard({
               <span className="font-rb-mono text-[0.6rem] text-[#BA7517]">{course.fee_category}</span>
             )}
             {disagree && (
-              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#DB6B4A] bg-[#2E1810] px-2 py-0.5 rounded-sm">
+              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#A32D2D] bg-[#F5E4DC] px-2 py-0.5">
                 <Flame size={10} /> Verdeeld oordeel
               </span>
             )}
             {onlyOneRated && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#8C8A85] bg-[#252523] px-2 py-0.5 rounded-sm">
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] bg-[#EDE6D9] px-2 py-0.5">
                 Enkel door {course.ratings[0].host}
               </span>
             )}
           </div>
-          <h3 className="font-rb-serif text-[1.6rem] md:text-[1.85rem] text-[#F5F3EE] leading-tight">
+          <h3 className="font-rb-serif text-[1.6rem] md:text-[1.85rem] text-[#1C3D2A] leading-tight">
             {course.name}
           </h3>
           <div className="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -180,14 +179,14 @@ export function CourseCard({
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#1DB954] hover:text-[#2DBF7E] ml-1"
+                className="inline-flex items-center gap-1 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] ml-1"
               >
                 <Play size={10} /> Episode
               </a>
             )}
           </div>
           {reviewSnippet && (
-            <p className="font-rb-sans text-[0.85rem] text-[#8C8A85] mt-3 line-clamp-2 max-w-2xl">
+            <p className="font-rb-sans text-[0.85rem] text-[#7A7260] mt-3 line-clamp-2 max-w-2xl italic">
               "{reviewSnippet.slice(0, 140)}{reviewSnippet.length > 140 ? "…" : ""}"
             </p>
           )}
@@ -197,10 +196,10 @@ export function CourseCard({
             <PampasScoreBadge score={course.pampasScore} />
             {activePersona && personal != null && (
               <div
-                className="font-rb-mono text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5 rounded-sm"
+                className="font-rb-mono text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5"
                 style={{
                   color: activePersona.color,
-                  background: activePersona.color + "1F",
+                  background: `${activePersona.color}18`,
                 }}
                 title={`Berekend op basis van wat ${activePersona.name} het meest waardeert`}
               >
@@ -210,7 +209,7 @@ export function CourseCard({
           </div>
           <ChevronDown
             size={20}
-            className="text-[#8C8A85] transition-transform"
+            className="text-[#7A7260] transition-transform"
             style={{ transform: open ? "rotate(180deg)" : "rotate(0)" }}
           />
         </div>
@@ -218,10 +217,10 @@ export function CourseCard({
 
       {/* EXPANDED */}
       {open && (
-        <div className="border-t border-[#2E2E2B] p-5 md:p-6 space-y-8 bg-[#1A1A18]">
+        <div className="border-t border-[rgba(28,61,42,0.15)] p-5 md:p-6 space-y-8 bg-[#F4EFE5]">
           {/* PER HOST */}
           <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8C8A85] mb-4">
+            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
               Per host
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -232,12 +231,12 @@ export function CourseCard({
                   return (
                     <div
                       key={h}
-                      className="p-3 border border-dashed border-[#2E2E2B] rounded-sm"
+                      className="p-3 border border-dashed border-[rgba(28,61,42,0.2)] bg-white/40"
                     >
-                      <div className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#5C5C58]">
+                      <div className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#A09684]">
                         {p.icon} {h}
                       </div>
-                      <div className="font-rb-sans text-[0.78rem] text-[#5C5C58] mt-1.5">
+                      <div className="font-rb-sans text-[0.78rem] text-[#A09684] mt-1.5">
                         Nog niet gespeeld
                       </div>
                     </div>
@@ -246,8 +245,8 @@ export function CourseCard({
                 return (
                   <div
                     key={h}
-                    className="p-3 rounded-sm"
-                    style={{ background: p.bgLight, border: `1px solid ${p.color}33` }}
+                    className="p-3 bg-white"
+                    style={{ border: `1px solid ${p.color}44` }}
                   >
                     <div className="flex items-baseline justify-between mb-2">
                       <span
@@ -263,7 +262,6 @@ export function CourseCard({
                         {r.host_score.toFixed(0)}
                       </span>
                     </div>
-                    {/* mini bars */}
                     <div className="space-y-1 mt-2">
                       {CRITERIA.map(({ key, label }) => (
                         <div
@@ -280,7 +278,7 @@ export function CourseCard({
                               title={label}
                             />
                           </div>
-                          <span className="font-rb-mono text-[0.55rem] text-[#8C8A85] text-right">
+                          <span className="font-rb-mono text-[0.55rem] text-[#7A7260] text-right">
                             {r[key]}
                           </span>
                         </div>
@@ -294,7 +292,7 @@ export function CourseCard({
 
           {/* CRITERIA AVG */}
           <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8C8A85] mb-4">
+            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
               Gemiddelde per criterium
             </h4>
             <CriteriaBars ratings={course.ratings} />
@@ -302,13 +300,13 @@ export function CourseCard({
 
           {/* VERDICTS */}
           <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8C8A85] mb-4">
+            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
               Verdicts
             </h4>
             <div className="overflow-x-auto">
-              <table className="w-full text-left font-rb-sans text-[0.8rem]">
+              <table className="w-full text-left font-rb-sans text-[0.82rem]">
                 <thead>
-                  <tr className="text-[#5C5C58] font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
+                  <tr className="text-[#7A7260] font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
                     <th className="pb-2 pr-4">Host</th>
                     <th className="pb-2 pr-4">Hole van de dag</th>
                     <th className="pb-2 pr-4">Terugkomen?</th>
@@ -319,13 +317,13 @@ export function CourseCard({
                   {course.ratings.map((r) => {
                     const p = HOST_PERSONAS[r.host];
                     return (
-                      <tr key={r.id} className="border-t border-[#2E2E2B]">
+                      <tr key={r.id} className="border-t border-[rgba(28,61,42,0.15)]">
                         <td className="py-2 pr-4" style={{ color: p.color }}>
                           {p.icon} {r.host}
                         </td>
-                        <td className="py-2 pr-4 text-[#C8C5BC]">{r.hole_of_day ?? "—"}</td>
-                        <td className="py-2 pr-4 text-[#C8C5BC]">{r.would_return ?? "—"}</td>
-                        <td className="py-2 pr-4 italic text-[#C8C5BC]">
+                        <td className="py-2 pr-4 text-[#2E2B25]">{r.hole_of_day ?? "—"}</td>
+                        <td className="py-2 pr-4 text-[#2E2B25]">{r.would_return ?? "—"}</td>
+                        <td className="py-2 pr-4 italic text-[#2E2B25]">
                           {r.one_word ?? "—"}
                         </td>
                       </tr>
@@ -337,21 +335,21 @@ export function CourseCard({
           </div>
 
           {/* DETAILS */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#8C8A85]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#7A7260]">
             {course.greenfee != null && (
               <span>
-                Greenfee · <span className="text-[#F5F3EE]">€{course.greenfee}</span>
+                Greenfee · <span className="text-[#1C3D2A]">€{course.greenfee}</span>
               </span>
             )}
             <span>
-              Holes · <span className="text-[#F5F3EE]">{course.holes}</span>
+              Holes · <span className="text-[#1C3D2A]">{course.holes}</span>
             </span>
             {course.website && (
               <a
                 href={course.website}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-[#378ADD] hover:text-[#5BA8E8]"
+                className="inline-flex items-center gap-1 text-[#3D7A52] hover:text-[#1C3D2A]"
               >
                 Website <ExternalLink size={10} />
               </a>

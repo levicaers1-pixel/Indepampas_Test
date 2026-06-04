@@ -48,7 +48,6 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
     const next = [...answers, a];
     setAnswers(next);
     if (step === QUESTIONS.length - 1) {
-      // tally
       const counts: Record<QuizAnswer, number> = { challenge: 0, experience: 0, value: 0 };
       next.forEach((x) => counts[x]++);
       const winner = (Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0]) as QuizAnswer;
@@ -68,29 +67,36 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
     const p = HOST_PERSONAS[result];
     return (
       <div
-        className="p-6 md:p-8 rounded-sm"
-        style={{ background: p.bgLight, border: `1px solid ${p.color}55` }}
+        className="p-6 md:p-8 bg-white border"
+        style={{ borderColor: `${p.color}55` }}
       >
-        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase mb-2" style={{ color: p.color }}>
+        <div
+          className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase mb-2"
+          style={{ color: p.color }}
+        >
           Jouw match
         </div>
-        <h3 className="font-rb-serif text-[2rem] md:text-[2.4rem] leading-tight" style={{ color: p.color }}>
-          {p.icon} {p.name} <span className="opacity-70">— {p.tagline}</span>
+        <h3
+          className="font-rb-serif font-light text-[2rem] md:text-[2.4rem] leading-tight"
+          style={{ color: p.color }}
+        >
+          {p.icon} {p.name}{" "}
+          <span className="italic opacity-70">— {p.tagline}</span>
         </h3>
-        <p className="font-rb-sans text-[0.92rem] text-[#F5F3EE] mt-3 max-w-2xl leading-[1.7]">
+        <p className="font-rb-sans text-[0.92rem] text-[#2E2B25] mt-3 max-w-2xl leading-[1.7]">
           {p.description}
         </p>
-        <div className="flex items-center gap-3 mt-5">
+        <div className="flex items-center gap-3 mt-6">
           <button
             onClick={() => onMatch(result)}
-            className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase px-4 py-2.5 rounded-sm transition"
-            style={{ background: p.color, color: "#141412" }}
+            className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase px-6 py-3 transition"
+            style={{ background: p.color, color: "#F4EFE5" }}
           >
             Toon parcours door {p.name}'s ogen →
           </button>
           <button
             onClick={reset}
-            className="font-rb-mono text-[0.65rem] tracking-[0.15em] uppercase text-[#8C8A85] hover:text-[#F5F3EE]"
+            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#7A7260] hover:text-[#1C3D2A]"
           >
             Opnieuw
           </button>
@@ -101,22 +107,22 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
 
   const cur = QUESTIONS[step];
   return (
-    <div className="p-6 md:p-8 bg-[#1E1E1C] border border-[#2E2E2B] rounded-sm">
-      <div className="flex items-center justify-between mb-4">
-        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8C8A85]">
+    <div className="p-6 md:p-8 bg-white border border-[rgba(28,61,42,0.15)]">
+      <div className="flex items-center justify-between mb-5">
+        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260]">
           Vind je host · {step + 1}/{QUESTIONS.length}
         </div>
         <div className="flex gap-1">
           {QUESTIONS.map((_, i) => (
             <div
               key={i}
-              className="h-[3px] w-8 rounded-full"
-              style={{ background: i <= step ? "#F5F3EE" : "#2E2E2B" }}
+              className="h-[3px] w-8"
+              style={{ background: i <= step ? "#1C3D2A" : "rgba(28,61,42,0.15)" }}
             />
           ))}
         </div>
       </div>
-      <h3 className="font-rb-serif text-[1.5rem] md:text-[1.85rem] text-[#F5F3EE] mb-5 leading-tight">
+      <h3 className="font-rb-serif font-light text-[1.5rem] md:text-[1.85rem] text-[#1C3D2A] mb-6 leading-tight">
         {cur.q}
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -124,10 +130,12 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
           <button
             key={o.label}
             onClick={() => handlePick(o.map)}
-            className="text-left p-4 bg-[#252523] hover:bg-[#2E2E2B] border border-[#2E2E2B] hover:border-[#4A4A45] transition rounded-sm"
+            className="text-left p-4 bg-[#F4EFE5] hover:bg-[#EDE6D9] border border-[rgba(28,61,42,0.15)] hover:border-[#1C3D2A] transition"
           >
             <div className="text-2xl mb-2">{o.icon}</div>
-            <div className="font-rb-sans text-[0.88rem] text-[#F5F3EE] leading-[1.4]">{o.label}</div>
+            <div className="font-rb-sans text-[0.88rem] text-[#1C3D2A] leading-[1.4]">
+              {o.label}
+            </div>
           </button>
         ))}
       </div>
