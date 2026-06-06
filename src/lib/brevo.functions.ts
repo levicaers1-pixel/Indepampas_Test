@@ -16,7 +16,7 @@ export const subscribeToBrevo = createServerFn({ method: "POST" })
       throw new Error("Brevo connector not configured");
     }
 
-    const res = await fetch(`${GATEWAY_URL}/v3/contacts`, {
+    const res = await fetch(`${GATEWAY_URL}/contacts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
