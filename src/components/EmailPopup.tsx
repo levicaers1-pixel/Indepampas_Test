@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { subscribeToBrevo } from "@/lib/brevo.functions";
 
 const STORAGE_KEY = "emailPopupSeen";
+const CAPTURED_KEY = "emailCaptured";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function EmailPopup() {
   const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const subscribe = useServerFn(subscribeToBrevo);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (localStorage.getItem(STORAGE_KEY) === "true") return;
+    if (localStorage.getItem(CAPTURED_KEY) === "true") return;
 
     const onScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -31,6 +42,29 @@ export function EmailPopup() {
     setOpen(false);
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "loading") return;
+    setError(null);
+
+    const trimmed = email.trim();
+    if (!EMAIL_RE.test(trimmed) || trimmed.length > 255) {
+      setError("Vul een geldig e-mailadres in.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      await subscribe({ data: { email: trimmed } });
+      localStorage.setItem(CAPTURED_KEY, "true");
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setError("Oeps, iets ging mis. Probeer het opnieuw.");
+    }
+  };
+
   if (!open) return null;
 
   return (
@@ -38,32 +72,75 @@ export function EmailPopup() {
       className="fixed inset-0 z-[100] flex items-center justify-center px-4 animate-fade-in"
       role="dialog"
       aria-modal="true"
+      aria-labelledby="email-popup-title"
     >
       <button
         aria-label="Sluiten"
         onClick={close}
-        className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-sm cursor-default"
+        className="absolute inset-0 w-full h-full bg-black/70 backdrop-blur-sm cursor-default"
       />
-      <div className="relative bg-[#F4EFE5] border border-[rgba(28,61,42,0.2)] shadow-[0_20px_60px_rgba(0,0,0,0.3)] w-full max-w-[580px] p-6 sm:p-8 animate-scale-in">
+      <div className="relative bg-[#1C3D2A] border border-[rgba(244,239,229,0.15)] shadow-[0_20px_60px_rgba(0,0,0,0.5)] w-full max-w-[520px] p-8 sm:p-10 animate-scale-in">
         <button
           onClick={close}
           aria-label="Sluiten"
-          className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 flex items-center justify-center text-[#1C3D2A] hover:bg-[#EDE6D9] transition-colors font-rb-serif text-2xl leading-none"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 flex items-center justify-center text-[#F4EFE5] hover:bg-[rgba(244,239,229,0.08)] transition-colors font-rb-serif text-2xl leading-none"
         >
           ×
         </button>
-        <div className="w-full overflow-hidden">
-          <iframe
-            title="Inschrijven nieuwsbrief"
-            width="540"
-            height="305"
-            src="https://89708d2f.sibforms.com/v2/serve/MUIFAHceTgTPUDKkwJGKU_ulIEgIjLnqmzw6wPfxJJRkd6GftZyivcynXNq6u41tVR6mohQFPSZ_9pRlLuyXVp7EAu0xydReTZaxpe3HkngMpft_Xx5mD4wjPGTJUbHn-YG_xrF6olcUnsCFSXUog-oR3rP3Ua6kWeMfErGRCSX8wk6oRX_FNGWlYM_3kJMPGsjgwhghYqyFqGLUxQ=="
-            frameBorder="0"
-            scrolling="auto"
-            allowFullScreen
-            style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%" }}
-          />
-        </div>
+
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[rgba(244,239,229,0.5)] mb-4">
+          Nieuwsbrief
+        </p>
+        <h2
+          id="email-popup-title"
+          className="font-rb-serif font-light text-[2rem] sm:text-[2.4rem] text-[#F4EFE5] leading-[1.1] mb-3"
+        >
+          Mis geen <em className="italic">aflevering</em>.
+        </h2>
+        <p className="font-rb-sans text-[0.9rem] text-[rgba(244,239,229,0.65)] leading-[1.6] mb-7">
+          Schrijf je in en je hoort het als eerste wanneer er een nieuwe podcast,
+          course rating of blog online staat.
+        </p>
+
+        {status === "success" ? (
+          <p className="font-rb-serif italic text-[#8FBF4A] text-lg">
+            Bedankt! Je hoort het als eerste.
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <label htmlFor="popup-email" className="sr-only">
+              E-mailadres
+            </label>
+            <input
+              id="popup-email"
+              type="email"
+              required
+              autoComplete="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (status === "error") {
+                  setStatus("idle");
+                  setError(null);
+                }
+              }}
+              placeholder="jouw@email.com"
+              maxLength={255}
+              className="flex-1 px-4 py-3 bg-[rgba(244,239,229,0.06)] border border-[rgba(244,239,229,0.15)] font-rb-sans text-[0.9rem] text-[#F4EFE5] placeholder:text-[rgba(244,239,229,0.35)] outline-none focus:border-[#8FBF4A] transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] px-7 py-3 hover:bg-[#A3D255] transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+            >
+              {status === "loading" ? "Bezig…" : "Inschrijven"}
+            </button>
+          </form>
+        )}
+
+        {status === "error" && error && (
+          <p className="mt-3 font-rb-sans text-[0.8rem] text-[#E89B8B]">{error}</p>
+        )}
       </div>
     </div>
   );
