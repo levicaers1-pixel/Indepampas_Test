@@ -226,26 +226,49 @@ export function NewHome() {
             Geen spam. Alleen een mail per nieuwe aflevering.
           </p>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Bedankt!");
-          }}
-          className="flex w-full lg:w-auto lg:min-w-[440px]"
-        >
-          <input
-            type="email"
-            required
-            placeholder="je@email.be"
-            className="flex-1 px-5 py-3 bg-white/[0.08] border border-[rgba(244,239,229,0.2)] border-r-0 text-[#F4EFE5] font-rb-sans text-sm outline-none placeholder:text-[rgba(244,239,229,0.6)]"
-          />
-          <button
-            type="submit"
-            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase bg-[#8FBF4A] text-[#1C3D2A] px-6 hover:bg-[#a0d45a] transition-colors font-medium"
+        {status === "success" ? (
+          <p className="font-rb-serif italic text-[#8FBF4A] text-lg">
+            Bedankt! Je hoort het als eerste.
+          </p>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full lg:w-auto lg:min-w-[440px]"
           >
-            Inschrijven
-          </button>
-        </form>
+            <label htmlFor="home-email" className="sr-only">
+              E-mailadres
+            </label>
+            <input
+              id="home-email"
+              type="email"
+              required
+              autoComplete="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (status === "error") {
+                  setStatus("idle");
+                  setError(null);
+                }
+              }}
+              placeholder="je@email.be"
+              maxLength={255}
+              className="flex-1 px-5 py-3 bg-white/[0.08] border border-[rgba(244,239,229,0.2)] border-r-0 text-[#F4EFE5] font-rb-sans text-sm outline-none placeholder:text-[rgba(244,239,229,0.6)] focus:border-[#8FBF4A] transition-colors"
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase bg-[#8FBF4A] text-[#1C3D2A] px-6 hover:bg-[#a0d45a] transition-colors font-medium disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+            >
+              {status === "loading" ? "Bezig…" : "Inschrijven"}
+            </button>
+          </form>
+        )}
+        {status === "error" && error && (
+          <p className="font-rb-sans text-[0.8rem] text-[#E89B8B] lg:w-auto w-full lg:text-left text-center">
+            {error}
+          </p>
+        )}
       </section>
     </>
   );
