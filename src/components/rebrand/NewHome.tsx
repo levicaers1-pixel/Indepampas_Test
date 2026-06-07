@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { episodes, latestEpisode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
 import hostsWalking from "@/assets/hosts-walking.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
+import { subscribeToBrevo } from "@/lib/brevo.functions";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CAPTURED_KEY = "emailCaptured";
 
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
 export function NewHome() {
