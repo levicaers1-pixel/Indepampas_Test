@@ -12,6 +12,37 @@ const CAPTURED_KEY = "emailCaptured";
 
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
 export function NewHome() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const subscribe = useServerFn(subscribeToBrevo);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "loading") return;
+    setError(null);
+
+    const trimmed = email.trim();
+    if (!EMAIL_RE.test(trimmed) || trimmed.length > 255) {
+      setError("Vul een geldig e-mailadres in.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      await subscribe({ data: { email: trimmed } });
+      if (typeof window !== "undefined") {
+        localStorage.setItem(CAPTURED_KEY, "true");
+      }
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setError("Oeps, iets ging mis. Probeer het opnieuw.");
+    }
+  };
+
   return (
     <>
       {/* HERO */}
