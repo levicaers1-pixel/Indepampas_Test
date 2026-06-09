@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { sendContactMessage } from "@/lib/contact.functions";
 
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY ?? "";
 
 export function NewContact() {
   const [sent, setSent] = useState(false);
