@@ -87,27 +87,27 @@ export function NewContact() {
               setSending(true);
               const formEl = e.currentTarget;
               const fd = new FormData(formEl);
-              fd.append("access_key", WEB3FORMS_ACCESS_KEY);
-              fd.append("reason", reason);
-              fd.append("from_name", "PAMPAS Website");
-              fd.append("subject", `[PAMPAS contact - ${reason}] ${fd.get("subject") ?? ""}`);
               try {
-                const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
-                const json = (await res.json().catch(() => null)) as { success?: boolean; message?: string } | null;
-                if (res.ok && json?.success) {
-                  setSent(true);
-                  formEl.reset();
-                } else {
-                  setError(json?.message ?? "Er ging iets mis. Probeer opnieuw.");
-                }
+                await send({
+                  data: {
+                    name: String(fd.get("name") ?? "").trim(),
+                    email: String(fd.get("email") ?? "").trim(),
+                    subject: String(fd.get("subject") ?? "").trim(),
+                    message: String(fd.get("message") ?? "").trim(),
+                    reason: reason as "hello" | "sponsor" | "guest",
+                  },
+                });
+                setSent(true);
+                formEl.reset();
               } catch {
-                setError("Geen verbinding.");
+                setError("Oeps, iets ging mis. Probeer het opnieuw.");
               } finally {
                 setSending(false);
               }
             }}
             className="flex flex-col gap-5"
           >
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <RbField label="Naam" name="name" required />
               <RbField label="E-mail" name="email" type="email" required />
