@@ -8,6 +8,8 @@ export function NewContact() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reason, setReason] = useState("hello");
+  const send = useServerFn(sendContactMessage);
+
 
   return (
     <>
