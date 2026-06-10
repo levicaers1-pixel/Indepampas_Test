@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "09",
+    season: "S01",
+    title: "#09 Carolina Cherry - Anthony De Schutter: Van SIU naar Soudal & de weg naar pro | JT Poston triumphs | Chacarra triunfos | Korda reigns supreme",
+    description:
+      "In deze aflevering schuift Anthony De Schutter (24) aan — Belgisch nationaal teamspeler, 3x NCAA D1 Tournament Winner en winnaar van de Best of Belgium Award op het Soudal Open met een indrukwekkende score van -9. We praten over zijn tijd aan de Southern Illinois University, wat hij leerde van de DP World Tour pros, en hoe zijn pad richting professioneel golf er nu uitziet. Verder in deze aflevering: JT Poston wint het Memorial Tournament na een spannende playoff, Eugenio Chacarra pakt de KLM Open met een birdie op 18 in elke ronde, en Nelly Korda is opnieuw dominant op het US Women's Open. Ook Yente schittert op de Progolf Tour met een knappe tweede plaats. In het golfjournaal: Lev Grinberg wint de St. Andrews Links Trophy met -18 en 7 shots voorsprong, en we volgen de Belgische boys op het German Boys U18.",
+    date: "10/06/2026",
+    duration: "1u 29min",
+    spotifyId: "3EHtcCXKshsAxuyowWNEpT",
+    topics: ["Golf", "Anthony De Schutter", "Soudal Open", "Memorial Tournament", "KLM Open", "US Women's Open"],
+  },
+  {
     number: "08",
     season: "S01",
     title: "#08 Yellow Jasmine - Golfreizen van Herkenbosch tot Belek, Henley's Jeep & Hole 18 van The National",
