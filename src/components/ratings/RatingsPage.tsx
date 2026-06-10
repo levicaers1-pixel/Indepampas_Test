@@ -166,87 +166,112 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
         </div>
       )}
 
-      {/* FILTERS */}
-      <div className="sticky top-0 z-10 bg-[#F4EFE5]/95 backdrop-blur px-6 lg:px-14 py-4 border-b border-[rgba(28,61,42,0.15)]">
-        <div className="flex flex-wrap items-center gap-2">
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Zoek een parcours..."
-            className="bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A] placeholder:text-[#7A7260] w-full md:w-64 focus:outline-none focus:border-[#1C3D2A]"
-          />
-          <select value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
-            <option value="">Regio</option>
-            {regions.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
-          <select value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
-            <option value="">Type</option>
-            {types.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-          <select value={fee} onChange={(e) => setFee(e.target.value)} className="select-cream">
-            <option value="">Fee</option>
-            <option value="€">€</option>
-            <option value="€€">€€</option>
-            <option value="€€€">€€€</option>
-            <option value="€€€€">€€€€</option>
-          </select>
-          <div className="flex items-center gap-1.5">
-            {HOSTS.map((h) => {
-              const p = HOST_PERSONAS[h];
-              const on = hostFilter.has(h);
-              return (
-                <button
-                  key={h}
-                  onClick={() => toggleHost(h)}
-                  className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
-                  style={{
-                    background: on ? `${p.color}20` : "transparent",
-                    color: on ? p.color : "#7A7260",
-                    borderColor: on ? p.color : "rgba(28,61,42,0.2)",
-                  }}
-                >
-                  {p.icon} {h}
-                </button>
-              );
-            })}
-          </div>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="select-cream ml-auto"
-          >
-            <option value="pampas_desc">Score ↓</option>
-            <option value="pampas_asc">Score ↑</option>
-            <option value="name">Naam A→Z</option>
-            <option value="recent">Meest recent</option>
-          </select>
-        </div>
+      {/* TABS */}
+      <div className="px-6 lg:px-14 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5] flex flex-wrap gap-1 overflow-x-auto">
+        {TABS.map((t) => {
+          const on = tab === t.key;
+          return (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className="font-rb-mono text-[0.62rem] tracking-[0.18em] uppercase px-4 py-3 border-b-2 transition whitespace-nowrap"
+              style={{
+                borderColor: on ? "#1C3D2A" : "transparent",
+                color: on ? "#1C3D2A" : "#7A7260",
+              }}
+            >
+              {t.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* COURSE LIST */}
-      <div className="px-6 lg:px-14 py-10 space-y-4">
-        {filtered.length === 0 ? (
-          <div className="text-center py-20 font-rb-sans text-[#7A7260]">
-            ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
+      {tab === "courses" && (
+        <>
+          {/* FILTERS */}
+          <div className="sticky top-0 z-10 bg-[#F4EFE5]/95 backdrop-blur px-6 lg:px-14 py-4 border-b border-[rgba(28,61,42,0.15)]">
+            <div className="flex flex-wrap items-center gap-2">
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Zoek een parcours..."
+                className="bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A] placeholder:text-[#7A7260] w-full md:w-64 focus:outline-none focus:border-[#1C3D2A]"
+              />
+              <select value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
+                <option value="">Regio</option>
+                {regions.map((r) => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+              <select value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
+                <option value="">Type</option>
+                {types.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+              <select value={fee} onChange={(e) => setFee(e.target.value)} className="select-cream">
+                <option value="">Fee</option>
+                <option value="€">€</option>
+                <option value="€€">€€</option>
+                <option value="€€€">€€€</option>
+                <option value="€€€€">€€€€</option>
+              </select>
+              <div className="flex items-center gap-1.5">
+                {HOSTS.map((h) => {
+                  const p = HOST_PERSONAS[h];
+                  const on = hostFilter.has(h);
+                  return (
+                    <button
+                      key={h}
+                      onClick={() => toggleHost(h)}
+                      className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
+                      style={{
+                        background: on ? `${p.color}20` : "transparent",
+                        color: on ? p.color : "#7A7260",
+                        borderColor: on ? p.color : "rgba(28,61,42,0.2)",
+                      }}
+                    >
+                      {p.icon} {h}
+                    </button>
+                  );
+                })}
+              </div>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as SortKey)}
+                className="select-cream ml-auto"
+              >
+                <option value="pampas_desc">Score ↓</option>
+                <option value="pampas_asc">Score ↑</option>
+                <option value="name">Naam A→Z</option>
+                <option value="recent">Meest recent</option>
+              </select>
+            </div>
           </div>
-        ) : (
-          filtered.map((c) => (
-            <CourseCard
-              key={c.id}
-              course={c}
-              activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
-            />
-          ))
-        )}
-      </div>
+
+          {/* COURSE LIST */}
+          <div className="px-6 lg:px-14 py-10 space-y-4">
+            {filtered.length === 0 ? (
+              <div className="text-center py-20 font-rb-sans text-[#7A7260]">
+                ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
+              </div>
+            ) : (
+              filtered.map((c) => (
+                <CourseCard
+                  key={c.id}
+                  course={c}
+                  activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
+                />
+              ))
+            )}
+          </div>
+        </>
+      )}
+
+      {tab === "compare" && <CourseCompare courses={courses} />}
+      {tab === "hosts" && <HostStats courses={courses} />}
+      {tab === "route" && <RouteBuilder courses={courses} />}
+
 
       <style>{`
         .select-cream {
