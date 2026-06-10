@@ -4,8 +4,19 @@ import { personalScore } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { CourseCard } from "./CourseCard";
 import { MatchQuiz } from "./MatchQuiz";
+import { CourseCompare } from "./CourseCompare";
+import { HostStats } from "./HostStats";
+import { RouteBuilder } from "./RouteBuilder";
 
 type SortKey = "pampas_desc" | "pampas_asc" | "name" | "recent";
+type Tab = "courses" | "compare" | "hosts" | "route";
+
+const TABS: { key: Tab; label: string }[] = [
+  { key: "courses", label: "Parcours" },
+  { key: "compare", label: "Vergelijk" },
+  { key: "hosts", label: "Host-stats" },
+  { key: "route", label: "Route builder" },
+];
 
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [search, setSearch] = useState("");
