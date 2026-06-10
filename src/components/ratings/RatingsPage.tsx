@@ -26,6 +26,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [hostFilter, setHostFilter] = useState<Set<HostName>>(new Set());
   const [sort, setSort] = useState<SortKey>("pampas_desc");
   const [activeHost, setActiveHost] = useState<HostName | null>(null);
+  const [tab, setTab] = useState<Tab>("courses");
 
   const regions = useMemo(
     () => Array.from(new Set(courses.map((c) => c.region).filter(Boolean))) as string[],
