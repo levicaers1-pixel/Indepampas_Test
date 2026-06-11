@@ -70,7 +70,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       out = [...out].sort((a, b) => recent(b) - recent(a));
     }
     return out;
-  }, [courses, search, region, type, fee, hostFilter, sort, activeHost]);
+  }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost]);
 
   const totalCourses = courses.length;
   const avgScore =
