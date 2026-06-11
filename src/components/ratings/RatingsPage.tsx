@@ -209,6 +209,12 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
+              <select value={country} onChange={(e) => setCountry(e.target.value)} className="select-cream">
+                <option value="">Land</option>
+                {countries.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
               <select value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
                 <option value="">Type</option>
                 {types.map((t) => (
