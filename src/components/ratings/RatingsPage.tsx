@@ -210,7 +210,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
-              <select value={country} onChange={(e) => setCountry(e.target.value)} className="select-cream">
+              <select value={country} onChange={(e) => { setCountry(e.target.value); setRegion(""); }} className="select-cream">
                 <option value="">Land</option>
                 {countries.map((c) => (
                   <option key={c} value={c}>{c}</option>
