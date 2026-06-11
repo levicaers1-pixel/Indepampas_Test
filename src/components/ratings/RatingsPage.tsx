@@ -29,14 +29,14 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [activeHost, setActiveHost] = useState<HostName | null>(null);
   const [tab, setTab] = useState<Tab>("courses");
 
-  const regions = useMemo(
-    () => Array.from(new Set(courses.map((c) => c.region).filter(Boolean))) as string[],
-    [courses],
-  );
   const countries = useMemo(
     () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
     [courses],
   );
+  const regions = useMemo(() => {
+    const source = country ? courses.filter((c) => c.country === country) : courses;
+    return Array.from(new Set(source.map((c) => c.region).filter(Boolean))) as string[];
+  }, [courses, country]);
   const types = useMemo(
     () => Array.from(new Set(courses.map((c) => c.type).filter(Boolean))) as string[],
     [courses],
