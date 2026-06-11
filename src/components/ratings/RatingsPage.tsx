@@ -21,6 +21,7 @@ const TABS: { key: Tab; label: string }[] = [
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
+  const [country, setCountry] = useState("");
   const [type, setType] = useState("");
   const [fee, setFee] = useState("");
   const [hostFilter, setHostFilter] = useState<Set<HostName>>(new Set());
@@ -30,6 +31,10 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
   const regions = useMemo(
     () => Array.from(new Set(courses.map((c) => c.region).filter(Boolean))) as string[],
+    [courses],
+  );
+  const countries = useMemo(
+    () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
     [courses],
   );
   const types = useMemo(
@@ -42,6 +47,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       if (search && !`${c.name} ${c.region ?? ""}`.toLowerCase().includes(search.toLowerCase()))
         return false;
       if (region && c.region !== region) return false;
+      if (country && c.country !== country) return false;
       if (type && c.type !== type) return false;
       if (fee && c.fee_category !== fee) return false;
       if (hostFilter.size > 0) {
@@ -64,7 +70,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       out = [...out].sort((a, b) => recent(b) - recent(a));
     }
     return out;
-  }, [courses, search, region, type, fee, hostFilter, sort, activeHost]);
+  }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost]);
 
   const totalCourses = courses.length;
   const avgScore =
@@ -201,6 +207,12 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 <option value="">Regio</option>
                 {regions.map((r) => (
                   <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+              <select value={country} onChange={(e) => setCountry(e.target.value)} className="select-cream">
+                <option value="">Land</option>
+                {countries.map((c) => (
+                  <option key={c} value={c}>{c}</option>
                 ))}
               </select>
               <select value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
