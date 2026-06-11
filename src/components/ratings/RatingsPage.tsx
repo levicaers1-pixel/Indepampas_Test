@@ -97,8 +97,9 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
           Parcours <em className="italic">Beoordelingen</em>.
         </h1>
-        <p className="font-rb-sans text-[0.95rem] text-[#7A7260] mt-4 max-w-2xl leading-[1.7]">
+        <p className="font-rb-sans text-[0.95rem] text-[#7A7260] mt-4 max-w-2xl leading-[1.7] whitespace-pre-line">
           Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi &amp; Niels.
+          {"\n"}Greenfee prijzen zijn indicatief en kunnen mogelijks verouderd zijn. 
         </p>
 
         <div className="flex flex-wrap gap-2 mt-7">
