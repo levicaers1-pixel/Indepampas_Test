@@ -21,6 +21,7 @@ const TABS: { key: Tab; label: string }[] = [
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
+  const [country, setCountry] = useState("");
   const [type, setType] = useState("");
   const [fee, setFee] = useState("");
   const [hostFilter, setHostFilter] = useState<Set<HostName>>(new Set());
@@ -30,6 +31,10 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
   const regions = useMemo(
     () => Array.from(new Set(courses.map((c) => c.region).filter(Boolean))) as string[],
+    [courses],
+  );
+  const countries = useMemo(
+    () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
     [courses],
   );
   const types = useMemo(
@@ -42,6 +47,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       if (search && !`${c.name} ${c.region ?? ""}`.toLowerCase().includes(search.toLowerCase()))
         return false;
       if (region && c.region !== region) return false;
+      if (country && c.country !== country) return false;
       if (type && c.type !== type) return false;
       if (fee && c.fee_category !== fee) return false;
       if (hostFilter.size > 0) {
