@@ -85,6 +85,14 @@ function BlogPost() {
     );
   }
 
+  if (post.customLayout === "golfmedia") {
+    return (
+      <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
+        <GolfMediaBlogPost post={post} prev={prev} next={next} />
+      </div>
+    );
+  }
+
   if (post.richContent) {
     return (
       <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
