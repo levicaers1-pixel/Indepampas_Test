@@ -33,13 +33,13 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#EDE6D9] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-2">
+      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Banen-vergelijker
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-6">
         Zet ze <em className="italic">naast elkaar</em>.
       </h2>
-      <p className="font-rb-sans text-[0.85rem] text-[#7A7260] max-w-2xl mb-6">
+      <p className="font-rb-sans text-[0.85rem] text-[#635C4B] max-w-2xl mb-6">
         Kies 2 of 3 parcours en vergelijk hun scores per criterium. Wie wint de duel?
       </p>
 
@@ -72,7 +72,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
       </div>
 
       {picked.length < 2 ? (
-        <div className="text-center py-10 font-rb-sans text-[#7A7260] text-[0.85rem]">
+        <div className="text-center py-10 font-rb-sans text-[#635C4B] text-[0.85rem]">
           Kies minstens twee parcours om te vergelijken.
         </div>
       ) : (
@@ -80,7 +80,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[rgba(28,61,42,0.1)]">
-                <th className="p-3 font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[#7A7260]">
+                <th className="p-3 font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[#635C4B]">
                   Criterium
                 </th>
                 {picked.map((c) => {
@@ -100,7 +100,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                         <span className="font-rb-serif text-[1.05rem] text-[#1C3D2A]">
                           {c.name}
                         </span>
-                        <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#7A7260]">
+                        <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B]">
                           {c.region ?? "—"} · {c.fee_category ?? "—"}
                         </span>
                         <span
@@ -133,13 +133,13 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                                 className="absolute inset-y-0 left-0"
                                 style={{
                                   width: `${((v ?? 0) / 10) * 100}%`,
-                                  background: isTop ? "#1C3D2A" : "#7A7260",
+                                  background: isTop ? "#1C3D2A" : "#635C4B",
                                 }}
                               />
                             </div>
                             <span
                               className="font-rb-mono text-[0.7rem] tabular-nums w-8 text-right"
-                              style={{ color: isTop ? "#1C3D2A" : "#7A7260" }}
+                              style={{ color: isTop ? "#1C3D2A" : "#635C4B" }}
                             >
                               {v != null ? v.toFixed(1) : "—"}
                             </span>

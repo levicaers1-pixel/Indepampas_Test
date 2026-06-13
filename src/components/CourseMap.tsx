@@ -43,7 +43,7 @@ function tierColor(score: number) {
   if (score >= 80) return "#1A3D2B";
   if (score >= 70) return "#3D7A52";
   if (score >= 55) return "#8CB84A";
-  return "#7A7260";
+  return "#635C4B";
 }
 
 export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
@@ -102,7 +102,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
             info.setContent(
               `<div style="font-family:system-ui;padding:4px 6px;min-width:180px">
                 <div style="font-weight:600;color:#1C3D2A;font-size:14px">${r.name}</div>
-                <div style="color:#7A7260;font-size:12px;margin-top:2px">${r.region} · ${r.type}</div>
+                <div style="color:#635C4B;font-size:12px;margin-top:2px">${r.region} · ${r.type}</div>
                 <div style="margin-top:6px;font-size:13px;color:#1C3D2A">
                   <strong>${r.pampasScore}</strong>/100 · ${r.verdict}
                 </div>
@@ -139,7 +139,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
         className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
       />
       {located.length < ratings.length && (
-        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#7A7260]">
+        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
           {ratings.length - located.length} parcours nog zonder coördinaten.
         </p>
       )}

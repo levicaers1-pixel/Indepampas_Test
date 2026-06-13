@@ -184,10 +184,10 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
       <header className="grid grid-cols-1 lg:grid-cols-[1fr_340px] border-b border-[#1C3D2A]/15 pt-28 sm:pt-32 lg:pt-24">
         <div className="px-6 sm:px-12 lg:px-16 py-12 lg:py-20 border-r-0 lg:border-r border-[#1C3D2A]/15 flex flex-col justify-end">
           <div
-            className="flex items-center gap-3 mb-8 text-[#7A7260] uppercase"
+            className="flex items-center gap-3 mb-8 text-[#635C4B] uppercase"
             style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.16em" }}
           >
-            <Link to="/blog" className="text-[#7A7260] hover:text-[#1C3D2A]">
+            <Link to="/blog" className="text-[#635C4B] hover:text-[#1C3D2A]">
               Blog
             </Link>
             <span className="text-[#1C3D2A]/30">/</span>
@@ -215,7 +215,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             WITB —<br />
             <em>Team Pampas.</em>
           </h1>
-          <p className="text-[#7A7260] max-w-[520px] leading-[1.75]" style={{ fontSize: "1rem" }}>
+          <p className="text-[#635C4B] max-w-[520px] leading-[1.75]" style={{ fontSize: "1rem" }}>
             {post.excerpt}
           </p>
         </div>
@@ -367,7 +367,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                         fontFamily: MONO,
                         fontSize: "0.6rem",
                         letterSpacing: "0.12em",
-                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#8FBF4A" : "#7A7260",
+                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#8FBF4A" : "#635C4B",
                       }}
                     >
                       {row.category}
@@ -384,7 +384,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                         {row.club}
                         {row.clubSmall && (
                           <small
-                            className="block text-[#7A7260] mt-1 not-italic"
+                            className="block text-[#635C4B] mt-1 not-italic"
                             style={{
                               fontFamily: MONO,
                               fontSize: "0.58rem",
@@ -403,7 +403,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                           fontFamily: MONO,
                           fontSize: "0.65rem",
                           letterSpacing: "0.04em",
-                          color: isBall ? "#8FBF4A" : "#7A7260",
+                          color: isBall ? "#8FBF4A" : "#635C4B",
                         }}
                       >
                         {row.shaftBrand && (
@@ -454,7 +454,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                 Lars Masyn —<br />
                 <em>zijn tas volgt binnenkort.</em>
               </h3>
-              <p className="text-[#7A7260] mt-2" style={{ fontSize: "0.9rem" }}>
+              <p className="text-[#635C4B] mt-2" style={{ fontSize: "0.9rem" }}>
                 De laatste tas van Team Pampas — wordt binnenkort opengetrokken.
               </p>
             </div>
@@ -470,7 +470,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                     width: 52,
                     height: 52,
                     background: h.placeholder ? "#1C3D2A" : "#E2D9C8",
-                    color: h.placeholder ? "#F4EFE5" : "#7A7260",
+                    color: h.placeholder ? "#F4EFE5" : "#635C4B",
                     fontFamily: h.placeholder ? MONO : SERIF,
                     fontSize: h.placeholder ? "0.65rem" : "1rem",
                   }}
@@ -484,7 +484,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           {/* Article footer */}
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-6 sm:px-12 lg:px-16 py-10 border-t border-[#1C3D2A]/15">
             <span
-              className="text-[#7A7260] uppercase"
+              className="text-[#635C4B] uppercase"
               style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.1em" }}
             >
               Bron: Team Pampas · Vol. I · 2026
@@ -529,7 +529,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
               {FLEX_TAGS.map((t) => (
                 <span
                   key={t}
-                  className="border border-[#1C3D2A]/15 text-[#7A7260] uppercase"
+                  className="border border-[#1C3D2A]/15 text-[#635C4B] uppercase"
                   style={{
                     fontFamily: MONO,
                     fontSize: "0.55rem",
@@ -555,7 +555,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           {prev ? (
             <Link to="/blog/$slug" params={{ slug: prev.slug }} className="group block">
               <span
-                className="text-[#7A7260] uppercase block"
+                className="text-[#635C4B] uppercase block"
                 style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.15em" }}
               >
                 Vorige
@@ -573,7 +573,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           {next && (
             <Link to="/blog/$slug" params={{ slug: next.slug }} className="group block sm:text-right">
               <span
-                className="text-[#7A7260] uppercase block"
+                className="text-[#635C4B] uppercase block"
                 style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.15em" }}
               >
                 Volgende
@@ -615,7 +615,7 @@ function SidebarSection({ label, children, last }: { label: string; children: Re
   return (
     <div className={`mb-8 pb-8 ${last ? "" : "border-b border-[#1C3D2A]/15"}`}>
       <div
-        className="text-[#7A7260] uppercase mb-3"
+        className="text-[#635C4B] uppercase mb-3"
         style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.18em" }}
       >
         {label}
@@ -636,7 +636,7 @@ function BrandList({ items }: { items: { name: string; count: string }[] }) {
         >
           <span className="text-[#1C3D2A]">{b.name}</span>
           <span
-            className="bg-[#EDE6D9] text-[#7A7260]"
+            className="bg-[#EDE6D9] text-[#635C4B]"
             style={{
               fontFamily: MONO,
               fontSize: "0.6rem",

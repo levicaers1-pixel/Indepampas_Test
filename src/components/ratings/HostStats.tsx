@@ -48,7 +48,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-2">
+      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Host-statistieken
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-8">
@@ -99,12 +99,12 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
               </div>
               <div className="space-y-1 font-rb-sans text-[0.75rem] text-[#1C3D2A]">
                 <div className="flex justify-between border-b border-[rgba(28,61,42,0.06)] py-1">
-                  <span className="text-[#7A7260]">Parcours gespeeld</span>
+                  <span className="text-[#635C4B]">Parcours gespeeld</span>
                   <span className="tabular-nums">{s.count}</span>
                 </div>
                 {s.highest && (
                   <div className="flex justify-between border-b border-[rgba(28,61,42,0.06)] py-1">
-                    <span className="text-[#7A7260]">Hoogste</span>
+                    <span className="text-[#635C4B]">Hoogste</span>
                     <span className="truncate ml-2 text-right">
                       {courseName(s.highest.id)} ({Number(s.highest.host_score).toFixed(0)})
                     </span>
@@ -112,7 +112,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                 )}
                 {s.lowest && (
                   <div className="flex justify-between py-1">
-                    <span className="text-[#7A7260]">Laagste</span>
+                    <span className="text-[#635C4B]">Laagste</span>
                     <span className="truncate ml-2 text-right">
                       {courseName(s.lowest.id)} ({Number(s.lowest.host_score).toFixed(0)})
                     </span>
@@ -133,7 +133,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[rgba(28,61,42,0.1)]">
-                <th className="p-3 font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#7A7260]">
+                <th className="p-3 font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#635C4B]">
                   Criterium
                 </th>
                 {HOSTS.map((h) => {
@@ -216,7 +216,7 @@ function VerdictCard({
       <div className="font-rb-serif text-[1.6rem] text-[#1C3D2A] mt-1">
         {p.icon} {host}
       </div>
-      <div className="font-rb-sans text-[0.78rem] text-[#7A7260] mt-1">
+      <div className="font-rb-sans text-[0.78rem] text-[#635C4B] mt-1">
         {value != null ? (integer ? value : value.toFixed(1)) : "—"} {suffix}
       </div>
     </div>

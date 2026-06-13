@@ -48,13 +48,13 @@ export function NewHome() {
       {/* HERO */}
       <section className="grid grid-cols-1 lg:grid-cols-2 border-b border-[rgba(28,61,42,0.15)] min-h-[calc(100vh-92px)]">
         <div className="px-8 lg:px-16 py-16 lg:py-20 flex flex-col justify-center border-r border-[rgba(28,61,42,0.15)]">
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-8 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#8FBF4A]">
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#8FBF4A]">
             Vol. I — MMXXVI · Belgische golfpassie
           </p>
           <h1 className="font-rb-serif font-light text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-[#1C3D2A] mb-8">
             Achttien holes, <em className="italic">één</em> microfoon, <em className="italic">drie</em> vrienden.
           </h1>
-          <p className="font-rb-sans text-base text-[#7A7260] max-w-md leading-[1.75] mb-12">
+          <p className="font-rb-sans text-base text-[#635C4B] max-w-md leading-[1.75] mb-12">
             PAMPAS is dé Belgische golfcommunity. Wekelijks praten Lars, Levi en Niels over alles wat
             de fairway én de rough te bieden heeft. Voor golfers, door golfers.
           </p>
@@ -127,13 +127,13 @@ export function NewHome() {
             key={i}
             className={`px-10 py-12 ${i < 2 ? "border-r border-[rgba(28,61,42,0.15)]" : ""}`}
           >
-            <p className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#7A7260] mb-4">
+            <p className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#635C4B] mb-4">
               {b.label}
             </p>
             <p className="font-rb-serif font-light text-5xl text-[#1C3D2A] leading-none mb-2">
               {b.num}
             </p>
-            <p className="font-rb-sans text-sm text-[#7A7260] leading-[1.65]">{b.text}</p>
+            <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.65]">{b.text}</p>
           </div>
         ))}
       </section>
@@ -148,14 +148,14 @@ export function NewHome() {
             <h2 className="font-rb-serif font-light text-5xl text-[#1C3D2A] leading-[1] mb-6">
               {latestEpisode.title}
             </h2>
-            <p className="font-rb-sans text-[#7A7260] leading-[1.75] mb-6">
+            <p className="font-rb-sans text-[#635C4B] leading-[1.75] mb-6">
               {latestEpisode.description}
             </p>
             <div className="flex flex-wrap gap-2">
               {latestEpisode.topics.map((t) => (
                 <span
                   key={t}
-                  className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#7A7260] px-2.5 py-1"
+                  className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2.5 py-1"
                 >
                   {t}
                 </span>
@@ -174,7 +174,7 @@ export function NewHome() {
           <h2 className="font-rb-serif font-light text-4xl text-[#1C3D2A] leading-[1.2] mb-4">
             De stemmen achter <em className="italic">PAMPAS</em>.
           </h2>
-          <p className="font-rb-sans text-sm text-[#7A7260] leading-[1.7] mb-6">
+          <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.7] mb-6">
             Drie vrienden met elk hun eigen kijk op het spel. Van diplomaat tot professor tot
             romanticus.
           </p>
@@ -194,7 +194,7 @@ export function NewHome() {
                 i < 2 ? "border-r border-[rgba(28,61,42,0.15)]" : ""
               } border-t lg:border-t-0 border-[rgba(28,61,42,0.15)]`}
             >
-              <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] mb-3">
+              <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B] mb-3">
                 0{i + 1} / Host
               </p>
               <div className="aspect-square overflow-hidden mb-4 bg-[#E2D9C8]">
@@ -208,7 +208,7 @@ export function NewHome() {
                 {h.role}
               </p>
               <h3 className="font-rb-serif font-semibold text-xl text-[#1C3D2A]">{h.name}</h3>
-              <p className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#7A7260] mt-1">
+              <p className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#635C4B] mt-1">
                 HCP {h.handicap}
               </p>
             </Link>

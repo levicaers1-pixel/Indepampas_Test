@@ -91,13 +91,13 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
     <>
       {/* HERO */}
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-4">
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Onafhankelijke beoordelingen
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
           Parcours <em className="italic">Beoordelingen</em>.
         </h1>
-        <p className="font-rb-sans text-[0.95rem] text-[#7A7260] mt-4 max-w-2xl leading-[1.7] whitespace-pre-line">
+        <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-4 max-w-2xl leading-[1.7] whitespace-pre-line">
           Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi &amp; Niels.
           {"\n"}Greenfee prijzen zijn indicatief en kunnen mogelijks verouderd zijn. 
         </p>
@@ -133,7 +133,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
               <div className="font-rb-serif font-light text-[2.4rem] text-[#1C3D2A] leading-none">
                 {s.v}
               </div>
-              <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#7A7260] mt-2">
+              <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#635C4B] mt-2">
                 {s.l}
               </div>
             </div>
@@ -166,7 +166,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           </span>
           <button
             onClick={() => setActiveHost(null)}
-            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#7A7260] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
           >
             Reset
           </button>
@@ -184,7 +184,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
               className="font-rb-mono text-[0.62rem] tracking-[0.18em] uppercase px-4 py-3 border-b-2 transition whitespace-nowrap"
               style={{
                 borderColor: on ? "#1C3D2A" : "transparent",
-                color: on ? "#1C3D2A" : "#7A7260",
+                color: on ? "#1C3D2A" : "#635C4B",
               }}
             >
               {t.label}
@@ -202,7 +202,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Zoek een parcours..."
-                className="bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A] placeholder:text-[#7A7260] w-full md:w-64 focus:outline-none focus:border-[#1C3D2A]"
+                className="bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A] placeholder:text-[#635C4B] w-full md:w-64 focus:outline-none focus:border-[#1C3D2A]"
               />
               <select value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
                 <option value="">Regio</option>
@@ -240,7 +240,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                       className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
                       style={{
                         background: on ? `${p.color}20` : "transparent",
-                        color: on ? p.color : "#7A7260",
+                        color: on ? p.color : "#635C4B",
                         borderColor: on ? p.color : "rgba(28,61,42,0.2)",
                       }}
                     >
@@ -265,7 +265,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           {/* COURSE LIST */}
           <div className="px-6 lg:px-14 py-10 space-y-4">
             {filtered.length === 0 ? (
-              <div className="text-center py-20 font-rb-sans text-[#7A7260]">
+              <div className="text-center py-20 font-rb-sans text-[#635C4B]">
                 ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
               </div>
             ) : (

@@ -96,7 +96,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
           </button>
           <button
             onClick={reset}
-            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#7A7260] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
           >
             Opnieuw
           </button>
@@ -109,7 +109,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
   return (
     <div className="p-6 md:p-8 bg-white border border-[rgba(28,61,42,0.15)]">
       <div className="flex items-center justify-between mb-5">
-        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260]">
+        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B]">
           Vind je host · {step + 1}/{QUESTIONS.length}
         </div>
         <div className="flex gap-1">
