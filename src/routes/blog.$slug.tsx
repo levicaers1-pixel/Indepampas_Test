@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getPostBySlug, posts } from "@/data/posts";
 import { RichBlogPost } from "@/components/RichBlogPost";
 import { WitbBlogPost } from "@/components/WitbBlogPost";
+import { GolfMediaBlogPost } from "@/components/GolfMediaBlogPost";
 import { NewBlogPost } from "@/components/rebrand/NewBlog";
 
 const SITE_URL = "https://indepampas.be";
@@ -80,6 +81,14 @@ function BlogPost() {
     return (
       <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
         <WitbBlogPost post={post} prev={prev} next={next} />
+      </div>
+    );
+  }
+
+  if (post.customLayout === "golfmedia") {
+    return (
+      <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
+        <GolfMediaBlogPost post={post} prev={prev} next={next} />
       </div>
     );
   }

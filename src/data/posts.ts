@@ -30,12 +30,27 @@ export type Post = {
   sourceLinkLabel?: string;
   sourceSubtitle?: string;
   /** Optional custom layout key for one-off post designs. */
-  customLayout?: "witb";
+  customLayout?: "witb" | "golfmedia";
   /** Optional SEO meta description override (50–160 chars). Falls back to excerpt. */
   seoDescription?: string;
 };
 
 export const posts: Post[] = [
+  {
+    slug: "golf-media-partner-spotlight",
+    title: "Onze partner in de schijnwerpers: Golf Media",
+    excerpt:
+      "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — precies waar wij ook voor staan.",
+    seoDescription:
+      "Hoe Golf Media met de Golf Kiosk de clubervaring in meer dan dertig Belgische golfclubs naar een hoger niveau tilt — en waarom dat voor PAMPAS klikt.",
+    date: "13/06/2026",
+    author: "PAMPAS Redactie",
+    readTime: "5 min",
+    topics: ["Partner", "Golf Media", "Belgische clubs"],
+    customLayout: "golfmedia",
+    content:
+      "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs — met de Golf Kiosk als kroonjuweel — maakt het leven van golfers en clubs een stuk eenvoudiger.",
+  },
   {
     slug: "soudal-open-2026-rinkven",
     title: "Soudal Open 2026 — de week die alles had",
