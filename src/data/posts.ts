@@ -30,7 +30,7 @@ export type Post = {
   sourceLinkLabel?: string;
   sourceSubtitle?: string;
   /** Optional custom layout key for one-off post designs. */
-  customLayout?: "witb";
+  customLayout?: "witb" | "golfmedia";
   /** Optional SEO meta description override (50–160 chars). Falls back to excerpt. */
   seoDescription?: string;
 };
