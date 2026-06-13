@@ -40,6 +40,7 @@ export const Route = createRootRoute({
       { property: "og:site_name", content: "PAMPAS Podcast" },
       { property: "og:locale", content: "nl_BE" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "google-site-verification", content: "9eeBZdMt11552ANhBkJgtZSXNRyZPsHKBTjtA7W9u38" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
