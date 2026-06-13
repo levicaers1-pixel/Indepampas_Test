@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getPostBySlug, posts } from "@/data/posts";
 import { RichBlogPost } from "@/components/RichBlogPost";
 import { WitbBlogPost } from "@/components/WitbBlogPost";
+import { GolfMediaBlogPost } from "@/components/GolfMediaBlogPost";
 import { NewBlogPost } from "@/components/rebrand/NewBlog";
 
 const SITE_URL = "https://indepampas.be";
