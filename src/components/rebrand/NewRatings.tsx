@@ -7,7 +7,7 @@ function tier(score: number) {
   if (score >= 80) return { label: "Topklasse", color: "#1A3D2B" };
   if (score >= 70) return { label: "Sterk", color: "#3D7A52" };
   if (score >= 55) return { label: "Degelijk", color: "#8CB84A" };
-  return { label: "Gemiddeld", color: "#7A7260" };
+  return { label: "Gemiddeld", color: "#635C4B" };
 }
 
 export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
@@ -15,13 +15,13 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
     <>
       {/* HERO */}
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-4">
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Onafhankelijke beoordelingen
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
           Pampas <em className="italic">Ratings</em>.
         </h1>
-        <p className="font-rb-sans text-[0.95rem] text-[#7A7260] mt-3 max-w-2xl leading-[1.7]">
+        <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 max-w-2xl leading-[1.7]">
           Onze parcours-beoordelingen, scherp en zonder sponsoring. Drie hosts, één gewogen
           PAMPAS Score per baan, en een eerlijk verdict: <em>komen we terug?</em>
         </p>
@@ -55,7 +55,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                     key={r.slug}
                     className={i % 2 === 0 ? "bg-[#F4EFE5]" : "bg-[#EDE6D9]"}
                   >
-                    <td className="px-4 py-4 font-rb-mono text-[0.7rem] text-[#7A7260] align-middle border-t border-[rgba(28,61,42,0.12)]">
+                    <td className="px-4 py-4 font-rb-mono text-[0.7rem] text-[#635C4B] align-middle border-t border-[rgba(28,61,42,0.12)]">
                       {String(r.rank).padStart(2, "0")}
                     </td>
                     <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)]">
@@ -74,7 +74,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                       {r.type}
                     </td>
                     <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)] font-rb-mono text-[0.7rem] text-[#2E2B25]">
-                      {r.feeBand} <span className="text-[#7A7260]">· €{r.greenfee}</span>
+                      {r.feeBand} <span className="text-[#635C4B]">· €{r.greenfee}</span>
                     </td>
                     <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)]">
                       <span
@@ -82,7 +82,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                         style={{ color: t.color }}
                       >
                         {r.pampasScore}
-                        <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260]">
+                        <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B]">
                           /100
                         </span>
                       </span>
@@ -131,7 +131,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                 <div className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#3D7A52]">
                   {w.weight}
                 </div>
-                <div className="font-rb-sans text-[0.85rem] text-[#7A7260] leading-[1.7] col-span-2 sm:col-span-1">
+                <div className="font-rb-sans text-[0.85rem] text-[#635C4B] leading-[1.7] col-span-2 sm:col-span-1">
                   {w.what}
                 </div>
               </div>
@@ -140,7 +140,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
         </div>
 
         <aside className="lg:sticky lg:top-28 self-start">
-          <h3 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-4">
+          <h3 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
             Scorelegenda
           </h3>
           <div className="space-y-3">
@@ -149,7 +149,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                 <div className="font-rb-mono text-[0.65rem] tracking-[0.1em] uppercase text-[#1C3D2A]">
                   {l.range} · {l.label}
                 </div>
-                <div className="font-rb-sans text-[0.8rem] text-[#7A7260] mt-0.5">{l.desc}</div>
+                <div className="font-rb-sans text-[0.8rem] text-[#635C4B] mt-0.5">{l.desc}</div>
               </div>
             ))}
           </div>

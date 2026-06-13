@@ -45,7 +45,7 @@ export function NewHeader() {
           }}
         />
         PAMPAS
-        <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#7A7260] ml-1.5 align-middle normal-case">
+        <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#635C4B] ml-1.5 align-middle normal-case">
           / Belgian Golf Community
         </span>
       </Link>
@@ -61,7 +61,7 @@ export function NewHeader() {
               className={`font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase no-underline px-[1.1rem] py-2 border-r border-[rgba(28,61,42,0.15)] transition-colors ${
                 i === 0 ? "border-l border-[rgba(28,61,42,0.15)]" : ""
               } ${
-                isActive ? "text-[#1C3D2A] bg-[#EDE6D9]" : "text-[#7A7260] hover:text-[#1C3D2A]"
+                isActive ? "text-[#1C3D2A] bg-[#EDE6D9]" : "text-[#635C4B] hover:text-[#1C3D2A]"
               }`}
             >
               {n.label}

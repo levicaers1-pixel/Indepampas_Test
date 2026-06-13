@@ -6,20 +6,20 @@ export function NewBlogIndex() {
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-4">
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
             Het clubhuis
           </p>
           <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
             <em className="italic">Blog</em>.
           </h1>
-          <p className="font-rb-sans text-[0.95rem] text-[#7A7260] mt-3 max-w-xl">
+          <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 max-w-xl">
             Verdiepende stukken bij de onderwerpen uit de podcast. Opinies, banenreviews, hot takes.
           </p>
         </div>
       </div>
 
       {posts.length === 0 ? (
-        <p className="px-6 lg:px-14 py-16 font-rb-serif italic text-[#7A7260]">
+        <p className="px-6 lg:px-14 py-16 font-rb-serif italic text-[#635C4B]">
           Nog geen blogposts. Binnenkort meer.
         </p>
       ) : (
@@ -37,14 +37,14 @@ export function NewBlogIndex() {
                 <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-2.5 py-1">
                   {post.topics[0]}
                 </span>
-                <span className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#7A7260]">
+                <span className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#635C4B]">
                   {post.date}
                 </span>
               </div>
               <h2 className="font-rb-serif text-[1.7rem] text-[#1C3D2A] leading-[1.2] mb-4">
                 {post.title}
               </h2>
-              <p className="font-rb-sans text-[0.9rem] text-[#7A7260] leading-[1.7] mb-6">
+              <p className="font-rb-sans text-[0.9rem] text-[#635C4B] leading-[1.7] mb-6">
                 {post.excerpt}
               </p>
               <span className="font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#1C3D2A] flex items-center gap-2">
@@ -70,7 +70,7 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
           ← Terug naar de blog
         </Link>
 
-        <div className="flex flex-wrap gap-3 items-center mb-6 font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#7A7260]">
+        <div className="flex flex-wrap gap-3 items-center mb-6 font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#635C4B]">
           <span>{post.date}</span>
           <span className="text-[#8FBF4A]">·</span>
           <span>{post.author}</span>
@@ -82,7 +82,7 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
           {post.title}
         </h1>
 
-        <p className="font-rb-serif italic text-xl lg:text-2xl text-[#7A7260] leading-relaxed mb-12 border-l-2 border-[#8FBF4A] pl-5">
+        <p className="font-rb-serif italic text-xl lg:text-2xl text-[#635C4B] leading-relaxed mb-12 border-l-2 border-[#8FBF4A] pl-5">
           {post.excerpt}
         </p>
 
@@ -96,7 +96,7 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
           {post.topics.map((t) => (
             <span
               key={t}
-              className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#7A7260] px-2 py-0.5"
+              className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2 py-0.5"
             >
               {t}
             </span>

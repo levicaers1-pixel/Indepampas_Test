@@ -99,7 +99,7 @@ function CriteriaBars({
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.7rem] text-[#7A7260] text-right">
+            <span className="font-rb-mono text-[0.7rem] text-[#635C4B] text-right">
               {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
@@ -141,7 +141,7 @@ export function CourseCard({
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
             {course.region && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase text-[#7A7260]">
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase text-[#635C4B]">
                 {course.region}
                 {course.country !== "België" ? ` · ${course.country}` : ""}
               </span>
@@ -160,7 +160,7 @@ export function CourseCard({
               </span>
             )}
             {onlyOneRated && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#7A7260] bg-[#EDE6D9] px-2 py-0.5">
+              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B] bg-[#EDE6D9] px-2 py-0.5">
                 Enkel door {course.ratings[0].host}
               </span>
             )}
@@ -186,7 +186,7 @@ export function CourseCard({
             )}
           </div>
           {reviewSnippet && (
-            <p className="font-rb-sans text-[0.85rem] text-[#7A7260] mt-3 line-clamp-2 max-w-2xl italic">
+            <p className="font-rb-sans text-[0.85rem] text-[#635C4B] mt-3 line-clamp-2 max-w-2xl italic">
               "{reviewSnippet.slice(0, 140)}{reviewSnippet.length > 140 ? "…" : ""}"
             </p>
           )}
@@ -209,7 +209,7 @@ export function CourseCard({
           </div>
           <ChevronDown
             size={20}
-            className="text-[#7A7260] transition-transform"
+            className="text-[#635C4B] transition-transform"
             style={{ transform: open ? "rotate(180deg)" : "rotate(0)" }}
           />
         </div>
@@ -278,7 +278,7 @@ export function CourseCard({
                               title={label}
                             />
                           </div>
-                          <span className="font-rb-mono text-[0.55rem] text-[#7A7260] text-right">
+                          <span className="font-rb-mono text-[0.55rem] text-[#635C4B] text-right">
                             {r[key]}
                           </span>
                         </div>
@@ -306,7 +306,7 @@ export function CourseCard({
             <div className="overflow-x-auto">
               <table className="w-full text-left font-rb-sans text-[0.82rem]">
                 <thead>
-                  <tr className="text-[#7A7260] font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
+                  <tr className="text-[#635C4B] font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
                     <th className="pb-2 pr-4">Host</th>
                     <th className="pb-2 pr-4">Hole van de dag</th>
                     <th className="pb-2 pr-4">Terugkomen?</th>
@@ -335,7 +335,7 @@ export function CourseCard({
           </div>
 
           {/* DETAILS */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#7A7260]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#635C4B]">
             {course.greenfee != null && (
               <span>
                 Greenfee · <span className="text-[#1C3D2A]">€{course.greenfee}</span>

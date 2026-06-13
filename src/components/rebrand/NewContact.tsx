@@ -14,7 +14,7 @@ export function NewContact() {
   return (
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-4">
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Stuur een bericht
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -73,7 +73,7 @@ export function NewContact() {
                 className={`font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase px-6 py-3 border-b-2 -mb-px transition-colors ${
                   reason === r.id
                     ? "text-[#1C3D2A] border-[#8FBF4A]"
-                    : "text-[#7A7260] border-transparent hover:text-[#1C3D2A]"
+                    : "text-[#635C4B] border-transparent hover:text-[#1C3D2A]"
                 }`}
               >
                 {r.label}
@@ -116,7 +116,7 @@ export function NewContact() {
             </div>
             <RbField label="Onderwerp" name="subject" required />
             <div className="flex flex-col gap-1.5">
-              <label className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#7A7260]">
+              <label className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
                 Bericht
               </label>
               <textarea
@@ -133,7 +133,7 @@ export function NewContact() {
               ) : error ? (
                 <p className="font-rb-sans text-sm text-red-700">{error}</p>
               ) : (
-                <p className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#7A7260]">
+                <p className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
                   We antwoorden binnen 48u
                 </p>
               )}
@@ -155,7 +155,7 @@ export function NewContact() {
 function RbField({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={name} className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#7A7260]">
+      <label htmlFor={name} className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
         {label}
       </label>
       <input

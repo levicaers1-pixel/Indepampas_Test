@@ -40,13 +40,13 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#EDE6D9] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#7A7260] mb-2">
+      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Route builder
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-3">
         Bouw je <em className="italic">golfweekend</em>.
       </h2>
-      <p className="font-rb-sans text-[0.85rem] text-[#7A7260] max-w-2xl mb-7">
+      <p className="font-rb-sans text-[0.85rem] text-[#635C4B] max-w-2xl mb-7">
         Kies regio, aantal banen en budget. We stellen een route samen uit de hoogst gescoorde
         parcours van PAMPAS.
       </p>
@@ -97,7 +97,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
       </div>
 
       {route.picked.length === 0 ? (
-        <div className="bg-white border border-[rgba(28,61,42,0.15)] p-8 text-center font-rb-sans text-[#7A7260] text-[0.85rem]">
+        <div className="bg-white border border-[rgba(28,61,42,0.15)] p-8 text-center font-rb-sans text-[#635C4B] text-[0.85rem]">
           Geen route mogelijk binnen dit budget. Verhoog je budget of kies een andere regio.
         </div>
       ) : (
@@ -141,7 +141,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
                         {c.pampasScore?.toFixed(0)}
                       </span>
                     </div>
-                    <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#7A7260] mt-0.5">
+                    <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mt-0.5">
                       {c.region ?? "—"} · {c.type ?? "—"} · €{fee} greenfee
                     </div>
                   </div>
@@ -150,7 +150,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
             })}
           </ol>
 
-          <div className="mt-6 pt-5 border-t border-[rgba(28,61,42,0.1)] font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#7A7260]">
+          <div className="mt-6 pt-5 border-t border-[rgba(28,61,42,0.1)] font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#635C4B]">
             Suggesties op basis van PAMPAS scores. Bel altijd vooraf voor startijden.
           </div>
         </div>
@@ -163,7 +163,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="font-rb-serif text-[1.8rem] text-[#1C3D2A] leading-none">{value}</div>
-      <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#7A7260] mt-1.5">
+      <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#635C4B] mt-1.5">
         {label}
       </div>
     </div>
