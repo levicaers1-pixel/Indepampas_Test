@@ -38,18 +38,87 @@ export type Post = {
 export const posts: Post[] = [
   {
     slug: "golf-media-partner-spotlight",
-    title: "Onze partner in de schijnwerpers: Golf Media",
+    title: "Een great network to play: hoe Golf Media de clubervaring naar een hoger niveau tilt",
     excerpt:
-      "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — precies waar wij ook voor staan.",
+      "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — precies waar wij ook voor staan.",
     seoDescription:
       "Hoe Golf Media met de Golf Kiosk de clubervaring in meer dan dertig Belgische golfclubs naar een hoger niveau tilt — en waarom dat voor PAMPAS klikt.",
     date: "13/06/2026",
     author: "PAMPAS Redactie",
     readTime: "5 min",
     topics: ["Partner", "Golf Media", "Belgische clubs"],
-    customLayout: "golfmedia",
+    category: "Partner in de spotlight",
+    sourceName: "PAMPAS Redactie",
+    sourceLabel: "Bron",
     content:
       "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs — met de Golf Kiosk als kroonjuweel — maakt het leven van golfers en clubs een stuk eenvoudiger.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — en dat is precies waar wij ook voor staan.",
+      },
+      {
+        type: "p",
+        text: "Wie de afgelopen jaren door een Belgische golfclub heeft gewandeld, is er ongetwijfeld al langsgekomen: een strak digitaal scherm bij het onthaal of buiten op het terras, met de weersverwachting, de wedstrijdkalender en het laatste nieuws van de club. Dat scherm is van Golf Media, en het is meer dan alleen reclame. Wij vertellen je graag waarom dit Belgische bedrijf een meerwaarde is voor elke club en elke golfer.",
+      },
+      {
+        type: "quote",
+        text: "\"A great network to play.\" Dat is de belofte van Golf Media, en op het terrein houden ze die belofte ook echt waar.",
+      },
+      { type: "h2", text: "De Golf Kiosk: praktisch, mooi en gratis voor de club" },
+      {
+        type: "p",
+        text: "Het kroonjuweel van Golf Media is de Golf Kiosk, een digitale informatiezuil die golfers meteen bij aankomst alle nuttige info geeft. Geen rondvragen meer aan het onthaal of zoeken naar een papiertje met de wedstrijdkalender: alles staat overzichtelijk op een touchscreen.",
+      },
+      {
+        type: "badges",
+        items: [
+          { num: "01", title: "Status van de baan", text: "In één oogopslag zien of de baan open is, of er beperkingen zijn, en wat de actuele weersomstandigheden zijn." },
+          { num: "02", title: "Wedstrijdkalender", text: "Altijd up-to-date overzicht van competities en evenementen, zodat niemand nog iets mist." },
+          { num: "03", title: "Stroke calculator & BEgolf", text: "Een digitale stroke calculator en directe link naar BEgolf, handig voor wie z'n handicap of inschrijvingen wil checken." },
+          { num: "04", title: "Social media feeds", text: "De laatste posts en sfeerbeelden van de club, mooi geïntegreerd in het scherm." },
+        ],
+      },
+      {
+        type: "p",
+        text: "Het mooiste van dit verhaal: de Golf Kiosk wordt volledig gratis aangeboden aan de club. Clubs krijgen een professioneel, modern communicatiemiddel zonder dat het hen iets kost, en met software die ze zelf met één klik kunnen updaten via een bibliotheek vol stijlvolle templates.",
+      },
+      { type: "h2", text: "Een netwerk dat groeit, in de mooiste clubs van het land" },
+      {
+        type: "p",
+        text: "Golf Media is intussen aanwezig in meer dan dertig exclusieve golfclubs in België, van Golf de l'Empereur tot Royal Golf Club du Sart Tilman en Rigenée. Daarmee bouwen ze stap voor stap aan een netwerk dat golfers overal in het land hetzelfde niveau van comfort en informatie biedt.",
+      },
+      {
+        type: "stats",
+        items: [
+          { num: "30+", label: "exclusieve golfclubs in België aangesloten" },
+          { num: "35+", label: "schermen, inclusief het eerste outdoor scherm" },
+          { num: "100K+", label: "impressies per week op het netwerk" },
+        ],
+      },
+      { type: "h2", text: "Vertrouwd door grote merken, gebouwd voor de golfer" },
+      {
+        type: "p",
+        text: "Dat dit concept werkt, bewijzen de merken die met Golf Media samenwerken. Internationale namen zien de waarde van een select, betrokken golfpubliek in een omgeving waar rust en kwaliteit centraal staan. Onder andere te zien op het netwerk: American Express, Breitling, Brussels Airlines, BMW, Hugo Boss, Club Med, ING, Garmin en Maserati.",
+      },
+      {
+        type: "p",
+        text: "Voor de golfclubs zelf betekent dit ook iets: een netwerk dat gedragen wordt door A-merken, straalt kwaliteit uit en past naadloos bij de premium uitstraling die zij zelf willen bieden aan hun leden en gasten.",
+      },
+      { type: "h2", text: "Waarom dit voor ons als PAMPAS klikt" },
+      {
+        type: "p",
+        text: "Bij PAMPAS draait alles om de golfervaring beter, leuker en toegankelijker maken, op en naast de baan. Golf Media doet dat letterlijk op de baan: ze zorgen dat golfers op het juiste moment de juiste info krijgen, en dat clubs zonder extra werk een professionele uitstraling kunnen behouden. Het is dezelfde mentaliteit als waarmee wij elke aflevering en blogpost maken: nuttig, mooi vormgegeven, en met aandacht voor de golfer.",
+      },
+      {
+        type: "quote",
+        text: "Dankjewel aan Golf Media om PAMPAS te steunen. We zijn fier op deze samenwerking.",
+      },
+      {
+        type: "source",
+        text: "Meer info: golfmedia.be",
+      },
+    ],
   },
   {
     slug: "soudal-open-2026-rinkven",
