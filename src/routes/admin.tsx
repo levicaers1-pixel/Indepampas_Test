@@ -150,6 +150,7 @@ function CoursesTab() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Course | "new" | null>(null);
+  const [countryFilter, setCountryFilter] = useState<string>("Alle");
 
   async function load() {
     setLoading(true);
@@ -169,13 +170,26 @@ function CoursesTab() {
     load();
   }
 
+  const filteredItems = useMemo(() => {
+    if (countryFilter === "Alle") return items;
+    return items.filter((c) => c.country === countryFilter);
+  }, [items, countryFilter]);
+
+  const countryOptions = useMemo(() => {
+    const set = new Set(items.map((c) => c.country).filter(Boolean));
+    return ["Alle", ...Array.from(set).sort()];
+  }, [items]);
+
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-medium">Parcours ({items.length})</h2>
-        <button onClick={() => setEditing("new")} className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]">
-          + Parcours
-        </button>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+        <h2 className="text-lg font-medium">Parcours ({filteredItems.length})</h2>
+        <div className="flex items-center gap-3">
+          <Select value={countryFilter} onChange={(v) => setCountryFilter(v)} options={countryOptions} />
+          <button onClick={() => setEditing("new")} className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]">
+            + Parcours
+          </button>
+        </div>
       </div>
 
       {loading ? (
