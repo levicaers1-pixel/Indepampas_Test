@@ -381,6 +381,9 @@ function RatingsTab() {
               </div>
             </div>
           ))}
+          {filteredItems.length === 0 && (
+            <p className="text-sm text-[#8A8270] px-2 py-4">Geen parcours gevonden voor dit land.</p>
+          )}
         </div>
       )}
 
