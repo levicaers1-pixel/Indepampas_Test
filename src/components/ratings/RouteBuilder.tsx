@@ -81,13 +81,19 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
             Regio
           </label>
           <select
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
+            value={regionKey}
+            onChange={(e) => setRegionKey(e.target.value)}
             className="w-full bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A]"
           >
-            <option value="">Heel België</option>
-            {regions.map((r) => (
-              <option key={r} value={r}>{r}</option>
+            <option value="">Alle landen & regio's</option>
+            {regionsByCountry.map(({ country, regions }) => (
+              <optgroup key={country} label={country}>
+                {regions.map((r) => (
+                  <option key={`${country}|${r}`} value={`${country}|${r}`}>
+                    {r}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </div>
