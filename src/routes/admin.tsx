@@ -150,6 +150,7 @@ function CoursesTab() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Course | "new" | null>(null);
+  const [countryFilter, setCountryFilter] = useState<string>("Alle");
 
   async function load() {
     setLoading(true);
@@ -169,13 +170,26 @@ function CoursesTab() {
     load();
   }
 
+  const filteredItems = useMemo(() => {
+    if (countryFilter === "Alle") return items;
+    return items.filter((c) => c.country === countryFilter);
+  }, [items, countryFilter]);
+
+  const countryOptions = useMemo(() => {
+    const set = new Set(items.map((c) => c.country).filter(Boolean));
+    return ["Alle", ...Array.from(set).sort()];
+  }, [items]);
+
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-medium">Parcours ({items.length})</h2>
-        <button onClick={() => setEditing("new")} className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]">
-          + Parcours
-        </button>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+        <h2 className="text-lg font-medium">Parcours ({filteredItems.length})</h2>
+        <div className="flex items-center gap-3">
+          <Select value={countryFilter} onChange={(v) => setCountryFilter(v)} options={countryOptions} />
+          <button onClick={() => setEditing("new")} className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]">
+            + Parcours
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -191,7 +205,7 @@ function CoursesTab() {
               </tr>
             </thead>
             <tbody>
-              {items.map((c, i) => (
+              {filteredItems.map((c, i) => (
                 <tr key={c.id} className="border-t border-[#2A2A26]">
                   <td className="px-4 py-3 text-[#8A8270] text-xs">{i + 1}</td>
                   <td className="px-4 py-3 font-medium">{c.name}</td>
@@ -206,8 +220,8 @@ function CoursesTab() {
                   </td>
                 </tr>
               ))}
-              {items.length === 0 && (
-                <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Nog geen parcours.</td></tr>
+              {filteredItems.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Geen parcours gevonden.</td></tr>
               )}
             </tbody>
           </table>
@@ -298,6 +312,7 @@ function RatingsTab() {
   const [items, setItems] = useState<CourseWithRatings[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<{ course: Course; host: HostName; rating: Rating | null } | null>(null);
+  const [countryFilter, setCountryFilter] = useState<string>("Alle");
 
   async function load() {
     setLoading(true);
@@ -308,16 +323,29 @@ function RatingsTab() {
   }
   useEffect(() => { load(); }, []);
 
+  const filteredItems = useMemo(() => {
+    if (countryFilter === "Alle") return items;
+    return items.filter((c) => c.country === countryFilter);
+  }, [items, countryFilter]);
+
+  const countryOptions = useMemo(() => {
+    const set = new Set(items.map((c) => c.country).filter(Boolean));
+    return ["Alle", ...Array.from(set).sort()];
+  }, [items]);
+
   return (
     <>
-      <h2 className="text-lg font-medium mb-4">Beoordelingen</h2>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+        <h2 className="text-lg font-medium">Beoordelingen</h2>
+        <Select value={countryFilter} onChange={(v) => setCountryFilter(v)} options={countryOptions} />
+      </div>
       {loading ? (
         <p className="text-sm text-[#8A8270]">Laden…</p>
       ) : items.length === 0 ? (
         <p className="text-sm text-[#8A8270]">Voeg eerst een parcours toe.</p>
       ) : (
         <div className="space-y-3">
-          {items.map((c) => (
+          {filteredItems.map((c) => (
             <div key={c.id} className="border border-[#2A2A26] bg-[#1A1A18]">
               <div className="px-4 py-3 border-b border-[#2A2A26] flex items-baseline justify-between">
                 <span className="font-medium">{c.name}</span>
@@ -353,6 +381,9 @@ function RatingsTab() {
               </div>
             </div>
           ))}
+          {filteredItems.length === 0 && (
+            <p className="text-sm text-[#8A8270] px-2 py-4">Geen parcours gevonden voor dit land.</p>
+          )}
         </div>
       )}
 
