@@ -6,20 +6,44 @@ import { scoreColor } from "@/lib/personalScore";
 const FEE_VALUES: Record<string, number> = { "€": 60, "€€": 85, "€€€": 120, "€€€€": 180 };
 
 export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
-  const regions = useMemo(
-    () => Array.from(new Set(courses.map((c) => c.region).filter(Boolean))) as string[],
-    [courses],
-  );
+  // Group regions by country so e.g. "Limburg (NL)" and "Limburg (BE)" don't collide,
+  // and Utrecht (NL) shows up even though it shares no name with Belgian regions.
+  const regionsByCountry = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const c of courses) {
+      if (!c.region || !c.country) continue;
+      if (!map.has(c.country)) map.set(c.country, new Set());
+      map.get(c.country)!.add(c.region);
+    }
+    return Array.from(map.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([country, set]) => ({
+        country,
+        regions: Array.from(set).sort((a, b) => a.localeCompare(b)),
+      }));
+  }, [courses]);
 
-  const [region, setRegion] = useState<string>("");
+  // Value format: "country|region" (empty = all)
+  const [regionKey, setRegionKey] = useState<string>("");
   const [stops, setStops] = useState(3);
   const [budget, setBudget] = useState(400);
 
   const route = useMemo(() => {
+    const [selCountry, selRegion] = regionKey ? regionKey.split("|") : ["", ""];
     const pool = courses
-      .filter((c) => (region ? c.region === region : true))
-      .filter((c) => c.pampasScore != null)
-      .sort((a, b) => (b.pampasScore ?? 0) - (a.pampasScore ?? 0));
+      .filter((c) =>
+        regionKey ? c.country === selCountry && c.region === selRegion : true,
+      )
+      // Rated courses first (highest score), then unrated so the builder still
+      // returns something for regions without PAMPAS ratings yet.
+      .sort((a, b) => {
+        const sa = a.pampasScore;
+        const sb = b.pampasScore;
+        if (sa == null && sb == null) return 0;
+        if (sa == null) return 1;
+        if (sb == null) return -1;
+        return sb - sa;
+      });
 
     const picked: CourseWithRatings[] = [];
     let total = 0;
@@ -31,7 +55,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
       total += fee;
     }
     return { picked, total };
-  }, [courses, region, stops, budget]);
+  }, [courses, regionKey, stops, budget]);
 
   const avgScore =
     route.picked.length > 0
