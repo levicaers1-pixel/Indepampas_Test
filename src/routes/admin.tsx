@@ -205,7 +205,7 @@ function CoursesTab() {
               </tr>
             </thead>
             <tbody>
-              {items.map((c, i) => (
+              {filteredItems.map((c, i) => (
                 <tr key={c.id} className="border-t border-[#2A2A26]">
                   <td className="px-4 py-3 text-[#8A8270] text-xs">{i + 1}</td>
                   <td className="px-4 py-3 font-medium">{c.name}</td>
@@ -220,8 +220,8 @@ function CoursesTab() {
                   </td>
                 </tr>
               ))}
-              {items.length === 0 && (
-                <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Nog geen parcours.</td></tr>
+              {filteredItems.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Geen parcours gevonden.</td></tr>
               )}
             </tbody>
           </table>
