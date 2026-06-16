@@ -424,3 +424,29 @@ function SidebarBlock({ label, children }: { label: string; children: React.Reac
     </div>
   );
 }
+
+function HostMeta({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-[#F2EDE4] px-5 sm:px-6 py-4">
+      <dt
+        className="text-[#7A7468] uppercase mb-1.5"
+        style={{
+          fontFamily: "'DM Mono', ui-monospace, monospace",
+          fontSize: "0.55rem",
+          letterSpacing: "0.15em",
+        }}
+      >
+        {label}
+      </dt>
+      <dd
+        className="text-[#1A3D2B] m-0"
+        style={{
+          fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+          fontSize: "1.05rem",
+        }}
+      >
+        {value}
+      </dd>
+    </div>
+  );
+}
