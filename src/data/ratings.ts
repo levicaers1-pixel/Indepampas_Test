@@ -28,6 +28,18 @@ export type CourseRating = {
   verdict: string;
   notes: string;
   findings: string[]; // bullet points for the per-course article
+  hostDetails?: {
+    lars?: HostDetail;
+    levi?: HostDetail;
+    niels?: HostDetail;
+  };
+};
+
+export type HostDetail = {
+  review?: string | null;
+  holeOfDay?: string | null;
+  oneWord?: string | null;
+  wouldReturn?: string | null;
 };
 
 
