@@ -170,6 +170,93 @@ export function NewRatingArticle({
             ))}
           </ul>
 
+          {rating.hostDetails && (rating.hostDetails.lars || rating.hostDetails.levi || rating.hostDetails.niels) && (
+            <>
+              <h2
+                className="text-[#1A3D2B] font-semibold mt-12 mb-6 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
+                style={{
+                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontSize: "1.6rem",
+                }}
+              >
+                Per host
+              </h2>
+
+              <div className="space-y-6 mb-12">
+                {(
+                  [
+                    ["lars", "Lars", "+0.6", rating.hostScores.lars],
+                    ["levi", "Levi", "3.2", rating.hostScores.levi],
+                    ["niels", "Niels", "2.4", rating.hostScores.niels],
+                  ] as const
+                ).map(([key, name, hcp, score]) => {
+                  const d = rating.hostDetails?.[key];
+                  if (!d || (!d.review && !d.holeOfDay && !d.oneWord && !d.wouldReturn)) return null;
+                  return (
+                    <div key={key} className="border border-[#C8BFB0] bg-[#F2EDE4]">
+                      <div className="flex items-baseline justify-between gap-4 px-5 sm:px-6 py-3 bg-[#1A3D2B] text-[#F2EDE4]">
+                        <div className="flex items-baseline gap-3">
+                          <span
+                            style={{
+                              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                              fontSize: "1.5rem",
+                            }}
+                          >
+                            {name}
+                          </span>
+                          <span
+                            className="opacity-70 uppercase"
+                            style={{
+                              fontFamily: "'DM Mono', ui-monospace, monospace",
+                              fontSize: "0.55rem",
+                              letterSpacing: "0.15em",
+                            }}
+                          >
+                            HCP {hcp}
+                          </span>
+                        </div>
+                        <span
+                          className="tabular-nums"
+                          style={{
+                            fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                            fontSize: "1.6rem",
+                          }}
+                        >
+                          {score}
+                          <span className="opacity-60 text-[0.7rem] ml-1">/100</span>
+                        </span>
+                      </div>
+
+                      {d.review && (
+                        <p
+                          className="text-[#2E2B25] leading-[1.75] px-5 sm:px-6 pt-5"
+                          style={{ fontSize: "1rem" }}
+                        >
+                          {d.review}
+                        </p>
+                      )}
+
+                      {(d.oneWord || d.holeOfDay || d.wouldReturn) && (
+                        <dl className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#C8BFB0] mt-5 border-t border-[#C8BFB0]">
+                          {d.oneWord && (
+                            <HostMeta label="In één woord" value={d.oneWord} />
+                          )}
+                          {d.holeOfDay && (
+                            <HostMeta label="Hole van de dag" value={d.holeOfDay} />
+                          )}
+                          {d.wouldReturn && (
+                            <HostMeta label="Terugkomen?" value={d.wouldReturn} />
+                          )}
+                        </dl>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+
+
           <h2
             className="text-[#1A3D2B] font-semibold mt-10 mb-4 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
             style={{
