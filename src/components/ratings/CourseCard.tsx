@@ -231,7 +231,7 @@ export function CourseCard({
                   return (
                     <div
                       key={h}
-                      className="p-3 border border-dashed border-[rgba(28,61,42,0.2)] bg-white/40"
+                      className="p-4 border border-dashed border-[rgba(28,61,42,0.2)] bg-white/40"
                     >
                       <div className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#A09684]">
                         {p.icon} {h}
@@ -245,10 +245,10 @@ export function CourseCard({
                 return (
                   <div
                     key={h}
-                    className="p-3 bg-white"
+                    className="p-4 bg-white flex flex-col"
                     style={{ border: `1px solid ${p.color}44` }}
                   >
-                    <div className="flex items-baseline justify-between mb-2">
+                    <div className="flex items-baseline justify-between mb-3">
                       <span
                         className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em]"
                         style={{ color: p.color }}
@@ -256,33 +256,39 @@ export function CourseCard({
                         {p.icon} {h}
                       </span>
                       <span
-                        className="font-rb-serif text-[1.6rem] leading-none"
+                        className="font-rb-serif text-[1.8rem] leading-none"
                         style={{ color: p.color }}
                       >
                         {r.host_score.toFixed(0)}
+                        <span className="text-[0.75rem] opacity-50 ml-0.5">/100</span>
                       </span>
                     </div>
-                    <div className="space-y-1 mt-2">
-                      {CRITERIA.map(({ key, label }) => (
-                        <div
-                          key={key}
-                          className="grid grid-cols-[1fr_28px] items-center gap-2"
-                        >
-                          <div
-                            className="h-[3px] rounded-full"
-                            style={{ background: `${p.color}22` }}
-                          >
-                            <div
-                              className="h-full rounded-full"
-                              style={{ width: `${(r[key] / 10) * 100}%`, background: p.color }}
-                              title={label}
-                            />
-                          </div>
-                          <span className="font-rb-mono text-[0.55rem] text-[#635C4B] text-right">
-                            {r[key]}
-                          </span>
+
+                    {r.review && (
+                      <p className="font-rb-sans text-[0.82rem] text-[#2E2B25] leading-[1.6] italic mb-3 flex-1">
+                        “{r.review}”
+                      </p>
+                    )}
+
+                    <div className="mt-auto space-y-1.5 pt-3 border-t border-[rgba(28,61,42,0.1)]">
+                      {r.one_word && (
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
+                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.one_word}</span>
                         </div>
-                      ))}
+                      )}
+                      {r.hole_of_day && (
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
+                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.hole_of_day}</span>
+                        </div>
+                      )}
+                      {r.would_return && (
+                        <div className="flex items-baseline gap-2">
+                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
+                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.would_return}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
@@ -296,42 +302,6 @@ export function CourseCard({
               Gemiddelde per criterium
             </h4>
             <CriteriaBars ratings={course.ratings} />
-          </div>
-
-          {/* VERDICTS */}
-          <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
-              Verdicts
-            </h4>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left font-rb-sans text-[0.82rem]">
-                <thead>
-                  <tr className="text-[#635C4B] font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase">
-                    <th className="pb-2 pr-4">Host</th>
-                    <th className="pb-2 pr-4">Hole van de dag</th>
-                    <th className="pb-2 pr-4">Terugkomen?</th>
-                    <th className="pb-2 pr-4">Eén woord</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {course.ratings.map((r) => {
-                    const p = HOST_PERSONAS[r.host];
-                    return (
-                      <tr key={r.id} className="border-t border-[rgba(28,61,42,0.15)]">
-                        <td className="py-2 pr-4" style={{ color: p.color }}>
-                          {p.icon} {r.host}
-                        </td>
-                        <td className="py-2 pr-4 text-[#2E2B25]">{r.hole_of_day ?? "—"}</td>
-                        <td className="py-2 pr-4 text-[#2E2B25]">{r.would_return ?? "—"}</td>
-                        <td className="py-2 pr-4 italic text-[#2E2B25]">
-                          {r.one_word ?? "—"}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
           </div>
 
           {/* DETAILS */}
