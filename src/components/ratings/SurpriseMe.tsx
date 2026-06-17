@@ -66,9 +66,9 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
         const pampas = c.pampasScore ?? avg("host_score");
         score += pampas * 1.5;
 
-        if (vibe === "fun") score += avg("fun_score") * 3;
-        else if (vibe === "uitdaging") score += avg("difficulty_score") * 3;
-        else if (vibe === "rustig") score += avg("atmosphere_score") * 3;
+        if (vibe === "fun") score += (avg("score_value") + avg("score_design")) * 1.5;
+        else if (vibe === "uitdaging") score += avg("score_challenge") * 3;
+        else if (vibe === "rustig") score += (avg("score_scenery") + avg("score_hospitality")) * 1.5;
         else if (vibe === "score") score += pampas * 2;
 
         // Prefer courses with actual ratings
