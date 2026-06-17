@@ -284,6 +284,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       )}
 
       {tab === "compare" && <CourseCompare courses={courses} />}
+      {tab === "surprise" && <SurpriseMe courses={courses} />}
       {tab === "hosts" && <HostStats courses={courses} />}
       {tab === "route" && <RouteBuilder courses={courses} />}
 
