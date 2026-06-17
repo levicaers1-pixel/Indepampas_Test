@@ -1,10 +1,20 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { CRITERIA, HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { scoreColor } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 
 export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
   const [selected, setSelected] = useState<string[]>([]);
+  const [country, setCountry] = useState<string>("all");
+  const [query, setQuery] = useState<string>("");
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const countries = useMemo(() => {
+    const set = new Set<string>();
+    courses.forEach((c) => c.country && set.add(c.country));
+    return Array.from(set).sort();
+  }, [courses]);
 
   const toggle = (id: string) => {
     setSelected((prev) => {
@@ -14,9 +24,25 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
     });
   };
 
+  const remove = (id: string) => setSelected((prev) => prev.filter((x) => x !== id));
+
   const picked = selected
     .map((id) => courses.find((c) => c.id === id))
     .filter(Boolean) as CourseWithRatings[];
+
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return courses
+      .filter((c) => !selected.includes(c.id))
+      .filter((c) => (country === "all" ? true : c.country === country))
+      .filter((c) =>
+        q
+          ? c.name.toLowerCase().includes(q) ||
+            (c.region ?? "").toLowerCase().includes(q)
+          : true,
+      )
+      .slice(0, 8);
+  }, [courses, selected, country, query]);
 
   const winner = useMemo(() => {
     if (picked.length < 2) return null;
@@ -31,6 +57,8 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
     return vals.reduce((a, b) => a + b, 0) / vals.length;
   };
 
+  const canAddMore = selected.length < 3;
+
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#EDE6D9] border-b border-[rgba(28,61,42,0.15)]">
       <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
@@ -40,36 +68,98 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
         Zet ze <em className="italic">naast elkaar</em>.
       </h2>
       <p className="font-rb-sans text-[0.85rem] text-[#635C4B] max-w-2xl mb-6">
-        Kies 2 of 3 parcours en vergelijk hun scores per criterium. Wie wint de duel?
+        Filter op land en zoek baan per baan. Kies tot 3 parcours om naast elkaar te leggen.
       </p>
 
-      <div className="mb-6">
+      <div className="mb-6 max-w-2xl">
         <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-2">
-          Selecteer ({selected.length}/3)
+          Selectie ({selected.length}/3)
         </p>
-        <div className="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto pr-2">
-          {courses.map((c) => {
-            const on = selected.includes(c.id);
-            const disabled = !on && selected.length >= 3;
-            return (
-              <button
+
+        <div className="flex flex-col sm:flex-row gap-2 mb-2">
+          <select
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="font-rb-sans text-[0.78rem] px-3 py-2 bg-white border border-[rgba(28,61,42,0.2)] text-[#1C3D2A] sm:w-44"
+          >
+            <option value="all">Alle landen</option>
+            {countries.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+
+          <div className="relative flex-1">
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              disabled={!canAddMore}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setOpen(true);
+              }}
+              onFocus={() => setOpen(true)}
+              onBlur={() => setTimeout(() => setOpen(false), 150)}
+              placeholder={canAddMore ? "Zoek een baan…" : "Max 3 banen geselecteerd"}
+              className="w-full font-rb-sans text-[0.78rem] px-3 py-2 bg-white border border-[rgba(28,61,42,0.2)] text-[#1C3D2A] placeholder:text-[#999] disabled:opacity-50"
+            />
+            {open && canAddMore && suggestions.length > 0 && (
+              <div className="absolute z-20 left-0 right-0 mt-1 bg-white border border-[rgba(28,61,42,0.2)] shadow-lg max-h-64 overflow-y-auto">
+                {suggestions.map((c) => (
+                  <button
+                    key={c.id}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      toggle(c.id);
+                      setQuery("");
+                      inputRef.current?.focus();
+                    }}
+                    className="w-full text-left px-3 py-2 hover:bg-[#EDE6D9] flex items-center justify-between gap-3 border-b border-[rgba(28,61,42,0.06)] last:border-b-0"
+                  >
+                    <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A]">{c.name}</span>
+                    <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B]">
+                      {c.country}{c.region ? ` · ${c.region}` : ""}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {open && canAddMore && suggestions.length === 0 && query.trim() && (
+              <div className="absolute z-20 left-0 right-0 mt-1 bg-white border border-[rgba(28,61,42,0.2)] shadow-lg px-3 py-2 font-rb-sans text-[0.78rem] text-[#635C4B]">
+                Geen banen gevonden.
+              </div>
+            )}
+          </div>
+        </div>
+
+        {picked.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {picked.map((c) => (
+              <span
                 key={c.id}
-                onClick={() => toggle(c.id)}
-                disabled={disabled}
-                className="font-rb-sans text-[0.72rem] px-2.5 py-1 border transition"
+                className="inline-flex items-center gap-2 font-rb-sans text-[0.72rem] px-2.5 py-1 border"
                 style={{
-                  background: on ? "#1C3D2A" : "#fff",
-                  color: on ? "#F4EFE5" : disabled ? "#bbb" : "#1C3D2A",
-                  borderColor: on ? "#1C3D2A" : "rgba(28,61,42,0.2)",
-                  opacity: disabled ? 0.5 : 1,
+                  background: "#1C3D2A",
+                  color: "#F4EFE5",
+                  borderColor: "#1C3D2A",
                 }}
               >
                 {c.name}
-              </button>
-            );
-          })}
-        </div>
+                <button
+                  onClick={() => remove(c.id)}
+                  className="font-rb-mono text-[0.7rem] leading-none opacity-80 hover:opacity-100"
+                  aria-label={`Verwijder ${c.name}`}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
+
 
       {picked.length < 2 ? (
         <div className="text-center py-10 font-rb-sans text-[#635C4B] text-[0.85rem]">
