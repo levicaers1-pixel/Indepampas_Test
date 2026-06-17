@@ -40,7 +40,7 @@ export const posts: Post[] = [
     slug: "golf-media-partner-spotlight",
     title: "Een great network to play: hoe Golf Media de clubervaring naar een hoger niveau tilt",
     excerpt:
-      "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — precies waar wij ook voor staan.",
+      "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker, precies waar wij ook voor staan.",
     seoDescription:
       "Hoe Golf Media met de Golf Kiosk de clubervaring in meer dan dertig Belgische golfclubs naar een hoger niveau tilt, en waarom dat voor PAMPAS klikt.",
     date: "13/06/2026",
