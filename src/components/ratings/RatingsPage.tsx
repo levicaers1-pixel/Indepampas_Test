@@ -7,13 +7,15 @@ import { MatchQuiz } from "./MatchQuiz";
 import { CourseCompare } from "./CourseCompare";
 import { HostStats } from "./HostStats";
 import { RouteBuilder } from "./RouteBuilder";
+import { SurpriseMe } from "./SurpriseMe";
 
 type SortKey = "pampas_desc" | "pampas_asc" | "name" | "recent";
-type Tab = "courses" | "compare" | "hosts" | "route";
+type Tab = "courses" | "compare" | "surprise" | "hosts" | "route";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "courses", label: "Parcours" },
   { key: "compare", label: "Vergelijk" },
+  { key: "surprise", label: "Verras mij" },
   { key: "hosts", label: "Host-stats" },
   { key: "route", label: "Route builder" },
 ];
