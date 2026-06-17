@@ -42,7 +42,7 @@ export const posts: Post[] = [
     excerpt:
       "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — precies waar wij ook voor staan.",
     seoDescription:
-      "Hoe Golf Media met de Golf Kiosk de clubervaring in meer dan dertig Belgische golfclubs naar een hoger niveau tilt — en waarom dat voor PAMPAS klikt.",
+      "Hoe Golf Media met de Golf Kiosk de clubervaring in meer dan dertig Belgische golfclubs naar een hoger niveau tilt, en waarom dat voor PAMPAS klikt.",
     date: "13/06/2026",
     author: "PAMPAS Redactie",
     readTime: "5 min",
@@ -51,11 +51,11 @@ export const posts: Post[] = [
     sourceName: "PAMPAS Redactie",
     sourceLabel: "Bron",
     content:
-      "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs — met de Golf Kiosk als kroonjuweel — maakt het leven van golfers en clubs een stuk eenvoudiger.",
+      "PAMPAS werkt samen met Golf Media. Hun digitale netwerk in de Belgische golfclubs, met de Golf Kiosk als kroonjuweel, maakt het leven van golfers en clubs een stuk eenvoudiger.",
     richContent: [
       {
         type: "subtitle",
-        text: "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker — en dat is precies waar wij ook voor staan.",
+        text: "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker, en dat is precies waar wij ook voor staan.",
       },
       {
         type: "p",
@@ -63,7 +63,7 @@ export const posts: Post[] = [
       },
       {
         type: "quote",
-        text: "\"A great network to play.\" Dat is de belofte van Golf Media, en op het terrein houden ze die belofte ook echt waar.",
+        text: '"A great network to play." Dat is de belofte van Golf Media, en op het terrein houden ze die belofte ook echt waar.',
       },
       { type: "h2", text: "De Golf Kiosk: praktisch, mooi en gratis voor de club" },
       {
@@ -73,10 +73,26 @@ export const posts: Post[] = [
       {
         type: "badges",
         items: [
-          { num: "01", title: "Status van de baan", text: "In één oogopslag zien of de baan open is, of er beperkingen zijn, en wat de actuele weersomstandigheden zijn." },
-          { num: "02", title: "Wedstrijdkalender", text: "Altijd up-to-date overzicht van competities en evenementen, zodat niemand nog iets mist." },
-          { num: "03", title: "Stroke calculator & BEgolf", text: "Een digitale stroke calculator en directe link naar BEgolf, handig voor wie z'n handicap of inschrijvingen wil checken." },
-          { num: "04", title: "Social media feeds", text: "De laatste posts en sfeerbeelden van de club, mooi geïntegreerd in het scherm." },
+          {
+            num: "01",
+            title: "Status van de baan",
+            text: "In één oogopslag zien of de baan open is, of er beperkingen zijn, en wat de actuele weersomstandigheden zijn.",
+          },
+          {
+            num: "02",
+            title: "Wedstrijdkalender",
+            text: "Altijd up-to-date overzicht van competities en evenementen, zodat niemand nog iets mist.",
+          },
+          {
+            num: "03",
+            title: "Stroke calculator & BEgolf",
+            text: "Een digitale stroke calculator en directe link naar BEgolf, handig voor wie z'n handicap of inschrijvingen wil checken.",
+          },
+          {
+            num: "04",
+            title: "Social media feeds",
+            text: "De laatste posts en sfeerbeelden van de club, mooi geïntegreerd in het scherm.",
+          },
         ],
       },
       {
@@ -168,7 +184,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Ronde 2 — Nico's Final Dance" },
       {
         type: "p",
-        text: "Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard — hoewel ook daar drama te vinden was — maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. \"Nico's Final Dance\" wordt het gedoopt. En wat voor een dans.",
+        text: 'Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard — hoewel ook daar drama te vinden was — maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. "Nico\'s Final Dance" wordt het gedoopt. En wat voor een dans.',
       },
       {
         type: "quote",
@@ -236,7 +252,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Hoe deden de Belgen het?" },
       {
         type: "p",
-        text: "De verrassing van de week was zonder twijfel Anthony De Schutter. De 24-jarige amateur, net afgestudeerd in de Verenigde Staten en uitgenodigd via een wildcard, speelde vier opeenvolgende rondes onder par (67-70-68-70) en eindigde als beste Belg op de 41e plek met -9. Twee slagen voor landgenoot Thomas Detry. \"Er is niets mooiers dan op het hoogste niveau in Europa dit te presteren voor je familie en vrienden,\" zei hij achteraf. \"Ik heb hier weinig woorden voor.\"",
+        text: 'De verrassing van de week was zonder twijfel Anthony De Schutter. De 24-jarige amateur, net afgestudeerd in de Verenigde Staten en uitgenodigd via een wildcard, speelde vier opeenvolgende rondes onder par (67-70-68-70) en eindigde als beste Belg op de 41e plek met -9. Twee slagen voor landgenoot Thomas Detry. "Er is niets mooiers dan op het hoogste niveau in Europa dit te presteren voor je familie en vrienden," zei hij achteraf. "Ik heb hier weinig woorden voor."',
       },
       {
         type: "p",
@@ -258,7 +274,7 @@ export const posts: Post[] = [
           {
             num: "Belg 03",
             title: "🇧🇪 Arthur Haghedooren — 16 jaar, cut gehaald",
-            text: "Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67 — vijf slagen beter dan zijn openingsdag — was de perfecte illustratie van hoe deze jongen omgaat met druk. \"Ik ben vandaag gestart met het idee om gewoon plezier te hebben,\" zei hij na ronde 2. Dat lukte. En hoe.",
+            text: 'Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67 — vijf slagen beter dan zijn openingsdag — was de perfecte illustratie van hoe deze jongen omgaat met druk. "Ik ben vandaag gestart met het idee om gewoon plezier te hebben," zei hij na ronde 2. Dat lukte. En hoe.',
           },
           {
             num: "Belg 04",
@@ -274,7 +290,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan — zijn oudste is bijna 13, \"ongeveer zo lang geleden als mijn laatste zege\" — vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.",
+        text: 'Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan — zijn oudste is bijna 13, "ongeveer zo lang geleden als mijn laatste zege" — vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.',
       },
       {
         type: "quote",
@@ -454,8 +470,7 @@ export const posts: Post[] = [
     sourceLabel: "Locatie",
     sourceLinkLabel: "Bezoek grip.academy →",
     sourceSubtitle: "Kempense Golf · België",
-    content:
-      "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen.",
+    content: "We kwamen aan op de Kempense Golf zonder al te hoge verwachtingen.",
     richContent: [
       {
         type: "subtitle",
@@ -523,7 +538,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Wat onze sessie bij grip.academy duidelijk maakte: een coach kan honderd keer zeggen \"houd je pols vlakker op de top\" — maar met HackMotion vóél je het exact op het juiste moment. Die combinatie van een ervaren oog en directe biofeedback is wat grip.academy onderscheidt van een gewone golfles. Alle sessiedata wordt opgeslagen, zodat je bij elke volgende les meteen ziet of je progressie hebt geboekt.",
+        text: 'Wat onze sessie bij grip.academy duidelijk maakte: een coach kan honderd keer zeggen "houd je pols vlakker op de top" — maar met HackMotion vóél je het exact op het juiste moment. Die combinatie van een ervaren oog en directe biofeedback is wat grip.academy onderscheidt van een gewone golfles. Alle sessiedata wordt opgeslagen, zodat je bij elke volgende les meteen ziet of je progressie hebt geboekt.',
       },
       { type: "h2", text: "Golfbox AI — jouw digitale caddie op de baan" },
       {
@@ -601,7 +616,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Saudi-Arabië's Public Investment Fund — het fonds dat met naar schatting meer dan vijf miljard dollar LIV Golf had gefinancierd — heeft beslist dat het genoeg is geweest. De financiering stopt eind 2026. Chairman Yasir Al-Rumayyan, de architect van het hele avontuur, is al vertrokken. Een toernooi werd onlangs uitgesteld wegens \"hitte en een voetbalconflict\" — wat eerlijk gezegd de meest Belgische reden voor annulatie is die ik ooit heb gehoord, maar dan in de Arabische woestijn.",
+        text: 'Saudi-Arabië\'s Public Investment Fund — het fonds dat met naar schatting meer dan vijf miljard dollar LIV Golf had gefinancierd — heeft beslist dat het genoeg is geweest. De financiering stopt eind 2026. Chairman Yasir Al-Rumayyan, de architect van het hele avontuur, is al vertrokken. Een toernooi werd onlangs uitgesteld wegens "hitte en een voetbalconflict" — wat eerlijk gezegd de meest Belgische reden voor annulatie is die ik ooit heb gehoord, maar dan in de Arabische woestijn.',
       },
       {
         type: "stats",
@@ -615,7 +630,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Hoe gaat het met de spelers?" },
       {
         type: "p",
-        text: "Brooks Koepka is al weg. Patrick Reed ook. En Bryson DeChambeau — het gezicht van LIV, de man die volgens bronnen een contract vroeg dat ruim boven de 300 miljoen van Jon Rahm lag — laat nu via zijn entourage weten dat hij \"openstaat voor opties\". Vertaling: hij neemt LIV's oproepen niet meer op. Rahm zelf zit nog geblokkeerd op de DP World Tour, wat zijn Ryder Cup-toekomst gecompliceerd maakt. De ironie wil dat Rahm in 2023 precies het moment koos om over te stappen waarop LIV al op zijn retour was — en daarmee het conflict een jaar langer rekte dan nodig was.",
+        text: 'Brooks Koepka is al weg. Patrick Reed ook. En Bryson DeChambeau — het gezicht van LIV, de man die volgens bronnen een contract vroeg dat ruim boven de 300 miljoen van Jon Rahm lag — laat nu via zijn entourage weten dat hij "openstaat voor opties". Vertaling: hij neemt LIV\'s oproepen niet meer op. Rahm zelf zit nog geblokkeerd op de DP World Tour, wat zijn Ryder Cup-toekomst gecompliceerd maakt. De ironie wil dat Rahm in 2023 precies het moment koos om over te stappen waarop LIV al op zijn retour was — en daarmee het conflict een jaar langer rekte dan nodig was.',
       },
       {
         type: "quote",
@@ -628,7 +643,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Zullen we LIV missen? Een klein beetje. Het was tenminste drama. In een sport waar het grootste nieuws normaal \"Rory McIlroy heeft een nieuwe putter\" is, was dat soms verfrissend. Maar uiteindelijk gold voor LIV Golf hetzelfde als voor elke poging om iets te kopen dat je niet kan kopen: het publiek pikt het gewoon niet.",
+        text: 'Zullen we LIV missen? Een klein beetje. Het was tenminste drama. In een sport waar het grootste nieuws normaal "Rory McIlroy heeft een nieuwe putter" is, was dat soms verfrissend. Maar uiteindelijk gold voor LIV Golf hetzelfde als voor elke poging om iets te kopen dat je niet kan kopen: het publiek pikt het gewoon niet.',
       },
       {
         type: "source",
