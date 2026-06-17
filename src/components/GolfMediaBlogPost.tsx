@@ -215,11 +215,11 @@ export function GolfMediaBlogPost({ post, prev, next }: Props) {
 
         <div className="stat-row">
           <div className="stat">
-            <span className="num">30+</span>
+            <span className="num">45+</span>
             <span className="label">exclusieve golfclubs in België aangesloten</span>
           </div>
           <div className="stat">
-            <span className="num">35+</span>
+            <span className="num">50+</span>
             <span className="label">schermen, inclusief het eerste outdoor scherm</span>
           </div>
           <div className="stat">
