@@ -13,6 +13,17 @@ export type Episode = {
 
 export const episodes: Episode[] = [
   {
+    number: "Halfway",
+    season: "S01",
+    title: "#Halfway House – terugblikken, bijtanken en vooruitkijken",
+    description:
+      "Na 9 holes is het tijd om even adem te halen in de Halfway House. We blikken terug op 11 afleveringen, meer dan 8.000 streams en alles wat PAMPAS tot nu toe is geweest — en we kijken vooruit naar de US Open Special en de back nine in de nazomer. Maar eerst: Levi en Lars trotseerden hagelbuien op een prachtig Rinkven (spoiler: de baan scoort 83 op onze nieuwe beoordelingspagina op indepampas.be), en Levi en Niels gingen winnend naar huis op Ternesse — zonder brutprijs welteverstaan. We stellen ook onze eerste sponsor voor: Golf Media en hun Golf Kiosk, al actief in meer dan 70 clubs in België en Nederland.",
+    date: "16/06/2026",
+    duration: "1u 7min",
+    spotifyId: "3HEuUli0X49OyMiHGkdDQF",
+    topics: ["Golf", "Halfway House", "Rinkven", "Ternesse", "Golf Media", "US Open"],
+  },
+  {
     number: "09",
     season: "S01",
     title: "#09 Carolina Cherry - Anthony De Schutter: Van SIU naar Soudal & de weg naar pro | JT Poston triumphs | Chacarra triunfos | Korda reigns supreme",
