@@ -15,8 +15,9 @@ export function NewEpisodes() {
           <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
             Afleveringen<em className="italic">.</em>
           </h1>
-          <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3">
-            Elke dinsdag een nieuwe episode.
+          <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 whitespace-pre-line">
+            Elke dinsdag een nieuwe episode.{"\n"}
+            Tijdens de zomermaanden doen we het net iets rustiger aan, verwacht enkele specials maar niets wekelijks!
           </p>
         </div>
         <div className="text-right font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#635C4B] leading-[2]">
