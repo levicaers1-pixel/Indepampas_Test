@@ -91,8 +91,8 @@ export const posts: Post[] = [
       {
         type: "stats",
         items: [
-          { num: "30+", label: "exclusieve golfclubs in België aangesloten" },
-          { num: "35+", label: "schermen, inclusief het eerste outdoor scherm" },
+          { num: "45+", label: "exclusieve golfclubs in België aangesloten" },
+          { num: "50+", label: "schermen, inclusief het eerste outdoor scherm" },
           { num: "100K+", label: "impressies per week op het netwerk" },
         ],
       },
