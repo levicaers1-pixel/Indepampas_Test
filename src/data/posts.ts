@@ -153,7 +153,7 @@ export const posts: Post[] = [
     sourceLabel: "Bron",
     sourceSubtitle: "Rinkven International GC · Schilde · 21–24 mei 2026",
     content:
-      "Er zijn tornooien die je vergeet zodra de prijsuitreiking voorbij is. En er zijn weken die je bijblijven.",
+      "Er zijn tornooien die je vergeet zodra de prijsuitreiking voorbij is. En er zijn weken die je bijblijven. De vijfde editie van de Soudal Open op Rinkven International Golf Club in Schilde behoort zonder twijfel tot de tweede categorie. Vier dagen lang schreef het parkland ten noorden van Antwerpen golfgeschiedenis, met een cast die je niet eens had durven verzinnen: een 44-jarige Zuid-Afrikaan die terugkwam van bijna alles, een landgenoot die in de slotronde uit elkaar viel als nat karton, en een Belgische legende die tranen liet op de 18e fairway terwijl duizenden fans hem een staand applaus gaven dat het hele land voelde.",
     richContent: [
       {
         type: "subtitle",
