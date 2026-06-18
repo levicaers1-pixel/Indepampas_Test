@@ -46,6 +46,9 @@ export function NewEpisodes() {
   }, [dbEpisodes]);
 
   const [openId, setOpenId] = useState<string | null>(episodes[0]?.number ?? null);
+  useEffect(() => {
+    if (!openId && episodes[0]) setOpenId(episodes[0].number);
+  }, [episodes, openId]);
 
   return (
     <>
