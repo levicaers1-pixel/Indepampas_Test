@@ -67,7 +67,7 @@ function AdminPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
-  const [tab, setTab] = useState<"courses" | "ratings">("courses");
+  const [tab, setTab] = useState<"courses" | "ratings" | "shows">("courses");
 
   useEffect(() => {
     let cancelled = false;
