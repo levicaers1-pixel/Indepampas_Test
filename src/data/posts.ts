@@ -211,24 +211,24 @@ export const posts: Post[] = [
         type: "p",
         text: "Voor de Belgen is het een zware zaterdag. Detry heeft het moeilijk en kaart een 73 (+2), hij zakt naar de 67e plek in het klassement. Maar De Schutter houdt stand op de 24e plek, Ulenaers staat 32e en Haghedooren, met een derde ronde van 68, klimt naar de 47e positie. Drie Belgische amateurs in de weekendronden. Dat is een verhaal op zich.",
       },
-      { type: "h2", text: "Ronde 4 — Het mirakel op hole 17" },
+      { type: "h2", text: "Ronde 4: Het mirakel op hole 17" },
       {
         type: "p",
-        text: "Zondag 24 mei. Rinkven baadt in het lenterzonnetje. Lombard staat op -18 en heeft drie slagen voorsprong. De rest van de wereld denkt: formaliteit. Maar golf is golf, en Rinkven is Rinkven.",
+        text: "Zondag 24 mei. Rinkven baadt in het lenterzonnetje. Lombard staat op -18 and heeft drie slagen voorsprong. De rest van de wereld denkt: formaliteit. Maar golf is golf, en Rinkven is Rinkven.",
       },
       {
         type: "p",
-        text: "Richard Sterne schiet uit de startblokken als een man bezeten. Birdie op hole 1. Birdie op hole 2. Birdie op hole 5. Hij staat plots op -16. De kloof met Lombard krimpt van vijf naar drie slagen. Dan een bogey op hole 8 — de enige smet op zijn zondagkaart — maar Sterne laat zich niet van de wijs brengen. Tegelijkertijd begint het mis te gaan voor Lombard: hij vindt het water op hole 13, bogey. Hole 14: bal tegen de lip van de bunker, double bogey. De leiding smelt weg als sneeuw voor de zon. En dan komt hole 17.",
+        text: "Richard Sterne schiet uit de startblokken als een man bezeten. Birdie op hole 1. Birdie op hole 2. Birdie op hole 5. Hij staat plots op -16. De kloof met Lombard krimpt van vijf naar drie slagen. Dan een bogey op hole 8, de enige smet op zijn zondagkaart, maar Sterne laat zich niet van de wijs brengen. Tegelijkertijd begint het mis te gaan voor Lombard: hij vindt het water op hole 13, bogey. Hole 14: bal tegen de lip van de bunker, double bogey. De leiding smelt weg als sneeuw voor de zon. En dan komt hole 17.",
       },
       {
         type: "p",
-        text: "Een par-5. Sterne staat op 276 yards van het pin. Hij pakt een metalwood. Wat hij doet, wordt nadien beschreven als de shot van het toernooi — misschien van het seizoen. De bal scheert over de fairway, landt een paar voet voor de cup en stopt op centimeters van een albatros. Tap-in eagle. Sterne staat op -18, gelijk met de ineenstortende Lombard. Birdie op 16 was er al gekomen, par op 18 sluit de klus. Clubhouse target: 18 onder par, 266 slagen. Lombard kaart uiteindelijk een 74 (+3) op zondag en eindigt gedeeld achtste op -15. Sterne wint met twee slagen.",
+        text: "Een par-5. Sterne staat op 276 yards van het pin. Hij pakt een metalwood. Wat hij doet, wordt nadien beschreven als de shot van het toernooi, misschien van het seizoen. De bal scheert over de fairway, landt een paar voet voor de cup and stopt op centimeters van een albatros. Tap-in eagle. Sterne staat op -18, gelijk met de ineenstortende Lombard. Birdie op 16 was er al gekomen, par op 18 sluit de klus. Clubhouse target: 18 onder par, 266 slagen. Lombard kaart uiteindelijk een 74 (+3) op zondag and eindigt gedeeld achtste op -15. Sterne wint met twee slagen.",
       },
       {
         type: "quote",
-        text: "Ik speelde één van de beste slagen van mijn leven. Ik dacht dat ik nog één slag achterlag op de laatste hole — tot ik op het 18e green de leaderboard bekeek en verrast was. — Richard Sterne",
+        text: "Ik speelde één van de beste slagen van mijn leven. Ik dacht dat ik nog één slag achterlag op de laatste hole — tot ik op het 18e green de leaderboard bekeek en verrast was. \n- Richard Sterne",
       },
-      { type: "h2", text: "De eindstand — top 13" },
+      { type: "h2", text: "De eindstand" },
       {
         type: "table",
         headers: ["Pos.", "Speler", "R1", "R2", "R3", "R4", "Tot", "Score"],
