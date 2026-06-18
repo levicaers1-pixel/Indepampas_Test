@@ -256,7 +256,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Detry zelf had een week met pieken en dalen. Twee sterke rondes van 68 omlijstten een zware zaterdag in 73 — die derde ronde brak hem het toernooi. De slotronde van 68 toonde opnieuw zijn klasse, maar de schade was al aangericht. Eindpositie: T47 op -7.",
+        text: "Detry zelf had een week met pieken en dalen. Twee sterke rondes van 68 omlijstten een zware zaterdag in 73, die derde ronde brak hem het toernooi. De slotronde van 68 toonde opnieuw zijn klasse, maar de schade was al aangericht. Eindpositie: T47 op -7.",
       },
       {
         type: "badges",
