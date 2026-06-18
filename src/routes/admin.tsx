@@ -1,10 +1,15 @@
 import { Outlet, createFileRoute, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, useMemo, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { toast, Toaster } from "sonner";
 import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/personas";
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
+import { episodes as staticEpisodes } from "@/data/episodes";
+import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
+
+const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
 export const Route = createFileRoute("/admin")({
   component: AdminRoute,
