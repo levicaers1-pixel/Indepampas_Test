@@ -269,17 +269,17 @@ export const posts: Post[] = [
           {
             num: "Belg 02",
             title: "🇧🇪 Thomas Detry — knap herstel na zwarte zaterdag",
-            text: "68-68-73-68: drie uitstekende rondes en één zwarte dag. De zaterdag in 73 (+2) kostte Detry een mogelijke top-20-finish. Zijn slotronde van 68 met vier birdies en een eagle toonde dat het niveau er is — maar één slechte dag op dit niveau is er altijd één te veel. De 33-jarige eindigt op -7 en T47. Niet zijn week, maar zeker niet zijn slechtste.",
+            text: "68-68-73-68: drie uitstekende rondes and één zwarte dag. De zaterdag in 73 (+2) kostte Detry een mogelijke top-20-finish. Zijn slotronde van 68 met vier birdies and een eagle toonde dat het niveau er is, maar één slechte dag op dit niveau is er altijd één te veel. De 33-jarige eindigt op -7 and T47. Niet zijn week, maar zeker niet zijn slechtste.",
           },
           {
             num: "Belg 03",
             title: "🇧🇪 Arthur Haghedooren — 16 jaar, cut gehaald",
-            text: 'Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67 — vijf slagen beter dan zijn openingsdag — was de perfecte illustratie van hoe deze jongen omgaat met druk. "Ik ben vandaag gestart met het idee om gewoon plezier te hebben," zei hij na ronde 2. Dat lukte. En hoe.',
+            text: 'Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67, vijf slagen beter dan zijn openingsdag, was de perfecte illustratie van hoe deze jongen omgaat met druk. "Ik ben vandaag gestart met het idee om gewoon plezier te hebben," zei hij na ronde 2. Dat lukte. En hoe.',
           },
           {
             num: "Belg 04",
             title: "🇧🇪 Nicolas Colsaerts — 505 starts, één afscheid",
-            text: "Twee rondes van 72, cut gemist met twee slagen. Maar de cijfers doen Colsaerts' week tekort. De eagle op hole 5 van ronde 2, de birdies op 6, 7 en 8 — even leefde de droom. En dan die laatste hole: zijn gezin langs de fairway, vijfduizend fans rechtopstaand, tranen op Rinkven. 505 starts, 25 jaar offers, drie toernooizeges, Ryder Cup-speler én vicekaptein. Het einde van een tijdperk in Belgisch golf.",
+            text: "Twee rondes van 72, cut gemist met twee slagen. Maar de cijfers doen Colsaerts' week tekort. De eagle op hole 5 van ronde 2, de birdies op 6, 7 and 8, even leefde de droom. En dan die laatste hole: zijn gezin langs de fairway, vijfduizend fans rechtopstaand, tranen op Rinkven. 505 starts, 25 jaar offers, drie toernooizeges, Ryder Cup-speler én vicekaptein. Het einde van een tijdperk in Belgisch golf.",
           },
         ],
       },
