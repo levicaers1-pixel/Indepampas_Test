@@ -172,7 +172,7 @@ export const posts: Post[] = [
           { num: "505", label: "Starts Colsaerts (DP World Tour)" },
         ],
       },
-      { type: "h2", text: "Ronde 1 — Lombard schiet uit de startblokken" },
+      { type: "h2", text: "Ronde 1: Lombard schiet uit de startblokken" },
       {
         type: "p",
         text: "Donderdagochtend, de lucht boven Schilde helder, the greens snel. Eén naam domineert het scorebord meteen: Zander Lombard kaart een verbluffende 63 (-8) en legt meteen een buffer op de rest van het veld. Richard Sterne en Jacob Skov Olesen volgen op 64, twee slagen achter de leider. De Zuid-Afrikaanse connectie is meteen aanwezig, twee mannen uit dezelfde natie, de één op weg naar zijn allereerste titel, de ander op zoek naar zijn eerste in dertien jaar.",
