@@ -175,60 +175,60 @@ export const posts: Post[] = [
       { type: "h2", text: "Ronde 1 — Lombard schiet uit de startblokken" },
       {
         type: "p",
-        text: "Donderdagochtend, de lucht boven Schilde helder, de greens snel. Eén naam domineert het scorebord meteen: Zander Lombard kaart een verbluffende 63 (-8) en legt meteen een buffer op de rest van het veld. Richard Sterne en Jacob Skov Olesen volgen op 64, twee slagen achter de leider. De Zuid-Afrikaanse connectie is meteen aanwezig — twee mannen uit dezelfde natie, de één op weg naar zijn allereerste titel, de ander op zoek naar zijn eerste in dertien jaar.",
+        text: "Donderdagochtend, de lucht boven Schilde helder, the greens snel. Eén naam domineert het scorebord meteen: Zander Lombard kaart een verbluffende 63 (-8) en legt meteen een buffer op de rest van het veld. Richard Sterne en Jacob Skov Olesen volgen op 64, twee slagen achter de leider. De Zuid-Afrikaanse connectie is meteen aanwezig, twee mannen uit dezelfde natie, de één op weg naar zijn allereerste titel, de ander op zoek naar zijn eerste in dertien jaar.",
       },
       {
         type: "p",
         text: "Voor de Belgen begint het toernooi degelijk. Thomas Detry opent met een nette 68 (-3) en deelt de 22e plek. Amateur Anthony De Schutter verrast direct met een 67 (-4): zes birdies, één dubbele bogey, en op het einde twee birdies op de laatste holes. De 16-jarige Arthur Haghedooren speelt een voorzichtige openingsronde in 72, gelijk met Colsaerts die zijn eindweek ingaat met datzelfde getal.",
       },
-      { type: "h2", text: "Ronde 2 — Nico's Final Dance" },
+      { type: "h2", text: "Ronde 2: Nico's Final Dance" },
       {
         type: "p",
-        text: 'Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard — hoewel ook daar drama te vinden was — maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. "Nico\'s Final Dance" wordt het gedoopt. En wat voor een dans.',
+        text: 'Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard,  hoewel ook daar drama te vinden was, maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. "Nico\'s Final Dance" wordt het gedoopt. En wat voor een dans.',
       },
       {
         type: "quote",
-        text: "Als je vrijdag tijdens het afscheid wat tranen ziet rollen, dan is dat precies wat ik bedoel. Ik hoop dat mensen begrijpen wat er nodig is om de top te bereiken — en wat er onderweg opgeofferd moet worden. — Nicolas Colsaerts",
+        text: "Als je vrijdag tijdens het afscheid wat tranen ziet rollen, dan is dat precies what ik bedoel. Ik hoop dat mensen begrijpen wat er nodig is om de top te bereiken, en wat er onderweg opgeofferd moet worden. \n- Nicolas Colsaerts",
       },
       {
         type: "p",
-        text: "Colsaerts begint wetende dat de cut wellicht buiten bereik ligt na zijn openingsronde in 72. Maar de Belgium Bomber laat het publiek even dromen. Een bogey op hole 3 wordt gevolgd door een fenomenale eagle op het par-5 vijfde — Rinkven beeft. Daarna birdies op 6, 7 en 8. Even denk je: gaat hij het doen? Uiteindelijk sluit hij zijn tweede ronde af in 69 en mist hij de cut met twee slagen. Maar wat er dan op de 18e hole gebeurt — dat is golfgeschiedenis voor België. Omringd door zijn zoontjes, zijn vrouw, zijn ouders, loopt hij de fairway af terwijl vijfduizend fans hem een staande ovatie geven. Tranen op zijn wangen. Tranen in de tribunes.",
+        text: "Colsaerts begint wetende dat de cut wellicht buiten bereik ligt na zijn openingsronde in 72. Maar de Belgium Bomber laat het publiek even dromen. Een bogey op hole 3 wordt gevolgd door een fenomenale eagle op hole vijf. Daarna birdies op 6, 7 en 8. Even denk je: gaat hij het doen? Uiteindelijk sluit hij zijn tweede ronde af in 69 en mist hij de cut met twee slagen. Maar wat er dan op de 18e hole gebeurt, dat is golfgeschiedenis voor België. Omringd door zijn zoontjes, zijn vrouw, zijn ouders, loopt hij de fairway af terwijl vijfduizend fans hem een staande ovatie geven. Tranen op zijn wangen. Tranen in de tribunes.",
       },
       {
         type: "quote",
-        text: "Als je een fairway afloopt met je hele familie, je ouders erbij... kijk, daar ga ik weer. Ik heb de laatste jaren geleerd dat het oké is om emoties te tonen. Dit is waarom er tranen zijn. — Nicolas Colsaerts",
+        text: "Als je een fairway afloopt met je hele familie, je ouders erbij... kijk, daar ga ik weer. Ik heb de laatste jaren geleerd dat het oké is om emoties te tonen. Dit is waarom er tranen zijn.\n- Nicolas Colsaerts",
       },
       {
         type: "p",
-        text: "Intussen houdt Lombard zijn leiderspositie vast. Hij kaart een tweede ronde van 66 en deelt na 36 holes de leiding met de Fransman Tom Vaillant, die ook op 64-65 staat. Sterne blijft in de schaduw op 64-68. De cut valt op -3: vier Belgen overleven — Detry (68-68), De Schutter (67-70), Ulenaers en de 16-jarige Haghedooren (72-67). Haghedooren doet het met zijn vrijdagronde van 67 maar liefst vijf slagen beter dan zijn openingsdag.",
+        text: "Intussen houdt Lombard zijn leiderspositie vast. Hij kaart een tweede ronde van 66 en deelt na 36 holes de leiding met de Fransman Tom Vaillant, die ook op 64-65 staat. Sterne blijft in de schaduw op 64-68. De cut valt op -3: vier Belgen overleven: Detry (68-68), De Schutter (67-70), Ulenaers en de 16-jarige Haghedooren (72-67). Haghedooren doet het met zijn vrijdagronde van 67 maar liefst vijf slagen beter dan zijn openingsdag.",
       },
-      { type: "h2", text: "Ronde 3 — Lombard trekt weg, Detry struikelt" },
+      { type: "h2", text: "Ronde 3: Lombard trekt weg, Detry struikelt" },
       {
         type: "p",
-        text: "Zaterdag consolideert Lombard zijn dominantie met een derde ronde van 66 (-5). Na 54 holes staat hij alleen aan de leiding op 195 slagen (-18), met drie slagen voorsprong op zijn landgenoot MJ Daffue (198). Sterne kaart ook een 68 op dag drie en staat op 200 slagen — vijf achter Lombard. De situatie lijkt duidelijk: Lombard die op zondag zijn eerste titel mee naar huis neemt.",
-      },
-      {
-        type: "p",
-        text: "Voor de Belgen is het een zware zaterdag. Detry heeft het moeilijk en kaart een 73 (+2) — hij zakt naar de 67e plek in het klassement. Maar De Schutter houdt stand op de 24e plek, Ulenaers staat 32e en Haghedooren — met een derde ronde van 68 — klimt naar de 47e positie. Drie Belgische amateurs in de weekendronden. Dat is een verhaal op zich.",
-      },
-      { type: "h2", text: "Ronde 4 — Het mirakel op hole 17" },
-      {
-        type: "p",
-        text: "Zondag 24 mei. Rinkven baadt in het lenterzonnetje. Lombard staat op -18 en heeft drie slagen voorsprong. De rest van de wereld denkt: formaliteit. Maar golf is golf, en Rinkven is Rinkven.",
+        text: "Zaterdag consolideert Lombard zijn dominantie met een derde ronde van 66 (-5). Na 54 holes staat hij alleen aan de leiding op 195 slagen (-18), met drie slagen voorsprong op zijn landgenoot MJ Daffue (198). Sterne kaart ook een 68 op dag drie en staat op 200 slagen, vijf achter Lombard. De situatie lijkt duidelijk: Lombard die op zondag zijn eerste titel mee naar huis neemt.",
       },
       {
         type: "p",
-        text: "Richard Sterne schiet uit de startblokken als een man bezeten. Birdie op hole 1. Birdie op hole 2. Birdie op hole 5. Hij staat plots op -16. De kloof met Lombard krimpt van vijf naar drie slagen. Dan een bogey op hole 8 — de enige smet op zijn zondagkaart — maar Sterne laat zich niet van de wijs brengen. Tegelijkertijd begint het mis te gaan voor Lombard: hij vindt het water op hole 13, bogey. Hole 14: bal tegen de lip van de bunker, double bogey. De leiding smelt weg als sneeuw voor de zon. En dan komt hole 17.",
+        text: "Voor de Belgen is het een zware zaterdag. Detry heeft het moeilijk en kaart een 73 (+2), hij zakt naar de 67e plek in het klassement. Maar De Schutter houdt stand op de 24e plek, Ulenaers staat 32e en Haghedooren, met een derde ronde van 68, klimt naar de 47e positie. Drie Belgische amateurs in de weekendronden. Dat is een verhaal op zich.",
+      },
+      { type: "h2", text: "Ronde 4: Het mirakel op hole 17" },
+      {
+        type: "p",
+        text: "Zondag 24 mei. Rinkven baadt in het lenterzonnetje. Lombard staat op -18 and heeft drie slagen voorsprong. De rest van de wereld denkt: formaliteit. Maar golf is golf, en Rinkven is Rinkven.",
       },
       {
         type: "p",
-        text: "Een par-5. Sterne staat op 276 yards van het pin. Hij pakt een metalwood. Wat hij doet, wordt nadien beschreven als de shot van het toernooi — misschien van het seizoen. De bal scheert over de fairway, landt een paar voet voor de cup en stopt op centimeters van een albatros. Tap-in eagle. Sterne staat op -18, gelijk met de ineenstortende Lombard. Birdie op 16 was er al gekomen, par op 18 sluit de klus. Clubhouse target: 18 onder par, 266 slagen. Lombard kaart uiteindelijk een 74 (+3) op zondag en eindigt gedeeld achtste op -15. Sterne wint met twee slagen.",
+        text: "Richard Sterne schiet uit de startblokken als een man bezeten. Birdie op hole 1. Birdie op hole 2. Birdie op hole 5. Hij staat plots op -16. De kloof met Lombard krimpt van vijf naar drie slagen. Dan een bogey op hole 8, de enige smet op zijn zondagkaart, maar Sterne laat zich niet van de wijs brengen. Tegelijkertijd begint het mis te gaan voor Lombard: hij vindt het water op hole 13, bogey. Hole 14: bal tegen de lip van de bunker, double bogey. De leiding smelt weg als sneeuw voor de zon. En dan komt hole 17.",
+      },
+      {
+        type: "p",
+        text: "Een par-5. Sterne staat op 276 yards van het pin. Hij pakt een metalwood. Wat hij doet, wordt nadien beschreven als de shot van het toernooi, misschien van het seizoen. De bal scheert over de fairway, landt een paar voet voor de cup and stopt op centimeters van een albatros. Tap-in eagle. Sterne staat op -18, gelijk met de ineenstortende Lombard. Birdie op 16 was er al gekomen, par op 18 sluit de klus. Clubhouse target: 18 onder par, 266 slagen. Lombard kaart uiteindelijk een 74 (+3) op zondag and eindigt gedeeld achtste op -15. Sterne wint met twee slagen.",
       },
       {
         type: "quote",
-        text: "Ik speelde één van de beste slagen van mijn leven. Ik dacht dat ik nog één slag achterlag op de laatste hole — tot ik op het 18e green de leaderboard bekeek en verrast was. — Richard Sterne",
+        text: "Ik speelde één van de beste slagen van mijn leven. Ik dacht dat ik nog één slag achterlag op de laatste hole — tot ik op het 18e green de leaderboard bekeek en verrast was. \n- Richard Sterne",
       },
-      { type: "h2", text: "De eindstand — top 13" },
+      { type: "h2", text: "De eindstand" },
       {
         type: "table",
         headers: ["Pos.", "Speler", "R1", "R2", "R3", "R4", "Tot", "Score"],
@@ -256,7 +256,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Detry zelf had een week met pieken en dalen. Twee sterke rondes van 68 omlijstten een zware zaterdag in 73 — die derde ronde brak hem het toernooi. De slotronde van 68 toonde opnieuw zijn klasse, maar de schade was al aangericht. Eindpositie: T47 op -7.",
+        text: "Detry zelf had een week met pieken en dalen. Twee sterke rondes van 68 omlijstten een zware zaterdag in 73, die derde ronde brak hem het toernooi. De slotronde van 68 toonde opnieuw zijn klasse, maar de schade was al aangericht. Eindpositie: T47 op -7.",
       },
       {
         type: "badges",
@@ -269,32 +269,32 @@ export const posts: Post[] = [
           {
             num: "Belg 02",
             title: "🇧🇪 Thomas Detry — knap herstel na zwarte zaterdag",
-            text: "68-68-73-68: drie uitstekende rondes en één zwarte dag. De zaterdag in 73 (+2) kostte Detry een mogelijke top-20-finish. Zijn slotronde van 68 met vier birdies en een eagle toonde dat het niveau er is — maar één slechte dag op dit niveau is er altijd één te veel. De 33-jarige eindigt op -7 en T47. Niet zijn week, maar zeker niet zijn slechtste.",
+            text: "68-68-73-68: drie uitstekende rondes and één zwarte dag. De zaterdag in 73 (+2) kostte Detry een mogelijke top-20-finish. Zijn slotronde van 68 met vier birdies and een eagle toonde dat het niveau er is, maar één slechte dag op dit niveau is er altijd één te veel. De 33-jarige eindigt op -7 and T47. Niet zijn week, maar zeker niet zijn slechtste.",
           },
           {
             num: "Belg 03",
             title: "🇧🇪 Arthur Haghedooren — 16 jaar, cut gehaald",
-            text: 'Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67 — vijf slagen beter dan zijn openingsdag — was de perfecte illustratie van hoe deze jongen omgaat met druk. "Ik ben vandaag gestart met het idee om gewoon plezier te hebben," zei hij na ronde 2. Dat lukte. En hoe.',
+            text: 'Haghedooren (72-67-68) haalde de cut op een volwaardig DP World Tour-evenement. Op zijn zestiende. Nog in het vijfde middelbaar aan de Topsportschool in Hasselt. Zijn vrijdagronde van 67, vijf slagen beter dan zijn openingsdag, was de perfecte illustratie van hoe deze jongen omgaat met druk. "Ik ben vandaag gestart met het idee om gewoon plezier te hebben," zei hij na ronde 2. Dat lukte. En hoe.',
           },
           {
             num: "Belg 04",
             title: "🇧🇪 Nicolas Colsaerts — 505 starts, één afscheid",
-            text: "Twee rondes van 72, cut gemist met twee slagen. Maar de cijfers doen Colsaerts' week tekort. De eagle op hole 5 van ronde 2, de birdies op 6, 7 en 8 — even leefde de droom. En dan die laatste hole: zijn gezin langs de fairway, vijfduizend fans rechtopstaand, tranen op Rinkven. 505 starts, 25 jaar offers, drie toernooizeges, Ryder Cup-speler én vicekaptein. Het einde van een tijdperk in Belgisch golf.",
+            text: "Twee rondes van 72, cut gemist met twee slagen. Maar de cijfers doen Colsaerts' week tekort. De eagle op hole 5 van ronde 2, de birdies op 6, 7 and 8, even leefde de droom. En dan die laatste hole: zijn gezin langs de fairway, vijfduizend fans rechtopstaand, tranen op Rinkven. 505 starts, 25 jaar offers, drie toernooizeges, Ryder Cup-speler én vicekaptein. Het einde van een tijdperk in Belgisch golf.",
           },
         ],
       },
-      { type: "h2", text: "Richard Sterne — wie is hij eigenlijk?" },
+      { type: "h2", text: "Richard Sterne: wie is hij eigenlijk?" },
       {
         type: "p",
         text: "Richard Sterne is niet het soort naam dat casual golffans direct doet opveren. Maar wie zijn verhaal kent, snapt waarom zijn overwinning op Rinkven iets heel speciaals is. Na zijn zege in de Joburg Open van 2013 begon een calvariestocht die weinigen overleven: drie polsoperaties, een discvervanging in zijn rug, een heupoperatie. Elke keer vroeg het veld zich af: komt hij terug? 4.851 dagen lang bleef een overwinning uit.",
       },
       {
         type: "p",
-        text: 'Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan — zijn oudste is bijna 13, "ongeveer zo lang geleden als mijn laatste zege" — vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.',
+        text: 'Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan, zijn oudste is bijna 13, "ongeveer zo lang geleden als mijn laatste zege", vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.',
       },
       {
         type: "quote",
-        text: "Drie polsoperaties, een discvervanging, een heupoperatie — ik heb het allemaal meegemaakt. Eén van mijn grote doelen was om te winnen terwijl mijn kinderen het konden zien. Mijn oudste wordt binnenkort 13. Zo lang is het geleden. — Richard Sterne",
+        text: "Drie polsoperaties, een discvervanging, een heupoperatie, ik heb het allemaal meegemaakt. Eén van mijn grote doelen was om te winnen terwijl mijn kinderen het konden zien. Mijn oudste wordt binnenkort 13. Zo lang is het geleden.\n- Richard Sterne",
       },
       {
         type: "p",
@@ -303,11 +303,11 @@ export const posts: Post[] = [
       { type: "h2", text: "Onze Belgische conclusie" },
       {
         type: "p",
-        text: "De Soudal Open 2026 had alles wat golf groot maakt: drama in de slotronde, een comeback-verhaal dat scenario-schrijvers zouden weigeren als te onrealistisch, en een afscheid dat een generatie afsloot. Rinkven International bewees eens te meer dat het tot de beste parklandbanen van Europa behoort — en dat Schilde elk jaar opnieuw een plek is waar het DP World Tour-circus met plezier terugkeert.",
+        text: "De Soudal Open 2026 had alles wat golf groot maakt: drama in de slotronde, een comeback-verhaal dat scenario-schrijvers zouden weigeren als te onrealistisch, en een afscheid dat een generatie afsloot. Rinkven International bewees eens te meer dat het tot de beste parklandbanen van Europa behoort, en dat Schilde elk jaar opnieuw een plek is waar het DP World Tour-circus met plezier terugkeert.",
       },
       {
         type: "p",
-        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-69 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd — geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
+        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-69 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd, geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
       },
       {
         type: "p",
