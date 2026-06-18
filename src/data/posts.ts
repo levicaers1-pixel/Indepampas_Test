@@ -283,18 +283,18 @@ export const posts: Post[] = [
           },
         ],
       },
-      { type: "h2", text: "Richard Sterne — wie is hij eigenlijk?" },
+      { type: "h2", text: "Richard Sterne: wie is hij eigenlijk?" },
       {
         type: "p",
         text: "Richard Sterne is niet het soort naam dat casual golffans direct doet opveren. Maar wie zijn verhaal kent, snapt waarom zijn overwinning op Rinkven iets heel speciaals is. Na zijn zege in de Joburg Open van 2013 begon een calvariestocht die weinigen overleven: drie polsoperaties, een discvervanging in zijn rug, een heupoperatie. Elke keer vroeg het veld zich af: komt hij terug? 4.851 dagen lang bleef een overwinning uit.",
       },
       {
         type: "p",
-        text: 'Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan — zijn oudste is bijna 13, "ongeveer zo lang geleden als mijn laatste zege" — vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.',
+        text: 'Op Rinkven, in zijn 25e jaar als prof, met zijn kinderen langs de baan, zijn oudste is bijna 13, "ongeveer zo lang geleden als mijn laatste zege", vond Sterne het terug. Zijn rondes van 64-68-68-66 vertellen hun eigen verhaal: consistent van dag één, en een slotronde van genade. De 585 Race to Dubai-punten en de €402.686 zijn mooi meegenomen. Maar het ware gewicht van deze overwinning zit elders.',
       },
       {
         type: "quote",
-        text: "Drie polsoperaties, een discvervanging, een heupoperatie — ik heb het allemaal meegemaakt. Eén van mijn grote doelen was om te winnen terwijl mijn kinderen het konden zien. Mijn oudste wordt binnenkort 13. Zo lang is het geleden. — Richard Sterne",
+        text: "Drie polsoperaties, een discvervanging, een heupoperatie, ik heb het allemaal meegemaakt. Eén van mijn grote doelen was om te winnen terwijl mijn kinderen het konden zien. Mijn oudste wordt binnenkort 13. Zo lang is het geleden.\n- Richard Sterne",
       },
       {
         type: "p",
@@ -303,11 +303,11 @@ export const posts: Post[] = [
       { type: "h2", text: "Onze Belgische conclusie" },
       {
         type: "p",
-        text: "De Soudal Open 2026 had alles wat golf groot maakt: drama in de slotronde, een comeback-verhaal dat scenario-schrijvers zouden weigeren als te onrealistisch, en een afscheid dat een generatie afsloot. Rinkven International bewees eens te meer dat het tot de beste parklandbanen van Europa behoort — en dat Schilde elk jaar opnieuw een plek is waar het DP World Tour-circus met plezier terugkeert.",
+        text: "De Soudal Open 2026 had alles wat golf groot maakt: drama in de slotronde, een comeback-verhaal dat scenario-schrijvers zouden weigeren als te onrealistisch, en een afscheid dat een generatie afsloot. Rinkven International bewees eens te meer dat het tot de beste parklandbanen van Europa behoort, en dat Schilde elk jaar opnieuw een plek is waar het DP World Tour-circus met plezier terugkeert.",
       },
       {
         type: "p",
-        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-69 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd — geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
+        text: "Voor ons, als Belgische golffans, is er iets bitterzoets aan deze week. Colsaerts nam afscheid met 72-69 en tranen op de 18e. Maar De Schutter speelde vier rondes onder par als amateur. Haghedooren haalde de cut op zijn zestiende. Detry vecht elk jaar opnieuw. Ergens in een Vlaamse golfclub slaat een kind van twaalf zijn eerste wedstrijd, geïnspireerd door wat hij vrijdag op televisie zag. Dat is de echte nalatenschap van Nicolas Colsaerts. Niet de trofeeën. De vonk.",
       },
       {
         type: "p",
