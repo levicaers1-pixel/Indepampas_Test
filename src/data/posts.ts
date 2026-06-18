@@ -181,35 +181,35 @@ export const posts: Post[] = [
         type: "p",
         text: "Voor de Belgen begint het toernooi degelijk. Thomas Detry opent met een nette 68 (-3) en deelt de 22e plek. Amateur Anthony De Schutter verrast direct met een 67 (-4): zes birdies, één dubbele bogey, en op het einde twee birdies op de laatste holes. De 16-jarige Arthur Haghedooren speelt een voorzichtige openingsronde in 72, gelijk met Colsaerts die zijn eindweek ingaat met datzelfde getal.",
       },
-      { type: "h2", text: "Ronde 2 — Nico's Final Dance" },
+      { type: "h2", text: "Ronde 2: Nico's Final Dance" },
       {
         type: "p",
-        text: 'Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard — hoewel ook daar drama te vinden was — maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. "Nico\'s Final Dance" wordt het gedoopt. En wat voor een dans.',
+        text: 'Vrijdag is de dag waarover in de weken erna het meest gesproken zal worden. Niet vanwege de leiderboard,  hoewel ook daar drama te vinden was, maar vanwege Nicolas Colsaerts. De 43-jarige Brusselaar speelt op Rinkven zijn allerlaatste ronde als professioneel golfer. "Nico\'s Final Dance" wordt het gedoopt. En wat voor een dans.',
       },
       {
         type: "quote",
-        text: "Als je vrijdag tijdens het afscheid wat tranen ziet rollen, dan is dat precies wat ik bedoel. Ik hoop dat mensen begrijpen wat er nodig is om de top te bereiken — en wat er onderweg opgeofferd moet worden. — Nicolas Colsaerts",
+        text: "Als je vrijdag tijdens het afscheid wat tranen ziet rollen, dan is dat precies what ik bedoel. Ik hoop dat mensen begrijpen wat er nodig is om de top te bereiken, en wat er onderweg opgeofferd moet worden. \n- Nicolas Colsaerts",
       },
       {
         type: "p",
-        text: "Colsaerts begint wetende dat de cut wellicht buiten bereik ligt na zijn openingsronde in 72. Maar de Belgium Bomber laat het publiek even dromen. Een bogey op hole 3 wordt gevolgd door een fenomenale eagle op het par-5 vijfde — Rinkven beeft. Daarna birdies op 6, 7 en 8. Even denk je: gaat hij het doen? Uiteindelijk sluit hij zijn tweede ronde af in 69 en mist hij de cut met twee slagen. Maar wat er dan op de 18e hole gebeurt — dat is golfgeschiedenis voor België. Omringd door zijn zoontjes, zijn vrouw, zijn ouders, loopt hij de fairway af terwijl vijfduizend fans hem een staande ovatie geven. Tranen op zijn wangen. Tranen in de tribunes.",
+        text: "Colsaerts begint wetende dat de cut wellicht buiten bereik ligt na zijn openingsronde in 72. Maar de Belgium Bomber laat het publiek even dromen. Een bogey op hole 3 wordt gevolgd door een fenomenale eagle op hole vijf. Daarna birdies op 6, 7 en 8. Even denk je: gaat hij het doen? Uiteindelijk sluit hij zijn tweede ronde af in 69 en mist hij de cut met twee slagen. Maar wat er dan op de 18e hole gebeurt, dat is golfgeschiedenis voor België. Omringd door zijn zoontjes, zijn vrouw, zijn ouders, loopt hij de fairway af terwijl vijfduizend fans hem een staande ovatie geven. Tranen op zijn wangen. Tranen in de tribunes.",
       },
       {
         type: "quote",
-        text: "Als je een fairway afloopt met je hele familie, je ouders erbij... kijk, daar ga ik weer. Ik heb de laatste jaren geleerd dat het oké is om emoties te tonen. Dit is waarom er tranen zijn. — Nicolas Colsaerts",
+        text: "Als je een fairway afloopt met je hele familie, je ouders erbij... kijk, daar ga ik weer. Ik heb de laatste jaren geleerd dat het oké is om emoties te tonen. Dit is waarom er tranen zijn.\n- Nicolas Colsaerts",
       },
       {
         type: "p",
-        text: "Intussen houdt Lombard zijn leiderspositie vast. Hij kaart een tweede ronde van 66 en deelt na 36 holes de leiding met de Fransman Tom Vaillant, die ook op 64-65 staat. Sterne blijft in de schaduw op 64-68. De cut valt op -3: vier Belgen overleven — Detry (68-68), De Schutter (67-70), Ulenaers en de 16-jarige Haghedooren (72-67). Haghedooren doet het met zijn vrijdagronde van 67 maar liefst vijf slagen beter dan zijn openingsdag.",
+        text: "Intussen houdt Lombard zijn leiderspositie vast. Hij kaart een tweede ronde van 66 en deelt na 36 holes de leiding met de Fransman Tom Vaillant, die ook op 64-65 staat. Sterne blijft in de schaduw op 64-68. De cut valt op -3: vier Belgen overleven: Detry (68-68), De Schutter (67-70), Ulenaers en de 16-jarige Haghedooren (72-67). Haghedooren doet het met zijn vrijdagronde van 67 maar liefst vijf slagen beter dan zijn openingsdag.",
       },
-      { type: "h2", text: "Ronde 3 — Lombard trekt weg, Detry struikelt" },
+      { type: "h2", text: "Ronde 3: Lombard trekt weg, Detry struikelt" },
       {
         type: "p",
-        text: "Zaterdag consolideert Lombard zijn dominantie met een derde ronde van 66 (-5). Na 54 holes staat hij alleen aan de leiding op 195 slagen (-18), met drie slagen voorsprong op zijn landgenoot MJ Daffue (198). Sterne kaart ook een 68 op dag drie en staat op 200 slagen — vijf achter Lombard. De situatie lijkt duidelijk: Lombard die op zondag zijn eerste titel mee naar huis neemt.",
+        text: "Zaterdag consolideert Lombard zijn dominantie met een derde ronde van 66 (-5). Na 54 holes staat hij alleen aan de leiding op 195 slagen (-18), met drie slagen voorsprong op zijn landgenoot MJ Daffue (198). Sterne kaart ook een 68 op dag drie en staat op 200 slagen, vijf achter Lombard. De situatie lijkt duidelijk: Lombard die op zondag zijn eerste titel mee naar huis neemt.",
       },
       {
         type: "p",
-        text: "Voor de Belgen is het een zware zaterdag. Detry heeft het moeilijk en kaart een 73 (+2) — hij zakt naar de 67e plek in het klassement. Maar De Schutter houdt stand op de 24e plek, Ulenaers staat 32e en Haghedooren — met een derde ronde van 68 — klimt naar de 47e positie. Drie Belgische amateurs in de weekendronden. Dat is een verhaal op zich.",
+        text: "Voor de Belgen is het een zware zaterdag. Detry heeft het moeilijk en kaart een 73 (+2), hij zakt naar de 67e plek in het klassement. Maar De Schutter houdt stand op de 24e plek, Ulenaers staat 32e en Haghedooren, met een derde ronde van 68, klimt naar de 47e positie. Drie Belgische amateurs in de weekendronden. Dat is een verhaal op zich.",
       },
       { type: "h2", text: "Ronde 4 — Het mirakel op hole 17" },
       {
