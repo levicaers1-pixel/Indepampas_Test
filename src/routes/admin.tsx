@@ -1,10 +1,15 @@
 import { Outlet, createFileRoute, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, useMemo, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { toast, Toaster } from "sonner";
 import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/personas";
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
+import { episodes as staticEpisodes } from "@/data/episodes";
+import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
+
+const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
 export const Route = createFileRoute("/admin")({
   component: AdminRoute,
@@ -67,7 +72,7 @@ function AdminPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
-  const [tab, setTab] = useState<"courses" | "ratings">("courses");
+  const [tab, setTab] = useState<"courses" | "ratings" | "shows">("courses");
 
   useEffect(() => {
     let cancelled = false;
@@ -124,7 +129,7 @@ function AdminPage() {
       </header>
 
       <nav className="border-b border-[#2A2A26] px-6 lg:px-10 flex gap-6">
-        {(["courses", "ratings"] as const).map((t) => (
+        {(["courses", "ratings", "shows"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -132,13 +137,13 @@ function AdminPage() {
               tab === t ? "border-[#BA7517] text-[#E8E4D8]" : "border-transparent text-[#8A8270] hover:text-[#E8E4D8]"
             }`}
           >
-            {t === "courses" ? "Parcours" : "Beoordelingen"}
+            {t === "courses" ? "Parcours" : t === "ratings" ? "Beoordelingen" : "Shows"}
           </button>
         ))}
       </nav>
 
       <main className="px-6 lg:px-10 py-8">
-        {tab === "courses" ? <CoursesTab /> : <RatingsTab />}
+        {tab === "courses" ? <CoursesTab /> : tab === "ratings" ? <RatingsTab /> : <ShowsTab />}
       </main>
     </div>
   );
@@ -527,6 +532,243 @@ function RatingDrawer({ course, host, initial, onClose, onSaved }: {
             </button>
           </div>
         )}
+      </form>
+    </Drawer>
+  );
+}
+
+// ============ SHOWS TAB ============
+
+type Candidate = {
+  id: string;
+  name: string;
+  description: string;
+  release_date: string;
+  duration_ms: number;
+  image_url: string | null;
+};
+
+function formatDuration(ms: number): string {
+  const total = Math.round(ms / 1000);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  if (h > 0) return `${h}u ${m}min`;
+  if (m > 0) return `${m}min ${s}sec`;
+  return `${s}sec`;
+}
+
+function formatDate(iso: string): string {
+  const [y, mo, d] = iso.split("-");
+  if (!y || !mo || !d) return iso;
+  return `${d}/${mo}/${y}`;
+}
+
+function ShowsTab() {
+  const fetchEpisodes = useServerFn(fetchSpotifyShowEpisodes);
+  const [loading, setLoading] = useState(false);
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [existingIds, setExistingIds] = useState<Set<string>>(new Set());
+  const [editing, setEditing] = useState<Candidate | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function loadExisting() {
+    const dbIds = new Set<string>(staticEpisodes.map((e) => e.spotifyId));
+    const { data } = await supabase.from("episodes").select("spotify_id");
+    (data ?? []).forEach((row: { spotify_id: string }) => dbIds.add(row.spotify_id));
+    setExistingIds(dbIds);
+    return dbIds;
+  }
+
+  async function checkSpotify() {
+    setLoading(true);
+    setError(null);
+    try {
+      const known = await loadExisting();
+      const res = await fetchEpisodes({ data: { showId: PAMPAS_SHOW_ID, limit: 50 } });
+      const fresh = res.episodes.filter((e) => !known.has(e.id));
+      setCandidates(fresh);
+      if (fresh.length === 0) toast.success("Geen nieuwe afleveringen gevonden.");
+      else toast.success(`${fresh.length} nieuwe aflevering(en) gevonden.`);
+    } catch (e: any) {
+      const msg = e?.message ?? "Onbekende fout";
+      setError(msg);
+      toast.error(msg);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => { loadExisting(); }, []);
+
+  return (
+    <>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+        <div>
+          <h2 className="text-lg font-medium">Spotify Shows</h2>
+          <p className="text-xs text-[#8A8270] mt-1">
+            Controleert <a href={`https://open.spotify.com/show/${PAMPAS_SHOW_ID}`} target="_blank" rel="noreferrer" className="text-[#BA7517] hover:underline">de PAMPAS show</a> op nieuwe afleveringen.
+          </p>
+        </div>
+        <button
+          onClick={checkSpotify}
+          disabled={loading}
+          className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714] disabled:opacity-50"
+        >
+          {loading ? "Bezig…" : "Check Spotify"}
+        </button>
+      </div>
+
+      {error && (
+        <div className="border border-red-500/40 bg-red-500/10 text-red-300 text-xs px-4 py-3 mb-4">
+          {error}
+        </div>
+      )}
+
+      {candidates.length === 0 && !loading && (
+        <p className="text-sm text-[#8A8270]">
+          Klik op "Check Spotify" om te zoeken naar nieuwe afleveringen die nog niet op de site staan.
+          <br />
+          Al bekende afleveringen: <span className="text-[#BA7517]">{existingIds.size}</span>.
+        </p>
+      )}
+
+      <div className="space-y-3">
+        {candidates.map((c) => (
+          <div key={c.id} className="border border-[#2A2A26] bg-[#1A1A18] p-4 flex gap-4">
+            {c.image_url && (
+              <img src={c.image_url} alt="" className="w-20 h-20 object-cover flex-shrink-0" />
+            )}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-baseline justify-between gap-3 mb-1">
+                <h3 className="font-medium text-[#E8E4D8] truncate">{c.name}</h3>
+                <span className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270] flex-shrink-0">
+                  {formatDate(c.release_date)} · {formatDuration(c.duration_ms)}
+                </span>
+              </div>
+              <p className="text-xs text-[#8A8270] line-clamp-2 mb-3">{c.description}</p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setEditing(c)}
+                  className="bg-[#BA7517] text-[#0F0F0E] px-3 py-1.5 text-[10px] tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]"
+                >
+                  + Toevoegen
+                </button>
+                <a
+                  href={`https://open.spotify.com/episode/${c.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270] hover:text-[#BA7517] self-center"
+                >
+                  Open op Spotify ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {editing && (
+        <AddEpisodeDrawer
+          candidate={editing}
+          onClose={() => setEditing(null)}
+          onSaved={() => {
+            setCandidates((prev) => prev.filter((c) => c.id !== editing.id));
+            setExistingIds((prev) => new Set(prev).add(editing.id));
+            setEditing(null);
+          }}
+        />
+      )}
+    </>
+  );
+}
+
+function AddEpisodeDrawer({ candidate, onClose, onSaved }: {
+  candidate: Candidate; onClose: () => void; onSaved: () => void;
+}) {
+  // Try to guess episode number from title like "#10 ..." or "#Bonus ..."
+  const guessedNumber = (() => {
+    const m = candidate.name.match(/#?\s*(Bonus|Halfway|\d{1,3})/i);
+    return m ? m[1] : "";
+  })();
+
+  const [form, setForm] = useState({
+    spotify_id: candidate.id,
+    number: guessedNumber,
+    season: "S01",
+    title: candidate.name,
+    description: candidate.description,
+    date: formatDate(candidate.release_date),
+    duration: formatDuration(candidate.duration_ms),
+    topics: "Golf",
+    image_url: candidate.image_url ?? "",
+    release_date: candidate.release_date,
+  });
+  const [saving, setSaving] = useState(false);
+
+  async function save(e: FormEvent) {
+    e.preventDefault();
+    if (!form.number.trim() || !form.title.trim()) {
+      return toast.error("Nummer en titel zijn verplicht");
+    }
+    setSaving(true);
+    const payload = {
+      spotify_id: form.spotify_id,
+      number: form.number.trim(),
+      season: form.season.trim() || "S01",
+      title: form.title.trim(),
+      description: form.description.trim(),
+      date: form.date.trim(),
+      duration: form.duration.trim(),
+      topics: form.topics.split(",").map((t) => t.trim()).filter(Boolean),
+      image_url: form.image_url.trim() || null,
+      release_date: form.release_date ? new Date(form.release_date).toISOString() : null,
+    };
+    const { error } = await supabase.from("episodes").insert(payload);
+    setSaving(false);
+    if (error) return toast.error(error.message);
+    toast.success("Aflevering toegevoegd");
+    onSaved();
+  }
+
+  return (
+    <Drawer title="Nieuwe aflevering toevoegen" onClose={onClose}>
+      <form onSubmit={save} className="space-y-4">
+        <div className="bg-[#0F0F0E] border border-[#2A2A26] p-3 text-xs">
+          <div className="text-[#8A8270]">Spotify ID</div>
+          <div className="text-[#E8E4D8] font-mono">{form.spotify_id}</div>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Nummer *">
+            <Input value={form.number} onChange={(v) => setForm({ ...form, number: v })} required placeholder="bv. 10 of Bonus" />
+          </Field>
+          <Field label="Seizoen">
+            <Input value={form.season} onChange={(v) => setForm({ ...form, season: v })} />
+          </Field>
+        </div>
+        <Field label="Titel *">
+          <Input value={form.title} onChange={(v) => setForm({ ...form, title: v })} required />
+        </Field>
+        <Field label="Beschrijving">
+          <textarea
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            rows={6}
+            className="w-full bg-[#0F0F0E] border border-[#2A2A26] px-3 py-2 text-sm text-[#E8E4D8] focus:outline-none focus:border-[#BA7517]"
+          />
+        </Field>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Datum (DD/MM/JJJJ)">
+            <Input value={form.date} onChange={(v) => setForm({ ...form, date: v })} />
+          </Field>
+          <Field label="Duur">
+            <Input value={form.duration} onChange={(v) => setForm({ ...form, duration: v })} />
+          </Field>
+        </div>
+        <Field label="Topics (komma-gescheiden)">
+          <Input value={form.topics} onChange={(v) => setForm({ ...form, topics: v })} placeholder="Golf, Soudal Open, …" />
+        </Field>
+        <DrawerActions saving={saving} onClose={onClose} />
       </form>
     </Drawer>
   );

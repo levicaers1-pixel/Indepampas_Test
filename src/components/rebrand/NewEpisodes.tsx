@@ -1,9 +1,54 @@
-import { useState } from "react";
-import { episodes } from "@/data/episodes";
+import { useEffect, useMemo, useState } from "react";
+import { episodes as staticEpisodes, type Episode } from "@/data/episodes";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
+import { supabase } from "@/integrations/supabase/client";
+
+function parseDate(d: string): number {
+  // "DD/MM/YYYY" → timestamp
+  const [day, month, year] = d.split("/");
+  if (!day || !month || !year) return 0;
+  return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+}
 
 export function NewEpisodes() {
-  const [openId, setOpenId] = useState<string | null>(episodes[0].number);
+  const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("episodes")
+      .select("spotify_id, number, season, title, description, date, duration, topics")
+      .then(({ data }) => {
+        if (!data) return;
+        setDbEpisodes(
+          data.map((r: any) => ({
+            number: r.number,
+            season: r.season,
+            title: r.title,
+            description: r.description,
+            date: r.date,
+            duration: r.duration,
+            spotifyId: r.spotify_id,
+            topics: r.topics ?? [],
+          })),
+        );
+      });
+  }, []);
+
+  const episodes = useMemo(() => {
+    const seen = new Set<string>();
+    const merged: Episode[] = [];
+    for (const e of [...dbEpisodes, ...staticEpisodes]) {
+      if (seen.has(e.spotifyId)) continue;
+      seen.add(e.spotifyId);
+      merged.push(e);
+    }
+    return merged.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+  }, [dbEpisodes]);
+
+  const [openId, setOpenId] = useState<string | null>(episodes[0]?.number ?? null);
+  useEffect(() => {
+    if (!openId && episodes[0]) setOpenId(episodes[0].number);
+  }, [episodes, openId]);
 
   return (
     <>
