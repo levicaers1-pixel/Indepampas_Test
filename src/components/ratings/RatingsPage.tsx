@@ -154,7 +154,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
       {/* COURSES MAP */}
       <CoursesMap courses={courses} />
-      </div>
+
 
       {/* ACTIVE PERSPECTIVE BANNER */}
       {activeHost && (
