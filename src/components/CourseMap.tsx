@@ -99,14 +99,28 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
             },
           });
           marker.addListener("click", () => {
+            const hs = r.hostScores;
+            const hostRow = `
+              <div style="display:flex;gap:6px;margin-top:8px;font-family:system-ui">
+                <span style="background:#EDE6D9;color:#1C3D2A;font-size:11px;padding:2px 6px;border-radius:3px"><strong>Lars</strong> ${hs.lars}</span>
+                <span style="background:#EDE6D9;color:#1C3D2A;font-size:11px;padding:2px 6px;border-radius:3px"><strong>Levi</strong> ${hs.levi}</span>
+                <span style="background:#EDE6D9;color:#1C3D2A;font-size:11px;padding:2px 6px;border-radius:3px"><strong>Niels</strong> ${hs.niels}</span>
+              </div>`;
+            const epLink = r.episodeUrl
+              ? `<a href="${r.episodeUrl}" target="_blank" rel="noopener" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-top:8px;display:inline-block">Beluister aflevering →</a><br/>`
+              : "";
             info.setContent(
-              `<div style="font-family:system-ui;padding:4px 6px;min-width:180px">
+              `<div style="font-family:system-ui;padding:4px 6px;min-width:220px">
                 <div style="font-weight:600;color:#1C3D2A;font-size:14px">${r.name}</div>
                 <div style="color:#635C4B;font-size:12px;margin-top:2px">${r.region} · ${r.type}</div>
                 <div style="margin-top:6px;font-size:13px;color:#1C3D2A">
                   <strong>${r.pampasScore}</strong>/100 · ${r.verdict}
                 </div>
-                <a href="/ratings/${r.slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;margin-top:6px;display:inline-block">Lees →</a>
+                ${hostRow}
+                <div style="margin-top:8px">
+                  ${epLink}
+                  <a href="/ratings/${r.slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>
+                </div>
               </div>`
             );
             info.open({ anchor: marker, map: mapRef.current! });
