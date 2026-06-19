@@ -8,6 +8,7 @@ import { CourseCompare } from "./CourseCompare";
 import { HostStats } from "./HostStats";
 import { RouteBuilder } from "./RouteBuilder";
 import { SurpriseMe } from "./SurpriseMe";
+import { CoursesMap } from "./CoursesMap";
 
 type SortKey = "pampas_desc" | "pampas_asc" | "name" | "recent";
 type Tab = "courses" | "compare" | "surprise" | "hosts" | "route";
@@ -150,6 +151,10 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
         </h2>
         <MatchQuiz onMatch={setActiveHost} />
       </div>
+
+      {/* COURSES MAP */}
+      <CoursesMap courses={courses} />
+
 
       {/* ACTIVE PERSPECTIVE BANNER */}
       {activeHost && (
