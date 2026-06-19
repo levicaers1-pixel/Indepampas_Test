@@ -28,6 +28,7 @@ export type CourseRating = {
   verdict: string;
   notes: string;
   findings: string[]; // bullet points for the per-course article
+  episodeUrl?: string | null;
   hostDetails?: {
     lars?: HostDetail;
     levi?: HostDetail;

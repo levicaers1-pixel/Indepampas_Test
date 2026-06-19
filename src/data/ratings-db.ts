@@ -53,17 +53,20 @@ function toHostDetail(r: RatingRow): HostDetail {
 export async function fetchRatings(): Promise<CourseRating[]> {
   const [{ data: ratingsData, error: ratingsErr }, { data: coursesData, error: coursesErr }, { data: hostRatings, error: hostErr }] = await Promise.all([
     supabase.from("course_ratings").select("*").order("rank", { ascending: true }),
-    supabase.from("courses").select("id,name"),
+    supabase.from("courses").select("id,name,episode_url"),
     supabase.from("ratings").select("*"),
   ]);
   if (ratingsErr) throw new Error(ratingsErr.message);
   if (coursesErr) throw new Error(coursesErr.message);
   if (hostErr) throw new Error(hostErr.message);
 
-  // map course id -> normalized name
+  // map course id -> normalized name, and name -> episode_url
   const idToName = new Map<string, string>();
-  (coursesData ?? []).forEach((c: Pick<CourseRow, "id" | "name">) => {
-    idToName.set(c.id, normalizeName(c.name));
+  const nameToEpisode = new Map<string, string | null>();
+  (coursesData ?? []).forEach((c: Pick<CourseRow, "id" | "name" | "episode_url">) => {
+    const n = normalizeName(c.name);
+    idToName.set(c.id, n);
+    if (c.episode_url) nameToEpisode.set(n, c.episode_url);
   });
 
   // group host ratings by normalized course name + host
@@ -81,8 +84,11 @@ export async function fetchRatings(): Promise<CourseRating[]> {
 
   return (ratingsData ?? []).map((r) => {
     const mapped = mapRow(r);
-    const details = byName.get(normalizeName(mapped.name));
+    const key = normalizeName(mapped.name);
+    const details = byName.get(key);
     if (details) mapped.hostDetails = details;
+    const ep = nameToEpisode.get(key);
+    if (ep) mapped.episodeUrl = ep;
     return mapped;
   });
 }
