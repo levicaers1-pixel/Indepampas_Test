@@ -1,6 +1,7 @@
 /// <reference types="google.maps" />
-import { useEffect, useRef, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { geocodeAddress } from "@/lib/geocode.functions";
 import type { CourseWithRatings } from "@/data/courses-db";
 
 declare global {
@@ -11,6 +12,24 @@ declare global {
 }
 
 const SCRIPT_ID = "google-maps-js";
+const CACHE_KEY = "pampas:geocode:v1";
+
+type Coord = { lat: number; lng: number };
+
+function loadCache(): Record<string, Coord> {
+  try {
+    return JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+function saveCache(c: Record<string, Coord>) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(c));
+  } catch {
+    /* ignore */
+  }
+}
 
 function loadMaps(): Promise<void> {
   if (window.google?.maps) return Promise.resolve();
@@ -46,47 +65,84 @@ function tierColor(score: number) {
   return "#635C4B";
 }
 
-const normalize = (n: string) => n.trim().toLowerCase().replace(/\s+/g, " ");
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 
-type Coord = { lat: number; lng: number; slug: string };
+const countryCode = (c: string) => {
+  const n = c.toLowerCase();
+  if (n.startsWith("nederland") || n === "netherlands") return "NL";
+  if (n.startsWith("belg")) return "BE";
+  if (n.startsWith("frank") || n === "france") return "FR";
+  if (n.startsWith("duits") || n === "germany") return "DE";
+  if (n.startsWith("luxem")) return "LU";
+  if (n.startsWith("groot") || n.startsWith("verenigd kon") || n === "uk" || n === "united kingdom") return "GB";
+  return undefined;
+};
 
 export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
-  const [coords, setCoords] = useState<Map<string, Coord>>(new Map());
-  const [error, setError] = useState<string | null>(null);
+  const geocode = useServerFn(geocodeAddress);
 
-  // Pull lat/lng + slug from course_ratings, match by normalized course name.
+  // Only show courses that have at least one rating (the ones with reviews/scores).
+  const ratedCourses = useMemo(
+    () => courses.filter((c) => c.ratings.length > 0),
+    [courses],
+  );
+
+  const [coords, setCoords] = useState<Record<string, Coord>>(() =>
+    typeof window === "undefined" ? {} : loadCache(),
+  );
+  const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+
+  // Geocode any rated courses missing from cache.
   useEffect(() => {
     let cancelled = false;
+    const missing = ratedCourses.filter((c) => !coords[c.id]);
+    if (missing.length === 0) return;
+
+    setProgress({ done: 0, total: missing.length });
     (async () => {
-      const { data, error } = await supabase
-        .from("course_ratings")
-        .select("name,slug,latitude,longitude");
-      if (cancelled) return;
-      if (error) {
-        setError(error.message);
-        return;
+      const next: Record<string, Coord> = { ...coords };
+      let done = 0;
+      for (const c of missing) {
+        if (cancelled) return;
+        try {
+          const q = [c.name, c.region, c.country].filter(Boolean).join(", ");
+          const res = await geocode({ data: { query: q, countryCode: countryCode(c.country) } });
+          if (res?.lat != null && res?.lng != null) {
+            next[c.id] = { lat: res.lat, lng: res.lng };
+          }
+        } catch (e) {
+          console.warn("geocode failed", c.name, e);
+        }
+        done += 1;
+        if (!cancelled) setProgress({ done, total: missing.length });
       }
-      const m = new Map<string, Coord>();
-      (data ?? []).forEach((r: { name: string; slug: string; latitude: number | null; longitude: number | null }) => {
-        if (r.latitude == null || r.longitude == null) return;
-        m.set(normalize(r.name), { lat: Number(r.latitude), lng: Number(r.longitude), slug: r.slug });
-      });
-      setCoords(m);
+      if (cancelled) return;
+      saveCache(next);
+      setCoords(next);
+      setProgress(null);
     })();
     return () => {
       cancelled = true;
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ratedCourses]);
 
-  const located = courses
+  const located = ratedCourses
     .map((c) => {
-      const co = coords.get(normalize(c.name));
+      const co = coords[c.id];
       return co ? { course: c, ...co } : null;
     })
-    .filter(Boolean) as Array<{ course: CourseWithRatings; lat: number; lng: number; slug: string }>;
+    .filter(Boolean) as Array<{ course: CourseWithRatings; lat: number; lng: number }>;
 
   useEffect(() => {
     let cancelled = false;
@@ -109,7 +165,8 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
         const bounds = new window.google.maps.LatLngBounds();
         const info = new window.google.maps.InfoWindow();
 
-        located.forEach(({ course: c, lat, lng, slug }) => {
+        located.forEach(({ course: c, lat, lng }) => {
+          const slug = slugify(c.name);
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
@@ -173,7 +230,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     return () => {
       cancelled = true;
     };
-  }, [located.map((l) => `${l.slug}:${l.lat},${l.lng}`).join("|")]);
+  }, [located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
@@ -189,9 +246,14 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
           {error}
         </p>
       )}
-      {!error && located.length < courses.length && (
+      {!error && progress && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
-          {courses.length - located.length} parcours nog zonder coördinaten.
+          Locaties laden… {progress.done}/{progress.total}
+        </p>
+      )}
+      {!error && !progress && located.length === 0 && ratedCourses.length > 0 && (
+        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
+          Geen coördinaten gevonden.
         </p>
       )}
     </div>
