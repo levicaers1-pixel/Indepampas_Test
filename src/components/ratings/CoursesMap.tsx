@@ -12,7 +12,7 @@ declare global {
 }
 
 const SCRIPT_ID = "google-maps-js";
-const CACHE_KEY = "pampas:geocode:v1";
+const CACHE_KEY = "pampas:geocode:v2";
 
 type Coord = { lat: number; lng: number };
 
