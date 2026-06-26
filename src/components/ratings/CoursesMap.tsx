@@ -96,9 +96,8 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     [courses],
   );
 
-  const [coords, setCoords] = useState<Record<string, Coord>>(() =>
-    typeof window === "undefined" ? {} : loadCache(),
-  );
+  const [coords, setCoords] = useState<Record<string, Coord>>({});
+  const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
