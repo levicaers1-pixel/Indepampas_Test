@@ -101,8 +101,15 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
+  // Load client cache after mount to avoid hydration mismatch.
+  useEffect(() => {
+    setMounted(true);
+    setCoords(loadCache());
+  }, []);
+
   // Geocode any rated courses missing from cache.
   useEffect(() => {
+    if (!mounted) return;
     let cancelled = false;
     const missing = ratedCourses.filter((c) => !coords[c.id]);
     if (missing.length === 0) return;
@@ -134,7 +141,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ratedCourses]);
+  }, [ratedCourses, mounted]);
 
   const located = ratedCourses
     .map((c) => {
