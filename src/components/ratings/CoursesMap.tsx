@@ -247,17 +247,17 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
         ref={ref}
         className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
       />
-      {error && (
+      {mounted && error && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#A33]">
           {error}
         </p>
       )}
-      {!error && progress && (
+      {mounted && !error && progress && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Locaties laden… {progress.done}/{progress.total}
         </p>
       )}
-      {!error && !progress && located.length === 0 && ratedCourses.length > 0 && (
+      {mounted && !error && !progress && located.length === 0 && ratedCourses.length > 0 && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Geen coördinaten gevonden.
         </p>
