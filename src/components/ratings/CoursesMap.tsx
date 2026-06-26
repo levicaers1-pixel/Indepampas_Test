@@ -96,14 +96,20 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     [courses],
   );
 
-  const [coords, setCoords] = useState<Record<string, Coord>>(() =>
-    typeof window === "undefined" ? {} : loadCache(),
-  );
+  const [coords, setCoords] = useState<Record<string, Coord>>({});
+  const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
+  // Load client cache after mount to avoid hydration mismatch.
+  useEffect(() => {
+    setMounted(true);
+    setCoords(loadCache());
+  }, []);
+
   // Geocode any rated courses missing from cache.
   useEffect(() => {
+    if (!mounted) return;
     let cancelled = false;
     const missing = ratedCourses.filter((c) => !coords[c.id]);
     if (missing.length === 0) return;
@@ -135,7 +141,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ratedCourses]);
+  }, [ratedCourses, mounted]);
 
   const located = ratedCourses
     .map((c) => {
@@ -241,17 +247,17 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
         ref={ref}
         className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
       />
-      {error && (
+      {mounted && error && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#A33]">
           {error}
         </p>
       )}
-      {!error && progress && (
+      {mounted && !error && progress && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Locaties laden… {progress.done}/{progress.total}
         </p>
       )}
-      {!error && !progress && located.length === 0 && ratedCourses.length > 0 && (
+      {mounted && !error && !progress && located.length === 0 && ratedCourses.length > 0 && (
         <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Geen coördinaten gevonden.
         </p>
