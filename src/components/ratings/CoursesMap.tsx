@@ -8,11 +8,14 @@ declare global {
   interface Window {
     google?: typeof google;
     __pampasInitMap?: () => void;
+    gm_authFailure?: () => void;
   }
 }
 
 const SCRIPT_ID = "google-maps-js";
 const CACHE_KEY = "pampas:geocode:v2";
+const MAP_AUTH_ERROR =
+  "Google Maps is nog niet toegestaan voor dit domein. Voeg https://indepampas.be/* en https://www.indepampas.be/* toe aan de HTTP-referrers van de actieve Google Maps API-key en publiceer opnieuw.";
 
 type Coord = { lat: number; lng: number };
 
@@ -34,26 +37,52 @@ function saveCache(c: Record<string, Coord>) {
 function loadMaps(): Promise<void> {
   if (window.google?.maps) return Promise.resolve();
   return new Promise((resolve, reject) => {
+    let settled = false;
+    let check: number | null = null;
+    let timeout: number | null = null;
+
+    const cleanup = () => {
+      if (check != null) window.clearInterval(check);
+      if (timeout != null) window.clearTimeout(timeout);
+    };
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve();
+    };
+    const fail = (message: string) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error(message));
+    };
+
+    window.__pampasInitMap = done;
+    window.gm_authFailure = () => fail(MAP_AUTH_ERROR);
+    timeout = window.setTimeout(
+      () => fail("Google Maps kon niet laden. Controleer de API-key, billing en domeinrestricties."),
+      12_000,
+    );
+
     if (document.getElementById(SCRIPT_ID)) {
-      const check = setInterval(() => {
+      check = window.setInterval(() => {
         if (window.google?.maps) {
-          clearInterval(check);
-          resolve();
+          done();
         }
       }, 50);
       return;
     }
-    window.__pampasInitMap = () => resolve();
     const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
     const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
-    if (!key) return reject(new Error("Missing Google Maps browser key"));
+    if (!key) return fail("Google Maps browser key ontbreekt in deze deployment.");
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
     s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__pampasInitMap${
       channel ? `&channel=${channel}` : ""
     }`;
-    s.onerror = () => reject(new Error("Failed to load Google Maps"));
+    s.onerror = () => fail("Google Maps script kon niet geladen worden.");
     document.head.appendChild(s);
   });
 }

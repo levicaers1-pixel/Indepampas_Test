@@ -586,7 +586,9 @@ function ShowsTab() {
     try {
       const known = await loadExisting();
       const res = await fetchEpisodes({ data: { showId: PAMPAS_SHOW_ID, limit: 50 } });
-      const fresh = res.episodes.filter((e) => !known.has(e.id));
+      const fresh = res.episodes
+        .filter((e) => !known.has(e.id))
+        .sort((a, b) => Date.parse(b.release_date) - Date.parse(a.release_date));
       setCandidates(fresh);
       if (fresh.length === 0) toast.success("Geen nieuwe afleveringen gevonden.");
       else toast.success(`${fresh.length} nieuwe aflevering(en) gevonden.`);

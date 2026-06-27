@@ -6,12 +6,51 @@ export type Episode = {
   title: string;
   description: string;
   date: string;
+  releaseDate?: string | null;
   duration: string;
   spotifyId: string;
+  imageUrl?: string | null;
   topics: string[];
 };
 
+export function episodeTimestamp(ep: Pick<Episode, "date" | "releaseDate">): number {
+  if (ep.releaseDate) {
+    const ts = Date.parse(ep.releaseDate);
+    if (Number.isFinite(ts)) return ts;
+  }
+  const [day, month, year] = ep.date.split("/");
+  if (!day || !month || !year) return 0;
+  return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+}
+
+export function sortEpisodesByReleaseDate(list: Episode[]): Episode[] {
+  return [...list].sort((a, b) => episodeTimestamp(b) - episodeTimestamp(a));
+}
+
+export function mergeEpisodes(primary: Episode[], fallback: Episode[]): Episode[] {
+  const seen = new Set<string>();
+  const merged: Episode[] = [];
+  for (const e of [...primary, ...fallback]) {
+    if (seen.has(e.spotifyId)) continue;
+    seen.add(e.spotifyId);
+    merged.push(e);
+  }
+  return sortEpisodesByReleaseDate(merged);
+}
+
 export const episodes: Episode[] = [
+  {
+    number: "Special",
+    season: "S01",
+    title: "US Open Special | Wyndham Clark wint US Open op Shinnecock + Niels pakt eindelijk de Brut 🏆",
+    description:
+      "In deze aflevering: Niels speelde de prijs van het personeel op Ternesse — en wint deze keer eindelijk de Brut. Levi en Lars vertellen alles over Koksijde Ter Hille, en we duiken in de US Open op Shinnecock Hills: Wyndham Clark wint van start tot finish, Sam Burns strandt opnieuw als tweede, Adrien Dumont de Chassart maakt meer birdies dan wie ook en Miles Russell zorgt voor een vaderdagmoment op hole 18.",
+    date: "23/06/2026",
+    releaseDate: "2026-06-23",
+    duration: "1u 5min",
+    spotifyId: "2k2UpihlOEpj2BuxhbAuKU",
+    topics: ["US Open", "Wyndham Clark", "Koksijde Ter Hille", "Ternesse", "Belgisch Golf", "PAMPAS"],
+  },
   {
     number: "Halfway",
     season: "S01",
@@ -135,4 +174,4 @@ export const episodes: Episode[] = [
   },
 ];
 
-export const latestEpisode = episodes[0];
+export const latestEpisode = sortEpisodesByReleaseDate(episodes)[0];

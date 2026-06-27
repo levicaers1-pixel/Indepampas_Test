@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { episodes, latestEpisode } from "@/data/episodes";
+import { episodes as staticEpisodes, latestEpisode as staticLatestEpisode, mergeEpisodes, type Episode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
 import hostsWalking from "@/assets/hosts-walking.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CAPTURED_KEY = "emailCaptured";
@@ -15,8 +16,36 @@ export function NewHome() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
 
   const subscribe = useServerFn(subscribeToBrevo);
+
+  useEffect(() => {
+    supabase
+      .from("episodes")
+      .select("spotify_id, number, season, title, description, date, duration, topics, image_url, release_date")
+      .order("release_date", { ascending: false, nullsFirst: false })
+      .then(({ data }) => {
+        if (!data) return;
+        setDbEpisodes(
+          data.map((r: any) => ({
+            number: r.number,
+            season: r.season,
+            title: r.title,
+            description: r.description,
+            date: r.date,
+            releaseDate: r.release_date,
+            duration: r.duration,
+            spotifyId: r.spotify_id,
+            imageUrl: r.image_url,
+            topics: r.topics ?? [],
+          })),
+        );
+      });
+  }, []);
+
+  const siteEpisodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
+  const latestEpisode = siteEpisodes[0] ?? staticLatestEpisode;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,7 +148,7 @@ export function NewHome() {
       {/* STAT STRIP */}
       <section className="grid grid-cols-1 md:grid-cols-3 border-b border-[rgba(28,61,42,0.15)]">
         {[
-          { num: episodes.length.toString().padStart(2, "0"), label: "Afleveringen", text: "Gepubliceerd sinds april 2026 — elke dinsdag een nieuwe." },
+          { num: siteEpisodes.length.toString().padStart(2, "0"), label: "Afleveringen", text: "Gepubliceerd sinds april 2026 — elke dinsdag een nieuwe." },
           { num: "03", label: "Hosts", text: "Lars, Levi en Niels — drie handicaps, één liefde." },
           { num: "∞", label: "Verhalen", text: "Van Ternesse tot Augusta. Geen onderwerp te scherp." },
         ].map((b, i) => (

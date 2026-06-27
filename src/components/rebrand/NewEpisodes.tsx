@@ -1,14 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { episodes as staticEpisodes, type Episode } from "@/data/episodes";
+import { episodes as staticEpisodes, mergeEpisodes, type Episode } from "@/data/episodes";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { supabase } from "@/integrations/supabase/client";
-
-function parseDate(d: string): number {
-  // "DD/MM/YYYY" → timestamp
-  const [day, month, year] = d.split("/");
-  if (!day || !month || !year) return 0;
-  return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
-}
 
 export function NewEpisodes() {
   const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
@@ -16,7 +9,8 @@ export function NewEpisodes() {
   useEffect(() => {
     supabase
       .from("episodes")
-      .select("spotify_id, number, season, title, description, date, duration, topics")
+      .select("spotify_id, number, season, title, description, date, duration, topics, image_url, release_date")
+      .order("release_date", { ascending: false, nullsFirst: false })
       .then(({ data }) => {
         if (!data) return;
         setDbEpisodes(
@@ -26,28 +20,21 @@ export function NewEpisodes() {
             title: r.title,
             description: r.description,
             date: r.date,
+            releaseDate: r.release_date,
             duration: r.duration,
             spotifyId: r.spotify_id,
+            imageUrl: r.image_url,
             topics: r.topics ?? [],
           })),
         );
       });
   }, []);
 
-  const episodes = useMemo(() => {
-    const seen = new Set<string>();
-    const merged: Episode[] = [];
-    for (const e of [...dbEpisodes, ...staticEpisodes]) {
-      if (seen.has(e.spotifyId)) continue;
-      seen.add(e.spotifyId);
-      merged.push(e);
-    }
-    return merged.sort((a, b) => parseDate(b.date) - parseDate(a.date));
-  }, [dbEpisodes]);
+  const episodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
 
-  const [openId, setOpenId] = useState<string | null>(episodes[0]?.number ?? null);
+  const [openId, setOpenId] = useState<string | null>(episodes[0]?.spotifyId ?? null);
   useEffect(() => {
-    if (!openId && episodes[0]) setOpenId(episodes[0].number);
+    if (!openId && episodes[0]) setOpenId(episodes[0].spotifyId);
   }, [episodes, openId]);
 
   return (
@@ -73,11 +60,11 @@ export function NewEpisodes() {
 
       <div className="px-6 lg:px-14">
         {episodes.map((ep) => {
-          const isOpen = openId === ep.number;
+          const isOpen = openId === ep.spotifyId;
           return (
-            <div key={ep.number} className="border-b border-[rgba(28,61,42,0.15)]">
+            <div key={ep.spotifyId} className="border-b border-[rgba(28,61,42,0.15)]">
               <button
-                onClick={() => setOpenId(isOpen ? null : ep.number)}
+                onClick={() => setOpenId(isOpen ? null : ep.spotifyId)}
                 className="w-full grid grid-cols-[100px_1fr_auto] gap-6 lg:gap-10 items-start py-10 text-left hover:bg-[#EDE6D9] transition-colors -mx-2 px-2 lg:-mx-6 lg:px-6"
               >
                 <div>
