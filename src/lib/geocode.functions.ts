@@ -23,7 +23,12 @@ async function callGateway(path: string, init: RequestInit = {}): Promise<unknow
       ...(init.headers ?? {}),
     },
   });
-  return res.json();
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { error: { code: res.status, message: text || "Non-JSON Google Maps gateway response" } };
+  }
 }
 
 async function placesTextSearch(query: string, countryCode?: string): Promise<LatLng | null> {
