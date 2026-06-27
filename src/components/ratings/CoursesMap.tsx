@@ -9,6 +9,8 @@ declare global {
     google?: typeof google;
     __pampasInitMap?: () => void;
     gm_authFailure?: () => void;
+    __pampasMapConsolePatched?: boolean;
+    __pampasMapAuthError?: boolean;
   }
 }
 
@@ -60,6 +62,17 @@ function loadMaps(): Promise<void> {
 
     window.__pampasInitMap = done;
     window.gm_authFailure = () => fail(MAP_AUTH_ERROR);
+    if (!window.__pampasMapConsolePatched) {
+      window.__pampasMapConsolePatched = true;
+      const originalError = console.error.bind(console);
+      console.error = (...args: unknown[]) => {
+        if (args.some((arg) => String(arg).includes("RefererNotAllowedMapError"))) {
+          window.__pampasMapAuthError = true;
+          window.dispatchEvent(new Event("pampas-map-auth-error"));
+        }
+        originalError(...args);
+      };
+    }
     timeout = window.setTimeout(
       () => fail("Google Maps kon niet laden. Controleer de API-key, billing en domeinrestricties."),
       12_000,
@@ -184,6 +197,9 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     let authCheck: number | null = null;
     let authCheckStop: number | null = null;
     if (located.length === 0) return;
+    const onAuthError = () => setError(MAP_AUTH_ERROR);
+    window.addEventListener("pampas-map-auth-error", onAuthError);
+    if (window.__pampasMapAuthError) onAuthError();
     loadMaps()
       .then(() => {
         if (cancelled || !ref.current || !window.google) return;
@@ -275,6 +291,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       .catch((e) => setError(e.message));
     return () => {
       cancelled = true;
+      window.removeEventListener("pampas-map-auth-error", onAuthError);
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
