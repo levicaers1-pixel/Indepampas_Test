@@ -198,7 +198,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
         }
         authCheck = window.setInterval(() => {
           if (cancelled) return;
-          if (ref.current?.innerText.includes("didn't load Google Maps")) {
+          if (document.body.innerText.includes("didn't load Google Maps")) {
             setError(MAP_AUTH_ERROR);
           }
         }, 1000);
