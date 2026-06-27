@@ -10,37 +10,51 @@ const Input = z.object({
 
 type LatLng = { lat: number; lng: number };
 
-async function callGateway(path: string): Promise<unknown> {
+async function callGateway(path: string, init: RequestInit = {}): Promise<unknown> {
   const LOVABLE_API_KEY = process.env.LOVABLE_API_KEY;
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
   if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
   if (!GOOGLE_MAPS_API_KEY) throw new Error("GOOGLE_MAPS_API_KEY is not configured");
   const res = await fetch(`${GATEWAY_URL}${path}`, {
+    ...init,
     headers: {
       Authorization: `Bearer ${LOVABLE_API_KEY}`,
       "X-Connection-Api-Key": GOOGLE_MAPS_API_KEY,
+      ...(init.headers ?? {}),
     },
   });
-  return res.json();
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { error: { code: res.status, message: text || "Non-JSON Google Maps gateway response" } };
+  }
 }
 
 async function placesTextSearch(query: string, countryCode?: string): Promise<LatLng | null> {
-  // Places Text Search is far better for POIs like golf clubs than the geocoder.
-  const params = new URLSearchParams({ query, type: "establishment" });
-  if (countryCode) params.set("region", countryCode.toLowerCase());
-  const json = (await callGateway(
-    `/maps/api/place/textsearch/json?${params.toString()}`,
-  )) as {
-    status?: string;
-    results?: Array<{ geometry?: { location?: LatLng }; types?: string[] }>;
+  // Places API (New) is far better for POIs like golf clubs than the geocoder.
+  const json = (await callGateway("/places/v1/places:searchText", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Goog-FieldMask": "places.location,places.types",
+    },
+    body: JSON.stringify({
+      textQuery: query,
+      ...(countryCode ? { regionCode: countryCode } : {}),
+    }),
+  })) as {
+    places?: Array<{ location?: { latitude?: number; longitude?: number }; types?: string[] }>;
+    error?: unknown;
   };
-  if (json.status !== "OK" || !json.results?.length) return null;
+  if (json.error || !json.places?.length) return null;
   // Prefer a result that looks like a golf course.
-  const golf = json.results.find((r) =>
+  const golf = json.places.find((r) =>
     r.types?.some((t) => t.includes("golf")),
   );
-  const loc = (golf ?? json.results[0]).geometry?.location;
-  return loc ?? null;
+  const loc = (golf ?? json.places[0]).location;
+  if (loc?.latitude == null || loc?.longitude == null) return null;
+  return { lat: loc.latitude, lng: loc.longitude };
 }
 
 async function geocode(query: string, countryCode?: string): Promise<LatLng | null> {

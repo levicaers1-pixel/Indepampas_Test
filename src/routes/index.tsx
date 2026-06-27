@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewHome } from "@/components/rebrand/NewHome";
 import hostsWalking from "@/assets/hosts-walking.webp";
-import pampasWordmark from "@/assets/pampas-wordmark.webp";
 
 const SITE_URL = "https://indepampas.be";
 const HOME_DESCRIPTION =
@@ -22,7 +21,6 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE_URL + "/" },
-      { rel: "preload", as: "image", href: pampasWordmark, fetchPriority: "high" },
       { rel: "preconnect", href: "https://open.spotify.com" },
     ],
     scripts: [

@@ -8,11 +8,16 @@ declare global {
   interface Window {
     google?: typeof google;
     __pampasInitMap?: () => void;
+    gm_authFailure?: () => void;
+    __pampasMapConsolePatched?: boolean;
+    __pampasMapAuthError?: boolean;
   }
 }
 
 const SCRIPT_ID = "google-maps-js";
 const CACHE_KEY = "pampas:geocode:v2";
+const MAP_AUTH_ERROR =
+  "Google Maps is nog niet toegestaan voor dit domein. Voeg https://indepampas.be/* en https://www.indepampas.be/* toe aan de HTTP-referrers van de actieve Google Maps API-key en publiceer opnieuw.";
 
 type Coord = { lat: number; lng: number };
 
@@ -34,26 +39,63 @@ function saveCache(c: Record<string, Coord>) {
 function loadMaps(): Promise<void> {
   if (window.google?.maps) return Promise.resolve();
   return new Promise((resolve, reject) => {
+    let settled = false;
+    let check: number | null = null;
+    let timeout: number | null = null;
+
+    const cleanup = () => {
+      if (check != null) window.clearInterval(check);
+      if (timeout != null) window.clearTimeout(timeout);
+    };
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      resolve();
+    };
+    const fail = (message: string) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error(message));
+    };
+
+    window.__pampasInitMap = done;
+    window.gm_authFailure = () => fail(MAP_AUTH_ERROR);
+    if (!window.__pampasMapConsolePatched) {
+      window.__pampasMapConsolePatched = true;
+      const originalError = console.error.bind(console);
+      console.error = (...args: unknown[]) => {
+        if (args.some((arg) => String(arg).includes("RefererNotAllowedMapError"))) {
+          window.__pampasMapAuthError = true;
+          window.dispatchEvent(new Event("pampas-map-auth-error"));
+        }
+        originalError(...args);
+      };
+    }
+    timeout = window.setTimeout(
+      () => fail("Google Maps kon niet laden. Controleer de API-key, billing en domeinrestricties."),
+      12_000,
+    );
+
     if (document.getElementById(SCRIPT_ID)) {
-      const check = setInterval(() => {
+      check = window.setInterval(() => {
         if (window.google?.maps) {
-          clearInterval(check);
-          resolve();
+          done();
         }
       }, 50);
       return;
     }
-    window.__pampasInitMap = () => resolve();
     const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
     const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
-    if (!key) return reject(new Error("Missing Google Maps browser key"));
+    if (!key) return fail("Google Maps browser key ontbreekt in deze deployment.");
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
     s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__pampasInitMap${
       channel ? `&channel=${channel}` : ""
     }`;
-    s.onerror = () => reject(new Error("Failed to load Google Maps"));
+    s.onerror = () => fail("Google Maps script kon niet geladen worden.");
     document.head.appendChild(s);
   });
 }
@@ -152,7 +194,12 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
 
   useEffect(() => {
     let cancelled = false;
+    let authCheck: number | null = null;
+    let authCheckStop: number | null = null;
     if (located.length === 0) return;
+    const onAuthError = () => setError(MAP_AUTH_ERROR);
+    window.addEventListener("pampas-map-auth-error", onAuthError);
+    if (window.__pampasMapAuthError) onAuthError();
     loadMaps()
       .then(() => {
         if (cancelled || !ref.current || !window.google) return;
@@ -165,6 +212,15 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
             fullscreenControl: false,
           });
         }
+        authCheck = window.setInterval(() => {
+          if (cancelled) return;
+          if (document.body.innerText.includes("didn't load Google Maps")) {
+            setError(MAP_AUTH_ERROR);
+          }
+        }, 1000);
+        authCheckStop = window.setTimeout(() => {
+          if (authCheck != null) window.clearInterval(authCheck);
+        }, 18_000);
         markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = [];
 
@@ -235,6 +291,9 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       .catch((e) => setError(e.message));
     return () => {
       cancelled = true;
+      window.removeEventListener("pampas-map-auth-error", onAuthError);
+      if (authCheck != null) window.clearInterval(authCheck);
+      if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
   }, [located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
