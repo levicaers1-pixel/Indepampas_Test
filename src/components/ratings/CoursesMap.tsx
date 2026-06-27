@@ -181,6 +181,8 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
 
   useEffect(() => {
     let cancelled = false;
+    let authCheck: number | null = null;
+    let authCheckStop: number | null = null;
     if (located.length === 0) return;
     loadMaps()
       .then(() => {
@@ -194,6 +196,15 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
             fullscreenControl: false,
           });
         }
+        authCheck = window.setInterval(() => {
+          if (cancelled) return;
+          if (ref.current?.innerText.includes("didn't load Google Maps")) {
+            setError(MAP_AUTH_ERROR);
+          }
+        }, 1000);
+        authCheckStop = window.setTimeout(() => {
+          if (authCheck != null) window.clearInterval(authCheck);
+        }, 18_000);
         markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = [];
 
@@ -264,6 +275,8 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       .catch((e) => setError(e.message));
     return () => {
       cancelled = true;
+      if (authCheck != null) window.clearInterval(authCheck);
+      if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
   }, [located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
