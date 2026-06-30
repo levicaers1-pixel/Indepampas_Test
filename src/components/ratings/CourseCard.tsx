@@ -91,15 +91,15 @@ function CriteriaBars({
         const pct = (avg / 10) * 100;
         const col = avg >= 8 ? "#3D7A52" : avg >= 7 ? "#8FBF4A" : avg >= 5.5 ? "#BA7517" : "#A32D2D";
         return (
-          <div key={key} className="grid grid-cols-[140px_1fr_60px] items-center gap-3">
-            <span className="font-rb-sans text-[0.78rem] text-[#2E2B25]">{label}</span>
+          <div key={key} className="grid grid-cols-[90px_1fr_56px] md:grid-cols-[140px_1fr_60px] items-center gap-2 md:gap-3">
+            <span className="font-rb-sans text-[0.72rem] md:text-[0.78rem] text-[#2E2B25] truncate">{label}</span>
             <div className="h-[6px] bg-[#EDE6D9] rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.7rem] text-[#635C4B] text-right">
+            <span className="font-rb-mono text-[0.65rem] md:text-[0.7rem] text-[#635C4B] text-right whitespace-nowrap">
               {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
