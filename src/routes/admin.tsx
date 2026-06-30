@@ -8,6 +8,7 @@ import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/person
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
+import { downloadInstagramFrontpage } from "@/lib/instagramFrontpage";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
