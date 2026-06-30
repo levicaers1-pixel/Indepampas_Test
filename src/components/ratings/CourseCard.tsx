@@ -186,8 +186,8 @@ export function CourseCard({
             )}
           </div>
           {reviewSnippet && (
-            <p className="font-rb-sans text-[0.85rem] text-[#635C4B] mt-3 line-clamp-2 max-w-2xl italic">
-              "{reviewSnippet.slice(0, 140)}{reviewSnippet.length > 140 ? "…" : ""}"
+            <p className="font-rb-sans text-[0.8rem] md:text-[0.85rem] text-[#635C4B] mt-3 line-clamp-3 md:line-clamp-2 max-w-2xl italic">
+              "{reviewSnippet}"
             </p>
           )}
         </div>
