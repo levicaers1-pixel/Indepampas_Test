@@ -136,7 +136,7 @@ export function CourseCard({
       {/* COLLAPSED HEADER */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full text-left p-5 md:p-6 grid grid-cols-[1fr_auto] gap-6 items-center"
+        className="w-full text-left p-4 md:p-6 grid grid-cols-[minmax(0,1fr)_auto] gap-3 md:gap-6 items-start md:items-center"
       >
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
