@@ -8,6 +8,7 @@ import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/person
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
+import { downloadInstagramFrontpage } from "@/lib/instagramFrontpage";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
@@ -374,12 +375,26 @@ function RatingsTab() {
                           <span className="text-xs text-[#5A5448] italic">Geen beoordeling</span>
                         )}
                       </div>
-                      <button
-                        onClick={() => setEditing({ course: c, host, rating: r })}
-                        className="text-xs text-[#BA7517] hover:underline"
-                      >
-                        {r ? "Bewerk" : "+ Beoordeling toevoegen"}
-                      </button>
+                      <div className="flex items-center gap-3">
+                        {r && (
+                          <button
+                            onClick={() => {
+                              const ratedHosts = c.ratings.map((x) => x.host as HostName);
+                              downloadInstagramFrontpage(c, r, ratedHosts).catch((e) => toast.error(e.message));
+                            }}
+                            className="text-xs text-[#E8E4D8] border border-[#2A2A26] px-2 py-1 hover:border-[#BA7517] hover:text-[#BA7517]"
+                            title="Download 1080x1080 Instagram frontpage"
+                          >
+                            📸 Instagram frontpage
+                          </button>
+                        )}
+                        <button
+                          onClick={() => setEditing({ course: c, host, rating: r })}
+                          className="text-xs text-[#BA7517] hover:underline"
+                        >
+                          {r ? "Bewerk" : "+ Beoordeling toevoegen"}
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
