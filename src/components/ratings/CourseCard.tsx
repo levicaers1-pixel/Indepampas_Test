@@ -275,23 +275,23 @@ export function CourseCard({
                       </p>
                     )}
 
-                    <div className="mt-auto space-y-1.5 pt-3 border-t border-[rgba(28,61,42,0.1)]">
+                    <div className="mt-auto space-y-2 pt-3 border-t border-[rgba(28,61,42,0.1)]">
                       {r.one_word && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.one_word}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.one_word}</span>
                         </div>
                       )}
                       {r.hole_of_day && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.hole_of_day}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.hole_of_day}</span>
                         </div>
                       )}
                       {r.would_return && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.would_return}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.would_return}</span>
                         </div>
                       )}
                     </div>
