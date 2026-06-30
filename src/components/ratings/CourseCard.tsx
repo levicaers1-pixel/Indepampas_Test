@@ -91,15 +91,15 @@ function CriteriaBars({
         const pct = (avg / 10) * 100;
         const col = avg >= 8 ? "#3D7A52" : avg >= 7 ? "#8FBF4A" : avg >= 5.5 ? "#BA7517" : "#A32D2D";
         return (
-          <div key={key} className="grid grid-cols-[140px_1fr_60px] items-center gap-3">
-            <span className="font-rb-sans text-[0.78rem] text-[#2E2B25]">{label}</span>
+          <div key={key} className="grid grid-cols-[90px_1fr_56px] md:grid-cols-[140px_1fr_60px] items-center gap-2 md:gap-3">
+            <span className="font-rb-sans text-[0.72rem] md:text-[0.78rem] text-[#2E2B25] truncate">{label}</span>
             <div className="h-[6px] bg-[#EDE6D9] rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.7rem] text-[#635C4B] text-right">
+            <span className="font-rb-mono text-[0.65rem] md:text-[0.7rem] text-[#635C4B] text-right whitespace-nowrap">
               {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
@@ -136,7 +136,7 @@ export function CourseCard({
       {/* COLLAPSED HEADER */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full text-left p-5 md:p-6 grid grid-cols-[1fr_auto] gap-6 items-center"
+        className="w-full text-left p-4 md:p-6 grid grid-cols-[minmax(0,1fr)_auto] gap-3 md:gap-6 items-start md:items-center"
       >
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -191,12 +191,17 @@ export function CourseCard({
             </p>
           )}
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <div className="flex flex-col items-end gap-1.5">
-            <PampasScoreBadge score={course.pampasScore} />
+            <div className="md:hidden">
+              <PampasScoreBadge score={course.pampasScore} small />
+            </div>
+            <div className="hidden md:block">
+              <PampasScoreBadge score={course.pampasScore} />
+            </div>
             {activePersona && personal != null && (
               <div
-                className="font-rb-mono text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5"
+                className="font-rb-mono text-[0.55rem] md:text-[0.6rem] tracking-[0.1em] uppercase px-1.5 md:px-2 py-0.5 whitespace-nowrap"
                 style={{
                   color: activePersona.color,
                   background: `${activePersona.color}18`,
@@ -217,7 +222,7 @@ export function CourseCard({
 
       {/* EXPANDED */}
       {open && (
-        <div className="border-t border-[rgba(28,61,42,0.15)] p-5 md:p-6 space-y-8 bg-[#F4EFE5]">
+        <div className="border-t border-[rgba(28,61,42,0.15)] p-4 md:p-6 space-y-6 md:space-y-8 bg-[#F4EFE5]">
           {/* PER HOST */}
           <div>
             <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
@@ -270,23 +275,23 @@ export function CourseCard({
                       </p>
                     )}
 
-                    <div className="mt-auto space-y-1.5 pt-3 border-t border-[rgba(28,61,42,0.1)]">
+                    <div className="mt-auto space-y-2 pt-3 border-t border-[rgba(28,61,42,0.1)]">
                       {r.one_word && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.one_word}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.one_word}</span>
                         </div>
                       )}
                       {r.hole_of_day && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.hole_of_day}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.hole_of_day}</span>
                         </div>
                       )}
                       {r.would_return && (
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex flex-col gap-0.5">
                           <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
-                          <span className="font-rb-sans text-[0.78rem] text-[#1C3D2A]">{r.would_return}</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.would_return}</span>
                         </div>
                       )}
                     </div>
