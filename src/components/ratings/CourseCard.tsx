@@ -191,12 +191,17 @@ export function CourseCard({
             </p>
           )}
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <div className="flex flex-col items-end gap-1.5">
-            <PampasScoreBadge score={course.pampasScore} />
+            <div className="md:hidden">
+              <PampasScoreBadge score={course.pampasScore} small />
+            </div>
+            <div className="hidden md:block">
+              <PampasScoreBadge score={course.pampasScore} />
+            </div>
             {activePersona && personal != null && (
               <div
-                className="font-rb-mono text-[0.6rem] tracking-[0.1em] uppercase px-2 py-0.5"
+                className="font-rb-mono text-[0.55rem] md:text-[0.6rem] tracking-[0.1em] uppercase px-1.5 md:px-2 py-0.5 whitespace-nowrap"
                 style={{
                   color: activePersona.color,
                   background: `${activePersona.color}18`,
