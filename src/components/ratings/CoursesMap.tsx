@@ -2,7 +2,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { geocodeAddress } from "@/lib/geocode.functions";
+import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import type { CourseWithRatings } from "@/data/courses-db";
+
 
 declare global {
   interface Window {
@@ -142,12 +144,18 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+  const [apiKey, setApiKey] = useState<string>("");
+  const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
   useEffect(() => {
     setMounted(true);
     setCoords(loadCache());
-  }, []);
+    fetchKey()
+      .then((r) => setApiKey(r?.key || ""))
+      .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
+  }, [fetchKey]);
+
 
   // Geocode any rated courses missing from cache.
   useEffect(() => {
@@ -197,10 +205,12 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     let authCheck: number | null = null;
     let authCheckStop: number | null = null;
     if (located.length === 0) return;
+    if (!apiKey) return;
     const onAuthError = () => setError(MAP_AUTH_ERROR);
     window.addEventListener("pampas-map-auth-error", onAuthError);
     if (window.__pampasMapAuthError) onAuthError();
-    loadMaps()
+    loadMaps(apiKey)
+
       .then(() => {
         if (cancelled || !ref.current || !window.google) return;
         if (!mapRef.current) {
