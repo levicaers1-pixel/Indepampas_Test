@@ -2,7 +2,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { geocodeAddress } from "@/lib/geocode.functions";
+import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import type { CourseWithRatings } from "@/data/courses-db";
+
 
 declare global {
   interface Window {
@@ -36,7 +38,7 @@ function saveCache(c: Record<string, Coord>) {
   }
 }
 
-function loadMaps(): Promise<void> {
+function loadMaps(apiKey: string): Promise<void> {
   if (window.google?.maps) return Promise.resolve();
   return new Promise((resolve, reject) => {
     let settled = false;
@@ -86,19 +88,19 @@ function loadMaps(): Promise<void> {
       }, 50);
       return;
     }
-    const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
     const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
-    if (!key) return fail("Google Maps browser key ontbreekt in deze deployment.");
+    if (!apiKey) return fail("Google Maps browser key ontbreekt in deze deployment.");
     const s = document.createElement("script");
     s.id = SCRIPT_ID;
     s.async = true;
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&callback=__pampasInitMap${
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&callback=__pampasInitMap${
       channel ? `&channel=${channel}` : ""
     }`;
     s.onerror = () => fail("Google Maps script kon niet geladen worden.");
     document.head.appendChild(s);
   });
 }
+
 
 function tierColor(score: number) {
   if (score >= 80) return "#1A3D2B";
@@ -142,12 +144,18 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
+  const [apiKey, setApiKey] = useState<string>("");
+  const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
   useEffect(() => {
     setMounted(true);
     setCoords(loadCache());
-  }, []);
+    fetchKey()
+      .then((r) => setApiKey(r?.key || ""))
+      .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
+  }, [fetchKey]);
+
 
   // Geocode any rated courses missing from cache.
   useEffect(() => {
@@ -197,10 +205,12 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     let authCheck: number | null = null;
     let authCheckStop: number | null = null;
     if (located.length === 0) return;
+    if (!apiKey) return;
     const onAuthError = () => setError(MAP_AUTH_ERROR);
     window.addEventListener("pampas-map-auth-error", onAuthError);
     if (window.__pampasMapAuthError) onAuthError();
-    loadMaps()
+    loadMaps(apiKey)
+
       .then(() => {
         if (cancelled || !ref.current || !window.google) return;
         if (!mapRef.current) {
@@ -295,7 +305,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
-  }, [located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
+  }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
