@@ -385,3 +385,260 @@ export async function downloadInstagramFrontpage(
   document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+
+// ===================================================================
+// PER-COURSE variant: aggregates all host ratings into one frontpage.
+// ===================================================================
+
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export async function generateInstagramFrontpageForCourse(
+  course: Course,
+  ratings: Rating[],
+): Promise<Blob> {
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d")!;
+
+  ctx.fillStyle = COLORS.bg;
+  ctx.fillRect(0, 0, W, H);
+
+  const PAD = 72;
+  let cursorY = PAD;
+
+  // ===== TOP CHIPS ROW =====
+  ctx.textBaseline = "middle";
+  const chipsY = cursorY;
+  let chipX = PAD;
+
+  const regionText = `${(course.region ?? "").toUpperCase()}${course.country ? ` · ${course.country.toUpperCase()}` : ""}`;
+  ctx.font = `600 18px ${MONO}`;
+  ctx.fillStyle = COLORS.muted;
+  ctx.textAlign = "left";
+  ctx.fillText(regionText, chipX, chipsY + 14);
+  chipX += ctx.measureText(regionText).width + 24;
+
+  if (course.type) {
+    const w = drawPill(ctx, course.type.toUpperCase(), chipX, chipsY, {
+      bg: COLORS.pill,
+      fg: COLORS.ink,
+      font: `600 14px ${MONO}`,
+    });
+    chipX += w + 10;
+  }
+  if (course.fee_category) {
+    const w = drawPill(ctx, course.fee_category, chipX, chipsY, {
+      bg: COLORS.pill,
+      fg: COLORS.muted,
+      font: `600 14px ${MONO}`,
+    });
+    chipX += w + 10;
+  }
+
+  cursorY += 70;
+
+  // ===== TITLE =====
+  ctx.fillStyle = COLORS.ink;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  const titleSize = course.name.length > 22 ? 78 : 96;
+  ctx.font = `400 ${titleSize}px ${SERIF}`;
+  const titleMaxW = W - PAD * 2 - 200;
+  const titleLines = wrapText(ctx, course.name, titleMaxW);
+  const lineHeight = titleSize * 1.02;
+  for (let i = 0; i < titleLines.length; i++) {
+    ctx.fillText(titleLines[i], PAD, cursorY + i * lineHeight);
+  }
+  const titleEndY = cursorY + titleLines.length * lineHeight;
+
+  // ===== PAMPAS SCORE BADGE (avg of host scores) =====
+  const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => !Number.isNaN(n));
+  const pampasScore =
+    hostScores.length > 0
+      ? hostScores.reduce((a, b) => a + b, 0) / hostScores.length
+      : 0;
+  const sc = scoreColor(pampasScore);
+  const badgeR = 78;
+  const badgeCX = W - PAD - badgeR;
+  const badgeCY = cursorY + badgeR + 6;
+  ctx.beginPath();
+  ctx.arc(badgeCX, badgeCY, badgeR, 0, Math.PI * 2);
+  ctx.fillStyle = COLORS.bg;
+  ctx.fill();
+  ctx.strokeStyle = sc.hex;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.fillStyle = sc.hex;
+  ctx.font = `400 56px ${SERIF}`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(String(Math.round(pampasScore)), badgeCX, badgeCY - 14);
+  ctx.font = `700 11px ${MONO}`;
+  ctx.fillText("PAMPAS", badgeCX, badgeCY + 20);
+  ctx.font = `700 13px ${MONO}`;
+  ctx.fillText(sc.label.toUpperCase(), badgeCX, badgeCY + 38);
+
+  cursorY = titleEndY + 40;
+
+  // ===== HOST SCORE CARDS (3 columns) =====
+  const gap = 20;
+  const cardW = (W - PAD * 2 - gap * 2) / 3;
+  const cardH = 130;
+  for (let i = 0; i < HOSTS.length; i++) {
+    const host = HOSTS[i];
+    const persona = HOST_PERSONAS[host];
+    const cx = PAD + i * (cardW + gap);
+    const r = ratings.find((x) => x.host === host);
+
+    // card bg
+    roundedRect(ctx, cx, cursorY, cardW, cardH, 8);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fill();
+    ctx.strokeStyle = COLORS.border;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // top color band
+    ctx.fillStyle = persona.color;
+    roundedRect(ctx, cx, cursorY, cardW, 6, 3);
+    ctx.fill();
+
+    // host name
+    ctx.font = `700 14px ${MONO}`;
+    ctx.fillStyle = COLORS.muted;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText(host.toUpperCase(), cx + 20, cursorY + 22);
+
+    // handicap
+    ctx.font = `500 12px ${MONO}`;
+    ctx.fillStyle = COLORS.muted;
+    ctx.textAlign = "right";
+    ctx.fillText(`HCP ${persona.handicap}`, cx + cardW - 20, cursorY + 22);
+
+    // score
+    if (r) {
+      const s = Number(r.host_score);
+      const sColor = scoreColor(s).hex;
+      ctx.font = `400 60px ${SERIF}`;
+      ctx.fillStyle = sColor;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText(String(Math.round(s)), cx + 20, cursorY + 44);
+      ctx.font = `500 14px ${MONO}`;
+      ctx.fillStyle = COLORS.muted;
+      ctx.fillText("/ 100", cx + 20 + ctx.measureText(String(Math.round(s))).width + 8, cursorY + 78);
+
+      // one-word tag
+      if (r.one_word) {
+        ctx.font = `italic 16px ${SERIF}`;
+        ctx.fillStyle = COLORS.ink2;
+        ctx.textAlign = "right";
+        ctx.textBaseline = "bottom";
+        const oneWord = r.one_word.length > 18 ? r.one_word.slice(0, 17) + "…" : r.one_word;
+        ctx.fillText(`"${oneWord}"`, cx + cardW - 20, cursorY + cardH - 18);
+      }
+    } else {
+      ctx.font = `italic 18px ${SERIF}`;
+      ctx.fillStyle = COLORS.muted;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Nog niet gespeeld", cx + 20, cursorY + cardH / 2 + 8);
+    }
+  }
+  cursorY += cardH + 36;
+
+  // separator
+  ctx.strokeStyle = COLORS.border;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, cursorY);
+  ctx.lineTo(W - PAD, cursorY);
+  ctx.stroke();
+  cursorY += 24;
+
+  // ===== SCORE PER CRITERIUM (average across hosts) =====
+  ctx.font = `700 14px ${MONO}`;
+  ctx.fillStyle = COLORS.muted;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillText("SCORE PER CRITERIUM · GEMIDDELDE", PAD, cursorY);
+  cursorY += 28;
+
+  const labelW = 200;
+  const valueW = 90;
+  const barX = PAD + labelW;
+  const barW = W - PAD * 2 - labelW - valueW;
+  const rowH = 30;
+
+  for (const c of CRITERIA) {
+    const vals = ratings
+      .map((r) => Number((r as any)[c.key]))
+      .filter((n) => !Number.isNaN(n));
+    const v = vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+    const pct = Math.min(v / 10, 1);
+
+    ctx.font = `500 16px ${SANS}`;
+    ctx.fillStyle = COLORS.ink2;
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "left";
+    ctx.fillText(c.label, PAD, cursorY + rowH / 2);
+
+    const trackY = cursorY + rowH / 2 - 4;
+    roundedRect(ctx, barX, trackY, barW, 8, 4);
+    ctx.fillStyle = COLORS.barTrack;
+    ctx.fill();
+    roundedRect(ctx, barX, trackY, Math.max(8, barW * pct), 8, 4);
+    ctx.fillStyle = barColor(v);
+    ctx.fill();
+
+    ctx.font = `600 14px ${MONO}`;
+    ctx.fillStyle = COLORS.muted;
+    ctx.textAlign = "right";
+    ctx.fillText(
+      `${v.toFixed(1)} · ${Math.round(c.weight * 100)}%`,
+      W - PAD,
+      cursorY + rowH / 2,
+    );
+
+    cursorY += rowH + 4;
+  }
+
+  // ===== FOOTER =====
+  cursorY = H - PAD - 4;
+  ctx.font = `700 14px ${MONO}`;
+  ctx.fillStyle = COLORS.muted;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("INDEPAMPAS.BE", PAD, cursorY);
+  ctx.textAlign = "right";
+  ctx.fillStyle = COLORS.accent;
+  ctx.fillText("PAMPAS · PARCOURS RATINGS", W - PAD, cursorY);
+
+  return await new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Canvas export failed"))), "image/png", 0.95);
+  });
+}
+
+export async function downloadInstagramFrontpageForCourse(
+  course: Course,
+  ratings: Rating[],
+) {
+  const blob = await generateInstagramFrontpageForCourse(course, ratings);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `pampas-ig-${slugify(course.name)}-baan.png`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}

@@ -8,7 +8,7 @@ import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/person
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
-import { downloadInstagramFrontpage } from "@/lib/instagramFrontpage";
+import { downloadInstagramFrontpage, downloadInstagramFrontpageForCourse } from "@/lib/instagramFrontpage";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
@@ -353,9 +353,22 @@ function RatingsTab() {
         <div className="space-y-3">
           {filteredItems.map((c) => (
             <div key={c.id} className="border border-[#2A2A26] bg-[#1A1A18]">
-              <div className="px-4 py-3 border-b border-[#2A2A26] flex items-baseline justify-between">
-                <span className="font-medium">{c.name}</span>
-                <span className="text-xs text-[#8A8270]">{c.region ?? c.country}</span>
+              <div className="px-4 py-3 border-b border-[#2A2A26] flex items-center justify-between gap-3">
+                <div className="flex items-baseline gap-3 min-w-0">
+                  <span className="font-medium truncate">{c.name}</span>
+                  <span className="text-xs text-[#8A8270] shrink-0">{c.region ?? c.country}</span>
+                </div>
+                {c.ratings.length > 0 && (
+                  <button
+                    onClick={() => {
+                      downloadInstagramFrontpageForCourse(c, c.ratings).catch((e) => toast.error(e.message));
+                    }}
+                    className="text-[10px] tracking-[0.15em] uppercase text-[#E8E4D8] border border-[#2A2A26] px-2.5 py-1 hover:border-[#BA7517] hover:text-[#BA7517] shrink-0"
+                    title="Download 1080x1080 Instagram frontpage voor de hele baan"
+                  >
+                    📸 IG · Baan
+                  </button>
+                )}
               </div>
               <div className="divide-y divide-[#2A2A26]">
                 {HOSTS.map((host) => {
