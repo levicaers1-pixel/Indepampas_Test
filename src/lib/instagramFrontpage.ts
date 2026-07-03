@@ -412,149 +412,88 @@ export async function generateInstagramFrontpageForCourse(
   ctx.fillRect(0, 0, W, H);
 
   const PAD = 72;
-  let cursorY = PAD;
 
-  // ===== TOP CHIPS ROW =====
-  ctx.textBaseline = "middle";
-  const chipsY = cursorY;
-  let chipX = PAD;
-
-  const regionText = `${(course.region ?? "").toUpperCase()}${course.country ? ` · ${course.country.toUpperCase()}` : ""}`;
-  ctx.font = `600 18px ${MONO}`;
-  ctx.fillStyle = COLORS.muted;
-  ctx.textAlign = "left";
-  ctx.fillText(regionText, chipX, chipsY + 14);
-  chipX += ctx.measureText(regionText).width + 24;
-
-  if (course.type) {
-    const w = drawPill(ctx, course.type.toUpperCase(), chipX, chipsY, {
-      bg: COLORS.pill,
-      fg: COLORS.ink,
-      font: `600 14px ${MONO}`,
-    });
-    chipX += w + 10;
-  }
-  if (course.fee_category) {
-    const w = drawPill(ctx, course.fee_category, chipX, chipsY, {
-      bg: COLORS.pill,
-      fg: COLORS.muted,
-      font: `600 14px ${MONO}`,
-    });
-    chipX += w + 10;
-  }
-
-  cursorY += 70;
-
-  // ===== TITLE =====
-  ctx.fillStyle = COLORS.ink;
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  const titleSize = course.name.length > 22 ? 78 : 96;
-  ctx.font = `400 ${titleSize}px ${SERIF}`;
-  const titleMaxW = W - PAD * 2 - 200;
-  const titleLines = wrapText(ctx, course.name, titleMaxW);
-  const lineHeight = titleSize * 1.02;
-  for (let i = 0; i < titleLines.length; i++) {
-    ctx.fillText(titleLines[i], PAD, cursorY + i * lineHeight);
-  }
-  const titleEndY = cursorY + titleLines.length * lineHeight;
-
-  // ===== PAMPAS SCORE BADGE (avg of host scores) =====
+  // ===== PAMPAS SCORE (top-left, massive) =====
   const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => !Number.isNaN(n));
   const pampasScore =
     hostScores.length > 0
       ? hostScores.reduce((a, b) => a + b, 0) / hostScores.length
       : 0;
   const sc = scoreColor(pampasScore);
-  const badgeR = 78;
-  const badgeCX = W - PAD - badgeR;
-  const badgeCY = cursorY + badgeR + 6;
-  ctx.beginPath();
-  ctx.arc(badgeCX, badgeCY, badgeR, 0, Math.PI * 2);
-  ctx.fillStyle = COLORS.bg;
-  ctx.fill();
-  ctx.strokeStyle = sc.hex;
-  ctx.lineWidth = 3;
-  ctx.stroke();
+  const scoreStr = String(Math.round(pampasScore));
+
+  const scoreTop = PAD - 8;
   ctx.fillStyle = sc.hex;
-  ctx.font = `400 56px ${SERIF}`;
+  ctx.font = `700 200px ${SERIF}`;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  ctx.fillText(scoreStr, PAD, scoreTop);
+  const scoreW = ctx.measureText(scoreStr).width;
+
+  // "/100" suffix
+  ctx.font = `500 44px ${SERIF}`;
+  ctx.fillStyle = `${sc.hex}99`;
+  ctx.fillText("/100", PAD + scoreW + 6, scoreTop + 30);
+
+  // ===== TOPKLASSE PILL (top-right) =====
+  const pillLabel = sc.label.toUpperCase();
+  ctx.font = `700 22px ${MONO}`;
+  const pillTextW = ctx.measureText(pillLabel).width;
+  const pillPadX = 34;
+  const pillH = 60;
+  const pillW = pillTextW + pillPadX * 2;
+  const pillX = W - PAD - pillW;
+  const pillY = PAD + 14;
+  roundedRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+  ctx.fillStyle = sc.hex;
+  ctx.fill();
+  ctx.fillStyle = "#FFFFFF";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(String(Math.round(pampasScore)), badgeCX, badgeCY - 14);
-  ctx.font = `700 11px ${MONO}`;
-  ctx.fillText("PAMPAS", badgeCX, badgeCY + 20);
-  ctx.font = `700 13px ${MONO}`;
-  ctx.fillText(sc.label.toUpperCase(), badgeCX, badgeCY + 38);
+  ctx.fillText(pillLabel, pillX + pillW / 2, pillY + pillH / 2 + 1);
 
-  cursorY = titleEndY + 40;
+  // Region · country under pill
+  const regionText = `${(course.region ?? "").toUpperCase()}${course.country ? ` · ${course.country.toUpperCase()}` : ""}`;
+  ctx.font = `600 20px ${MONO}`;
+  ctx.fillStyle = COLORS.muted;
+  ctx.textAlign = "right";
+  ctx.textBaseline = "top";
+  ctx.fillText(regionText, W - PAD, pillY + pillH + 20);
 
-  // ===== HOST SCORE CARDS (3 columns) =====
-  const gap = 20;
-  const cardW = (W - PAD * 2 - gap * 2) / 3;
-  const cardH = 130;
-  for (let i = 0; i < HOSTS.length; i++) {
-    const host = HOSTS[i];
-    const persona = HOST_PERSONAS[host];
-    const cx = PAD + i * (cardW + gap);
-    const r = ratings.find((x) => x.host === host);
-
-    // card bg
-    roundedRect(ctx, cx, cursorY, cardW, cardH, 8);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fill();
-    ctx.strokeStyle = COLORS.border;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    // top color band
-    ctx.fillStyle = persona.color;
-    roundedRect(ctx, cx, cursorY, cardW, 6, 3);
-    ctx.fill();
-
-    // host name
-    ctx.font = `700 14px ${MONO}`;
-    ctx.fillStyle = COLORS.muted;
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.fillText(host.toUpperCase(), cx + 20, cursorY + 22);
-
-    // handicap
-    ctx.font = `500 12px ${MONO}`;
-    ctx.fillStyle = COLORS.muted;
-    ctx.textAlign = "right";
-    ctx.fillText(`HCP ${persona.handicap}`, cx + cardW - 20, cursorY + 22);
-
-    // score
-    if (r) {
-      const s = Number(r.host_score);
-      const sColor = scoreColor(s).hex;
-      ctx.font = `400 60px ${SERIF}`;
-      ctx.fillStyle = sColor;
-      ctx.textAlign = "left";
-      ctx.textBaseline = "top";
-      ctx.fillText(String(Math.round(s)), cx + 20, cursorY + 44);
-      ctx.font = `500 14px ${MONO}`;
-      ctx.fillStyle = COLORS.muted;
-      ctx.fillText("/ 100", cx + 20 + ctx.measureText(String(Math.round(s))).width + 8, cursorY + 78);
-
-      // one-word tag
-      if (r.one_word) {
-        ctx.font = `italic 16px ${SERIF}`;
-        ctx.fillStyle = COLORS.ink2;
-        ctx.textAlign = "right";
-        ctx.textBaseline = "bottom";
-        const oneWord = r.one_word.length > 18 ? r.one_word.slice(0, 17) + "…" : r.one_word;
-        ctx.fillText(`"${oneWord}"`, cx + cardW - 20, cursorY + cardH - 18);
-      }
-    } else {
-      ctx.font = `italic 18px ${SERIF}`;
-      ctx.fillStyle = COLORS.muted;
-      ctx.textAlign = "left";
-      ctx.textBaseline = "middle";
-      ctx.fillText("Nog niet gespeeld", cx + 20, cursorY + cardH / 2 + 8);
-    }
+  // ===== TITLE =====
+  let cursorY = scoreTop + 220;
+  ctx.fillStyle = COLORS.ink2;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  const titleSize = course.name.length > 24 ? 62 : 70;
+  ctx.font = `700 ${titleSize}px ${SERIF}`;
+  const titleLines = wrapText(ctx, course.name, W - PAD * 2);
+  const titleLH = titleSize * 1.05;
+  for (let i = 0; i < titleLines.length; i++) {
+    ctx.fillText(titleLines[i], PAD, cursorY + i * titleLH);
   }
-  cursorY += cardH + 36;
+  cursorY += titleLines.length * titleLH + 14;
+
+  // ===== TYPE + FEE PILLS =====
+  let chipX = PAD;
+  if (course.type) {
+    const w = drawPill(ctx, course.type.toUpperCase(), chipX, cursorY, {
+      bg: COLORS.pill,
+      fg: COLORS.ink2,
+      font: `700 16px ${MONO}`,
+      padX: 18,
+    });
+    chipX += w + 10;
+  }
+  if (course.fee_category) {
+    drawPill(ctx, course.fee_category, chipX, cursorY, {
+      bg: COLORS.pill,
+      fg: COLORS.muted,
+      font: `700 16px ${MONO}`,
+      padX: 18,
+    });
+  }
+  cursorY += 60;
 
   // separator
   ctx.strokeStyle = COLORS.border;
@@ -565,19 +504,96 @@ export async function generateInstagramFrontpageForCourse(
   ctx.stroke();
   cursorY += 24;
 
-  // ===== SCORE PER CRITERIUM (average across hosts) =====
-  ctx.font = `700 14px ${MONO}`;
+  // ===== HOST SCORE CARDS =====
+  const gap = 20;
+  const cardW = (W - PAD * 2 - gap * 2) / 3;
+  const cardH = 170;
+  for (let i = 0; i < HOSTS.length; i++) {
+    const host = HOSTS[i];
+    const persona = HOST_PERSONAS[host];
+    const cx = PAD + i * (cardW + gap);
+    const r = ratings.find((x) => x.host === host);
+
+    // card bg
+    roundedRect(ctx, cx, cursorY, cardW, cardH, 6);
+    ctx.fillStyle = COLORS.bg;
+    ctx.fill();
+    ctx.strokeStyle = COLORS.border;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // top color band
+    ctx.fillStyle = persona.color;
+    ctx.fillRect(cx + 1, cursorY + 1, cardW - 2, 5);
+
+    // host name
+    ctx.font = `700 16px ${MONO}`;
+    ctx.fillStyle = COLORS.muted;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText(host.toUpperCase(), cx + 22, cursorY + 28);
+
+    // handicap
+    ctx.font = `500 14px ${MONO}`;
+    ctx.fillStyle = COLORS.muted;
+    ctx.textAlign = "right";
+    ctx.fillText(persona.handicap, cx + cardW - 22, cursorY + 30);
+
+    if (r) {
+      const s = Number(r.host_score);
+      const sColor = scoreColor(s).hex;
+      const sStr = String(Math.round(s));
+      ctx.font = `700 66px ${SERIF}`;
+      ctx.fillStyle = sColor;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText(sStr, cx + 22, cursorY + 58);
+      const sW = ctx.measureText(sStr).width;
+      ctx.font = `500 16px ${SERIF}`;
+      ctx.fillStyle = `${sColor}99`;
+      ctx.fillText("/100", cx + 22 + sW + 4, cursorY + 78);
+
+      // one-word tag
+      if (r.one_word) {
+        ctx.font = `italic 18px ${SERIF}`;
+        ctx.fillStyle = COLORS.ink2;
+        ctx.textAlign = "left";
+        ctx.textBaseline = "bottom";
+        const ow = r.one_word.length > 22 ? r.one_word.slice(0, 21) + "…" : r.one_word;
+        ctx.fillText(`"${ow}"`, cx + 22, cursorY + cardH - 24);
+      }
+    } else {
+      ctx.font = `italic 18px ${SERIF}`;
+      ctx.fillStyle = COLORS.muted;
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Nog niet gespeeld", cx + 22, cursorY + 92);
+    }
+  }
+  cursorY += cardH + 32;
+
+  // separator
+  ctx.strokeStyle = COLORS.border;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, cursorY);
+  ctx.lineTo(W - PAD, cursorY);
+  ctx.stroke();
+  cursorY += 22;
+
+  // ===== SCORE PER CRITERIUM · GEMIDDELDE =====
+  ctx.font = `700 15px ${MONO}`;
   ctx.fillStyle = COLORS.muted;
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   ctx.fillText("SCORE PER CRITERIUM · GEMIDDELDE", PAD, cursorY);
-  cursorY += 28;
+  cursorY += 30;
 
-  const labelW = 200;
-  const valueW = 90;
+  const labelW = 240;
+  const valueW = 110;
   const barX = PAD + labelW;
   const barW = W - PAD * 2 - labelW - valueW;
-  const rowH = 30;
+  const rowH = 32;
 
   for (const c of CRITERIA) {
     const vals = ratings
@@ -586,21 +602,22 @@ export async function generateInstagramFrontpageForCourse(
     const v = vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
     const pct = Math.min(v / 10, 1);
 
-    ctx.font = `500 16px ${SANS}`;
+    ctx.font = `500 20px ${SERIF}`;
     ctx.fillStyle = COLORS.ink2;
     ctx.textBaseline = "middle";
     ctx.textAlign = "left";
     ctx.fillText(c.label, PAD, cursorY + rowH / 2);
 
-    const trackY = cursorY + rowH / 2 - 4;
-    roundedRect(ctx, barX, trackY, barW, 8, 4);
+    const trackH = 12;
+    const trackY = cursorY + rowH / 2 - trackH / 2;
+    roundedRect(ctx, barX, trackY, barW, trackH, trackH / 2);
     ctx.fillStyle = COLORS.barTrack;
     ctx.fill();
-    roundedRect(ctx, barX, trackY, Math.max(8, barW * pct), 8, 4);
+    roundedRect(ctx, barX, trackY, Math.max(trackH, barW * pct), trackH, trackH / 2);
     ctx.fillStyle = barColor(v);
     ctx.fill();
 
-    ctx.font = `600 14px ${MONO}`;
+    ctx.font = `600 15px ${MONO}`;
     ctx.fillStyle = COLORS.muted;
     ctx.textAlign = "right";
     ctx.fillText(
@@ -613,15 +630,22 @@ export async function generateInstagramFrontpageForCourse(
   }
 
   // ===== FOOTER =====
-  cursorY = H - PAD - 4;
-  ctx.font = `700 14px ${MONO}`;
+  const footerY = H - PAD;
+  ctx.strokeStyle = COLORS.border;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(PAD, footerY - 32);
+  ctx.lineTo(W - PAD, footerY - 32);
+  ctx.stroke();
+
+  ctx.font = `700 15px ${MONO}`;
   ctx.fillStyle = COLORS.muted;
   ctx.textAlign = "left";
   ctx.textBaseline = "bottom";
-  ctx.fillText("INDEPAMPAS.BE", PAD, cursorY);
+  ctx.fillText("INDEPAMPAS.BE", PAD, footerY);
   ctx.textAlign = "right";
   ctx.fillStyle = COLORS.accent;
-  ctx.fillText("PAMPAS · PARCOURS RATINGS", W - PAD, cursorY);
+  ctx.fillText("PAMPAS · PARCOURS RATINGS", W - PAD, footerY);
 
   return await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("Canvas export failed"))), "image/png", 0.95);
