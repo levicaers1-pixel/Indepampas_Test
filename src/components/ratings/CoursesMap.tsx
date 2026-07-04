@@ -128,11 +128,19 @@ const countryCode = (c: string) => {
   return undefined;
 };
 
-export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
+export function CoursesMap({
+  courses,
+  onSelectCourse,
+}: {
+  courses: CourseWithRatings[];
+  onSelectCourse?: (courseId: string) => void;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
   const geocode = useServerFn(geocodeAddress);
+  const onSelectRef = useRef(onSelectCourse);
+  onSelectRef.current = onSelectCourse;
 
   // Only show courses that have at least one rating (the ones with reviews/scores).
   const ratedCourses = useMemo(
@@ -145,7 +153,6 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [apiKey, setApiKey] = useState<string>("");
-  const [reviewSlugs, setReviewSlugs] = useState<Set<string>>(new Set());
   const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
@@ -155,15 +162,6 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
-    // Load slugs of courses that actually have a review page under /ratings/$slug.
-    import("@/integrations/supabase/client").then(({ supabase }) => {
-      supabase
-        .from("course_ratings")
-        .select("slug")
-        .then(({ data }) => {
-          if (data) setReviewSlugs(new Set(data.map((r: { slug: string }) => r.slug)));
-        });
-    });
   }, [fetchKey]);
 
 
@@ -248,8 +246,6 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
         const info = new window.google.maps.InfoWindow();
 
         located.forEach(({ course: c, lat, lng }) => {
-          const slug = slugify(c.name);
-          const hasReview = reviewSlugs.has(slug);
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
@@ -291,11 +287,21 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
                 <div style="margin-top:4px">${hostRows}</div>
                 <div style="margin-top:10px">
                   ${ep}
-                  ${hasReview ? `<a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>` : ""}
+                  <button type="button" data-pampas-select="${c.id}" style="background:none;border:none;padding:0;cursor:pointer;color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;font-family:inherit">Bekijk beoordeling →</button>
                 </div>
               </div>`,
             );
             info.open({ anchor: marker, map: mapRef.current! });
+            // Wire the in-InfoWindow button once it's rendered in the DOM.
+            window.setTimeout(() => {
+              const btn = document.querySelector<HTMLButtonElement>(
+                `button[data-pampas-select="${c.id}"]`,
+              );
+              btn?.addEventListener("click", () => {
+                info.close();
+                onSelectRef.current?.(c.id);
+              });
+            }, 0);
           });
 
           markersRef.current.push(marker);
@@ -316,7 +322,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
-  }, [apiKey, reviewSlugs, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
+  }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">

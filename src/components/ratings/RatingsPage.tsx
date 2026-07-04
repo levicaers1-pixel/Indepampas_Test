@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
@@ -31,6 +31,31 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [sort, setSort] = useState<SortKey>("pampas_desc");
   const [activeHost, setActiveHost] = useState<HostName | null>(null);
   const [tab, setTab] = useState<Tab>("courses");
+  const [focusedCourseId, setFocusedCourseId] = useState<string | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSelectFromMap = (courseId: string) => {
+    const target = courses.find((c) => c.id === courseId);
+    if (!target) return;
+    // Clear filters that could hide this course; keep search empty so it appears.
+    setSearch(target.name);
+    setRegion("");
+    setCountry("");
+    setType("");
+    setFee("");
+    setHostFilter(new Set());
+    setSort("pampas_desc");
+    setTab("courses");
+    setFocusedCourseId(courseId);
+  };
+
+  useEffect(() => {
+    if (!focusedCourseId) return;
+    const el = document.getElementById(`course-${focusedCourseId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [focusedCourseId, tab]);
 
   const countries = useMemo(
     () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
@@ -153,7 +178,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       </div>
 
       {/* COURSES MAP */}
-      <CoursesMap courses={courses} />
+      <CoursesMap courses={courses} onSelectCourse={handleSelectFromMap} />
 
 
       {/* ACTIVE PERSPECTIVE BANNER */}
@@ -270,18 +295,20 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           </div>
 
           {/* COURSE LIST */}
-          <div className="px-6 lg:px-14 py-10 space-y-4">
+          <div ref={listRef} className="px-6 lg:px-14 py-10 space-y-4">
             {filtered.length === 0 ? (
               <div className="text-center py-20 font-rb-sans text-[#635C4B]">
                 ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
               </div>
             ) : (
               filtered.map((c) => (
-                <CourseCard
-                  key={c.id}
-                  course={c}
-                  activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
-                />
+                <div key={c.id} id={`course-${c.id}`} className="scroll-mt-24">
+                  <CourseCard
+                    course={c}
+                    activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
+                    autoOpen={focusedCourseId === c.id}
+                  />
+                </div>
               ))
             )}
           </div>
