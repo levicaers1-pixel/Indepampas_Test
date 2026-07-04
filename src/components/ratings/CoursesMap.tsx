@@ -145,6 +145,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [apiKey, setApiKey] = useState<string>("");
+  const [reviewSlugs, setReviewSlugs] = useState<Set<string>>(new Set());
   const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
@@ -154,6 +155,15 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
+    // Load slugs of courses that actually have a review page under /ratings/$slug.
+    import("@/integrations/supabase/client").then(({ supabase }) => {
+      supabase
+        .from("course_ratings")
+        .select("slug")
+        .then(({ data }) => {
+          if (data) setReviewSlugs(new Set(data.map((r: { slug: string }) => r.slug)));
+        });
+    });
   }, [fetchKey]);
 
 
