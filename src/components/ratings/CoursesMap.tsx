@@ -128,11 +128,19 @@ const countryCode = (c: string) => {
   return undefined;
 };
 
-export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
+export function CoursesMap({
+  courses,
+  onSelectCourse,
+}: {
+  courses: CourseWithRatings[];
+  onSelectCourse?: (courseId: string) => void;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
   const geocode = useServerFn(geocodeAddress);
+  const onSelectRef = useRef(onSelectCourse);
+  onSelectRef.current = onSelectCourse;
 
   // Only show courses that have at least one rating (the ones with reviews/scores).
   const ratedCourses = useMemo(
@@ -145,7 +153,6 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [apiKey, setApiKey] = useState<string>("");
-  const [reviewSlugs, setReviewSlugs] = useState<Set<string>>(new Set());
   const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
