@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Play, ExternalLink, Flame } from "lucide-react";
 import {
@@ -112,11 +112,16 @@ function CriteriaBars({
 export function CourseCard({
   course,
   activePersona,
+  autoOpen,
 }: {
   course: CourseWithRatings;
   activePersona: Persona | null;
+  autoOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(!!autoOpen);
+  useEffect(() => {
+    if (autoOpen) setOpen(true);
+  }, [autoOpen]);
 
   const ratedHosts = new Set(course.ratings.map((r) => r.host));
   const personal = useMemo(
