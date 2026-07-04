@@ -249,6 +249,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
 
         located.forEach(({ course: c, lat, lng }) => {
           const slug = slugify(c.name);
+          const hasReview = reviewSlugs.has(slug);
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
