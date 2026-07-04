@@ -145,6 +145,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [apiKey, setApiKey] = useState<string>("");
+  const [reviewSlugs, setReviewSlugs] = useState<Set<string>>(new Set());
   const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
@@ -154,6 +155,15 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
+    // Load slugs of courses that actually have a review page under /ratings/$slug.
+    import("@/integrations/supabase/client").then(({ supabase }) => {
+      supabase
+        .from("course_ratings")
+        .select("slug")
+        .then(({ data }) => {
+          if (data) setReviewSlugs(new Set(data.map((r: { slug: string }) => r.slug)));
+        });
+    });
   }, [fetchKey]);
 
 
@@ -239,6 +249,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
 
         located.forEach(({ course: c, lat, lng }) => {
           const slug = slugify(c.name);
+          const hasReview = reviewSlugs.has(slug);
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
@@ -280,7 +291,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
                 <div style="margin-top:4px">${hostRows}</div>
                 <div style="margin-top:10px">
                   ${ep}
-                  <a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>
+                  ${hasReview ? `<a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>` : ""}
                 </div>
               </div>`,
             );
@@ -305,7 +316,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
-  }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
+  }, [apiKey, reviewSlugs, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
