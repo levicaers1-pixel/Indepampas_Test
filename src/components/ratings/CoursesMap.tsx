@@ -162,15 +162,6 @@ export function CoursesMap({
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
-    // Load slugs of courses that actually have a review page under /ratings/$slug.
-    import("@/integrations/supabase/client").then(({ supabase }) => {
-      supabase
-        .from("course_ratings")
-        .select("slug")
-        .then(({ data }) => {
-          if (data) setReviewSlugs(new Set(data.map((r: { slug: string }) => r.slug)));
-        });
-    });
   }, [fetchKey]);
 
 
