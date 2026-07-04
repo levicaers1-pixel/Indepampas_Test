@@ -295,18 +295,20 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           </div>
 
           {/* COURSE LIST */}
-          <div className="px-6 lg:px-14 py-10 space-y-4">
+          <div ref={listRef} className="px-6 lg:px-14 py-10 space-y-4">
             {filtered.length === 0 ? (
               <div className="text-center py-20 font-rb-sans text-[#635C4B]">
                 ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
               </div>
             ) : (
               filtered.map((c) => (
-                <CourseCard
-                  key={c.id}
-                  course={c}
-                  activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
-                />
+                <div key={c.id} id={`course-${c.id}`} className="scroll-mt-24">
+                  <CourseCard
+                    course={c}
+                    activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
+                    autoOpen={focusedCourseId === c.id}
+                  />
+                </div>
               ))
             )}
           </div>
