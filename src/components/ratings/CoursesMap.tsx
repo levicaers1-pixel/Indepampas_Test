@@ -291,7 +291,7 @@ export function CoursesMap({ courses }: { courses: CourseWithRatings[] }) {
                 <div style="margin-top:4px">${hostRows}</div>
                 <div style="margin-top:10px">
                   ${ep}
-                  <a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>
+                  ${hasReview ? `<a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>` : ""}
                 </div>
               </div>`,
             );
