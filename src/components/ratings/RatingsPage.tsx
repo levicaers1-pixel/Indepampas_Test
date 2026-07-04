@@ -31,6 +31,31 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const [sort, setSort] = useState<SortKey>("pampas_desc");
   const [activeHost, setActiveHost] = useState<HostName | null>(null);
   const [tab, setTab] = useState<Tab>("courses");
+  const [focusedCourseId, setFocusedCourseId] = useState<string | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSelectFromMap = (courseId: string) => {
+    const target = courses.find((c) => c.id === courseId);
+    if (!target) return;
+    // Clear filters that could hide this course; keep search empty so it appears.
+    setSearch(target.name);
+    setRegion("");
+    setCountry("");
+    setType("");
+    setFee("");
+    setHostFilter(new Set());
+    setSort("pampas_desc");
+    setTab("courses");
+    setFocusedCourseId(courseId);
+  };
+
+  useEffect(() => {
+    if (!focusedCourseId) return;
+    const el = document.getElementById(`course-${focusedCourseId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [focusedCourseId, tab]);
 
   const countries = useMemo(
     () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
