@@ -246,8 +246,6 @@ export function CoursesMap({
         const info = new window.google.maps.InfoWindow();
 
         located.forEach(({ course: c, lat, lng }) => {
-          const slug = slugify(c.name);
-          const hasReview = reviewSlugs.has(slug);
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
@@ -289,11 +287,21 @@ export function CoursesMap({
                 <div style="margin-top:4px">${hostRows}</div>
                 <div style="margin-top:10px">
                   ${ep}
-                  ${hasReview ? `<a href="/ratings/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block">Lees review →</a>` : ""}
+                  <button type="button" data-pampas-select="${c.id}" style="background:none;border:none;padding:0;cursor:pointer;color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;font-family:inherit">Bekijk beoordeling →</button>
                 </div>
               </div>`,
             );
             info.open({ anchor: marker, map: mapRef.current! });
+            // Wire the in-InfoWindow button once it's rendered in the DOM.
+            window.setTimeout(() => {
+              const btn = document.querySelector<HTMLButtonElement>(
+                `button[data-pampas-select="${c.id}"]`,
+              );
+              btn?.addEventListener("click", () => {
+                info.close();
+                onSelectRef.current?.(c.id);
+              });
+            }, 0);
           });
 
           markersRef.current.push(marker);
