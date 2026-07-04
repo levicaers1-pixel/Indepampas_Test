@@ -178,7 +178,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       </div>
 
       {/* COURSES MAP */}
-      <CoursesMap courses={courses} />
+      <CoursesMap courses={courses} onSelectCourse={handleSelectFromMap} />
 
 
       {/* ACTIVE PERSPECTIVE BANNER */}
