@@ -322,7 +322,7 @@ export function CoursesMap({
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
     };
-  }, [apiKey, reviewSlugs, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
+  }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
