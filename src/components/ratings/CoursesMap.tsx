@@ -279,6 +279,10 @@ export function CoursesMap({
             const ep = c.episode_url
               ? `<a href="${c.episode_url}" target="_blank" rel="noopener" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;margin-right:10px">Beluister aflevering →</a>`
               : "";
+            const slug = slugMap.get(c.id);
+            const detail = slug
+              ? `<a href="/courses/${slug}" style="color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;margin-right:10px">Volledige pagina →</a>`
+              : "";
             info.setContent(
               `<div style="font-family:system-ui;padding:4px 6px;min-width:240px">
                 <div style="font-weight:600;color:#1C3D2A;font-size:14px">${c.name}</div>
@@ -288,8 +292,8 @@ export function CoursesMap({
                 </div>
                 <div style="margin-top:4px">${hostRows}</div>
                 <div style="margin-top:10px">
-                  ${ep}
-                  <button type="button" data-pampas-select="${c.id}" style="background:none;border:none;padding:0;cursor:pointer;color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;font-family:inherit">Bekijk beoordeling →</button>
+                  ${ep}${detail}
+                  <button type="button" data-pampas-select="${c.id}" style="background:none;border:none;padding:0;cursor:pointer;color:#3D7A52;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;display:inline-block;font-family:inherit">In lijst openen →</button>
                 </div>
               </div>`,
             );
