@@ -355,7 +355,9 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                     course={c}
                     activePersona={activeHost ? HOST_PERSONAS[activeHost] : null}
                     autoOpen={focusedCourseId === c.id}
+                    detailSlug={slugMap.get(c.id)}
                   />
+
                 </div>
               ))
             )}
