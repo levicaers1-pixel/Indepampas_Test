@@ -113,10 +113,12 @@ export function CourseCard({
   course,
   activePersona,
   autoOpen,
+  detailSlug,
 }: {
   course: CourseWithRatings;
   activePersona: Persona | null;
   autoOpen?: boolean;
+  detailSlug?: string;
 }) {
   const [open, setOpen] = useState(!!autoOpen);
   useEffect(() => {
@@ -334,12 +336,18 @@ export function CourseCard({
                 Website <ExternalLink size={10} />
               </a>
             )}
+            {detailSlug && (
+              <Link
+                to="/courses/$slug"
+                params={{ slug: detailSlug }}
+                className="inline-flex items-center gap-1 text-[#3D7A52] hover:text-[#1C3D2A] ml-auto"
+              >
+                Volledige pagina →
+              </Link>
+            )}
           </div>
         </div>
       )}
     </div>
   );
 }
-
-// satisfy unused import linter
-void Link;
