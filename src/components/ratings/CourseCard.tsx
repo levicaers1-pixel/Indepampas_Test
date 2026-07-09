@@ -113,10 +113,12 @@ export function CourseCard({
   course,
   activePersona,
   autoOpen,
+  detailSlug,
 }: {
   course: CourseWithRatings;
   activePersona: Persona | null;
   autoOpen?: boolean;
+  detailSlug?: string;
 }) {
   const [open, setOpen] = useState(!!autoOpen);
   useEffect(() => {

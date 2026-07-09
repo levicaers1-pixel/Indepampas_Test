@@ -20,6 +20,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
+import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -79,6 +80,11 @@ const RatingsSlugRoute = RatingsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => RatingsRoute,
 } as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
   '/ratings': typeof RatingsIndexRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog/'
     | '/ratings/'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog'
     | '/ratings'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog/'
     | '/ratings/'
@@ -200,6 +212,7 @@ export interface RootRouteChildren {
   HostsRoute: typeof HostsRoute
   RatingsRoute: typeof RatingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  CoursesSlugRoute: typeof CoursesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -281,6 +294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RatingsSlugRouteImport
       parentRoute: typeof RatingsRoute
     }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -351,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   HostsRoute: HostsRoute,
   RatingsRoute: RatingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  CoursesSlugRoute: CoursesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
