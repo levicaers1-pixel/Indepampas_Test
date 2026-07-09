@@ -160,7 +160,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const toggleHost = (h: HostName) => {
     const next = new Set(hostFilter);
     next.has(h) ? next.delete(h) : next.add(h);
-    setHostFilter(next);
+    setHostFilterUrl(next);
   };
 
   return (
