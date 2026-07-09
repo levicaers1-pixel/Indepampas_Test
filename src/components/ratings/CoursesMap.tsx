@@ -148,6 +148,7 @@ export function CoursesMap({
     () => courses.filter((c) => c.ratings.length > 0),
     [courses],
   );
+  const slugMap = useMemo(() => buildSlugMap(courses), [courses]);
 
   const [coords, setCoords] = useState<Record<string, Coord>>({});
   const [mounted, setMounted] = useState(false);
