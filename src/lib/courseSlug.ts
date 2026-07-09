@@ -34,3 +34,20 @@ export function findCourseBySlug<T extends Pick<CourseWithRatings, "id" | "name"
 ): T | undefined {
   return courses.find((c) => courseSlug(c, courses) === slug);
 }
+
+/** Build id → slug map once (O(n²) upfront, O(1) lookups afterwards). */
+export function buildSlugMap<T extends Pick<CourseWithRatings, "id" | "name">>(
+  courses: readonly T[],
+): Map<string, string> {
+  const baseCounts = new Map<string, number>();
+  for (const c of courses) {
+    const b = slugifyName(c.name);
+    baseCounts.set(b, (baseCounts.get(b) ?? 0) + 1);
+  }
+  const out = new Map<string, string>();
+  for (const c of courses) {
+    const b = slugifyName(c.name);
+    out.set(c.id, (baseCounts.get(b) ?? 1) > 1 ? `${b}-${c.id.slice(0, 6)}` : b);
+  }
+  return out;
+}
