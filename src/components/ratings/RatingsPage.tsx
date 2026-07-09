@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
+import { buildSlugMap } from "@/lib/courseSlug";
 import { CourseCard } from "./CourseCard";
 import { MatchQuiz } from "./MatchQuiz";
 import { CourseCompare } from "./CourseCompare";
@@ -21,31 +23,77 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "route", label: "Route builder" },
 ];
 
+const VALID_SORTS: SortKey[] = ["pampas_desc", "pampas_asc", "name", "recent"];
+const VALID_TABS: Tab[] = ["courses", "compare", "surprise", "hosts", "route"];
+const VALID_HOSTS = new Set<HostName>(HOSTS);
+
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
-  const [search, setSearch] = useState("");
-  const [region, setRegion] = useState("");
-  const [country, setCountry] = useState("");
-  const [type, setType] = useState("");
-  const [fee, setFee] = useState("");
-  const [hostFilter, setHostFilter] = useState<Set<HostName>>(new Set());
-  const [sort, setSort] = useState<SortKey>("pampas_desc");
+  const rawSearch = useSearch({ from: "/ratings/" });
+  const navigate = useNavigate({ from: "/ratings/" });
+
+  // Derive strictly-typed values from URL state (with safe fallbacks).
+  const search = rawSearch.q;
+  const region = rawSearch.region;
+  const country = rawSearch.country;
+  const type = rawSearch.type;
+  const fee = rawSearch.fee;
+  const sort: SortKey = VALID_SORTS.includes(rawSearch.sort as SortKey)
+    ? (rawSearch.sort as SortKey)
+    : "pampas_desc";
+  const tab: Tab = VALID_TABS.includes(rawSearch.tab as Tab)
+    ? (rawSearch.tab as Tab)
+    : "courses";
+  const hostFilter = useMemo<Set<HostName>>(() => {
+    const parts = (rawSearch.hosts || "").split(",").filter(Boolean) as HostName[];
+    return new Set(parts.filter((h) => VALID_HOSTS.has(h)));
+  }, [rawSearch.hosts]);
+
+  const update = (patch: Partial<{
+    q: string; region: string; country: string; type: string;
+    fee: string; hosts: string; sort: string; tab: string;
+  }>) => {
+    navigate({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      search: ((prev: any) => {
+        const next = { ...prev, ...patch };
+        // Strip empties to keep URLs clean.
+        for (const k of Object.keys(next)) {
+          if (next[k] === "" || next[k] == null) delete next[k];
+        }
+        return next;
+      }) as never,
+      replace: true,
+    });
+  };
+
+  const setSearch = (v: string) => update({ q: v });
+  const setRegion = (v: string) => update({ region: v });
+  const setCountry = (v: string) => update({ country: v, region: "" });
+  const setType = (v: string) => update({ type: v });
+  const setFee = (v: string) => update({ fee: v });
+  const setSort = (v: SortKey) => update({ sort: v });
+  const setTab = (v: Tab) => update({ tab: v });
+  const setHostFilterUrl = (next: Set<HostName>) =>
+    update({ hosts: Array.from(next).join(",") });
+
   const [activeHost, setActiveHost] = useState<HostName | null>(null);
-  const [tab, setTab] = useState<Tab>("courses");
   const [focusedCourseId, setFocusedCourseId] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const slugMap = useMemo(() => buildSlugMap(courses), [courses]);
 
   const handleSelectFromMap = (courseId: string) => {
     const target = courses.find((c) => c.id === courseId);
     if (!target) return;
-    // Clear filters that could hide this course; keep search empty so it appears.
-    setSearch(target.name);
-    setRegion("");
-    setCountry("");
-    setType("");
-    setFee("");
-    setHostFilter(new Set());
-    setSort("pampas_desc");
-    setTab("courses");
+    update({
+      q: target.name,
+      region: "",
+      country: "",
+      type: "",
+      fee: "",
+      hosts: "",
+      sort: "pampas_desc",
+      tab: "courses",
+    });
     setFocusedCourseId(courseId);
   };
 
