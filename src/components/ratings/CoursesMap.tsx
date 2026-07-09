@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
+import { buildSlugMap } from "@/lib/courseSlug";
 import type { CourseWithRatings } from "@/data/courses-db";
 
 
