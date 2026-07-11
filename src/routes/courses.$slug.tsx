@@ -64,17 +64,35 @@ export const Route = createFileRoute("/courses/$slug")({
         }));
     }
 
+    const playedDates = c.ratings.map((r) => r.played_on).filter(Boolean).sort() as string[];
+    const publishedTime = playedDates[0];
+    const modifiedTime = playedDates[playedDates.length - 1];
+    const keywords = [
+      c.name,
+      "golf review",
+      "Pampas Score",
+      ...(c.country ? [`golf ${c.country}`] : []),
+      ...(c.region ? [c.region] : []),
+    ].join(", ");
+
     return {
       meta: [
         { title },
         { name: "description", content: desc },
+        { name: "keywords", content: keywords },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:site_name", content: "PAMPAS Podcast" },
+        { property: "og:locale", content: "nl_BE" },
+        { property: "article:section", content: "Golf reviews" },
+        ...(publishedTime ? [{ property: "article:published_time", content: publishedTime }] : []),
+        ...(modifiedTime ? [{ property: "article:modified_time", content: modifiedTime }] : []),
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: desc },
+        { name: "twitter:url", content: url },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
