@@ -73,7 +73,7 @@ function AdminPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
-  const [tab, setTab] = useState<"courses" | "ratings" | "shows">("courses");
+  const [tab, setTab] = useState<"courses" | "ratings" | "shows" | "sponsors">("courses");
 
   useEffect(() => {
     let cancelled = false;
@@ -130,7 +130,7 @@ function AdminPage() {
       </header>
 
       <nav className="border-b border-[#2A2A26] px-6 lg:px-10 flex gap-6">
-        {(["courses", "ratings", "shows"] as const).map((t) => (
+        {(["courses", "ratings", "shows", "sponsors"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -138,13 +138,13 @@ function AdminPage() {
               tab === t ? "border-[#BA7517] text-[#E8E4D8]" : "border-transparent text-[#8A8270] hover:text-[#E8E4D8]"
             }`}
           >
-            {t === "courses" ? "Parcours" : t === "ratings" ? "Beoordelingen" : "Shows"}
+            {t === "courses" ? "Parcours" : t === "ratings" ? "Beoordelingen" : t === "shows" ? "Shows" : "Sponsors"}
           </button>
         ))}
       </nav>
 
       <main className="px-6 lg:px-10 py-8">
-        {tab === "courses" ? <CoursesTab /> : tab === "ratings" ? <RatingsTab /> : <ShowsTab />}
+        {tab === "courses" ? <CoursesTab /> : tab === "ratings" ? <RatingsTab /> : tab === "shows" ? <ShowsTab /> : <SponsorsTab />}
       </main>
     </div>
   );
@@ -798,6 +798,251 @@ function AddEpisodeDrawer({ candidate, onClose, onSaved }: {
         <Field label="Topics (komma-gescheiden)">
           <Input value={form.topics} onChange={(v) => setForm({ ...form, topics: v })} placeholder="Golf, Soudal Open, …" />
         </Field>
+        <DrawerActions saving={saving} onClose={onClose} />
+      </form>
+    </Drawer>
+  );
+}
+
+// ============ SPONSORS TAB ============
+
+type Sponsor = Tables<"sponsors">;
+
+function SponsorsTab() {
+  const [items, setItems] = useState<Sponsor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<Sponsor | "new" | null>(null);
+
+  async function load() {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("sponsors")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (error) toast.error(error.message);
+    setItems(data ?? []);
+    setLoading(false);
+  }
+  useEffect(() => { load(); }, []);
+
+  async function remove(s: Sponsor) {
+    if (!confirm(`Sponsor "${s.name}" verwijderen?`)) return;
+    // Best-effort remove storage object if hosted in our bucket
+    const marker = "/storage/v1/object/";
+    const idx = s.image_url.indexOf(marker);
+    if (idx !== -1) {
+      const rest = s.image_url.slice(idx + marker.length);
+      const parts = rest.split("/");
+      // parts[0] = "sign" | "public" | "authenticated", parts[1] = bucket
+      const bucket = parts[1];
+      const path = parts.slice(2).join("/").split("?")[0];
+      if (bucket === "sponsors" && path) {
+        await supabase.storage.from("sponsors").remove([decodeURIComponent(path)]);
+      }
+    }
+    const { error } = await supabase.from("sponsors").delete().eq("id", s.id);
+    if (error) return toast.error(error.message);
+    toast.success("Verwijderd");
+    load();
+  }
+
+  async function toggleActive(s: Sponsor) {
+    const { error } = await supabase.from("sponsors").update({ active: !s.active }).eq("id", s.id);
+    if (error) return toast.error(error.message);
+    load();
+  }
+
+  return (
+    <>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
+        <h2 className="text-lg font-medium">Sponsors ({items.length})</h2>
+        <button
+          onClick={() => setEditing("new")}
+          className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714]"
+        >
+          + Sponsor
+        </button>
+      </div>
+
+      {loading ? (
+        <p className="text-sm text-[#8A8270]">Laden…</p>
+      ) : items.length === 0 ? (
+        <p className="text-sm text-[#8A8270]">Nog geen sponsors. Voeg er één toe om de banner op de site te tonen.</p>
+      ) : (
+        <div className="border border-[#2A2A26] overflow-x-auto">
+          <table className="w-full text-left text-sm min-w-[720px]">
+            <thead className="bg-[#1A1A18] text-[#8A8270]">
+              <tr>
+                {["Logo", "Naam", "Link", "Volgorde", "Actief", ""].map((h) => (
+                  <th key={h} className="px-4 py-2.5 text-[10px] tracking-[0.15em] uppercase font-normal">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((s) => (
+                <tr key={s.id} className="border-t border-[#2A2A26]">
+                  <td className="px-4 py-3">
+                    <div className="w-24 h-12 bg-[#F4EFE5] flex items-center justify-center p-1">
+                      <img src={s.image_url} alt={s.name} className="max-h-full max-w-full object-contain" />
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 font-medium">{s.name}</td>
+                  <td className="px-4 py-3 text-[#8A8270] text-xs truncate max-w-[240px]">
+                    {s.link_url ? <a href={s.link_url} target="_blank" rel="noreferrer" className="hover:text-[#BA7517]">{s.link_url}</a> : "—"}
+                  </td>
+                  <td className="px-4 py-3 text-[#8A8270]">{s.sort_order}</td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => toggleActive(s)}
+                      className={`text-[10px] tracking-[0.15em] uppercase px-2 py-1 border ${
+                        s.active ? "border-[#8FBF4A] text-[#8FBF4A]" : "border-[#2A2A26] text-[#8A8270]"
+                      }`}
+                    >
+                      {s.active ? "Aan" : "Uit"}
+                    </button>
+                  </td>
+                  <td className="px-4 py-3 text-right space-x-3">
+                    <button onClick={() => setEditing(s)} className="text-xs text-[#BA7517] hover:underline">Bewerk</button>
+                    <button onClick={() => remove(s)} className="text-xs text-red-400 hover:underline">Wis</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {editing && (
+        <SponsorDrawer
+          initial={editing === "new" ? null : editing}
+          onClose={() => setEditing(null)}
+          onSaved={() => { setEditing(null); load(); }}
+        />
+      )}
+    </>
+  );
+}
+
+function SponsorDrawer({ initial, onClose, onSaved }: {
+  initial: Sponsor | null; onClose: () => void; onSaved: () => void;
+}) {
+  const [form, setForm] = useState({
+    name: initial?.name ?? "",
+    image_url: initial?.image_url ?? "",
+    link_url: initial?.link_url ?? "",
+    sort_order: initial?.sort_order ?? 0,
+    active: initial?.active ?? true,
+  });
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  async function handleUpload(file: File) {
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop()?.toLowerCase() || "png";
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("sponsors")
+        .upload(path, file, { cacheControl: "31536000", upsert: false, contentType: file.type });
+      if (upErr) throw upErr;
+      // Private bucket → long-lived signed URL (10 years)
+      const { data, error } = await supabase.storage
+        .from("sponsors")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (error || !data) throw error ?? new Error("Kon signed URL niet aanmaken");
+      setForm((f) => ({ ...f, image_url: data.signedUrl }));
+      toast.success("Logo geüpload");
+    } catch (e: any) {
+      toast.error(e.message ?? "Upload mislukt");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function save(e: FormEvent) {
+    e.preventDefault();
+    if (!form.name.trim()) return toast.error("Naam is verplicht");
+    if (!form.image_url.trim()) return toast.error("Logo is verplicht");
+    setSaving(true);
+    const payload = {
+      name: form.name.trim(),
+      image_url: form.image_url.trim(),
+      link_url: form.link_url.trim() || null,
+      sort_order: Number(form.sort_order) || 0,
+      active: form.active,
+    };
+    const { error } = initial
+      ? await supabase.from("sponsors").update(payload).eq("id", initial.id)
+      : await supabase.from("sponsors").insert(payload);
+    setSaving(false);
+    if (error) return toast.error(error.message);
+    toast.success("Opgeslagen");
+    onSaved();
+  }
+
+  return (
+    <Drawer title={initial ? "Bewerk sponsor" : "Nieuwe sponsor"} onClose={onClose}>
+      <form onSubmit={save} className="space-y-4">
+        <Field label="Naam *">
+          <Input value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
+        </Field>
+
+        <Field label="Logo *">
+          <div className="space-y-2">
+            {form.image_url && (
+              <div className="w-full h-24 bg-[#F4EFE5] flex items-center justify-center p-2 border border-[#2A2A26]">
+                <img src={form.image_url} alt="Preview" className="max-h-full max-w-full object-contain" />
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleUpload(f);
+              }}
+              className="block w-full text-xs text-[#8A8270] file:mr-3 file:py-1.5 file:px-3 file:border-0 file:text-[10px] file:tracking-[0.15em] file:uppercase file:bg-[#BA7517] file:text-[#0F0F0E] hover:file:bg-[#A56714]"
+            />
+            {uploading && <p className="text-xs text-[#8A8270]">Bezig met uploaden…</p>}
+            <div className="text-[10px] tracking-[0.15em] uppercase text-[#8A8270]">Of plak een URL</div>
+            <Input
+              value={form.image_url}
+              onChange={(v) => setForm({ ...form, image_url: v })}
+              placeholder="https://…/logo.png"
+            />
+          </div>
+        </Field>
+
+        <Field label="Link (optioneel)">
+          <Input
+            type="url"
+            value={form.link_url}
+            onChange={(v) => setForm({ ...form, link_url: v })}
+            placeholder="https://sponsor.be"
+          />
+        </Field>
+
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Volgorde">
+            <Input
+              type="number"
+              value={String(form.sort_order)}
+              onChange={(v) => setForm({ ...form, sort_order: Number(v) || 0 })}
+            />
+          </Field>
+          <Field label="Actief">
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, active: !form.active })}
+              className={`w-full px-3 py-2 text-xs tracking-[0.15em] uppercase border ${
+                form.active ? "border-[#8FBF4A] text-[#8FBF4A]" : "border-[#2A2A26] text-[#8A8270]"
+              }`}
+            >
+              {form.active ? "Zichtbaar" : "Verborgen"}
+            </button>
+          </Field>
+        </div>
+
         <DrawerActions saving={saving} onClose={onClose} />
       </form>
     </Drawer>

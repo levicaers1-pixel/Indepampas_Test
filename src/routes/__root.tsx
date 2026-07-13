@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
+import { SponsorsBanner } from "@/components/SponsorsBanner";
 import { EmailPopup } from "@/components/EmailPopup";
 
 import appCss from "../styles.css?url";
@@ -83,6 +84,7 @@ function RootComponent() {
       <main className="flex-1 pt-[92px]">
         <Outlet />
       </main>
+      <SponsorsBanner />
       <NewFooter />
       <EmailPopup />
     </div>
