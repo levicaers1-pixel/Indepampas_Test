@@ -8,6 +8,7 @@ import { CRITERIA, HOSTS, type HostName, type CriterionKey } from "@/data/person
 import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
+import { reindexRag } from "@/lib/rag.functions";
 import { downloadInstagramFrontpage, downloadInstagramFrontpageForCourse } from "@/lib/instagramFrontpage";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
@@ -633,6 +634,9 @@ function ShowsTab() {
 
   return (
     <>
+      <RagReindexPanel />
+
+
       <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
         <div>
           <h2 className="text-lg font-medium">Spotify Shows</h2>
@@ -712,6 +716,55 @@ function ShowsTab() {
     </>
   );
 }
+
+function RagReindexPanel() {
+  const reindex = useServerFn(reindexRag);
+  const [busy, setBusy] = useState(false);
+  const [result, setResult] = useState<{ chunks: number; courses: number; ratings: number } | null>(null);
+
+  async function run() {
+    if (busy) return;
+    if (!confirm("Kennisbank opnieuw opbouwen? Dit kost credits (~1-2 cent) en duurt ~30 sec.")) return;
+    setBusy(true);
+    setResult(null);
+    try {
+      const res = await reindex();
+      setResult(res);
+      toast.success(`Kennisbank herbouwd: ${res.chunks} fragmenten`);
+    } catch (e: any) {
+      toast.error(e?.message ?? "Fout bij herindexeren");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="border border-[#2A2A26] bg-[#1A1A18] p-4 mb-6">
+      <div className="flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <h2 className="text-lg font-medium text-[#E8E4D8]">🤖 PAMPAS AI kennisbank</h2>
+          <p className="text-xs text-[#8A8270] mt-1">
+            Herbouwt de embeddings van alle banen + reviews. Doen na nieuwe reviews.
+          </p>
+          {result && (
+            <p className="text-xs text-[#BA7517] mt-2">
+              ✓ {result.chunks} fragmenten uit {result.courses} banen + {result.ratings} reviews
+            </p>
+          )}
+        </div>
+        <button
+          onClick={run}
+          disabled={busy}
+          className="bg-[#BA7517] text-[#0F0F0E] px-4 py-2 text-xs tracking-[0.15em] uppercase font-medium hover:bg-[#A56714] disabled:opacity-50"
+        >
+          {busy ? "Bezig…" : "Herindexeer"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 
 function AddEpisodeDrawer({ candidate, onClose, onSaved }: {
   candidate: Candidate; onClose: () => void; onSaved: () => void;
