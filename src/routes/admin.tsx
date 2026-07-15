@@ -634,6 +634,9 @@ function ShowsTab() {
 
   return (
     <>
+      <RagReindexPanel />
+
+
       <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
         <div>
           <h2 className="text-lg font-medium">Spotify Shows</h2>
