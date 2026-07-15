@@ -197,9 +197,8 @@ export function PampasChat() {
           {/* Composer */}
           <div className="border-t border-[rgba(28,61,42,0.15)] bg-white p-3">
             <PromptInput
-              onSubmit={(e) => {
-                e?.preventDefault?.();
-                handleSubmit(input);
+              onSubmit={(message) => {
+                handleSubmit(message.text ?? input);
               }}
             >
               <PromptInputTextarea
