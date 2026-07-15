@@ -3,6 +3,7 @@ import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
 import { SponsorsBanner } from "@/components/SponsorsBanner";
 import { EmailPopup } from "@/components/EmailPopup";
+import { PampasChat } from "@/components/PampasChat";
 
 import appCss from "../styles.css?url";
 
@@ -87,6 +88,7 @@ function RootComponent() {
       <SponsorsBanner />
       <NewFooter />
       <EmailPopup />
+      <PampasChat />
     </div>
   );
 }
