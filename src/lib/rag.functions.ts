@@ -187,10 +187,10 @@ export const reindexRag = createServerFn({ method: "POST" })
         course_slug: c.course_slug,
         course_name: c.course_name,
         content: c.content,
-        metadata: c.metadata,
+        metadata: c.metadata as any,
         embedding: vectors[idx] as unknown as string,
       }));
-      const { error: insErr } = await supabaseAdmin.from("rag_chunks").insert(rows);
+      const { error: insErr } = await supabaseAdmin.from("rag_chunks").insert(rows as any);
       if (insErr) throw new Error(`Insert failed at batch ${i}: ${insErr.message}`);
       inserted += rows.length;
     }
