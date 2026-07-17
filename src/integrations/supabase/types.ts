@@ -200,42 +200,6 @@ export type Database = {
         }
         Relationships: []
       }
-      rag_chunks: {
-        Row: {
-          content: string
-          course_name: string | null
-          course_slug: string | null
-          created_at: string
-          embedding: string | null
-          id: string
-          metadata: Json
-          source_id: string
-          source_type: string
-        }
-        Insert: {
-          content: string
-          course_name?: string | null
-          course_slug?: string | null
-          created_at?: string
-          embedding?: string | null
-          id?: string
-          metadata?: Json
-          source_id: string
-          source_type: string
-        }
-        Update: {
-          content?: string
-          course_name?: string | null
-          course_slug?: string | null
-          created_at?: string
-          embedding?: string | null
-          id?: string
-          metadata?: Json
-          source_id?: string
-          source_type?: string
-        }
-        Relationships: []
-      }
       ratings: {
         Row: {
           course_id: string
@@ -372,19 +336,6 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
-      }
-      match_rag_chunks: {
-        Args: { match_count?: number; query_embedding: string }
-        Returns: {
-          content: string
-          course_name: string
-          course_slug: string
-          id: string
-          metadata: Json
-          similarity: number
-          source_id: string
-          source_type: string
-        }[]
       }
     }
     Enums: {

@@ -1,9 +1,8 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouter } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
 import { SponsorsBanner } from "@/components/SponsorsBanner";
 import { EmailPopup } from "@/components/EmailPopup";
-import { PampasChat } from "@/components/PampasChat";
 
 import appCss from "../styles.css?url";
 
@@ -24,47 +23,6 @@ function NotFoundComponent() {
             className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Terug naar de tee
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RootErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  const router = useRouter();
-  console.error(error);
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F4EFE5] px-4">
-      <div className="max-w-md text-center">
-        <p className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#3D7A52]">
-          Serverfout
-        </p>
-        <h1 className="mt-3 font-rb-serif text-5xl text-[#1C3D2A]">Even in de rough.</h1>
-        <p className="mt-4 font-rb-sans text-sm leading-relaxed text-[#635C4B]">
-          Er ging iets mis bij het laden van deze pagina. Probeer opnieuw of keer terug naar de homepage.
-        </p>
-        {import.meta.env.DEV && error.message && (
-          <pre className="mt-4 max-h-40 overflow-auto border border-[rgba(28,61,42,0.18)] bg-white/60 p-3 text-left font-mono text-xs text-[#8B2F2F]">
-            {error.message}
-          </pre>
-        )}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex min-h-11 items-center justify-center bg-[#1C3D2A] px-5 text-sm font-medium text-[#F4EFE5] transition-colors hover:bg-[#2B5C3E]"
-          >
-            Opnieuw proberen
-          </button>
-          <Link
-            to="/"
-            className="inline-flex min-h-11 items-center justify-center border border-[rgba(28,61,42,0.22)] px-5 text-sm font-medium text-[#1C3D2A] transition-colors hover:bg-white/60"
-          >
-            Naar homepage
           </Link>
         </div>
       </div>
@@ -102,7 +60,6 @@ export const Route = createRootRoute({
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
-  errorComponent: RootErrorComponent,
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
@@ -130,7 +87,6 @@ function RootComponent() {
       <SponsorsBanner />
       <NewFooter />
       <EmailPopup />
-      <PampasChat />
     </div>
   );
 }

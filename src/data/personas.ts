@@ -37,7 +37,7 @@ export const HOST_PERSONAS: Record<HostName, Persona> = {
     handicap: "+0.6",
     tagline: "De Perfectionist",
     description:
-      "Lars scoort streng op ontwerp en uitdaging. Als de layout niet klopt, vergeeft hij niets. Zijn ideale baan is technisch, eerlijk en tijdloos. ",
+      "Lars scoort streng op ontwerp en uitdaging. Als de layout niet klopt, vergeeft hij niets. Zijn ideale baan is technisch, eerlijk en tijdloos.",
     color: "#4A9EDB",
     bgLight: "#0F2436",
     affinities: {
