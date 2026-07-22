@@ -121,7 +121,7 @@ export function NewHome() {
               Nieuwste aflevering
             </p>
             <p className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#8FBF4A] mb-2">
-              {latestEpisode.season} · E{latestEpisode.number}
+              {latestEpisode.season} · E{latestEpisode.number?.toLowerCase().includes("special") || latestEpisode.number === "18" ? "special" : latestEpisode.number}
             </p>
             <h2 className="font-rb-serif text-[2rem] font-normal text-[#F4EFE5] leading-[1.2] mb-4">
               {latestEpisode.title}
