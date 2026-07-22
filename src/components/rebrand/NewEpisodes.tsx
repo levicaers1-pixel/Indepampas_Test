@@ -72,7 +72,7 @@ export function NewEpisodes() {
                     {ep.season}
                   </p>
                   <p className="font-rb-serif font-light text-[2.8rem] text-[#E2D9C8] leading-none">
-                    {ep.number}
+                    {ep.number === "special" ? "special" : ep.number}
                   </p>
                 </div>
                 <div>
