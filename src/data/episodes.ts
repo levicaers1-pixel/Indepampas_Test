@@ -40,7 +40,7 @@ export function mergeEpisodes(primary: Episode[], fallback: Episode[]): Episode[
 
 export const episodes: Episode[] = [
   {
-    number: "Special",
+    number: "special",
     season: "S01",
     title: "US Open Special | Wyndham Clark wint US Open op Shinnecock + Niels pakt eindelijk de Brut 🏆",
     description:
