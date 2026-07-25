@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useServerFn } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { scoreColor } from "@/lib/personalScore";
 import { geocodeAddress } from "@/lib/geocode.functions";
