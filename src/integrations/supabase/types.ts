@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      course_photos: {
+        Row: {
+          caption: string | null
+          course_id: string
+          created_at: string
+          credit: string | null
+          id: string
+          image_url: string
+          sort_order: number
+          storage_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          caption?: string | null
+          course_id: string
+          created_at?: string
+          credit?: string | null
+          id?: string
+          image_url: string
+          sort_order?: number
+          storage_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          caption?: string | null
+          course_id?: string
+          created_at?: string
+          credit?: string | null
+          id?: string
+          image_url?: string
+          sort_order?: number
+          storage_path?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_photos_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_ratings: {
         Row: {
           c_faciliteiten: number
