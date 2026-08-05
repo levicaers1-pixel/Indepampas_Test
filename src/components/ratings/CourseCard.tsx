@@ -230,6 +230,16 @@ export function CourseCard({
       {/* EXPANDED */}
       {open && (
         <div className="border-t border-[rgba(28,61,42,0.15)] p-4 md:p-6 space-y-6 md:space-y-8 bg-[#F4EFE5]">
+          {/* PHOTOS */}
+          {course.photos.length > 0 && (
+            <div>
+              <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
+                Foto's
+              </h4>
+              <PhotoCarousel photos={course.photos} alt={course.name} />
+            </div>
+          )}
+
           {/* PER HOST */}
           <div>
             <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
