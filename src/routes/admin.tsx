@@ -244,7 +244,16 @@ function CoursesTab() {
           onSaved={() => { setEditing(null); load(); }}
         />
       )}
+
+      {photosFor && (
+        <CoursePhotosDrawer
+          courseId={photosFor.id}
+          courseName={photosFor.name}
+          onClose={() => setPhotosFor(null)}
+        />
+      )}
     </>
+
   );
 }
 
