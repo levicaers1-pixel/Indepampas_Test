@@ -82,6 +82,9 @@ export async function fetchCourses(): Promise<CourseWithRatings[]> {
         score_hospitality: Number(r.score_hospitality),
         host_score: Number(r.host_score),
       })),
+      photos: ((c.course_photos ?? []) as CoursePhoto[])
+        .slice()
+        .sort((a, b) => a.sort_order - b.sort_order),
       pampasScore: avg,
     };
   });
