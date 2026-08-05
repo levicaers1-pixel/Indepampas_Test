@@ -47,7 +47,7 @@ export async function fetchCourses(): Promise<CourseWithRatings[]> {
   const { data, error } = await supabase
     .from("courses")
     .select(
-      "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*)",
+      "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*),course_photos(id,image_url,caption,credit,sort_order)",
     )
     .order("name", { ascending: true });
   if (error) throw new Error(error.message);
