@@ -19,6 +19,14 @@ export type RatingRow = {
   review: string | null;
 };
 
+export type CoursePhoto = {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  credit: string | null;
+  sort_order: number;
+};
+
 export type CourseWithRatings = {
   id: string;
   name: string;
@@ -31,6 +39,7 @@ export type CourseWithRatings = {
   website: string | null;
   episode_url: string | null;
   ratings: RatingRow[];
+  photos: CoursePhoto[];
   pampasScore: number | null;
 };
 
