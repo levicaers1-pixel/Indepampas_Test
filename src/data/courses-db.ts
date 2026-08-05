@@ -19,6 +19,14 @@ export type RatingRow = {
   review: string | null;
 };
 
+export type CoursePhoto = {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  credit: string | null;
+  sort_order: number;
+};
+
 export type CourseWithRatings = {
   id: string;
   name: string;
@@ -31,6 +39,7 @@ export type CourseWithRatings = {
   website: string | null;
   episode_url: string | null;
   ratings: RatingRow[];
+  photos: CoursePhoto[];
   pampasScore: number | null;
 };
 
@@ -38,7 +47,7 @@ export async function fetchCourses(): Promise<CourseWithRatings[]> {
   const { data, error } = await supabase
     .from("courses")
     .select(
-      "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*)",
+      "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*),course_photos(id,image_url,caption,credit,sort_order)",
     )
     .order("name", { ascending: true });
   if (error) throw new Error(error.message);
@@ -73,6 +82,9 @@ export async function fetchCourses(): Promise<CourseWithRatings[]> {
         score_hospitality: Number(r.score_hospitality),
         host_score: Number(r.host_score),
       })),
+      photos: ((c.course_photos ?? []) as CoursePhoto[])
+        .slice()
+        .sort((a, b) => a.sort_order - b.sort_order),
       pampasScore: avg,
     };
   });

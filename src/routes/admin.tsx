@@ -9,6 +9,7 @@ import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
 import { downloadInstagramFrontpage, downloadInstagramFrontpageForCourse } from "@/lib/instagramFrontpage";
+import { CoursePhotosDrawer } from "@/components/admin/CoursePhotosDrawer";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
@@ -156,6 +157,7 @@ function CoursesTab() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Course | "new" | null>(null);
+  const [photosFor, setPhotosFor] = useState<Course | null>(null);
   const [countryFilter, setCountryFilter] = useState<string>("Alle");
 
   async function load() {
@@ -221,10 +223,12 @@ function CoursesTab() {
                   <td className="px-4 py-3 text-[#8A8270]">{c.greenfee != null ? `€${Number(c.greenfee)}` : "—"}</td>
                   <td className="px-4 py-3 text-[#BA7517]">{c.fee_category ?? "—"}</td>
                   <td className="px-4 py-3 text-right space-x-3">
+                    <button onClick={() => setPhotosFor(c)} className="text-xs text-[#8A8270] hover:text-[#E8E4D8] hover:underline">Foto's</button>
                     <button onClick={() => setEditing(c)} className="text-xs text-[#BA7517] hover:underline">Bewerk</button>
                     <button onClick={() => remove(c)} className="text-xs text-red-400 hover:underline">Wis</button>
                   </td>
                 </tr>
+
               ))}
               {filteredItems.length === 0 && (
                 <tr><td colSpan={8} className="px-4 py-8 text-center text-[#8A8270] text-sm">Geen parcours gevonden.</td></tr>
@@ -241,7 +245,16 @@ function CoursesTab() {
           onSaved={() => { setEditing(null); load(); }}
         />
       )}
+
+      {photosFor && (
+        <CoursePhotosDrawer
+          courseId={photosFor.id}
+          courseName={photosFor.name}
+          onClose={() => setPhotosFor(null)}
+        />
+      )}
     </>
+
   );
 }
 
