@@ -9,6 +9,7 @@ import { getVerifiedAdminUser } from "@/lib/adminAuth";
 import { episodes as staticEpisodes } from "@/data/episodes";
 import { fetchSpotifyShowEpisodes } from "@/lib/spotify.functions";
 import { downloadInstagramFrontpage, downloadInstagramFrontpageForCourse } from "@/lib/instagramFrontpage";
+import { CoursePhotosDrawer } from "@/components/admin/CoursePhotosDrawer";
 
 const PAMPAS_SHOW_ID = "37wE4nKPeQNjYLYoMFelLP";
 
