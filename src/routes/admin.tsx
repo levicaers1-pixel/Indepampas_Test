@@ -156,6 +156,7 @@ function CoursesTab() {
   const [items, setItems] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Course | "new" | null>(null);
+  const [photosFor, setPhotosFor] = useState<Course | null>(null);
   const [countryFilter, setCountryFilter] = useState<string>("Alle");
 
   async function load() {
