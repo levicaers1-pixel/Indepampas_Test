@@ -75,6 +75,9 @@ export const Route = createFileRoute("/courses/$slug")({
       ...(c.region ? [c.region] : []),
     ].join(", ");
 
+    const cover = c.photos[0]?.image_url;
+    if (cover) jsonLd.image = c.photos.map((p) => p.image_url);
+
     return {
       meta: [
         { title },
@@ -86,12 +89,14 @@ export const Route = createFileRoute("/courses/$slug")({
         { property: "og:url", content: url },
         { property: "og:site_name", content: "PAMPAS Podcast" },
         { property: "og:locale", content: "nl_BE" },
+        ...(cover ? [{ property: "og:image", content: cover }] : []),
         { property: "article:section", content: "Golf reviews" },
         ...(publishedTime ? [{ property: "article:published_time", content: publishedTime }] : []),
         ...(modifiedTime ? [{ property: "article:modified_time", content: modifiedTime }] : []),
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: desc },
+        ...(cover ? [{ name: "twitter:image", content: cover }] : []),
         { name: "twitter:url", content: url },
       ],
       links: [{ rel: "canonical", href: url }],
