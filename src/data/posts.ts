@@ -149,10 +149,10 @@ export const posts: Post[] = [
         text: 'De meest toegankelijke baan in de lijst, letterlijk in de achtertuin van Antwerpen — maar ook de laagst scorende. Levi (63,5, "Toegankelijk") en Niels (61,5, "OK") waren allebei gematigd positief zonder uitgesproken enthousiasme; beiden geven aan dat ze hier niet bewust voor terug zouden komen.',
       },
 
-      { type: "h2", text: "Nog niet (volledig) gespeeld door Pampas" },
+      { type: "h2", text: "Ooit gespeeld, (nog) geen Pampas-score" },
       {
         type: "p",
-        text: "Eerlijkheid hoort bij onze aanpak: deze twee banen liggen ook rond Antwerpen, maar staan nog niet op onze eigen ratinglijst. Op basis van publieke data en reviews alvast dit:",
+        text: "Eerlijkheid hoort bij onze aanpak: deze twee banen liggen ook rond Antwerpen en we hebben ze alle drie ooit al gespeeld — alleen is dat te lang geleden om er vandaag een eerlijke, nuttige review over te schrijven. Ze staan dus (nog) niet op onze ratinglijst. Op basis van publieke data en reviews alvast dit:",
       },
       {
         type: "p",
@@ -164,14 +164,15 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "We plannen om deze twee de komende maanden te spelen — hou onze scores in de gaten.",
+        text: "Voor de komende maanden staan Cleydael en Bossenstein niet in onze planning, maar we hopen hier snel nog eens terug te keren — en dan volgt uiteraard een volwaardige Pampas-score.",
       },
       { type: "h2", text: "Samengevat" },
       {
         type: "table",
         headers: ["Baan", "Type", "Holes", "Pampas-score", "Gespeeld door Pampas"],
         rows: [
-          ["Rinkven Golf & Country Club", "Heide", "31", "83,3", "Ja"],
+          ["Rinkven Golf & Country Club", "Heide", "36", "83,3", "Ja"],
+
           ["Royal Antwerp Golf Club", "Heide", "18", "83,2", "Ja"],
           ["Ternesse Golf & Country Club", "Parkland", "18", "82,1", "Ja"],
           ["Golf Club Beveren", "Parkland", "9", "69,0", "Ja"],
