@@ -73,28 +73,29 @@ export const posts: Post[] = [
           {
             num: "01",
             title: "Rinkven Golf & Country Club — 83,3/100",
-            text: "Heidebaan, 31 holes, Schilde. Thuisbasis van de Soudal Open op de DP World Tour.",
+            text: "Heidebaan, 36 holes (2 × 18), Schilde. Thuisbasis van de Soudal Open op de DP World Tour. Lars 85,0 · Levi 81,5.",
           },
           {
             num: "02",
             title: "Royal Antwerp Golf Club — 83,2/100",
-            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de lijst.",
+            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de lijst. Lars 85,0 · Niels 84,5 · Levi 80,0.",
           },
           {
             num: "03",
             title: "Ternesse Golf & Country Club — 82,1/100",
-            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is.",
+            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is. Lars 85,0 · Niels 83,3 · Levi 78,0.",
           },
           {
             num: "04",
             title: "Golf Club Beveren — 69,0/100",
-            text: "Parkland, 9 holes. Laagdrempelige baan net buiten de Antwerpse rand.",
+            text: "Parkland, 9 holes. Laagdrempelige baan net buiten de Antwerpse rand. Levi 69,0.",
           },
           {
             num: "05",
             title: "Edegemse Golfclub - Drie Eycken — 62,5/100",
-            text: "Parkland, 18 holes, Edegem. De meest toegankelijke baan in de lijst.",
+            text: "Parkland, 18 holes, Edegem. De meest toegankelijke baan in de lijst. Levi 63,5 · Niels 61,5.",
           },
+
         ],
       },
       { type: "h2", text: "1. Rinkven Golf & Country Club — 83,3/100" },
