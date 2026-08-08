@@ -73,80 +73,86 @@ export const posts: Post[] = [
           {
             num: "01",
             title: "Rinkven Golf & Country Club — 83,3/100",
-            text: "Heidebaan, 31 holes, Schilde. Thuisbasis van de Soudal Open op de DP World Tour.",
+            text: "Heidebaan, 36 holes (2 × 18), Schilde. Thuisbasis van de Soudal Open op de DP World Tour. Lars 85,0 · Levi 81,5.",
           },
           {
             num: "02",
             title: "Royal Antwerp Golf Club — 83,2/100",
-            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de lijst.",
+            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de lijst. Lars 85,0 · Niels 84,5 · Levi 80,0.",
           },
           {
             num: "03",
             title: "Ternesse Golf & Country Club — 82,1/100",
-            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is.",
+            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is. Lars 85,0 · Niels 83,3 · Levi 78,0.",
           },
           {
             num: "04",
             title: "Golf Club Beveren — 69,0/100",
-            text: "Parkland, 9 holes. Laagdrempelige baan net buiten de Antwerpse rand.",
+            text: "Parkland, 9 holes. Laagdrempelige baan net buiten de Antwerpse rand. Levi 69,0.",
           },
           {
             num: "05",
             title: "Edegemse Golfclub - Drie Eycken — 62,5/100",
-            text: "Parkland, 18 holes, Edegem. De meest toegankelijke baan in de lijst.",
+            text: "Parkland, 18 holes, Edegem. De meest toegankelijke baan in de lijst. Levi 63,5 · Niels 61,5.",
           },
+
         ],
       },
       { type: "h2", text: "1. Rinkven Golf & Country Club — 83,3/100" },
-      { type: "p", text: "Heidebaan, 31 holes, Schilde." },
+      { type: "p", text: "Heidebaan, 36 holes (2 × 18: North en South), Schilde." },
       {
         type: "p",
-        text: "Rinkven is de baan met de hoogste score in deze lijst, en niet toevallig: het is de thuisbasis van de Soudal Open op de DP World Tour.",
+        text: "Rinkven is de baan met de hoogste score in deze lijst, en niet toevallig: het is de thuisbasis van de Soudal Open op de DP World Tour. Lars gaf <strong>85,0</strong>, Levi <strong>81,5</strong> — samen goed voor een Pampas-score van 83,3.",
       },
       {
         type: "quote",
-        text: '"Uitdagende DP World Tour baan in nagenoeg perfecte staat. Zeer uitgebreide en kwalitatieve oefenfaciliteiten." — Lars, "Topbaan"',
+        text: '"Uitdagende DP World Tour baan in nagenoeg perfecte staat. Zeer uitgebreide en kwalitatieve oefenfaciliteiten." — Lars (85,0), "Topbaan"',
       },
       {
         type: "p",
-        text: 'Levi was even enthousiast ("Prachtig"): "Rinkven heeft alles te bieden, en dit voor elk type golfer. De North course is een prachtige en uitdagende baan die 8 holes lang top focus vereist. De South course begint met een iets wat eentonige front nine maar maakt dit goed met een fantastische back nine. De gemengde Soudal Open baan hier is de kers op de taart." Beide hosts zouden zeker terugkeren.',
+        text: 'Levi was even enthousiast (81,5, "Prachtig"): "Rinkven heeft alles te bieden, en dit voor elk type golfer. De North course is een prachtige en uitdagende baan die 8 holes lang top focus vereist. De South course begint met een iets wat eentonige front nine maar maakt dit goed met een fantastische back nine. De gemengde Soudal Open baan hier is de kers op de taart." Beide hosts zouden zeker terugkeren.',
       },
       { type: "h2", text: "2. Royal Antwerp Golf Club — 83,2/100" },
       { type: "p", text: "Heidebaan, 18 holes, Kapellen." },
       {
+        type: "p",
+        text: "De enige baan in deze lijst die alle drie de hosts scoorden: Lars <strong>85,0</strong>, Niels <strong>84,5</strong> en Levi <strong>80,0</strong>.",
+      },
+      {
         type: "quote",
-        text: '"Royal Antwerp is voor mij numero uno van België! Elke golfronde daar is prachtig en een ongekend genot." — Niels',
+        text: '"Royal Antwerp is voor mij numero uno van België! Elke golfronde daar is prachtig en een ongekend genot." — Niels (84,5)',
       },
       {
         type: "p",
-        text: 'Lars omschreef de baan als "Iconisch": "Royal Antwerp is een tijdloze klassieker met uniek heidekarakter. Smalle fairways, dus creativiteit en nauwkeurigheid van de tee is vereist. Over het algemeen is de baan zeer goed onderhouden met vaak snelle en eerlijke greens." Alle drie de hosts komen hier altijd graag terug.',
+        text: 'Lars (85,0) omschreef de baan als "Iconisch": "Royal Antwerp is een tijdloze klassieker met uniek heidekarakter. Smalle fairways, dus creativiteit en nauwkeurigheid van de tee is vereist. Over het algemeen is de baan zeer goed onderhouden met vaak snelle en eerlijke greens." Levi houdt het bij "Klasse" (80,0). Alle drie de hosts komen hier altijd graag terug.',
       },
       { type: "h2", text: "3. Ternesse Golf & Country Club — 82,1/100" },
       { type: "p", text: "Parkland, 18 holes, Wommelgem." },
       {
         type: "p",
-        text: 'Een technische parkbaan die de voorbije jaren duidelijk gegroeid is. Lars ("Onberispelijk"): "Ternesse is een technische parkbaan rond Antwerpen, die de voorbije jaren door slimme designkeuzes en een sterke focus op onderhoud is uitgegroeid tot één van de absolute topbanen in België. De prijs-kwaliteit verhouding is bovendien uitzonderlijk goed."',
+        text: 'Een technische parkbaan die de voorbije jaren duidelijk gegroeid is. Lars (85,0, "Onberispelijk"): "Ternesse is een technische parkbaan rond Antwerpen, die de voorbije jaren door slimme designkeuzes en een sterke focus op onderhoud is uitgegroeid tot één van de absolute topbanen in België. De prijs-kwaliteit verhouding is bovendien uitzonderlijk goed."',
       },
       {
         type: "p",
-        text: 'Niels ("Kwaliteit"): "Ternesse is door de jaren heen een GEWELDIGE baan geworden. Ik loop daar nu al 18 jaar rond en heb de baan jaar na jaar zien groeien." Alle hosts keren hier altijd graag terug.',
+        text: 'Niels (83,3, "Kwaliteit"): "Ternesse is door de jaren heen een GEWELDIGE baan geworden. Ik loop daar nu al 18 jaar rond en heb de baan jaar na jaar zien groeien." Levi is met 78,0 ("Onderhouden") de strengste van de drie. <strong>Wij zijn hier alle drie lid</strong>, dus we spelen Ternesse vaak — en keren er altijd graag terug.',
       },
       { type: "h2", text: "4. Golf Club Beveren — 69,0/100" },
       { type: "p", text: "Parkland, 9 holes." },
       {
         type: "p",
-        text: 'Een kleinere, laagdrempelige baan net buiten de Antwerpse rand. Levi ("Leuk"): "Fijne inland links baan. Onderhoud kan bij momenten wel beter. Verder een leuke uitdaging als je in de buurt bent." Een prima keuze voor een snelle 9 holes, maar niet meteen een bestemming op zich.',
+        text: 'Een kleinere, laagdrempelige baan net buiten de Antwerpse rand. Levi (69,0, "Leuk"): "Fijne inland links baan. Onderhoud kan bij momenten wel beter. Verder een leuke uitdaging als je in de buurt bent." Een prima keuze voor een snelle 9 holes, maar niet meteen een bestemming op zich.',
       },
       { type: "h2", text: "5. Edegemse Golfclub - Drie Eycken — 62,5/100" },
       { type: "p", text: "Parkland, 18 holes, Edegem." },
       {
         type: "p",
-        text: 'De meest toegankelijke baan in de lijst, letterlijk in de achtertuin van Antwerpen — maar ook de laagst scorende. Levi ("Toegankelijk") en Niels ("OK") waren allebei gematigd positief zonder uitgesproken enthousiasme; beiden geven aan dat ze hier niet bewust voor terug zouden komen.',
+        text: 'De meest toegankelijke baan in de lijst, letterlijk in de achtertuin van Antwerpen — maar ook de laagst scorende. Levi (63,5, "Toegankelijk") en Niels (61,5, "OK") waren allebei gematigd positief zonder uitgesproken enthousiasme; beiden geven aan dat ze hier niet bewust voor terug zouden komen.',
       },
-      { type: "h2", text: "Nog niet (volledig) gespeeld door Pampas" },
+
+      { type: "h2", text: "Ooit gespeeld, (nog) geen Pampas-score" },
       {
         type: "p",
-        text: "Eerlijkheid hoort bij onze aanpak: deze twee banen liggen ook rond Antwerpen, maar staan nog niet op onze eigen ratinglijst. Op basis van publieke data en reviews alvast dit:",
+        text: "Eerlijkheid hoort bij onze aanpak: deze twee banen liggen ook rond Antwerpen en we hebben ze alle drie ooit al gespeeld — alleen is dat te lang geleden om er vandaag een eerlijke, nuttige review over te schrijven. Ze staan dus (nog) niet op onze ratinglijst. Op basis van publieke data en reviews alvast dit:",
       },
       {
         type: "p",
@@ -158,20 +164,22 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "We plannen om deze twee de komende maanden te spelen — hou onze scores in de gaten.",
+        text: "Voor de komende maanden staan Cleydael en Bossenstein niet in onze planning, maar we hopen hier snel nog eens terug te keren — en dan volgt uiteraard een volwaardige Pampas-score.",
       },
       { type: "h2", text: "Samengevat" },
       {
         type: "table",
         headers: ["Baan", "Type", "Holes", "Pampas-score", "Gespeeld door Pampas"],
         rows: [
-          ["Rinkven Golf & Country Club", "Heide", "31", "83,3", "Ja"],
+          ["Rinkven Golf & Country Club", "Heide", "36", "83,3", "Ja"],
+
           ["Royal Antwerp Golf Club", "Heide", "18", "83,2", "Ja"],
           ["Ternesse Golf & Country Club", "Parkland", "18", "82,1", "Ja"],
           ["Golf Club Beveren", "Parkland", "9", "69,0", "Ja"],
           ["Edegemse Golfclub - Drie Eycken", "Parkland", "18", "62,5", "Ja"],
-          ["Cleydael Golf & Country Club", "Parkland", "18", "—", "Nog niet"],
-          ["Bossenstein Golf & Polo Club", "Parkland", "27", "—", "Nog niet"],
+          ["Cleydael Golf & Country Club", "Parkland", "18", "—", "Lang geleden"],
+          ["Bossenstein Golf & Polo Club", "Parkland", "27", "—", "Lang geleden"],
+
         ],
       },
       {

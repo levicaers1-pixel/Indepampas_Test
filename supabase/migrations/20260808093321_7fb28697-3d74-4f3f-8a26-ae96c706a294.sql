@@ -1,0 +1,1 @@
+UPDATE public.courses SET holes = 36 WHERE name ILIKE '%Rinkven%';
