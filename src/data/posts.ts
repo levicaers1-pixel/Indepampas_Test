@@ -177,8 +177,9 @@ export const posts: Post[] = [
           ["Ternesse Golf & Country Club", "Parkland", "18", "82,1", "Ja"],
           ["Golf Club Beveren", "Parkland", "9", "69,0", "Ja"],
           ["Edegemse Golfclub - Drie Eycken", "Parkland", "18", "62,5", "Ja"],
-          ["Cleydael Golf & Country Club", "Parkland", "18", "—", "Nog niet"],
-          ["Bossenstein Golf & Polo Club", "Parkland", "27", "—", "Nog niet"],
+          ["Cleydael Golf & Country Club", "Parkland", "18", "—", "Lang geleden"],
+          ["Bossenstein Golf & Polo Club", "Parkland", "27", "—", "Lang geleden"],
+
         ],
       },
       {
