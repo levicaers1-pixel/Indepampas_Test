@@ -11,6 +11,9 @@ import {
 import { personalScore, scoreColor } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { PhotoCarousel } from "@/components/ratings/PhotoCarousel";
+import { CommunityVote } from "@/components/ratings/CommunityVote";
+import { useCourseVotes } from "@/lib/useCourseVotes";
+import { weightedCommunityScore } from "@/lib/communityVotes";
 
 function PampasScoreBadge({ score, small }: { score: number | null; small?: boolean }) {
   const { hex, label } = scoreColor(score);
