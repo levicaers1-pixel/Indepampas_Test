@@ -129,6 +129,11 @@ export function CourseCard({
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
 
+  const { scores: communityScores } = useCourseVotes(course.id);
+  const hostScores = course.ratings.map((r) => Number(r.host_score));
+  const combinedScore =
+    weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
+
   const ratedHosts = new Set(course.ratings.map((r) => r.host));
   const personal = useMemo(
     () => (activePersona ? personalScore(course.ratings, activePersona.affinities) : null),
@@ -141,6 +146,8 @@ export function CourseCard({
 
   const onlyOneRated = course.ratings.length === 1;
   const reviewSnippet = course.ratings.find((r) => r.review)?.review ?? "";
+
+
 
   return (
     <div className="bg-white border border-[rgba(28,61,42,0.15)] hover:border-[rgba(28,61,42,0.35)] transition-colors">
