@@ -1,7 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { fetchCourses } from "@/data/courses-db";
 import { CourseCard } from "@/components/ratings/CourseCard";
-import { CommunityVote } from "@/components/ratings/CommunityVote";
 import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
 
 const SITE_URL = "https://www.indepampas.be";
@@ -165,8 +164,6 @@ function CourseDetailPage() {
 
       <div className="px-6 lg:px-14 pb-16">
         <CourseCard course={course} activePersona={null} autoOpen />
-
-        <CommunityVote course={course} />
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(28,61,42,0.15)] pt-6">
           <Link
