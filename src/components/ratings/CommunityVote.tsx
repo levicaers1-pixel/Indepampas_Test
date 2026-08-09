@@ -1,62 +1,26 @@
 import { useEffect, useState } from "react";
 import type { CourseWithRatings } from "@/data/courses-db";
-import {
-  castVote,
-  fetchCourseVotes,
-  getVoterId,
-  weightedCommunityScore,
-} from "@/lib/communityVotes";
+import { useCourseVotes } from "@/lib/useCourseVotes";
 
 export function CommunityVote({ course }: { course: CourseWithRatings }) {
-  const [voterId, setVoterId] = useState<string | null>(null);
-  const [votes, setVotes] = useState<number[]>([]);
-  const [myVote, setMyVote] = useState<number | null>(null);
+  const { loading, error: loadError, scores, myVote, vote } = useCourseVotes(course.id);
   const [value, setValue] = useState(75);
   const [editing, setEditing] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const id = getVoterId();
-    setVoterId(id);
-    let active = true;
-    fetchCourseVotes(course.id)
-      .then((rows) => {
-        if (!active) return;
-        setVotes(rows.map((r) => r.score));
-        const mine = rows.find((r) => r.voter_id === id);
-        if (mine) {
-          setMyVote(mine.score);
-          setValue(mine.score);
-        }
-      })
-      .catch((e) => active && setError(e.message))
-      .finally(() => active && setLoading(false));
-    return () => {
-      active = false;
-    };
-  }, [course.id]);
+    if (myVote != null) setValue(myVote);
+  }, [myVote]);
 
-  const hostScores = course.ratings.map((r) => Number(r.host_score));
-  const communityScore = weightedCommunityScore(hostScores, votes);
+  const communityAvg =
+    scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
 
   async function submit() {
-    if (!voterId) return;
     setSaving(true);
     setError(null);
     try {
-      const clean = await castVote(course.id, voterId, value);
-      setVotes((prev) => {
-        const next = prev.slice();
-        if (myVote != null) {
-          const i = next.indexOf(myVote);
-          if (i >= 0) next.splice(i, 1);
-        }
-        next.push(clean);
-        return next;
-      });
-      setMyVote(clean);
+      await vote(value);
       setEditing(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Stemmen mislukt");
@@ -68,7 +32,7 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
   const showForm = myVote == null || editing;
 
   return (
-    <section className="mt-10 border border-[rgba(28,61,42,0.15)] bg-[#FBF8F1] p-6 md:p-8">
+    <section className="border border-[rgba(28,61,42,0.15)] bg-[#FBF8F1] p-5 md:p-6">
       <h2 className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#635C4B]">
         Scores
       </h2>
@@ -76,10 +40,10 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
       <div className="mt-4 grid gap-6 sm:grid-cols-2">
         <div>
           <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B]">
-            Pampas-score
+            Gemiddelde hosts
           </p>
           <p className="font-rb-serif text-4xl text-[#1C3D2A] leading-none mt-1">
-            {course.pampasScore != null ? course.pampasScore.toFixed(0) : "—"}
+            {course.pampasScore != null ? course.pampasScore.toFixed(1) : "—"}
             <span className="text-base text-[#635C4B]">/100</span>
           </p>
           <p className="font-rb-sans text-[0.75rem] text-[#635C4B] mt-1">
@@ -88,14 +52,15 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
         </div>
         <div>
           <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B]">
-            Community-score
+            Gemiddelde community
           </p>
           <p className="font-rb-serif text-4xl text-[#3D7A52] leading-none mt-1">
-            {communityScore != null ? communityScore.toFixed(1) : "—"}
+            {communityAvg != null ? communityAvg.toFixed(1) : "—"}
             <span className="text-base text-[#635C4B]">/100</span>
           </p>
           <p className="font-rb-sans text-[0.75rem] text-[#635C4B] mt-1">
-            {votes.length} stem{votes.length === 1 ? "" : "men"} · hosts wegen 10×
+            {scores.length} stem{scores.length === 1 ? "" : "men"} · hosts wegen 10× in de
+            Pampas-score
           </p>
         </div>
       </div>
@@ -106,14 +71,14 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
         ) : showForm ? (
           <div>
             <label
-              htmlFor="community-vote"
+              htmlFor={`community-vote-${course.id}`}
               className="font-rb-sans text-sm text-[#2E2B25] block"
             >
               Geef {course.name} een score van 0 tot 100
             </label>
             <div className="mt-3 flex items-center gap-4">
               <input
-                id="community-vote"
+                id={`community-vote-${course.id}`}
                 type="range"
                 min={0}
                 max={100}
@@ -174,7 +139,9 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
             </button>
           </div>
         )}
-        {error && <p className="font-rb-sans text-sm text-[#A32D2D] mt-3">{error}</p>}
+        {(error || loadError) && (
+          <p className="font-rb-sans text-sm text-[#A32D2D] mt-3">{error ?? loadError}</p>
+        )}
       </div>
     </section>
   );
