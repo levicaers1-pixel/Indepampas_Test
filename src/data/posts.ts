@@ -64,7 +64,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Hoe wij scoren" },
       {
         type: "p",
-        text: "Elke Pampas-host beoordeelt een baan op zeven onderdelen — design, onderhoud, uitdaging, scenery, faciliteiten, prijs-kwaliteit en gastvrijheid — en dat resulteert in een Pampas-score op 100. Wanneer meerdere hosts dezelfde baan speelden, gebruiken we het gemiddelde voor de ranking.",
+        text: "Elke Pampas-host beoordeelt een baan op zeven onderdelen — design, onderhoud, uitdaging, scenery, faciliteiten, prijs-kwaliteit en gastvrijheid — en dat resulteert in een Pampas-score op 100. Er worden verschillende gewichten toegekend aan de categorieën, waarbij design en onderhoud bijvoorbeeld zwaarder doorwegen dan prijs-kwaliteit en gastvrijheid. Wanneer meerdere hosts dezelfde baan speelden, gebruiken we het gemiddelde voor de ranking.",
       },
       { type: "h2", text: "De Pampas-ranking: golfbanen rond Antwerpen die we speelden" },
       {
@@ -78,12 +78,12 @@ export const posts: Post[] = [
           {
             num: "02",
             title: "Royal Antwerp Golf Club — 83,2/100",
-            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de lijst. Lars 85,0 · Niels 84,5 · Levi 80,0.",
+            text: "Heidebaan, 27 holes (1 x 18 en 1 x 9), Kapellen. De oudste en meest iconische club van de lijst. Lars 85,0 · Niels 84,5 · Levi 80,0.",
           },
           {
             num: "03",
             title: "Ternesse Golf & Country Club — 82,1/100",
-            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is. Lars 85,0 · Niels 83,3 · Levi 78,0.",
+            text: "Parkland, 27 holes (1 x 18 en 1 x 9), Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is. Lars 85,0 · Niels 83,3 · Levi 78,0.",
           },
           {
             num: "04",
@@ -95,7 +95,6 @@ export const posts: Post[] = [
             title: "Edegemse Golfclub - Drie Eycken — 62,5/100",
             text: "Parkland, 18 holes, Edegem. De meest toegankelijke baan in de lijst. Levi 63,5 · Niels 61,5.",
           },
-
         ],
       },
       { type: "h2", text: "1. Rinkven Golf & Country Club — 83,3/100" },
@@ -106,7 +105,7 @@ export const posts: Post[] = [
       },
       {
         type: "quote",
-        text: '"Uitdagende DP World Tour baan in nagenoeg perfecte staat. Zeer uitgebreide en kwalitatieve oefenfaciliteiten." — Lars (85,0), "Topbaan"',
+        text: '"Uitdagende DP World Tour baan in nagenoeg perfecte staat. Zeer uitgebreide en kwalitatieve oefenfaciliteiten." — Lars (85,0)',
       },
       {
         type: "p",
@@ -164,7 +163,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Voor de komende maanden staan Cleydael en Bossenstein niet in onze planning, maar we hopen hier snel nog eens terug te keren — en dan volgt uiteraard een volwaardige Pampas-score.",
+        text: "Voor de komende maanden staan Cleydael en Bossenstein niet meteen in onze planning, maar we hopen hier snel nog eens terug te keren — en dan volgt uiteraard een volwaardige Pampas-score.",
       },
       { type: "h2", text: "Samengevat" },
       {
@@ -179,7 +178,6 @@ export const posts: Post[] = [
           ["Edegemse Golfclub - Drie Eycken", "Parkland", "18", "62,5", "Ja"],
           ["Cleydael Golf & Country Club", "Parkland", "18", "—", "Lang geleden"],
           ["Bossenstein Golf & Polo Club", "Parkland", "27", "—", "Lang geleden"],
-
         ],
       },
       {
