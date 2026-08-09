@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_votes: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          score: number
+          updated_at: string
+          voter_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          score: number
+          updated_at?: string
+          voter_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          score?: number
+          updated_at?: string
+          voter_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_votes_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_photos: {
         Row: {
           caption: string | null
