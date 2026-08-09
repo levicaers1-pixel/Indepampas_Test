@@ -11,6 +11,9 @@ import {
 import { personalScore, scoreColor } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { PhotoCarousel } from "@/components/ratings/PhotoCarousel";
+import { CommunityVote } from "@/components/ratings/CommunityVote";
+import { useCourseVotes } from "@/lib/useCourseVotes";
+import { weightedCommunityScore } from "@/lib/communityVotes";
 
 function PampasScoreBadge({ score, small }: { score: number | null; small?: boolean }) {
   const { hex, label } = scoreColor(score);
@@ -126,6 +129,11 @@ export function CourseCard({
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
 
+  const { scores: communityScores } = useCourseVotes(course.id);
+  const hostScores = course.ratings.map((r) => Number(r.host_score));
+  const combinedScore =
+    weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
+
   const ratedHosts = new Set(course.ratings.map((r) => r.host));
   const personal = useMemo(
     () => (activePersona ? personalScore(course.ratings, activePersona.affinities) : null),
@@ -138,6 +146,8 @@ export function CourseCard({
 
   const onlyOneRated = course.ratings.length === 1;
   const reviewSnippet = course.ratings.find((r) => r.review)?.review ?? "";
+
+
 
   return (
     <div className="bg-white border border-[rgba(28,61,42,0.15)] hover:border-[rgba(28,61,42,0.35)] transition-colors">
@@ -202,10 +212,10 @@ export function CourseCard({
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <div className="flex flex-col items-end gap-1.5">
             <div className="md:hidden">
-              <PampasScoreBadge score={course.pampasScore} small />
+              <PampasScoreBadge score={combinedScore} small />
             </div>
             <div className="hidden md:block">
-              <PampasScoreBadge score={course.pampasScore} />
+              <PampasScoreBadge score={combinedScore} />
             </div>
             {activePersona && personal != null && (
               <div
@@ -326,6 +336,11 @@ export function CourseCard({
             </h4>
             <CriteriaBars ratings={course.ratings} />
           </div>
+
+          {/* COMMUNITY VOTE */}
+          <CommunityVote course={course} />
+
+
 
           {/* DETAILS */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#635C4B]">
