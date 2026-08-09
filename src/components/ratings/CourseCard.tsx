@@ -337,6 +337,11 @@ export function CourseCard({
             <CriteriaBars ratings={course.ratings} />
           </div>
 
+          {/* COMMUNITY VOTE */}
+          <CommunityVote course={course} />
+
+
+
           {/* DETAILS */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#635C4B]">
             {course.greenfee != null && (
