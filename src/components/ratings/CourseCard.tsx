@@ -212,10 +212,10 @@ export function CourseCard({
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
           <div className="flex flex-col items-end gap-1.5">
             <div className="md:hidden">
-              <PampasScoreBadge score={course.pampasScore} small />
+              <PampasScoreBadge score={combinedScore} small />
             </div>
             <div className="hidden md:block">
-              <PampasScoreBadge score={course.pampasScore} />
+              <PampasScoreBadge score={combinedScore} />
             </div>
             {activePersona && personal != null && (
               <div
