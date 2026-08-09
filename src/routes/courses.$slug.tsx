@@ -165,6 +165,8 @@ function CourseDetailPage() {
       <div className="px-6 lg:px-14 pb-16">
         <CourseCard course={course} activePersona={null} autoOpen />
 
+        <CommunityVote course={course} />
+
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(28,61,42,0.15)] pt-6">
           <Link
             to="/ratings"
