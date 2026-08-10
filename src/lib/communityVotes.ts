@@ -26,23 +26,33 @@ export function getVoterId(): string | null {
 export async function fetchCourseVotes(courseId: string): Promise<CommunityVote[]> {
   const { data, error } = await supabase
     .from("community_votes")
-    .select("id,course_id,voter_id,score")
+    .select("id,course_id,score")
     .eq("course_id", courseId);
   if (error) throw new Error(error.message);
-  return data ?? [];
+  return (data ?? []).map((r) => ({ ...r, voter_id: "" }));
 }
 
 export async function castVote(courseId: string, voterId: string, score: number) {
   const clean = Math.max(0, Math.min(100, Math.round(score)));
-  const { error } = await supabase
-    .from("community_votes")
-    .upsert(
-      { course_id: courseId, voter_id: voterId, score: clean },
-      { onConflict: "course_id,voter_id" },
-    );
+  const { data, error } = await supabase.rpc("cast_community_vote", {
+    _course_id: courseId,
+    _voter_id: voterId,
+    _score: clean,
+  });
   if (error) throw new Error(error.message);
-  return clean;
+  return typeof data === "number" ? data : clean;
 }
+
+export async function fetchMyVotes(voterId: string): Promise<Map<string, number>> {
+  const { data, error } = await supabase.rpc("get_my_community_votes", { _voter_id: voterId });
+  if (error) throw new Error(error.message);
+  const map = new Map<string, number>();
+  for (const row of (data ?? []) as { course_id: string; score: number }[]) {
+    map.set(row.course_id, row.score);
+  }
+  return map;
+}
+
 
 /**
  * Gewogen gemiddelde over host-ratings + community-stemmen.
