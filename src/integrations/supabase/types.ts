@@ -445,6 +445,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cast_community_vote: {
+        Args: { _course_id: string; _score: number; _voter_id: string }
+        Returns: number
+      }
+      get_my_community_votes: {
+        Args: { _voter_id: string }
+        Returns: {
+          course_id: string
+          score: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
