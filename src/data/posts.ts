@@ -43,9 +43,9 @@ export const posts: Post[] = [
     slug: "beste-golfbanen-antwerpen",
     title: "Beste Golfbanen in Antwerpen (2026): De Pampas-Ranking van 7 Banen",
     excerpt:
-      "De beste golfbanen in Antwerpen gerankt door Pampas: Rinkven, Royal Antwerp, Ternesse en meer. Inclusief locatie, holes en scores op 100.",
+      "De beste golfbanen in Antwerpen gerankt door Pampas: Rinkven, Royal Antwerp, Royal Ternesse en meer. Inclusief locatie, holes en scores op 100.",
     seoDescription:
-      "De beste golfbanen in Antwerpen gerankt door Pampas: Rinkven, Royal Antwerp, Ternesse en meer. Inclusief locatie, holes en scores op 100.",
+      "De beste golfbanen in Antwerpen gerankt door Pampas: Rinkven, Royal Antwerp, Royal Ternesse en meer. Inclusief locatie, holes en scores op 100.",
     date: "08/08/2026",
     author: "PAMPAS Redactie",
     readTime: "6 min",
@@ -58,7 +58,7 @@ export const posts: Post[] = [
     richContent: [
       {
         type: "subtitle",
-        text: "Op zoek naar de beste golfbanen in Antwerpen? De regio rond de stad is een van de rijkste golfgebieden van België: heidebanen, kasteeldomeinen en een DP World Tour-waardige lay-out liggen hier allemaal binnen een half uur van elkaar — van Kapellen en Schilde tot Wommelgem, Edegem, Aartselaar en Broechem.",
+        text: "Op zoek naar de beste golfbanen in Antwerpen? De regio rond het Stad is een van de rijkste golfgebieden van België: heidebanen, kasteeldomeinen en een DP World Tour-waardige lay-out liggen hier allemaal binnen een half uur van elkaar — van Kapellen en Schilde tot Wommelgem, Edegem, Aartselaar en Broechem.",
       },
       {
         type: "p",
@@ -76,17 +76,17 @@ export const posts: Post[] = [
           {
             num: "01",
             title: "Rinkven Golf & Country Club — 83,3/100",
-            text: "Heidebaan, 31 holes, Schilde. Thuisbasis van de Soudal Open op de DP World Tour.",
+            text: "Bosbaan, 36 holes, Schilde. Thuisbasis van de Soudal Open op de DP World Tour.",
           },
           {
             num: "02",
             title: "Royal Antwerp Golf Club — 83,2/100",
-            text: "Heidebaan, 18 holes, Kapellen. De oudste en meest iconische club van de regio.",
+            text: "Heidebaan, 27 holes, Kapellen. De oudste en meest iconische club van de regio.",
           },
           {
             num: "03",
-            title: "Ternesse Golf & Country Club — 82,1/100",
-            text: "Parkland, 18 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is.",
+            title: "Royal Ternesse Golf Club — 82,1/100",
+            text: "Parkland, 27 holes, Wommelgem. Technische parkbaan die de voorbije jaren fors gegroeid is.",
           },
           {
             num: "04",
@@ -101,7 +101,7 @@ export const posts: Post[] = [
         ],
       },
       { type: "h2", text: "1. Rinkven Golf & Country Club (Schilde) — 83,3/100" },
-      { type: "p", text: "Heidebaan, 31 holes." },
+      { type: "p", text: "Heidebaan, 36 holes." },
       {
         type: "p",
         text: 'Rinkven is de golfbaan met de hoogste score in deze lijst rond Antwerpen, en niet toevallig: het is de thuisbasis van de Soudal Open op de DP World Tour. Lars noemde het een "Topbaan".',
@@ -115,7 +115,7 @@ export const posts: Post[] = [
         text: 'Levi was even enthousiast ("Prachtig"): "Rinkven heeft alles te bieden, en dit voor elk type golfer. De North course is een prachtige en uitdagende baan die 8 holes lang top focus vereist. De South course begint met een iets wat eentonige front nine maar maakt dit goed met een fantastische back nine. De gemengde Soudal Open baan hier is de kers op de taart." Beide hosts zouden zeker terugkeren.',
       },
       { type: "h2", text: "2. Royal Antwerp Golf Club (Kapellen) — 83,2/100" },
-      { type: "p", text: "Heidebaan, 18 holes." },
+      { type: "p", text: "Heidebaan, 27 holes." },
       {
         type: "image",
         src: royalAntwerpAsset.url,
@@ -134,15 +134,15 @@ export const posts: Post[] = [
         type: "p",
         text: 'Lars omschreef de baan als "Iconisch": "Royal Antwerp is een tijdloze klassieker met uniek heidekarakter. Smalle fairways, dus creativiteit en nauwkeurigheid van de tee is vereist. Over het algemeen is de baan zeer goed onderhouden met vaak snelle en eerlijke greens." Alle drie de hosts komen hier altijd graag terug.',
       },
-      { type: "h2", text: "3. Ternesse Golf & Country Club (Wommelgem) — 82,1/100" },
-      { type: "p", text: "Parkland, 18 holes." },
+      { type: "h2", text: "3. Royal Ternesse Golf Club (Wommelgem) — 82,1/100" },
+      { type: "p", text: "Parkland, 27 holes." },
       {
         type: "p",
         text: 'Een technische parkbaan vlak bij Antwerpen die de voorbije jaren duidelijk gegroeid is. Lars ("Onberispelijk"): "Ternesse is een technische parkbaan rond Antwerpen, die de voorbije jaren door slimme designkeuzes en een sterke focus op onderhoud is uitgegroeid tot één van de absolute topbanen in België. De prijs-kwaliteit verhouding is bovendien uitzonderlijk goed."',
       },
       {
         type: "p",
-        text: 'Niels ("Kwaliteit"): "Ternesse is door de jaren heen een GEWELDIGE baan geworden. Ik loop daar nu al 18 jaar rond en heb de baan jaar na jaar zien groeien." Alle hosts keren hier altijd graag terug.',
+        text: 'Niels ("Kwaliteit"): "Ternesse is door de jaren heen een GEWELDIGE baan geworden. Ik loop daar nu al 18 jaar rond en heb de baan jaar na jaar zien groeien." Alle hosts zijn hier lid en spelen de baan dus zeer regelmatig.',
       },
       { type: "h2", text: "4. Golf Club Beveren — 69,0/100" },
       { type: "p", text: "Parkland, 9 holes." },
