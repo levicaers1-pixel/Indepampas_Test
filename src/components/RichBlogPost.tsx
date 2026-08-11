@@ -244,6 +244,30 @@ export function RichBlogPost({ post, prev, next }: Props) {
                 </div>
               );
             }
+            if (block.type === "image") {
+              return (
+                <figure key={i} className="my-10 -mx-2 sm:mx-0">
+                  <img
+                    src={block.src}
+                    alt={block.alt}
+                    loading="lazy"
+                    className="w-full h-auto border border-[#C8BFB0]"
+                  />
+                  {block.caption && (
+                    <figcaption
+                      className="mt-3 text-[#7A7468] uppercase"
+                      style={{
+                        fontFamily: "'DM Mono', ui-monospace, monospace",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
             if (block.type === "source") {
               return (
                 <p
