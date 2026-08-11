@@ -21,6 +21,7 @@ import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
+import { Route as BlogBesteGolfbanenRondAntwerpenRouteImport } from './routes/blog.beste-golfbanen-rond-antwerpen'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -85,6 +86,12 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogBesteGolfbanenRondAntwerpenRoute =
+  BlogBesteGolfbanenRondAntwerpenRouteImport.update({
+    id: '/beste-golfbanen-rond-antwerpen',
+    path: '/beste-golfbanen-rond-antwerpen',
+    getParentRoute: () => BlogRoute,
+  } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -128,6 +136,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog': typeof BlogIndexRoute
@@ -146,6 +155,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
   '/blog/': typeof BlogIndexRoute
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog'
@@ -197,6 +209,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/reset-password'
     | '/blog/$slug'
+    | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
     | '/blog/'
@@ -301,6 +314,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/beste-golfbanen-rond-antwerpen': {
+      id: '/blog/beste-golfbanen-rond-antwerpen'
+      path: '/beste-golfbanen-rond-antwerpen'
+      fullPath: '/blog/beste-golfbanen-rond-antwerpen'
+      preLoaderRoute: typeof BlogBesteGolfbanenRondAntwerpenRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -339,11 +359,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogBesteGolfbanenRondAntwerpenRoute: typeof BlogBesteGolfbanenRondAntwerpenRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogBesteGolfbanenRondAntwerpenRoute: BlogBesteGolfbanenRondAntwerpenRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 
@@ -376,12 +398,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
