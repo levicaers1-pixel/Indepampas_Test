@@ -1,3 +1,5 @@
+import royalAntwerpAsset from "@/assets/royal-antwerp-golf-club.jpg.asset.json";
+
 export type RichBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
