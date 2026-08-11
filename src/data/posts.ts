@@ -6,7 +6,8 @@ export type RichBlock =
   | { type: "stats"; items: { num: string; label: string }[] }
   | { type: "badges"; items: { num: string; title: string; text: string }[] }
   | { type: "table"; headers: string[]; rows: string[][] }
-  | { type: "source"; text: string };
+  | { type: "source"; text: string }
+  | { type: "image"; src: string; alt: string; caption?: string };
 
 export type Post = {
   slug: string;
@@ -113,6 +114,12 @@ export const posts: Post[] = [
       },
       { type: "h2", text: "2. Royal Antwerp Golf Club (Kapellen) — 83,2/100" },
       { type: "p", text: "Heidebaan, 18 holes." },
+      {
+        type: "image",
+        src: royalAntwerpAsset.url,
+        alt: "Fairway en bunkers van Royal Antwerp Golf Club in Kapellen bij ochtendlicht",
+        caption: "Royal Antwerp Golf Club, Kapellen — heidekarakter en smalle fairways.",
+      },
       {
         type: "p",
         text: "De oudste en meest iconische golfclub van de regio Antwerpen — en voor Niels simpelweg numero uno van België.",
