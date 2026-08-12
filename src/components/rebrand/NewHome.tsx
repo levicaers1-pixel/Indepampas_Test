@@ -249,7 +249,7 @@ export function NewHome() {
       <section className="bg-[#1C3D2A] px-6 lg:px-14 py-14 flex flex-col lg:flex-row gap-10 items-center">
         <div className="lg:flex-1">
           <h3 className="font-rb-serif font-light text-3xl text-[#F4EFE5] mb-2">
-            Eerst horen wanneer er een <em className="italic">nieuwe aflevering</em> valt.
+            Wil je op de hoogte gebracht worden bij een nieuwe aflevering?
           </h3>
           <p className="font-rb-sans text-sm text-[rgba(244,239,229,0.55)] max-w-md">
             Geen spam. Alleen een mail per nieuwe aflevering.
