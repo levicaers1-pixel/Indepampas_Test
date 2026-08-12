@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { castVote, fetchMyVotes, getVoterId } from "./communityVotes";
+import { castVote, fetchMyVotes, getVoterId, weightedCommunityScore } from "./communityVotes";
 
 type VoteRow = { id: string; course_id: string; score: number };
 
