@@ -212,8 +212,182 @@ export const posts: Post[] = [
   },
 
   {
+    slug: "beste-golfbanen-brussel",
+    title: "Beste Golfbanen Rond Brussel (2026): De Pampas-Ranking van 8 Banen",
+    excerpt:
+      "De beste golfbanen rond Brussel gerankt door Pampas: Ravenstein, The National, Hulencourt, Royal Waterloo en meer. Scores, locaties en holes op een rij.",
+    seoDescription:
+      "De beste golfbanen rond Brussel gerankt door Pampas: Ravenstein, The National, Hulencourt, Royal Waterloo en meer. Scores, locaties en holes op een rij.",
+    date: "12/08/2026",
+    author: "PAMPAS Redactie",
+    readTime: "7 min",
+    topics: ["golfbanen Brussel", "golf België", "golfbaan ranking", "Pampas-score"],
+    category: "Ranking",
+    sourceName: "PAMPAS Redactie",
+    sourceLabel: "Bron",
+    content:
+      "Op zoek naar de beste golfbanen rond Brussel? De hoofdstad ligt binnen een half uur van een indrukwekkende reeks golfbanen, verspreid over Vlaams-Brabant en Waals-Brabant.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "Op zoek naar de beste golfbanen rond Brussel? De hoofdstad ligt binnen een half uur van een indrukwekkende reeks golfbanen, verspreid over zowel Vlaams-Brabant als Waals-Brabant: van het koninklijke Ravenstein-domein tot de championship-lay-out van Hulencourt en de 45 holes van Royal Waterloo.",
+      },
+      {
+        type: "p",
+        text: "Wij (Lars, Levi en Niels van Pampas) speelden een deel van deze golfbanen rond Brussel zelf en gaven elk onze score. In dit overzicht rangschikken we ze op basis van onze Pampas-score — en zijn we ook eerlijk over de banen die we nog niet gespeeld hebben.",
+      },
+      { type: "h2", text: "Hoe wij scoren" },
+      {
+        type: "p",
+        text: "Elke Pampas-host beoordeelt een golfbaan op zeven onderdelen — design, onderhoud, uitdaging, scenery, faciliteiten, prijs-kwaliteit en gastvrijheid — en dat resulteert in een Pampas-score op 100. Wanneer meerdere hosts dezelfde baan speelden, gebruiken we het gemiddelde voor de ranking. Bezoekers van pampas.be kunnen intussen ook zelf stemmen: hun scores tellen mee in een gewogen community-score naast onze eigen beoordeling.",
+      },
+      { type: "h2", text: "De Pampas-ranking: golfbanen rond Brussel" },
+      {
+        type: "badges",
+        items: [
+          {
+            num: "01",
+            title: "Royal Golf Club Belgium - Ravenstein — 84,0/100",
+            text: "Parkland, 27 holes, Tervuren. Koninklijk parkbaan met Augusta-gevoel in het Geografische Arboretum.",
+          },
+          {
+            num: "02",
+            title: "The National Golf Brussels — 83,3/100",
+            text: "Parkland, 24 holes, Sterrebeek. Inland links met verschillende gezichten afhankelijk van de wind.",
+          },
+          {
+            num: "03",
+            title: "Hulencourt Golf Club — 81,5/100",
+            text: "Parkland, 27 holes, Bousval. Thuisbasis van de Belgian Ladies Open met championship-allure.",
+          },
+          {
+            num: "04",
+            title: "Golf de Sept Fontaines — 72,3/100",
+            text: "Parkland, 36 holes, Chaumont-Gistoux. Groot complex met extra karakter door de glooiing van het terrein.",
+          },
+          {
+            num: "05",
+            title: "Golf du Château de la Bawette — 69,5/100",
+            text: "Parkland, 18 holes, Court-Saint-Étienne. Compacte baan met uitgesproken karakter.",
+          },
+          {
+            num: "06",
+            title: "Golfclub Kampenhout — 68,8/100",
+            text: "Parkland, 18 holes, Kampenhout. Toegankelijke baan vlak naast Zaventem — vliegtuigspotten als bonus.",
+          },
+        ],
+      },
+      { type: "h2", text: "1. Royal Golf Club Belgium - Ravenstein (Tervuren) — 84,0/100" },
+      { type: "p", text: "Parkland, 27 holes." },
+      {
+        type: "p",
+        text: "Het koninklijke Ravenstein-domein is voor Lars een van de allerbeste banen van het land: \"Koninklijk\": \"Ravenstein is een parkbaan om U tegen te zeggen. Deze baan behoort ongetwijfeld tot de allerbeste banen van België. De vele bomen- en plantensoorten, destijds geïmporteerd door Leopold II, geven de baan een Augusta-gevoel.\" Hij zou hier zeker terugkeren.",
+      },
+      {
+        type: "p",
+        text: "Ook online is de reputatie duidelijk: de club dateert van 1906, ligt middenin het Geografische Arboretum van Tervuren, en het hoofdparcours werd in 1928 heringericht door architect Tom Simpson — vandaar het \"Augusta-gevoel\" waar Lars het over heeft.",
+      },
+      { type: "h2", text: "2. The National Golf Brussels (Sterrebeek) — 83,3/100" },
+      { type: "p", text: "Parkland, 24 holes." },
+      {
+        type: "p",
+        text: "Een inland links vlak bij Brussel die zich compleet anders speelt naargelang de wind. Lars (\"Championship\"): \"The National is een zeer kwalitatieve Inland Links in Sterrebeek, nabij Brussel. Qua uitdaging heeft deze baan verschillende gezichten. Wanneer er veel wind is en de rough lang staat, is dit een echte Championship baan die zelfs de betere speler doet twijfelen. De faciliteiten zijn zeer veelzijdig.\"",
+      },
+      {
+        type: "p",
+        text: "Online reviews bevestigen dat beeld: de baan werd pas in 2017 aangelegd door architect Bruno Steensels op de historische site van de vroegere Sterrebeek-hippodroom, en geldt bij verschillende golfgidsen als een van de betere championship courses van het land.",
+      },
+      { type: "h2", text: "3. Hulencourt Golf Club (Bousval) — 81,5/100" },
+      { type: "p", text: "Parkland, 27 holes." },
+      {
+        type: "p",
+        text: "De thuisbasis van de Belgian Ladies Open op de Ladies European Tour, en een baan die competitieve golf ademt. Lars (\"Championship\"): \"Hulencourt wordt door velen beschouwd als een toonaangevende baan in België. Het is onmiskenbaar een sterk onderhouden golfcomplex met uitstekende en zeer uitgebreide oefenfaciliteiten. Le Vallon biedt bovendien een stevige uitdaging die perfect past binnen een championship setting. Toch mist Hulencourt voor mij net wat variatie in lay-out en landschapsbeleving om zich echt bij de absolute top van België te scharen.\" Levi (\"Championship\"): \"Deze baan ademt competitieve golf. De rough in topconditie maakt dit een fairway eisende baan. Enige nadeel is de prijzige greenfee, al krijg je hier een day membership ipv een droge 18 holes.\" Beide hosts zouden terugkeren.",
+      },
+      { type: "h2", text: "4. Golf de Sept Fontaines (Chaumont-Gistoux) — 72,3/100" },
+      { type: "p", text: "Parkland, 36 holes." },
+      {
+        type: "p",
+        text: "Een van de grotere golfcomplexen rond Brussel, met een lay-out die extra karakter krijgt door de glooiing van het terrein. Levi (\"Mooi\"): \"Een degelijke baan waar weinig op aan te merken valt. De layout wordt extra in de verf gezet door de ondulatie van het terrein. Sommige holes geven weliswaar wat een micky mouse gevoel.\"",
+      },
+      { type: "h2", text: "5. Golf du Château de la Bawette (Court-Saint-Étienne) — 69,5/100" },
+      { type: "p", text: "Parkland, 18 holes." },
+      {
+        type: "p",
+        text: "Een compacte baan met een uitgesproken karakter. Niels (\"Speciaal\"): \"De baan is speciaal, hier heb je het gevoel dat op weinig ruimte 18 holes moesten passen. Hole 11 is het absolute hoogte punt van de baan.\"",
+      },
+      { type: "h2", text: "6. Golfclub Kampenhout — 68,8/100" },
+      { type: "p", text: "Parkland, 18 holes." },
+      {
+        type: "p",
+        text: "Een toegankelijke baan vlak naast de luchthaven van Zaventem — leuk voor wie van vliegtuigspotten houdt, minder voor wie stilte zoekt. Lars (\"Weiland\"): \"Degelijk, niets speciaals. Vliegtuigspotten als bonus. Neem genoeg ballen mee, zeker als de rough lang staat.\" Levi (\"Degelijk\") en Niels (\"Matig\") waren gematigd positief; geen van de hosts zou hier bewust voor terugkeren.",
+      },
+      { type: "h2", text: "Nog geen recente Pampas-score" },
+      {
+        type: "p",
+        text: "Eerlijkheid hoort bij onze aanpak: deze twee golfbanen liggen ook rond Brussel, en we speelden ze in het verleden ook — maar dat is intussen te lang geleden om er een nuttige, actuele review over te schrijven. Op basis van publieke data en reviews alvast dit:",
+      },
+      {
+        type: "p",
+        text: "<strong>Brabantse Golf (Melsbroek)</strong> — Parkland, 18 holes, par 72. Gelegen rond het historische kasteel Cleyn Hoff, vlak bij de luchthaven van Zaventem. Publieke reviews (Tripadvisor, Hole19, GolfPass) prijzen het onderhoud en de gezellige clubhuis-sfeer, met als kanttekening dat de eerste negen holes dicht bij de aanvliegroute van de luchthaven liggen — de tweede negen liggen rustiger, in bosrijke omgeving.",
+      },
+      {
+        type: "p",
+        text: "<strong>Royal Waterloo Golf Club (Ohain)</strong> — Parkland, 45 holes verdeeld over drie banen (Le Lion, La Marache, Le Bois Héros). Een van de oudste clubs van België (opgericht in 1923). Publieke reviews noemen vooral La Marache — ontworpen door Fred Hawtree en ooit gastheer van de Challenge Tour — als de sterkste van de drie, met boomrijke fairways en glooiend terrein. Le Lion ligt op het historische slagveld van Waterloo.",
+      },
+      {
+        type: "p",
+        text: "We plannen om deze twee binnenkort opnieuw te spelen voor een verse, volwaardige Pampas-score — hou onze ranking in de gaten.",
+      },
+      { type: "h2", text: "Samengevat: golfbanen Brussel op een rij" },
+      {
+        type: "table",
+        headers: ["Golfbaan", "Locatie", "Type", "Holes", "Prijsklasse", "Pampas-score", "Gespeeld door Pampas"],
+        rows: [
+          ["Royal Golf Club Belgium - Ravenstein", "Tervuren", "Parkland", "27", "€€€€", "84,0", "Ja"],
+          ["The National Golf Brussels", "Sterrebeek", "Parkland", "24", "€€€€", "83,3", "Ja"],
+          ["Hulencourt Golf Club", "Bousval", "Parkland", "27", "€€€€", "81,5", "Ja"],
+          ["Golf de Sept Fontaines", "Chaumont-Gistoux", "Parkland", "36", "€€€", "72,3", "Ja"],
+          ["Golf du Château de la Bawette", "Court-Saint-Étienne", "Parkland", "18", "€€€", "69,5", "Ja"],
+          ["Golfclub Kampenhout", "Kampenhout", "Parkland", "18", "€€€", "68,8", "Ja"],
+          ["Brabantse Golf", "Melsbroek", "Parkland", "18", "€€", "—", "In het verleden, review verouderd"],
+          ["Royal Waterloo Golf Club", "Ohain", "Parkland", "45", "€€€€", "—", "In het verleden, review verouderd"],
+        ],
+      },
+      { type: "h2", text: "Veelgestelde vragen over golfbanen rond Brussel" },
+      {
+        type: "p",
+        text: "<strong>Wat is de beste golfbaan rond Brussel?</strong> Volgens de Pampas-ranking scoort Royal Golf Club Belgium op het Ravenstein-domein in Tervuren het hoogst (84,0/100), op de voet gevolgd door The National Golf Brussels in Sterrebeek (83,3/100).",
+      },
+      {
+        type: "p",
+        text: "<strong>Hoeveel golfbanen zijn er rond Brussel?</strong> In deze ranking bespreken we 8 golfbanen in de directe omgeving van Brussel: Ravenstein, The National, Hulencourt, Sept Fontaines, Bawette, Kampenhout, Brabantse Golf en Royal Waterloo.",
+      },
+      {
+        type: "p",
+        text: "<strong>Welke golfbaan bij Brussel organiseerde al internationale toernooien?</strong> Zowel Hulencourt (Belgian Ladies Open, Ladies European Tour) als Royal Waterloo Golf Club (Challenge Tour, via La Marache) waren al gastheer van professionele Europese toernooien.",
+      },
+      {
+        type: "p",
+        text: "<strong>Waar kan ik golfen dicht bij Brussels Airport?</strong> Golfclub Kampenhout en Brabantse Golf in Melsbroek liggen beide vlak bij Zaventem — handig te combineren met een vlucht, al hoor je op sommige holes wel het vliegtuigverkeer.",
+      },
+      {
+        type: "p",
+        text: "<strong>Wat is een betaalbare golfbaan rond Brussel?</strong> Brabantse Golf in Melsbroek is met een prijsklasse van €€ de meest toegankelijke optie in deze lijst. De meeste andere golfbanen rond Brussel, zoals Ravenstein, The National en Hulencourt, vallen in de hogere prijsklasse (€€€€).",
+      },
+      {
+        type: "p",
+        text: "<strong>Welke golfbaan rond Brussel heeft de meeste holes?</strong> Royal Waterloo Golf Club in Ohain telt 45 holes verdeeld over drie banen (Le Lion, La Marache en Le Bois Héros) — het grootste golfcomplex in deze ranking.",
+      },
+      {
+        type: "p",
+        text: "Heb je zelf al op een van deze golfbanen gespeeld en ben je het (on)eens met onze ranking? Stem mee op pampas.be en laat je community-score meetellen — misschien hoor je jouw mening terug in een volgende aflevering van Pampas.",
+      },
+    ],
+  },
+  {
     slug: "golf-media-partner-spotlight",
     title: "Een great network to play: hoe Golf Media de clubervaring naar een hoger niveau tilt",
+
     excerpt:
       "PAMPAS werkt samen met Golf Media, en dat is geen toeval. Hun digitale netwerk in de Belgische golfclubs maakt het leven van golfers net dat tikkeltje makkelijker, precies waar wij ook voor staan.",
     seoDescription:
