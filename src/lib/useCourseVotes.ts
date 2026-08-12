@@ -110,7 +110,7 @@ export function useCourseVotes(courseId: string) {
  * overeenkomt met het getoonde hoofdcijfer.
  */
 export function useCombinedScore() {
-  const [, setTick] = useState(0);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     const listener = () => setTick((t) => t + 1);
@@ -135,7 +135,9 @@ export function useCombinedScore() {
         .filter((n) => Number.isFinite(n));
       return weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
     },
-    [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tick],
+
   );
 }
 
