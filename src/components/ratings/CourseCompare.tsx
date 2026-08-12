@@ -47,9 +47,9 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
   const winner = useMemo(() => {
     if (picked.length < 2) return null;
     return picked.reduce((best, c) =>
-      (c.pampasScore ?? -1) > (best.pampasScore ?? -1) ? c : best,
+      (combinedScore(c) ?? -1) > (combinedScore(best) ?? -1) ? c : best,
     );
-  }, [picked]);
+  }, [picked, combinedScore]);
 
   const avgFor = (c: CourseWithRatings, key: keyof CourseWithRatings["ratings"][number]) => {
     const vals = c.ratings.map((r) => Number(r[key])).filter((v) => !isNaN(v));
