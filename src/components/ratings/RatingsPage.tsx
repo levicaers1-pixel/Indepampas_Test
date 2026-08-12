@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
+import { useCombinedScore } from "@/lib/useCourseVotes";
+
 import type { CourseWithRatings } from "@/data/courses-db";
 import { buildSlugMap } from "@/lib/courseSlug";
 import { CourseCard } from "./CourseCard";
@@ -118,6 +120,8 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
     [courses],
   );
 
+  const combinedScore = useCombinedScore();
+
   const filtered = useMemo(() => {
     let out = courses.filter((c) => {
       if (search && !`${c.name} ${c.region ?? ""}`.toLowerCase().includes(search.toLowerCase()))
@@ -135,7 +139,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
     const persona = activeHost ? HOST_PERSONAS[activeHost] : null;
     const scoreFor = (c: CourseWithRatings) =>
-      persona ? personalScore(c.ratings, persona.affinities) ?? -1 : c.pampasScore ?? -1;
+      persona ? personalScore(c.ratings, persona.affinities) ?? -1 : combinedScore(c) ?? -1;
 
     if (sort === "pampas_desc") out = [...out].sort((a, b) => scoreFor(b) - scoreFor(a));
     else if (sort === "pampas_asc") out = [...out].sort((a, b) => scoreFor(a) - scoreFor(b));
@@ -146,7 +150,8 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       out = [...out].sort((a, b) => recent(b) - recent(a));
     }
     return out;
-  }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost]);
+  }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost, combinedScore]);
+
 
   const totalCourses = courses.length;
   const avgScore =

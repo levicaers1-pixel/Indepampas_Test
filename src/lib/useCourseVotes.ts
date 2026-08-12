@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { castVote, fetchMyVotes, getVoterId } from "./communityVotes";
+import { castVote, fetchMyVotes, getVoterId, weightedCommunityScore } from "./communityVotes";
 
 type VoteRow = { id: string; course_id: string; score: number };
 
@@ -103,3 +103,41 @@ export function useCourseVotes(courseId: string) {
 
   return { loading, error, scores, myVote, vote };
 }
+
+/**
+ * Gedeelde gewogen score (hosts 10x + community 1x) voor alle banen.
+ * Gebruik dit overal waar gesorteerd/gerangschikt wordt, zodat de volgorde
+ * overeenkomt met het getoonde hoofdcijfer.
+ */
+export function useCombinedScore() {
+  const [tick, setTick] = useState(0);
+
+  useEffect(() => {
+    const listener = () => setTick((t) => t + 1);
+    listeners.add(listener);
+    loadAll()
+      .then(listener)
+      .catch(() => undefined);
+    return () => {
+      listeners.delete(listener);
+    };
+  }, []);
+
+  return useCallback(
+    (course: {
+      id: string;
+      pampasScore: number | null;
+      ratings: { host_score: number | string | null }[];
+    }): number | null => {
+      const communityScores = (cache?.get(course.id) ?? []).map((r) => r.score);
+      const hostScores = course.ratings
+        .map((r) => Number(r.host_score))
+        .filter((n) => Number.isFinite(n));
+      return weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tick],
+
+  );
+}
+

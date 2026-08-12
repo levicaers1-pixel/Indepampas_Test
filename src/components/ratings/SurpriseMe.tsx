@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import type { CourseWithRatings } from "@/data/courses-db";
+import { useCombinedScore } from "@/lib/useCourseVotes";
 import { CourseCard } from "./CourseCard";
 
 type Budget = "" | "€" | "€€" | "€€€" | "€€€€";
 type Vibe = "" | "score" | "fun" | "uitdaging" | "rustig";
 
 export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
+  const combinedScore = useCombinedScore();
   const countries = useMemo(
     () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
     [courses],
@@ -63,7 +65,7 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
           return vals.reduce((a, b) => a + b, 0) / vals.length;
         };
 
-        const pampas = c.pampasScore ?? avg("host_score");
+        const pampas = combinedScore(c) ?? avg("host_score");
         score += pampas * 1.5;
 
         if (vibe === "fun") score += (avg("score_value") + avg("score_design")) * 1.5;

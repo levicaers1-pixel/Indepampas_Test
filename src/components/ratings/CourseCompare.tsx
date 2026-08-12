@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { CRITERIA, HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { scoreColor } from "@/lib/personalScore";
+import { useCombinedScore } from "@/lib/useCourseVotes";
 import type { CourseWithRatings } from "@/data/courses-db";
 
 export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
@@ -8,6 +9,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
   const [country, setCountry] = useState<string>("all");
   const [query, setQuery] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const combinedScore = useCombinedScore();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const countries = useMemo(() => {
@@ -47,9 +49,9 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
   const winner = useMemo(() => {
     if (picked.length < 2) return null;
     return picked.reduce((best, c) =>
-      (c.pampasScore ?? -1) > (best.pampasScore ?? -1) ? c : best,
+      (combinedScore(c) ?? -1) > (combinedScore(best) ?? -1) ? c : best,
     );
-  }, [picked]);
+  }, [picked, combinedScore]);
 
   const avgFor = (c: CourseWithRatings, key: keyof CourseWithRatings["ratings"][number]) => {
     const vals = c.ratings.map((r) => Number(r[key])).filter((v) => !isNaN(v));
@@ -175,7 +177,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                 </th>
                 {picked.map((c) => {
                   const isWin = winner?.id === c.id;
-                  const { hex } = scoreColor(c.pampasScore);
+                  const { hex } = scoreColor(combinedScore(c));
                   return (
                     <th key={c.id} className="p-3 align-bottom">
                       <div className="flex flex-col gap-1">
@@ -197,7 +199,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                           className="font-rb-serif text-[1.6rem] leading-none mt-1"
                           style={{ color: hex }}
                         >
-                          {c.pampasScore?.toFixed(0) ?? "—"}
+                          {combinedScore(c)?.toFixed(0) ?? "—"}
                         </span>
                       </div>
                     </th>

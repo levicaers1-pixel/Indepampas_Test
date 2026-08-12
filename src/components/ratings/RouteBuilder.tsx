@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import type { CourseWithRatings } from "@/data/courses-db";
+import { useCombinedScore } from "@/lib/useCourseVotes";
 import { scoreColor } from "@/lib/personalScore";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { computeDriveMatrix } from "@/lib/routes.functions";
@@ -55,6 +56,7 @@ function haversineKm(a: Coord, b: Coord): number {
 }
 
 export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
+  const combinedScore = useCombinedScore();
   const regionsByCountry = useMemo(() => {
     const map = new Map<string, Set<string>>();
     for (const c of courses) {
@@ -142,7 +144,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
       const maxRadiusKm = Math.max(80, maxLegMin * 1.2 * Math.max(days, 1));
       const nearby = withCoords
         .filter(({ co }) => haversineKm(originCoord, co) <= maxRadiusKm)
-        .sort((a, b) => (b.c.pampasScore ?? 0) - (a.c.pampasScore ?? 0))
+        .sort((a, b) => (combinedScore(b.c) ?? 0) - (combinedScore(a.c) ?? 0))
         .slice(0, 20); // Routes matrix capped at 25 total.
 
       if (nearby.length === 0) {
@@ -191,8 +193,8 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
         // Score = pampasScore - 0.15 * minutes (favor high-score, penalize long legs).
         options.sort(
           (a, b) =>
-            (b.n.c.pampasScore ?? 0) - 0.15 * b.leg.min -
-            ((a.n.c.pampasScore ?? 0) - 0.15 * a.leg.min),
+            (combinedScore(b.n.c) ?? 0) - 0.15 * b.leg.min -
+            ((combinedScore(a.n.c) ?? 0) - 0.15 * a.leg.min),
         );
 
         // Try to fit under budget.
@@ -407,7 +409,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
               <ol className="space-y-3">
                 {dayStops.map((s, i) => {
                   const isFirst = day === 1 && i === 0 && s === result.stops[0];
-                  const { hex } = scoreColor(s.course.pampasScore);
+                  const { hex } = scoreColor(combinedScore(s.course));
                   return (
                     <li key={s.course.id}>
                       <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mb-1 pl-14">
@@ -434,7 +436,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
                               className="font-rb-serif text-[1.3rem] tabular-nums shrink-0"
                               style={{ color: hex }}
                             >
-                              {s.course.pampasScore?.toFixed(0)}
+                              {combinedScore(s.course)?.toFixed(0)}
                             </span>
                           </div>
                           <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mt-0.5">
