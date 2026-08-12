@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
+import { useCombinedScore } from "@/lib/useCourseVotes";
+
 import type { CourseWithRatings } from "@/data/courses-db";
 import { buildSlugMap } from "@/lib/courseSlug";
 import { CourseCard } from "./CourseCard";
