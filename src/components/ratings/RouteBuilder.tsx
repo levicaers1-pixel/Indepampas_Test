@@ -56,6 +56,7 @@ function haversineKm(a: Coord, b: Coord): number {
 }
 
 export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
+  const combinedScore = useCombinedScore();
   const regionsByCountry = useMemo(() => {
     const map = new Map<string, Set<string>>();
     for (const c of courses) {

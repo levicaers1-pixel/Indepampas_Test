@@ -7,6 +7,7 @@ type Budget = "" | "€" | "€€" | "€€€" | "€€€€";
 type Vibe = "" | "score" | "fun" | "uitdaging" | "rustig";
 
 export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
+  const combinedScore = useCombinedScore();
   const countries = useMemo(
     () => Array.from(new Set(courses.map((c) => c.country).filter(Boolean))) as string[],
     [courses],
