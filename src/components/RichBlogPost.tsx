@@ -1,5 +1,31 @@
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Post, RichBlock } from "@/data/posts";
+
+declare global {
+  interface Window {
+    instgrm?: { Embeds: { process: () => void } };
+  }
+}
+
+function useInstagramEmbeds(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled || typeof window === "undefined") return;
+    const process = () => window.instgrm?.Embeds.process();
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://www.instagram.com/embed.js"]',
+    );
+    if (existing) {
+      process();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://www.instagram.com/embed.js";
+    script.async = true;
+    script.onload = process;
+    document.body.appendChild(script);
+  }, [enabled]);
+}
 
 type Props = {
   post: Post;
@@ -9,6 +35,7 @@ type Props = {
 
 export function RichBlogPost({ post, prev, next }: Props) {
   const blocks = post.richContent ?? [];
+  useInstagramEmbeds(blocks.some((b) => b.type === "embed"));
 
   return (
     <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
@@ -252,6 +279,28 @@ export function RichBlogPost({ post, prev, next }: Props) {
                     alt={block.alt}
                     loading="lazy"
                     className="w-full h-auto border border-[#C8BFB0]"
+                  />
+                  {block.caption && (
+                    <figcaption
+                      className="mt-3 text-[#7A7468] uppercase"
+                      style={{
+                        fontFamily: "'DM Mono', ui-monospace, monospace",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
+            if (block.type === "embed") {
+              return (
+                <figure key={i} className="my-10 flex flex-col items-center">
+                  <div
+                    className="w-full max-w-[540px] [&_blockquote]:!mx-auto [&_iframe]:!mx-auto"
+                    dangerouslySetInnerHTML={{ __html: block.html }}
                   />
                   {block.caption && (
                     <figcaption
