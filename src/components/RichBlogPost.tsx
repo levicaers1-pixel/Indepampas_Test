@@ -1,5 +1,31 @@
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Post, RichBlock } from "@/data/posts";
+
+declare global {
+  interface Window {
+    instgrm?: { Embeds: { process: () => void } };
+  }
+}
+
+function useInstagramEmbeds(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled || typeof window === "undefined") return;
+    const process = () => window.instgrm?.Embeds.process();
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://www.instagram.com/embed.js"]',
+    );
+    if (existing) {
+      process();
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://www.instagram.com/embed.js";
+    script.async = true;
+    script.onload = process;
+    document.body.appendChild(script);
+  }, [enabled]);
+}
 
 type Props = {
   post: Post;
