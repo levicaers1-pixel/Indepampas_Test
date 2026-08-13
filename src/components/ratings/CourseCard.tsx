@@ -48,6 +48,8 @@ function PampasScoreBadge({ score, small }: { score: number | null; small?: bool
   );
 }
 
+const COMMUNITY_COLOR = "#9B6AD4";
+
 function HostDot({
   host,
   rated,
@@ -77,6 +79,40 @@ function HostDot({
       {host}
       {rated && score != null && (
         <span className="opacity-80 font-rb-mono text-[0.65rem]">{score.toFixed(0)}</span>
+      )}
+    </div>
+  );
+}
+
+function CommunityDot({
+  avg,
+  count,
+}: {
+  avg: number | null;
+  count: number;
+}) {
+  const rated = count > 0 && avg != null;
+  return (
+    <div
+      className="inline-flex items-center gap-1.5 px-2 py-1 text-[0.7rem] font-rb-sans border"
+      style={{
+        background: rated ? `${COMMUNITY_COLOR}14` : "transparent",
+        color: rated ? COMMUNITY_COLOR : "#A09684",
+        borderColor: rated ? `${COMMUNITY_COLOR}55` : "rgba(28,61,42,0.15)",
+      }}
+    >
+      <span
+        className="inline-block w-2 h-2 rounded-full"
+        style={{
+          background: rated ? COMMUNITY_COLOR : "transparent",
+          border: rated ? "none" : "1.5px solid #A09684",
+        }}
+      />
+      <span>Community</span>
+      {rated && (
+        <span className="opacity-80 font-rb-mono text-[0.65rem]">
+          {avg.toFixed(0)} ({count} {count === 1 ? "stem" : "stemmen"})
+        </span>
       )}
     </div>
   );
@@ -191,6 +227,10 @@ export function CourseCard({
               const r = course.ratings.find((x) => x.host === h);
               return <HostDot key={h} host={h} rated={ratedHosts.has(h)} score={r?.host_score} />;
             })}
+            <CommunityDot
+              avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
+              count={communityScores.length}
+            />
             {course.episode_url && (
               <a
                 href={course.episode_url}
