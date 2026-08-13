@@ -295,6 +295,28 @@ export function RichBlogPost({ post, prev, next }: Props) {
                 </figure>
               );
             }
+            if (block.type === "embed") {
+              return (
+                <figure key={i} className="my-10 flex flex-col items-center">
+                  <div
+                    className="w-full max-w-[540px] [&_blockquote]:!mx-auto [&_iframe]:!mx-auto"
+                    dangerouslySetInnerHTML={{ __html: block.html }}
+                  />
+                  {block.caption && (
+                    <figcaption
+                      className="mt-3 text-[#7A7468] uppercase"
+                      style={{
+                        fontFamily: "'DM Mono', ui-monospace, monospace",
+                        fontSize: "0.6rem",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
+            }
             if (block.type === "source") {
               return (
                 <p
