@@ -227,6 +227,10 @@ export function CourseCard({
               const r = course.ratings.find((x) => x.host === h);
               return <HostDot key={h} host={h} rated={ratedHosts.has(h)} score={r?.host_score} />;
             })}
+            <CommunityDot
+              avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
+              count={communityScores.length}
+            />
             {course.episode_url && (
               <a
                 href={course.episode_url}
