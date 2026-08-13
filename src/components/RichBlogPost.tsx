@@ -35,6 +35,7 @@ type Props = {
 
 export function RichBlogPost({ post, prev, next }: Props) {
   const blocks = post.richContent ?? [];
+  useInstagramEmbeds(blocks.some((b) => b.type === "embed"));
 
   return (
     <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
