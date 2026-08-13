@@ -145,6 +145,11 @@ export const posts: Post[] = [
         type: "p",
         text: 'Niels ("Kwaliteit"): "Ternesse is door de jaren heen een GEWELDIGE baan geworden. Ik loop daar nu al 18 jaar rond en heb de baan jaar na jaar zien groeien." Alle hosts zijn hier lid en spelen de baan dus zeer regelmatig.',
       },
+      {
+        type: "embed",
+        html: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/Db3bLVNsnXT/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px auto;max-width:540px;min-width:326px;padding:0;width:99.375%;"><a href="https://www.instagram.com/reel/Db3bLVNsnXT/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noreferrer">Bekijk deze post op Instagram — Pampas Golfpodcast (@pampas.golfpodcast)</a></blockquote>',
+        caption: "Pampas op Ternesse — via Instagram",
+      },
       { type: "h2", text: "4. Golf Club Beveren — 69,0/100" },
       { type: "p", text: "Parkland, 9 holes." },
       {
