@@ -9,7 +9,8 @@ export type RichBlock =
   | { type: "badges"; items: { num: string; title: string; text: string }[] }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "source"; text: string }
-  | { type: "image"; src: string; alt: string; caption?: string };
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "embed"; html: string; caption?: string };
 
 export type Post = {
   slug: string;
