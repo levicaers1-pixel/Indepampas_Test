@@ -61,7 +61,7 @@ export function NewHome() {
 
     setStatus("loading");
     try {
-      await subscribe({ data: { email: trimmed } });
+      await subscribe({ data: { email: trimmed, source: "home-newsletter" } });
       if (typeof window !== "undefined") {
         localStorage.setItem(CAPTURED_KEY, "true");
       }
