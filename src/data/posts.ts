@@ -939,6 +939,11 @@ export const posts: Post[] = [
         text: "grip.academy op de Kempense Golf is een adres dat elke serieuze golfer — van enthousiaste amateur tot gevorderde speler — minstens één keer zou moeten bezoeken. Niet omdat technologie golf vervangt, maar omdat het je eindelijk laat zien wat je zelf nooit kon waarnemen. En dan gaat het snel. Opvallend snel.",
       },
       {
+        type: "embed",
+        html: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DYFR7D-MRNj/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px auto;max-width:540px;min-width:326px;padding:0;width:99.375%;"><a href="https://www.instagram.com/reel/DYFR7D-MRNj/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank" rel="noreferrer">Bekijk deze post op Instagram — Pampas Golfpodcast (@pampas.golfpodcast)</a></blockquote>',
+        caption: "Pampas bij grip.academy — via Instagram",
+      },
+      {
         type: "source",
         text: "Bron: grip.academy · Kempense Golf — sessieverslag mei 2026",
       },
