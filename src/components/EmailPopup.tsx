@@ -56,7 +56,7 @@ export function EmailPopup() {
 
     setStatus("loading");
     try {
-      await subscribe({ data: { email: trimmed } });
+      await subscribe({ data: { email: trimmed, source: "scroll-popup" } });
       localStorage.setItem(CAPTURED_KEY, "true");
       setStatus("success");
     } catch {
