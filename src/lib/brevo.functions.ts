@@ -17,11 +17,10 @@ export const subscribeToBrevo = createServerFn({ method: "POST" })
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const { error } = await supabaseAdmin
         .from("subscribers")
-        .upsert(
-          { email: data.email, source: data.source ?? "unknown" },
-          { onConflict: "email", ignoreDuplicates: true },
-        );
-      if (!error) stored = true;
+        .insert({ email: data.email, source: data.source ?? "unknown" });
+      // 23505 = already subscribed, still a success for us
+      if (!error || error.code === "23505") stored = true;
+
     } catch {
       stored = false;
     }
