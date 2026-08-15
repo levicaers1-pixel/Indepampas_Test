@@ -259,9 +259,10 @@ export function NewHome() {
 
                   <PampasScoreBadge score={score} small />
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 truncate">
+                    <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 line-clamp-2">
                       {course.name}
                     </h3>
+
                     <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6]">
                       {[course.region, course.country].filter(Boolean).join(", ")}
                     </p>
