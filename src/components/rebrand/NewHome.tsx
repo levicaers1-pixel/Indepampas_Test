@@ -44,7 +44,15 @@ export function NewHome() {
   const [error, setError] = useState<string | null>(null);
   const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
   const [topCourses, setTopCourses] = useState<TopCourse[]>([]);
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
   const getScore = useCombinedScore();
+
+  useEffect(() => {
+    if (paused || topCourses.length < 2) return;
+    const id = setInterval(() => setSlide((s) => (s + 1) % topCourses.length), 6000);
+    return () => clearInterval(id);
+  }, [paused, topCourses.length]);
 
 
   const subscribe = useServerFn(subscribeToBrevo);
