@@ -22,6 +22,8 @@ const TOP_COURSE_NAMES = [
   "Royal Ostend Golf Club",
 ];
 
+type TopRating = { host_score: number; host?: string | null; one_word?: string | null; review?: string | null };
+
 type TopCourse = {
   id: string;
   name: string;
@@ -29,7 +31,10 @@ type TopCourse = {
   region: string | null;
   slug: string;
   pampasScore: number | null;
-  ratings: { host_score: number }[];
+  ratings: TopRating[];
+  quote: string | null;
+  quoteHost: string | null;
+  oneWord: string | null;
 };
 
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
@@ -39,7 +44,15 @@ export function NewHome() {
   const [error, setError] = useState<string | null>(null);
   const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
   const [topCourses, setTopCourses] = useState<TopCourse[]>([]);
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
   const getScore = useCombinedScore();
+
+  useEffect(() => {
+    if (paused || topCourses.length < 2) return;
+    const id = setInterval(() => setSlide((s) => (s + 1) % topCourses.length), 6000);
+    return () => clearInterval(id);
+  }, [paused, topCourses.length]);
 
 
   const subscribe = useServerFn(subscribeToBrevo);
@@ -72,7 +85,7 @@ export function NewHome() {
     Promise.all([
       supabase
         .from("courses")
-        .select("id,name,country,region,ratings(host_score)")
+        .select("id,name,country,region,ratings(host_score,host,one_word,review)")
         .in("name", TOP_COURSE_NAMES),
       supabase.from("courses").select("id,name"),
     ]).then(([{ data: topData }, { data: allCourses }]) => {
@@ -81,9 +94,9 @@ export function NewHome() {
       const mapped = TOP_COURSE_NAMES.map((name) => {
         const c = (topData as any[]).find((x) => x.name === name);
         if (!c) return null;
-        const ratings = ((c.ratings ?? []) as { host_score: number }[]).filter(
-          (r) => r.host_score != null,
-        );
+        const ratings = ((c.ratings ?? []) as TopRating[]).filter((r) => r.host_score != null);
+        const withQuote = ratings.find((r) => r.review && r.review.trim().length > 0);
+        const withWord = ratings.find((r) => r.one_word && r.one_word.trim().length > 0);
         const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => Number.isFinite(n));
         const pampasScore = hostScores.length
           ? Math.round((hostScores.reduce((s, v) => s + v, 0) / hostScores.length) * 10) / 10
@@ -96,6 +109,9 @@ export function NewHome() {
           slug: slugMap.get(c.id) ?? slugifyName(c.name),
           pampasScore,
           ratings,
+          quote: withQuote?.review?.trim() ?? null,
+          quoteHost: withQuote?.host ?? null,
+          oneWord: withWord?.one_word?.trim() ?? null,
         };
       }).filter(Boolean) as TopCourse[];
       setTopCourses(mapped);
@@ -229,50 +245,119 @@ export function NewHome() {
       {/* TOPKLASSE */}
       <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-            <div>
-              <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
-                Pampas-rating
-              </p>
-              <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
-                Topklasse
-              </h2>
+          <div className="mb-10">
+            <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
+              Beoordeeld door onze hosts — jij stemt mee
+            </p>
+            <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
+              Topklasse
+            </h2>
+          </div>
+
+          {topCourses.length > 0 && (
+            <div
+              className="relative"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <div className="overflow-hidden border border-[rgba(28,61,42,0.15)] bg-white/[0.35]">
+                <div
+                  className="flex transition-transform duration-500 ease-out"
+                  style={{ transform: `translateX(-${(slide % topCourses.length) * 100}%)` }}
+                >
+                  {topCourses.map((course) => {
+                    const score = getScore(course);
+                    return (
+                      <article
+                        key={course.id}
+                        className="w-full shrink-0 p-6 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10"
+                      >
+                        <div className="shrink-0">
+                          <PampasScoreBadge score={score} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-rb-serif text-2xl md:text-3xl text-[#1C3D2A] leading-[1.15] mb-2">
+                            {course.name}
+                          </h3>
+                          <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6] mb-4">
+                            {[course.region, course.country].filter(Boolean).join(", ")}
+                          </p>
+                          {course.quote ? (
+                            <blockquote className="font-rb-serif italic text-base md:text-lg text-[#1C3D2A] leading-[1.6] max-w-2xl">
+                              “{course.quote}”
+                              {course.quoteHost && (
+                                <footer className="font-rb-mono not-italic text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mt-2">
+                                  — {course.quoteHost}
+                                </footer>
+                              )}
+                            </blockquote>
+                          ) : course.oneWord ? (
+                            <p className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#1C3D2A] border border-[rgba(28,61,42,0.3)] inline-block px-3 py-1.5">
+                              In één woord: {course.oneWord}
+                            </p>
+                          ) : null}
+                        </div>
+                        <div className="shrink-0">
+                          <Link
+                            to="/ratings"
+                            search={{ q: course.name } as never}
+                            className="inline-block font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-7 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
+                          >
+                            Stem op deze baan →
+                          </Link>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between mt-5">
+                <div className="flex gap-2">
+                  {topCourses.map((c, i) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      aria-label={`Toon ${c.name}`}
+                      aria-current={i === slide}
+                      onClick={() => setSlide(i)}
+                      className={`h-2 rounded-full transition-all ${
+                        i === slide ? "w-6 bg-[#1C3D2A]" : "w-2 bg-[rgba(28,61,42,0.25)]"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    aria-label="Vorige baan"
+                    onClick={() =>
+                      setSlide((s) => (s - 1 + topCourses.length) % topCourses.length)
+                    }
+                    className="w-9 h-9 border border-[rgba(28,61,42,0.3)] text-[#1C3D2A] hover:bg-[#EDE6D9] transition-colors"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Volgende baan"
+                    onClick={() => setSlide((s) => (s + 1) % topCourses.length)}
+                    className="w-9 h-9 border border-[rgba(28,61,42,0.3)] text-[#1C3D2A] hover:bg-[#EDE6D9] transition-colors"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
             </div>
+          )}
+
+          <div className="mt-8">
             <Link
               to="/ratings"
-              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 self-start md:self-auto hover:text-[#8FBF4A]"
+              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#8FBF4A]"
             >
               Alle golfbanen bekijken →
             </Link>
-          </div>
-
-          <div className="flex md:grid md:grid-cols-3 gap-5 overflow-x-auto md:overflow-visible pb-2 md:pb-0 snap-x snap-mandatory">
-            {topCourses.map((course) => {
-              const score = getScore(course);
-              return (
-                <Link
-                  key={course.id}
-                  to="/courses/$slug"
-                  params={{ slug: course.slug }}
-                  className="group shrink-0 snap-start w-[78vw] max-w-[320px] md:w-auto md:max-w-none border border-[rgba(28,61,42,0.15)] bg-white/[0.35] p-5 flex items-center gap-5 hover:bg-[#EDE6D9] transition-colors"
-                >
-
-                  <PampasScoreBadge score={score} small />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 line-clamp-2">
-                      {course.name}
-                    </h3>
-
-                    <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6]">
-                      {[course.region, course.country].filter(Boolean).join(", ")}
-                    </p>
-                  </div>
-                  <span className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase text-[#8FBF4A] opacity-0 group-hover:opacity-100 transition-opacity hidden md:inline">
-                    Bekijk →
-                  </span>
-                </Link>
-              );
-            })}
           </div>
         </div>
       </section>
