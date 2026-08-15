@@ -22,6 +22,8 @@ const TOP_COURSE_NAMES = [
   "Royal Ostend Golf Club",
 ];
 
+type TopRating = { host_score: number; host?: string | null; one_word?: string | null; review?: string | null };
+
 type TopCourse = {
   id: string;
   name: string;
@@ -29,7 +31,10 @@ type TopCourse = {
   region: string | null;
   slug: string;
   pampasScore: number | null;
-  ratings: { host_score: number }[];
+  ratings: TopRating[];
+  quote: string | null;
+  quoteHost: string | null;
+  oneWord: string | null;
 };
 
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
