@@ -101,6 +101,9 @@ export function NewHome() {
           slug: slugMap.get(c.id) ?? slugifyName(c.name),
           pampasScore,
           ratings,
+          quote: withQuote?.review?.trim() ?? null,
+          quoteHost: withQuote?.host ?? null,
+          oneWord: withWord?.one_word?.trim() ?? null,
         };
       }).filter(Boolean) as TopCourse[];
       setTopCourses(mapped);
