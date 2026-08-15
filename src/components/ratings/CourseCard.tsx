@@ -118,6 +118,97 @@ function CommunityDot({
   );
 }
 
+function QuickVoteModal({
+  courseName,
+  initial,
+  saving,
+  error,
+  onClose,
+  onSubmit,
+}: {
+  courseName: string;
+  initial: number | null;
+  saving: boolean;
+  error: string | null;
+  onClose: () => void;
+  onSubmit: (score: number) => void;
+}) {
+  const [value, setValue] = useState(initial ?? 75);
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="w-full max-w-md bg-[#FBF8F1] border border-[rgba(28,61,42,0.2)] p-6"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Stem op ${courseName}`}
+      >
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#635C4B]">
+          Stem nu
+        </p>
+        <h3 className="font-rb-serif text-2xl text-[#1C3D2A] mt-1">{courseName}</h3>
+        <p className="font-rb-sans text-sm text-[#2E2B25] mt-3">
+          Geef deze baan een score van 0 tot 100
+        </p>
+        <div className="mt-3 flex items-center gap-4">
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={value}
+            aria-label="Score (0-100)"
+            onChange={(e) => setValue(Number(e.target.value))}
+            className="flex-1 accent-[#3D7A52]"
+          />
+          <input
+            type="number"
+            min={0}
+            max={100}
+            step={1}
+            value={value}
+            aria-label="Score getal (0-100)"
+            onChange={(e) =>
+              setValue(Math.max(0, Math.min(100, Math.round(Number(e.target.value) || 0))))
+            }
+            className="w-20 border border-[rgba(28,61,42,0.25)] bg-white px-2 py-1 font-rb-mono text-sm text-[#1C3D2A]"
+          />
+        </div>
+        {error && <p className="font-rb-sans text-sm text-[#A32D2D] mt-3">{error}</p>}
+        <div className="mt-5 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => onSubmit(value)}
+            disabled={saving}
+            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
+          >
+            {saving ? "Bezig…" : initial == null ? "Stem" : "Stem bijwerken"}
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+          >
+            Annuleer
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CriteriaBars({
   ratings,
 }: {
@@ -165,10 +256,28 @@ export function CourseCard({
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
 
-  const { scores: communityScores } = useCourseVotes(course.id);
+  const { scores: communityScores, myVote, vote } = useCourseVotes(course.id);
+  const [voteOpen, setVoteOpen] = useState(false);
+  const [voteSaving, setVoteSaving] = useState(false);
+  const [voteError, setVoteError] = useState<string | null>(null);
+
+  async function submitQuickVote(score: number) {
+    setVoteSaving(true);
+    setVoteError(null);
+    try {
+      await vote(score);
+      setVoteOpen(false);
+    } catch (e) {
+      setVoteError(e instanceof Error ? e.message : "Stemmen mislukt");
+    } finally {
+      setVoteSaving(false);
+    }
+  }
+
   const hostScores = course.ratings.map((r) => Number(r.host_score));
   const combinedScore =
     weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
+
 
   const ratedHosts = new Set(course.ratings.map((r) => r.host));
   const personal = useMemo(
@@ -231,6 +340,31 @@ export function CourseCard({
               avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
               count={communityScores.length}
             />
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                setVoteError(null);
+                setVoteOpen(true);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setVoteError(null);
+                  setVoteOpen(true);
+                }
+              }}
+              className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase cursor-pointer border"
+              style={{
+                color: COMMUNITY_COLOR,
+                borderColor: `${COMMUNITY_COLOR}55`,
+                background: `${COMMUNITY_COLOR}0D`,
+              }}
+            >
+              {myVote == null ? "Stem nu" : `Jouw stem: ${myVote}`}
+            </span>
             {course.episode_url && (
               <a
                 href={course.episode_url}
@@ -413,6 +547,16 @@ export function CourseCard({
             )}
           </div>
         </div>
+      )}
+      {voteOpen && (
+        <QuickVoteModal
+          courseName={course.name}
+          initial={myVote}
+          saving={voteSaving}
+          error={voteError}
+          onClose={() => setVoteOpen(false)}
+          onSubmit={submitQuickVote}
+        />
       )}
     </div>
   );
