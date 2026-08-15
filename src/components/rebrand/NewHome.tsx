@@ -9,7 +9,8 @@ import { subscribeToBrevo } from "@/lib/brevo.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { PampasScoreBadge } from "@/components/ratings/PampasScoreBadge";
 import { useCombinedScore } from "@/lib/useCourseVotes";
-import { buildSlugMap } from "@/lib/courseSlug";
+import { buildSlugMap, slugifyName } from "@/lib/courseSlug";
+
 
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
