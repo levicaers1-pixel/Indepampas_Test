@@ -226,7 +226,56 @@ export function NewHome() {
         ))}
       </section>
 
+      {/* TOPKLASSE */}
+      <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+              <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
+                Pampas-rating
+              </p>
+              <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
+                Topklasse
+              </h2>
+            </div>
+            <Link
+              to="/ratings"
+              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 self-start md:self-auto hover:text-[#8FBF4A]"
+            >
+              Alle golfbanen bekijken →
+            </Link>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-3 gap-5 overflow-x-auto md:overflow-visible pb-2 md:pb-0 snap-x snap-mandatory">
+            {topCourses.map((course) => {
+              const score = getScore(course);
+              return (
+                <Link
+                  key={course.id}
+                  to={`/courses/${course.slug}`}
+                  className="group shrink-0 snap-start w-[78vw] max-w-[320px] md:w-auto md:max-w-none border border-[rgba(28,61,42,0.15)] bg-white/[0.35] p-5 flex items-center gap-5 hover:bg-[#EDE6D9] transition-colors"
+                >
+                  <PampasScoreBadge score={score} small />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 truncate">
+                      {course.name}
+                    </h3>
+                    <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6]">
+                      {[course.region, course.country].filter(Boolean).join(", ")}
+                    </p>
+                  </div>
+                  <span className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase text-[#8FBF4A] opacity-0 group-hover:opacity-100 transition-opacity hidden md:inline">
+                    Bekijk →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* SPOTIFY PLAYER */}
+
       <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]">
         <div className="grid lg:grid-cols-12 gap-10 items-center max-w-[1400px] mx-auto">
           <div className="lg:col-span-5">
