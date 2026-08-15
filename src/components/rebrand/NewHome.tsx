@@ -7,6 +7,10 @@ import hostsWalking from "@/assets/hosts-walking.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { PampasScoreBadge } from "@/components/ratings/PampasScoreBadge";
+import { useCombinedScore } from "@/lib/useCourseVotes";
+import { buildSlugMap } from "@/lib/courseSlug";
+
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CAPTURED_KEY = "emailCaptured";
