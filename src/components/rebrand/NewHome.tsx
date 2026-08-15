@@ -15,12 +15,31 @@ import { buildSlugMap } from "@/lib/courseSlug";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CAPTURED_KEY = "emailCaptured";
 
+const TOP_COURSE_NAMES = [
+  "Royal Ternesse Golf Club",
+  "Royal Antwerp Golf Club",
+  "Royal Ostend Golf Club",
+];
+
+type TopCourse = {
+  id: string;
+  name: string;
+  country: string;
+  region: string | null;
+  slug: string;
+  pampasScore: number | null;
+  ratings: { host_score: number }[];
+};
+
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
 export function NewHome() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
+  const [topCourses, setTopCourses] = useState<TopCourse[]>([]);
+  const getScore = useCombinedScore();
+
 
   const subscribe = useServerFn(subscribeToBrevo);
 
