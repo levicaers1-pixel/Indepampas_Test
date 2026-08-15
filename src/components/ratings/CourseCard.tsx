@@ -118,6 +118,97 @@ function CommunityDot({
   );
 }
 
+function QuickVoteModal({
+  courseName,
+  initial,
+  saving,
+  error,
+  onClose,
+  onSubmit,
+}: {
+  courseName: string;
+  initial: number | null;
+  saving: boolean;
+  error: string | null;
+  onClose: () => void;
+  onSubmit: (score: number) => void;
+}) {
+  const [value, setValue] = useState(initial ?? 75);
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="w-full max-w-md bg-[#FBF8F1] border border-[rgba(28,61,42,0.2)] p-6"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Stem op ${courseName}`}
+      >
+        <p className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#635C4B]">
+          Stem nu
+        </p>
+        <h3 className="font-rb-serif text-2xl text-[#1C3D2A] mt-1">{courseName}</h3>
+        <p className="font-rb-sans text-sm text-[#2E2B25] mt-3">
+          Geef deze baan een score van 0 tot 100
+        </p>
+        <div className="mt-3 flex items-center gap-4">
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={value}
+            aria-label="Score (0-100)"
+            onChange={(e) => setValue(Number(e.target.value))}
+            className="flex-1 accent-[#3D7A52]"
+          />
+          <input
+            type="number"
+            min={0}
+            max={100}
+            step={1}
+            value={value}
+            aria-label="Score getal (0-100)"
+            onChange={(e) =>
+              setValue(Math.max(0, Math.min(100, Math.round(Number(e.target.value) || 0))))
+            }
+            className="w-20 border border-[rgba(28,61,42,0.25)] bg-white px-2 py-1 font-rb-mono text-sm text-[#1C3D2A]"
+          />
+        </div>
+        {error && <p className="font-rb-sans text-sm text-[#A32D2D] mt-3">{error}</p>}
+        <div className="mt-5 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => onSubmit(value)}
+            disabled={saving}
+            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
+          >
+            {saving ? "Bezig…" : initial == null ? "Stem" : "Stem bijwerken"}
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+          >
+            Annuleer
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CriteriaBars({
   ratings,
 }: {
