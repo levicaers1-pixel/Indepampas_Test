@@ -7,9 +7,30 @@ import hostsWalking from "@/assets/hosts-walking.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { PampasScoreBadge } from "@/components/ratings/PampasScoreBadge";
+import { useCombinedScore } from "@/lib/useCourseVotes";
+import { buildSlugMap, slugifyName } from "@/lib/courseSlug";
+
+
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CAPTURED_KEY = "emailCaptured";
+
+const TOP_COURSE_NAMES = [
+  "Royal Ternesse Golf Club",
+  "Royal Antwerp Golf Club",
+  "Royal Ostend Golf Club",
+];
+
+type TopCourse = {
+  id: string;
+  name: string;
+  country: string;
+  region: string | null;
+  slug: string;
+  pampasScore: number | null;
+  ratings: { host_score: number }[];
+};
 
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
 export function NewHome() {
@@ -17,6 +38,9 @@ export function NewHome() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
+  const [topCourses, setTopCourses] = useState<TopCourse[]>([]);
+  const getScore = useCombinedScore();
+
 
   const subscribe = useServerFn(subscribeToBrevo);
 
@@ -44,7 +68,42 @@ export function NewHome() {
       });
   }, []);
 
+  useEffect(() => {
+    Promise.all([
+      supabase
+        .from("courses")
+        .select("id,name,country,region,ratings(host_score)")
+        .in("name", TOP_COURSE_NAMES),
+      supabase.from("courses").select("id,name"),
+    ]).then(([{ data: topData }, { data: allCourses }]) => {
+      if (!topData || !allCourses) return;
+      const slugMap = buildSlugMap(allCourses);
+      const mapped = TOP_COURSE_NAMES.map((name) => {
+        const c = (topData as any[]).find((x) => x.name === name);
+        if (!c) return null;
+        const ratings = ((c.ratings ?? []) as { host_score: number }[]).filter(
+          (r) => r.host_score != null,
+        );
+        const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => Number.isFinite(n));
+        const pampasScore = hostScores.length
+          ? Math.round((hostScores.reduce((s, v) => s + v, 0) / hostScores.length) * 10) / 10
+          : null;
+        return {
+          id: c.id,
+          name: c.name,
+          country: c.country,
+          region: c.region,
+          slug: slugMap.get(c.id) ?? slugifyName(c.name),
+          pampasScore,
+          ratings,
+        };
+      }).filter(Boolean) as TopCourse[];
+      setTopCourses(mapped);
+    });
+  }, []);
+
   const siteEpisodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
+
   const latestEpisode = siteEpisodes[0] ?? staticLatestEpisode;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -167,7 +226,59 @@ export function NewHome() {
         ))}
       </section>
 
+      {/* TOPKLASSE */}
+      <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+              <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
+                Pampas-rating
+              </p>
+              <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
+                Topklasse
+              </h2>
+            </div>
+            <Link
+              to="/ratings"
+              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 self-start md:self-auto hover:text-[#8FBF4A]"
+            >
+              Alle golfbanen bekijken →
+            </Link>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-3 gap-5 overflow-x-auto md:overflow-visible pb-2 md:pb-0 snap-x snap-mandatory">
+            {topCourses.map((course) => {
+              const score = getScore(course);
+              return (
+                <Link
+                  key={course.id}
+                  to="/courses/$slug"
+                  params={{ slug: course.slug }}
+                  className="group shrink-0 snap-start w-[78vw] max-w-[320px] md:w-auto md:max-w-none border border-[rgba(28,61,42,0.15)] bg-white/[0.35] p-5 flex items-center gap-5 hover:bg-[#EDE6D9] transition-colors"
+                >
+
+                  <PampasScoreBadge score={score} small />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 line-clamp-2">
+                      {course.name}
+                    </h3>
+
+                    <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6]">
+                      {[course.region, course.country].filter(Boolean).join(", ")}
+                    </p>
+                  </div>
+                  <span className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase text-[#8FBF4A] opacity-0 group-hover:opacity-100 transition-opacity hidden md:inline">
+                    Bekijk →
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* SPOTIFY PLAYER */}
+
       <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]">
         <div className="grid lg:grid-cols-12 gap-10 items-center max-w-[1400px] mx-auto">
           <div className="lg:col-span-5">
