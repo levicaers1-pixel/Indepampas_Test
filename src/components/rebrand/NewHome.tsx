@@ -86,9 +86,9 @@ export function NewHome() {
       const mapped = TOP_COURSE_NAMES.map((name) => {
         const c = (topData as any[]).find((x) => x.name === name);
         if (!c) return null;
-        const ratings = ((c.ratings ?? []) as { host_score: number }[]).filter(
-          (r) => r.host_score != null,
-        );
+        const ratings = ((c.ratings ?? []) as TopRating[]).filter((r) => r.host_score != null);
+        const withQuote = ratings.find((r) => r.review && r.review.trim().length > 0);
+        const withWord = ratings.find((r) => r.one_word && r.one_word.trim().length > 0);
         const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => Number.isFinite(n));
         const pampasScore = hostScores.length
           ? Math.round((hostScores.reduce((s, v) => s + v, 0) / hostScores.length) * 10) / 10
