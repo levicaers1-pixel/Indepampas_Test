@@ -340,6 +340,31 @@ export function CourseCard({
               avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
               count={communityScores.length}
             />
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                setVoteError(null);
+                setVoteOpen(true);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setVoteError(null);
+                  setVoteOpen(true);
+                }
+              }}
+              className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase cursor-pointer border"
+              style={{
+                color: COMMUNITY_COLOR,
+                borderColor: `${COMMUNITY_COLOR}55`,
+                background: `${COMMUNITY_COLOR}0D`,
+              }}
+            >
+              {myVote == null ? "Stem nu" : `Jouw stem: ${myVote}`}
+            </span>
             {course.episode_url && (
               <a
                 href={course.episode_url}
