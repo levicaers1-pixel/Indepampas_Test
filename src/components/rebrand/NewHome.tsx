@@ -77,7 +77,7 @@ export function NewHome() {
     Promise.all([
       supabase
         .from("courses")
-        .select("id,name,country,region,ratings(host_score)")
+        .select("id,name,country,region,ratings(host_score,host,one_word,review)")
         .in("name", TOP_COURSE_NAMES),
       supabase.from("courses").select("id,name"),
     ]).then(([{ data: topData }, { data: allCourses }]) => {
