@@ -256,10 +256,28 @@ export function CourseCard({
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
 
-  const { scores: communityScores } = useCourseVotes(course.id);
+  const { scores: communityScores, myVote, vote } = useCourseVotes(course.id);
+  const [voteOpen, setVoteOpen] = useState(false);
+  const [voteSaving, setVoteSaving] = useState(false);
+  const [voteError, setVoteError] = useState<string | null>(null);
+
+  async function submitQuickVote(score: number) {
+    setVoteSaving(true);
+    setVoteError(null);
+    try {
+      await vote(score);
+      setVoteOpen(false);
+    } catch (e) {
+      setVoteError(e instanceof Error ? e.message : "Stemmen mislukt");
+    } finally {
+      setVoteSaving(false);
+    }
+  }
+
   const hostScores = course.ratings.map((r) => Number(r.host_score));
   const combinedScore =
     weightedCommunityScore(hostScores, communityScores) ?? course.pampasScore;
+
 
   const ratedHosts = new Set(course.ratings.map((r) => r.host));
   const personal = useMemo(
