@@ -548,6 +548,16 @@ export function CourseCard({
           </div>
         </div>
       )}
+      {voteOpen && (
+        <QuickVoteModal
+          courseName={course.name}
+          initial={myVote}
+          saving={voteSaving}
+          error={voteError}
+          onClose={() => setVoteOpen(false)}
+          onSubmit={submitQuickVote}
+        />
+      )}
     </div>
   );
 }
