@@ -67,7 +67,42 @@ export function NewHome() {
       });
   }, []);
 
+  useEffect(() => {
+    Promise.all([
+      supabase
+        .from("courses")
+        .select("id,name,country,region,ratings(host_score)")
+        .in("name", TOP_COURSE_NAMES),
+      supabase.from("courses").select("id,name"),
+    ]).then(([{ data: topData }, { data: allCourses }]) => {
+      if (!topData || !allCourses) return;
+      const slugMap = buildSlugMap(allCourses);
+      const mapped = TOP_COURSE_NAMES.map((name) => {
+        const c = (topData as any[]).find((x) => x.name === name);
+        if (!c) return null;
+        const ratings = ((c.ratings ?? []) as { host_score: number }[]).filter(
+          (r) => r.host_score != null,
+        );
+        const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => Number.isFinite(n));
+        const pampasScore = hostScores.length
+          ? Math.round((hostScores.reduce((s, v) => s + v, 0) / hostScores.length) * 10) / 10
+          : null;
+        return {
+          id: c.id,
+          name: c.name,
+          country: c.country,
+          region: c.region,
+          slug: slugMap.get(c.id) ?? slugifyName(c.name),
+          pampasScore,
+          ratings,
+        };
+      }).filter(Boolean) as TopCourse[];
+      setTopCourses(mapped);
+    });
+  }, []);
+
   const siteEpisodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
+
   const latestEpisode = siteEpisodes[0] ?? staticLatestEpisode;
 
   const handleSubmit = async (e: React.FormEvent) => {
