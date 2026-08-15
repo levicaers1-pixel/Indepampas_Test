@@ -247,10 +247,10 @@ export function NewHome() {
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-10">
             <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
-              Beoordeeld door onze hosts — jij stemt mee
+              Beoordeeld door onze hosts. Jij stemt mee!
             </p>
             <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
-              Topklasse
+              Course ratings
             </h2>
           </div>
 
