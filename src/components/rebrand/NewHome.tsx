@@ -252,9 +252,11 @@ export function NewHome() {
               return (
                 <Link
                   key={course.id}
-                  to={`/courses/${course.slug}`}
+                  to="/courses/$slug"
+                  params={{ slug: course.slug }}
                   className="group shrink-0 snap-start w-[78vw] max-w-[320px] md:w-auto md:max-w-none border border-[rgba(28,61,42,0.15)] bg-white/[0.35] p-5 flex items-center gap-5 hover:bg-[#EDE6D9] transition-colors"
                 >
+
                   <PampasScoreBadge score={score} small />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-rb-serif text-xl text-[#1C3D2A] leading-[1.2] mb-1 truncate">
