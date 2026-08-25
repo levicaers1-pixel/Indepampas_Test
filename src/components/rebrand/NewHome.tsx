@@ -155,9 +155,12 @@ export function NewHome() {
           <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#8FBF4A]">
             Vol. I — MMXXVI · Belgische golfpassie
           </p>
-          <h1 className="font-rb-serif font-light text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-[#1C3D2A] mb-8">
-            Achttien holes, <em className="italic">één</em> microfoon, <em className="italic">drie</em> vrienden.
+          <h1 className="font-rb-serif font-light text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-[#1C3D2A] mb-4">
+            Made on the back nine.
           </h1>
+          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8">
+            Drie vrienden, één microfoon.
+          </p>
           <p className="font-rb-sans text-base text-[#635C4B] max-w-md leading-[1.75] mb-12">
             PAMPAS is dé Belgische golfcommunity. Wekelijks praten Lars, Levi en Niels over alles wat
             de fairway én de rough te bieden heeft. Voor golfers, door golfers.
@@ -448,7 +451,7 @@ export function NewHome() {
             Wil je op de hoogte gebracht worden bij een nieuwe aflevering?
           </h3>
           <p className="font-rb-sans text-sm text-[rgba(244,239,229,0.55)] max-w-md">
-            Geen spam. Alleen een mail per nieuwe aflevering.
+            Eén mail, enkel bij een nieuwe aflevering. Verder stilte.
           </p>
         </div>
         {status === "success" ? (
