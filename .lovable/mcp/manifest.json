@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "sdk_version": "0.28.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "pampas-golf-hub",
+      "version": "0.1.0",
+      "title": "PAMPAS Golf Hub"
+    },
+    "tools": [
+      {
+        "name": "search_courses",
+        "title": "Search golf courses",
+        "description": "Search the PAMPAS golf course database by name, country, region, course type or green fee. Returns basic course info plus the average PAMPAS host score.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Part of the course name.",
+              "type": "string",
+              "minLength": 1
+            },
+            "country": {
+              "description": "Country, e.g. 'Belgie' or 'Nederland'.",
+              "type": "string",
+              "minLength": 1
+            },
+            "region": {
+              "description": "Region or province.",
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "description": "Course type, e.g. 'links', 'parkland', 'heide'.",
+              "type": "string",
+              "minLength": 1
+            },
+            "max_greenfee": {
+              "description": "Maximum green fee in euros.",
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "rated_only": {
+              "description": "Only return courses that have PAMPAS host ratings.",
+              "type": "boolean"
+            },
+            "limit": {
+              "description": "Max results (default 20).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_course_rating",
+        "title": "Get course rating detail",
+        "description": "Get the full PAMPAS review for one golf course: per-host criteria scores, review text, hole of the day, plus the community vote average.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "course": {
+              "type": "string",
+              "minLength": 2,
+              "description": "Course name (or part of it), e.g. 'Royal Antwerp'."
+            }
+          },
+          "required": [
+            "course"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_episodes",
+        "title": "List podcast episodes",
+        "description": "List PAMPAS podcast episodes, newest first, with title, description, duration, topics and Spotify link.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Filter on words in the title or description.",
+              "type": "string",
+              "minLength": 1
+            },
+            "limit": {
+              "description": "Max episodes to return (default 10).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
