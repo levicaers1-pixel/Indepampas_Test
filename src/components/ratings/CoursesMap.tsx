@@ -1,11 +1,7 @@
 /// <reference types="google.maps" />
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import {
-  MarkerClusterer,
-  SuperClusterAlgorithm,
-  type Renderer,
-} from "@googlemaps/markerclusterer";
+import { MarkerClusterer, type Renderer } from "@googlemaps/markerclusterer";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import { buildSlugMap } from "@/lib/courseSlug";
@@ -354,7 +350,7 @@ export function CoursesMap({
           map,
           markers: markersRef.current,
           renderer: clusterRenderer,
-          algorithm: new SuperClusterAlgorithm({ maxZoom: 16, radius: 72 }),
+          algorithmOptions: { maxZoom: 16 },
         });
 
         if (located.length === 1) {
