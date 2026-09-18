@@ -1,6 +1,10 @@
 /// <reference types="google.maps" />
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import type {
+  MarkerClusterer as MarkerClustererInstance,
+  Renderer,
+} from "@googlemaps/markerclusterer";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import { buildSlugMap } from "@/lib/courseSlug";
@@ -110,6 +114,31 @@ function tierColor(score: number) {
   return "#635C4B";
 }
 
+const clusterRenderer: Renderer = {
+  render({ count, position }) {
+    return new google.maps.Marker({
+      position,
+      title: `${count} banen — klik om in te zoomen`,
+      label: {
+        text: String(count),
+        color: "#F4EFE5",
+        fontFamily: "DM Mono, monospace",
+        fontSize: count > 99 ? "10px" : "12px",
+        fontWeight: "700",
+      },
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: count > 25 ? 25 : count > 9 ? 22 : 19,
+        fillColor: "#1C3D2A",
+        fillOpacity: 0.94,
+        strokeColor: "#8FBF4A",
+        strokeWeight: 3,
+      },
+      zIndex: 1000 + count,
+    });
+  },
+};
+
 const slugify = (s: string) =>
   s
     .toLowerCase()
@@ -139,6 +168,7 @@ export function CoursesMap({
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
+  const clustererRef = useRef<MarkerClustererInstance | null>(null);
   const geocode = useServerFn(geocodeAddress);
   const onSelectRef = useRef(onSelectCourse);
   onSelectRef.current = onSelectCourse;
@@ -221,8 +251,10 @@ export function CoursesMap({
     if (window.__pampasMapAuthError) onAuthError();
     loadMaps(apiKey)
 
-      .then(() => {
+      .then(async () => {
         if (cancelled || !ref.current || !window.google) return;
+        const { MarkerClusterer } = await import("@googlemaps/markerclusterer");
+        if (cancelled) return;
         if (!mapRef.current) {
           mapRef.current = new window.google.maps.Map(ref.current, {
             center: { lat: 50.85, lng: 4.5 },
@@ -230,8 +262,11 @@ export function CoursesMap({
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl: false,
+            clickableIcons: false,
           });
         }
+        const map = mapRef.current;
+        if (!map) return;
         authCheck = window.setInterval(() => {
           if (cancelled) return;
           if (document.body.innerText.includes("didn't load Google Maps")) {
@@ -241,6 +276,9 @@ export function CoursesMap({
         authCheckStop = window.setTimeout(() => {
           if (authCheck != null) window.clearInterval(authCheck);
         }, 18_000);
+        clustererRef.current?.clearMarkers();
+        clustererRef.current?.setMap(null);
+        clustererRef.current = null;
         markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = [];
 
@@ -251,7 +289,6 @@ export function CoursesMap({
           const score = c.pampasScore ?? 0;
           const marker = new window.google.maps.Marker({
             position: { lat, lng },
-            map: mapRef.current!,
             title: c.name,
             label: {
               text: score ? String(Math.round(score)) : "—",
@@ -297,7 +334,7 @@ export function CoursesMap({
                 </div>
               </div>`,
             );
-            info.open({ anchor: marker, map: mapRef.current! });
+            info.open({ anchor: marker, map });
             // Wire the in-InfoWindow button once it's rendered in the DOM.
             window.setTimeout(() => {
               const btn = document.querySelector<HTMLButtonElement>(
@@ -314,11 +351,18 @@ export function CoursesMap({
           bounds.extend({ lat, lng });
         });
 
+        clustererRef.current = new MarkerClusterer({
+          map,
+          markers: markersRef.current,
+          renderer: clusterRenderer,
+          algorithmOptions: { maxZoom: 16 },
+        });
+
         if (located.length === 1) {
-          mapRef.current.setCenter(bounds.getCenter());
-          mapRef.current.setZoom(11);
+          map.setCenter(bounds.getCenter());
+          map.setZoom(11);
         } else {
-          mapRef.current.fitBounds(bounds, 60);
+          map.fitBounds(bounds, 60);
         }
       })
       .catch((e) => setError(e.message));
@@ -327,6 +371,9 @@ export function CoursesMap({
       window.removeEventListener("pampas-map-auth-error", onAuthError);
       if (authCheck != null) window.clearInterval(authCheck);
       if (authCheckStop != null) window.clearTimeout(authCheckStop);
+      clustererRef.current?.clearMarkers();
+      clustererRef.current?.setMap(null);
+      clustererRef.current = null;
     };
   }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
