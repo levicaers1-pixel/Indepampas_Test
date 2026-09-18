@@ -1,7 +1,10 @@
 /// <reference types="google.maps" />
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { MarkerClusterer, type Renderer } from "@googlemaps/markerclusterer";
+import type {
+  MarkerClusterer as MarkerClustererInstance,
+  Renderer,
+} from "@googlemaps/markerclusterer";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import { buildSlugMap } from "@/lib/courseSlug";
@@ -165,7 +168,7 @@ export function CoursesMap({
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
-  const clustererRef = useRef<MarkerClusterer | null>(null);
+  const clustererRef = useRef<MarkerClustererInstance | null>(null);
   const geocode = useServerFn(geocodeAddress);
   const onSelectRef = useRef(onSelectCourse);
   onSelectRef.current = onSelectCourse;
@@ -248,8 +251,10 @@ export function CoursesMap({
     if (window.__pampasMapAuthError) onAuthError();
     loadMaps(apiKey)
 
-      .then(() => {
+      .then(async () => {
         if (cancelled || !ref.current || !window.google) return;
+        const { MarkerClusterer } = await import("@googlemaps/markerclusterer");
+        if (cancelled) return;
         if (!mapRef.current) {
           mapRef.current = new window.google.maps.Map(ref.current, {
             center: { lat: 50.85, lng: 4.5 },
