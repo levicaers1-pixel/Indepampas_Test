@@ -74,7 +74,7 @@ function AdminPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [checking, setChecking] = useState(true);
-  const [tab, setTab] = useState<"courses" | "ratings" | "shows" | "sponsors">("courses");
+  const [tab, setTab] = useState<"courses" | "ratings" | "shows" | "sponsors" | "guests">("courses");
 
   useEffect(() => {
     let cancelled = false;
@@ -131,7 +131,7 @@ function AdminPage() {
       </header>
 
       <nav className="border-b border-[#2A2A26] px-6 lg:px-10 flex gap-6">
-        {(["courses", "ratings", "shows", "sponsors"] as const).map((t) => (
+        {(["courses", "ratings", "shows", "sponsors", "guests"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -139,13 +139,13 @@ function AdminPage() {
               tab === t ? "border-[#BA7517] text-[#E8E4D8]" : "border-transparent text-[#8A8270] hover:text-[#E8E4D8]"
             }`}
           >
-            {t === "courses" ? "Parcours" : t === "ratings" ? "Beoordelingen" : t === "shows" ? "Shows" : "Sponsors"}
+            {t === "courses" ? "Parcours" : t === "ratings" ? "Beoordelingen" : t === "shows" ? "Shows" : t === "sponsors" ? "Sponsors" : "Gasten"}
           </button>
         ))}
       </nav>
 
       <main className="px-6 lg:px-10 py-8">
-        {tab === "courses" ? <CoursesTab /> : tab === "ratings" ? <RatingsTab /> : tab === "shows" ? <ShowsTab /> : <SponsorsTab />}
+        {tab === "courses" ? <CoursesTab /> : tab === "ratings" ? <RatingsTab /> : tab === "shows" ? <ShowsTab /> : tab === "sponsors" ? <SponsorsTab /> : <GuestsTab />}
       </main>
     </div>
   );

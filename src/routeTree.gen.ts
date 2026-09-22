@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VriendenRouteImport } from './routes/vrienden'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RatingsRouteImport } from './routes/ratings'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -30,6 +31,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const VriendenRoute = VriendenRouteImport.update({
+  id: '/vrienden',
+  path: '/vrienden',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -145,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vrienden': typeof VriendenRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/hosts': typeof HostsRoute
   '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vrienden': typeof VriendenRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vrienden': typeof VriendenRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/ratings'
     | '/sitemap.xml'
+    | '/vrienden'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/hosts'
     | '/mcp'
     | '/sitemap.xml'
+    | '/vrienden'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/ratings'
     | '/sitemap.xml'
+    | '/vrienden'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   RatingsRoute: typeof RatingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VriendenRoute: typeof VriendenRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
@@ -285,6 +298,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vrienden': {
+      id: '/vrienden'
+      path: '/vrienden'
+      fullPath: '/vrienden'
+      preLoaderRoute: typeof VriendenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -477,6 +497,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   RatingsRoute: RatingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VriendenRoute: VriendenRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
