@@ -51,7 +51,7 @@ export function NewGuests() {
         </h1>
         <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 max-w-xl">
           De mensen die mee aan tafel schoven, ons vooruit hielpen of gewoon een pint
-          meedronken in het 19e hole.
+           meedronken op de 19e hole.
         </p>
       </div>
 
