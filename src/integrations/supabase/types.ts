@@ -279,6 +279,65 @@ export type Database = {
         }
         Relationships: []
       }
+      guests: {
+        Row: {
+          active: boolean
+          bio: string
+          created_at: string
+          episode_id: string | null
+          id: string
+          image_url: string | null
+          instagram_url: string | null
+          linkedin_url: string | null
+          name: string
+          role: string | null
+          sort_order: number
+          storage_path: string | null
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          active?: boolean
+          bio?: string
+          created_at?: string
+          episode_id?: string | null
+          id?: string
+          image_url?: string | null
+          instagram_url?: string | null
+          linkedin_url?: string | null
+          name: string
+          role?: string | null
+          sort_order?: number
+          storage_path?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          active?: boolean
+          bio?: string
+          created_at?: string
+          episode_id?: string | null
+          id?: string
+          image_url?: string | null
+          instagram_url?: string | null
+          linkedin_url?: string | null
+          name?: string
+          role?: string | null
+          sort_order?: number
+          storage_path?: string | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guests_episode_id_fkey"
+            columns: ["episode_id"]
+            isOneToOne: false
+            referencedRelation: "episodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rag_chunks: {
         Row: {
           content: string
