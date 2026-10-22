@@ -401,13 +401,13 @@ export function NewHome() {
 
       {/* HOSTS PREVIEW */}
       <section className="grid grid-cols-1 lg:grid-cols-3 border-b border-[rgba(28,61,42,0.15)]">
-        <div className="px-10 py-14 border-r border-[rgba(28,61,42,0.15)] flex flex-col justify-center lg:col-span-1">
+        <div className="px-6 pt-10 pb-6 sm:px-10 sm:py-14 lg:border-r border-[rgba(28,61,42,0.15)] flex flex-col justify-center lg:col-span-1">
           <h2 className="font-rb-serif font-light text-4xl text-[#1C3D2A] leading-[1.2] mb-4">
             De stemmen achter <em className="italic">PAMPAS</em>.
           </h2>
           <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.7] mb-6">
-            Drie vrienden met elk hun eigen kijk op het spel. Van diplomaat tot professor tot
-            romanticus.
+            Drie vrienden met elk hun eigen kijk op het spel.
+            <span className="hidden sm:inline"> Van diplomaat tot professor tot romanticus.</span>
           </p>
           <Link
             to="/hosts"
@@ -416,34 +416,40 @@ export function NewHome() {
             Leer ze kennen →
           </Link>
         </div>
-        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3">
-          {hosts.map((h, i) => (
-            <Link
-              key={h.id}
-              to="/hosts"
-              className={`group block px-8 py-12 transition-colors hover:bg-[#EDE6D9] ${
-                i < 2 ? "border-r border-[rgba(28,61,42,0.15)]" : ""
-              } border-t lg:border-t-0 border-[rgba(28,61,42,0.15)]`}
-            >
-              <p className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B] mb-3">
-                0{i + 1} / Host
-              </p>
-              <div className="aspect-square overflow-hidden mb-4 bg-[#E2D9C8]">
-                <img
-                  src={h.image}
-                  alt={`Portret van ${h.name}`}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-              </div>
-              <p className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#46701D] mb-1">
-                {h.role}
-              </p>
-              <h3 className="font-rb-serif font-semibold text-xl text-[#1C3D2A]">{h.name}</h3>
-              <p className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#635C4B] mt-1">
-                HCP {h.handicap}
-              </p>
-            </Link>
-          ))}
+        <div className="lg:col-span-2">
+          {/* Below 640px: a swipeable snap rail with ~1.5 cards in view; from 640px: the 3-column grid. */}
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-6 px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-3 sm:gap-0 sm:overflow-visible sm:snap-none sm:p-0">
+            {hosts.map((h, i) => (
+              <Link
+                key={h.id}
+                to="/hosts"
+                className={`group block shrink-0 basis-[58%] snap-start sm:basis-auto sm:px-8 sm:py-12 transition-colors sm:hover:bg-[#EDE6D9] border-[rgba(28,61,42,0.15)] ${
+                  i < 2 ? "sm:border-r" : ""
+                } sm:border-t lg:border-t-0`}
+              >
+                <p className="hidden sm:block font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B] mb-3">
+                  0{i + 1} / Host
+                </p>
+                <div className="aspect-[4/5] sm:aspect-square overflow-hidden mb-3 sm:mb-4 bg-[#E2D9C8]">
+                  <img
+                    src={h.image}
+                    alt={`Portret van ${h.name}`}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <p className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#46701D] mb-1">
+                  {h.role}
+                </p>
+                <h3 className="font-rb-serif font-semibold text-xl text-[#1C3D2A]">{h.name}</h3>
+                <p className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#635C4B] mt-1">
+                  HCP {h.handicap}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <p className="sm:hidden px-6 pb-8 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
+            Veeg voor de andere hosts →
+          </p>
         </div>
       </section>
 
