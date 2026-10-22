@@ -375,7 +375,9 @@ export function CoursesMap({
         } else if (inBelgium.length >= 2) {
           const belgium = new window.google.maps.LatLngBounds();
           inBelgium.forEach(({ lat, lng }) => belgium.extend({ lat, lng }));
-          map.fitBounds(belgium, 60);
+          // Extra room at the top so the Dutch border courses just north of
+          // Belgium are not cut off by the map edge; the bottom needs less.
+          map.fitBounds(belgium, { top: 110, right: 60, bottom: 30, left: 60 });
         } else {
           map.fitBounds(bounds, 60);
         }
