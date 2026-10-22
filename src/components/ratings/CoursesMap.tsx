@@ -9,6 +9,7 @@ import { geocodeAddress } from "@/lib/geocode.functions";
 import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import { buildSlugMap } from "@/lib/courseSlug";
 import type { CourseWithRatings } from "@/data/courses-db";
+import { COURSE_COORDS } from "@/data/course-coords";
 
 
 declare global {
@@ -180,7 +181,9 @@ export function CoursesMap({
   );
   const slugMap = useMemo(() => buildSlugMap(courses), [courses]);
 
-  const [coords, setCoords] = useState<Record<string, Coord>>({});
+  // Known courses start with their pre-computed coordinates, so only courses
+  // missing from COURSE_COORDS are geocoded (once per browser, then cached).
+  const [coords, setCoords] = useState<Record<string, Coord>>(COURSE_COORDS);
   const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
@@ -190,7 +193,7 @@ export function CoursesMap({
   // Load client cache after mount to avoid hydration mismatch.
   useEffect(() => {
     setMounted(true);
-    setCoords(loadCache());
+    setCoords({ ...loadCache(), ...COURSE_COORDS });
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
@@ -223,7 +226,8 @@ export function CoursesMap({
         if (!cancelled) setProgress({ done, total: missing.length });
       }
       if (cancelled) return;
-      saveCache(next);
+      // Only persist what had to be geocoded; the pre-computed ones ship with the app.
+      saveCache(Object.fromEntries(Object.entries(next).filter(([id]) => !(id in COURSE_COORDS))));
       setCoords(next);
       setProgress(null);
     })();
