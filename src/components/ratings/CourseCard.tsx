@@ -47,7 +47,7 @@ function HostDot({
       />
       {host}
       {rated && score != null && (
-        <span className="opacity-80 font-rb-mono text-[0.65rem]">{score.toFixed(0)}</span>
+        <span className="opacity-80 font-rb-mono text-[0.7rem]">{score.toFixed(0)}</span>
       )}
     </div>
   );
@@ -79,7 +79,7 @@ function CommunityDot({
       />
       <span>Community</span>
       {rated && (
-        <span className="opacity-80 font-rb-mono text-[0.65rem]">
+        <span className="opacity-80 font-rb-mono text-[0.7rem]">
           {avg.toFixed(0)} ({count} {count === 1 ? "stem" : "stemmen"})
         </span>
       )}
@@ -124,7 +124,7 @@ function QuickVoteModal({
         aria-modal="true"
         aria-label={`Stem op ${courseName}`}
       >
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#635C4B]">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.22em] uppercase text-[#635C4B]">
           Stem nu
         </p>
         <h3 className="font-rb-serif text-2xl text-[#1C3D2A] mt-1">{courseName}</h3>
@@ -161,14 +161,14 @@ function QuickVoteModal({
             type="button"
             onClick={() => onSubmit(value)}
             disabled={saving}
-            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
           >
             {saving ? "Bezig…" : initial == null ? "Stem" : "Stem bijwerken"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
           >
             Annuleer
           </button>
@@ -199,7 +199,7 @@ function CriteriaBars({
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.65rem] md:text-[0.7rem] text-[#635C4B] text-right whitespace-nowrap">
+            <span className="font-rb-mono text-[0.7rem] md:text-[0.7rem] text-[#635C4B] text-right whitespace-nowrap">
               {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
@@ -273,26 +273,26 @@ export function CourseCard({
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
             {course.region && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase text-[#635C4B]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B]">
                 {course.region}
                 {course.country !== "België" ? ` · ${course.country}` : ""}
               </span>
             )}
             {course.type && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[#EDE6D9] text-[#1C3D2A]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[#EDE6D9] text-[#1C3D2A]">
                 {course.type}
               </span>
             )}
             {course.fee_category && (
-              <span className="font-rb-mono text-[0.6rem] text-[#BA7517]">{course.fee_category}</span>
+              <span className="font-rb-mono text-[0.7rem] text-[#BA7517]">{course.fee_category}</span>
             )}
             {disagree && (
-              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#A32D2D] bg-[#F5E4DC] px-2 py-0.5">
+              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#A32D2D] bg-[#F5E4DC] px-2 py-0.5">
                 <Flame size={10} /> Verdeeld oordeel
               </span>
             )}
             {onlyOneRated && (
-              <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B] bg-[#EDE6D9] px-2 py-0.5">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B] bg-[#EDE6D9] px-2 py-0.5">
                 Enkel door {course.ratings[0].host}
               </span>
             )}
@@ -325,7 +325,7 @@ export function CourseCard({
                   setVoteOpen(true);
                 }
               }}
-              className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase cursor-pointer border"
+              className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase cursor-pointer border"
               style={{
                 color: COMMUNITY_COLOR,
                 borderColor: `${COMMUNITY_COLOR}55`,
@@ -340,7 +340,7 @@ export function CourseCard({
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] ml-1"
+                className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] ml-1"
               >
                 <Play size={10} /> Episode
               </a>
@@ -362,7 +362,7 @@ export function CourseCard({
             </div>
             {activePersona && personal != null && (
               <div
-                className="font-rb-mono text-[0.55rem] md:text-[0.6rem] tracking-[0.1em] uppercase px-1.5 md:px-2 py-0.5 whitespace-nowrap"
+                className="font-rb-mono text-[0.7rem] md:text-[0.7rem] tracking-[0.1em] uppercase px-1.5 md:px-2 py-0.5 whitespace-nowrap"
                 style={{
                   color: activePersona.color,
                   background: `${activePersona.color}18`,
@@ -387,7 +387,7 @@ export function CourseCard({
           {/* PHOTOS */}
           {course.photos.length > 0 && (
             <div>
-              <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
+              <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
                 Foto's
               </h4>
               <PhotoCarousel photos={course.photos} alt={course.name} />
@@ -396,7 +396,7 @@ export function CourseCard({
 
           {/* PER HOST */}
           <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
+            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
               Per host
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -409,7 +409,7 @@ export function CourseCard({
                       key={h}
                       className="p-4 border border-dashed border-[rgba(28,61,42,0.2)] bg-white/40"
                     >
-                      <div className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em] text-[#A09684]">
+                      <div className="font-rb-mono text-[0.7rem] uppercase tracking-[0.15em] text-[#A09684]">
                         {p.icon} {h}
                       </div>
                       <div className="font-rb-sans text-[0.78rem] text-[#A09684] mt-1.5">
@@ -426,7 +426,7 @@ export function CourseCard({
                   >
                     <div className="flex items-baseline justify-between mb-3">
                       <span
-                        className="font-rb-mono text-[0.65rem] uppercase tracking-[0.15em]"
+                        className="font-rb-mono text-[0.7rem] uppercase tracking-[0.15em]"
                         style={{ color: p.color }}
                       >
                         {p.icon} {h}
@@ -449,19 +449,19 @@ export function CourseCard({
                     <div className="mt-auto space-y-2 pt-3 border-t border-[rgba(28,61,42,0.1)]">
                       {r.one_word && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
                           <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.one_word}</span>
                         </div>
                       )}
                       {r.hole_of_day && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
                           <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.hole_of_day}</span>
                         </div>
                       )}
                       {r.would_return && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.55rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
                           <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.would_return}</span>
                         </div>
                       )}
@@ -474,7 +474,7 @@ export function CourseCard({
 
           {/* CRITERIA AVG */}
           <div>
-            <h4 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
+            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
               Gemiddelde per criterium
             </h4>
             <CriteriaBars ratings={course.ratings} />
@@ -486,7 +486,7 @@ export function CourseCard({
 
 
           {/* DETAILS */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.65rem] uppercase tracking-[0.12em] text-[#635C4B]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#635C4B]">
             {course.greenfee != null && (
               <span>
                 Greenfee · <span className="text-[#1C3D2A]">€{course.greenfee}</span>

@@ -88,7 +88,7 @@ export function EmailPopup() {
           ×
         </button>
 
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[rgba(244,239,229,0.5)] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[rgba(244,239,229,0.5)] mb-4">
           Nieuwsbrief
         </p>
         <h2
@@ -131,7 +131,7 @@ export function EmailPopup() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] px-7 py-3 hover:bg-[#A3D255] transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] px-7 py-3 hover:bg-[#A3D255] transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {status === "loading" ? "Bezig…" : "Inschrijven"}
             </button>

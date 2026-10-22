@@ -185,7 +185,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
         <div className="px-6 sm:px-12 lg:px-16 py-12 lg:py-20 border-r-0 lg:border-r border-[#1C3D2A]/15 flex flex-col justify-end">
           <div
             className="flex items-center gap-3 mb-8 text-[#635C4B] uppercase"
-            style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.16em" }}
+            style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.16em" }}
           >
             <Link to="/blog" className="text-[#635C4B] hover:text-[#1C3D2A]">
               Blog
@@ -197,7 +197,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             className="self-start mb-5 text-[#F4EFE5] bg-[#1C3D2A] uppercase"
             style={{
               fontFamily: MONO,
-              fontSize: "0.58rem",
+              fontSize: "0.7rem",
               letterSpacing: "0.16em",
               padding: "0.3rem 0.75rem",
             }}
@@ -233,7 +233,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           <div>
             <div
               className="text-[#F4EFE5]/35 uppercase mb-3"
-              style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em" }}
+              style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
             >
               Hosts in deze post
             </div>
@@ -257,14 +257,14 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                   </div>
                   <span
                     className="flex-1 text-[#F4EFE5] uppercase"
-                    style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.1em" }}
+                    style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em" }}
                   >
                     {p.name}
                   </span>
                   <span
                     style={{
                       fontFamily: MONO,
-                      fontSize: "0.6rem",
+                      fontSize: "0.7rem",
                       color: p.active ? "#8FBF4A" : "rgba(244,239,229,0.3)",
                     }}
                   >
@@ -311,8 +311,8 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                       {host.name}
                     </div>
                     <div
-                      className="text-[#8FBF4A] uppercase mt-0.5"
-                      style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.16em" }}
+                      className="text-[#46701D] uppercase mt-0.5"
+                      style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.16em" }}
                     >
                       {host.role}
                     </div>
@@ -321,7 +321,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                     className="hidden sm:inline-block bg-[#1C3D2A] text-[#8FBF4A]"
                     style={{
                       fontFamily: MONO,
-                      fontSize: "0.65rem",
+                      fontSize: "0.7rem",
                       letterSpacing: "0.1em",
                       padding: "0.35rem 0.85rem",
                     }}
@@ -339,7 +339,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                     className={`px-4 sm:px-6 py-3 text-[#F4EFE5]/45 uppercase border-r border-[#F4EFE5]/10 last:border-r-0 ${
                       i === 2 ? "hidden sm:flex" : "flex"
                     } items-center`}
-                    style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.18em" }}
+                    style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
                   >
                     {h}
                   </div>
@@ -365,9 +365,9 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                       className={`px-4 sm:px-6 py-4 flex items-center border-r ${borderC} uppercase`}
                       style={{
                         fontFamily: MONO,
-                        fontSize: "0.6rem",
+                        fontSize: "0.7rem",
                         letterSpacing: "0.12em",
-                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#8FBF4A" : "#635C4B",
+                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#46701D" : "#635C4B",
                       }}
                     >
                       {row.category}
@@ -387,7 +387,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                             className="block text-[#635C4B] mt-1 not-italic"
                             style={{
                               fontFamily: MONO,
-                              fontSize: "0.58rem",
+                              fontSize: "0.7rem",
                               letterSpacing: "0.08em",
                             }}
                           >
@@ -401,7 +401,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                         className="leading-[1.5]"
                         style={{
                           fontFamily: MONO,
-                          fontSize: "0.65rem",
+                          fontSize: "0.7rem",
                           letterSpacing: "0.04em",
                           color: isBall ? "#8FBF4A" : "#635C4B",
                         }}
@@ -442,8 +442,8 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 px-6 sm:px-12 lg:px-16 py-12 border-b border-[#1C3D2A]/15">
             <div className="flex-1">
               <div
-                className="text-[#8FBF4A] uppercase mb-3"
-                style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.18em" }}
+                className="text-[#46701D] uppercase mb-3"
+                style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
               >
                 Volgende editie
               </div>
@@ -485,7 +485,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-6 sm:px-12 lg:px-16 py-10 border-t border-[#1C3D2A]/15">
             <span
               className="text-[#635C4B] uppercase"
-              style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.1em" }}
+              style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em" }}
             >
               Bron: Team Pampas · Vol. I · 2026
             </span>
@@ -494,7 +494,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
               className="text-[#1C3D2A] uppercase border border-[#1C3D2A]/30 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] hover:border-[#1C3D2A] transition-colors"
               style={{
                 fontFamily: MONO,
-                fontSize: "0.6rem",
+                fontSize: "0.7rem",
                 letterSpacing: "0.12em",
                 padding: "0.65rem 1.4rem",
               }}
@@ -532,7 +532,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                   className="border border-[#1C3D2A]/15 text-[#635C4B] uppercase"
                   style={{
                     fontFamily: MONO,
-                    fontSize: "0.55rem",
+                    fontSize: "0.7rem",
                     letterSpacing: "0.1em",
                     padding: "0.3rem 0.65rem",
                   }}
@@ -556,7 +556,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             <Link to="/blog/$slug" params={{ slug: prev.slug }} className="group block">
               <span
                 className="text-[#635C4B] uppercase block"
-                style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.15em" }}
+                style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em" }}
               >
                 Vorige
               </span>
@@ -574,7 +574,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             <Link to="/blog/$slug" params={{ slug: next.slug }} className="group block sm:text-right">
               <span
                 className="text-[#635C4B] uppercase block"
-                style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.15em" }}
+                style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em" }}
               >
                 Volgende
               </span>
@@ -596,7 +596,7 @@ function MetaLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="text-[#F4EFE5]/35 uppercase mb-1"
-      style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em" }}
+      style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
     >
       {children}
     </div>
@@ -616,7 +616,7 @@ function SidebarSection({ label, children, last }: { label: string; children: Re
     <div className={`mb-8 pb-8 ${last ? "" : "border-b border-[#1C3D2A]/15"}`}>
       <div
         className="text-[#635C4B] uppercase mb-3"
-        style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.18em" }}
+        style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
       >
         {label}
       </div>
@@ -639,7 +639,7 @@ function BrandList({ items }: { items: { name: string; count: string }[] }) {
             className="bg-[#EDE6D9] text-[#635C4B]"
             style={{
               fontFamily: MONO,
-              fontSize: "0.6rem",
+              fontSize: "0.7rem",
               letterSpacing: "0.1em",
               padding: "0.2rem 0.5rem",
             }}

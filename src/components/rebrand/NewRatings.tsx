@@ -15,7 +15,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
     <>
       {/* HERO */}
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Onafhankelijke beoordelingen
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -29,7 +29,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
 
       {/* RATINGS TABLE */}
       <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
-        <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+        <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
           De ranglijst
         </h2>
 
@@ -40,7 +40,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                 {["#", "Parcours", "Regio", "Type", "Fee", "Score", "Terugkomen?", ""].map((h) => (
                   <th
                     key={h}
-                    className="px-4 py-3 font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase"
+                    className="px-4 py-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase"
                   >
                     {h}
                   </th>
@@ -82,19 +82,19 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
                         style={{ color: t.color }}
                       >
                         {r.pampasScore}
-                        <span className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B]">
+                        <span className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
                           /100
                         </span>
                       </span>
                     </td>
-                    <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)] font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#1C3D2A]">
+                    <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)] font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#1C3D2A]">
                       {r.verdict}
                     </td>
                     <td className="px-4 py-4 align-middle border-t border-[rgba(28,61,42,0.12)] text-right">
                       <Link
                         to="/ratings/$slug"
                         params={{ slug: r.slug }}
-                        className="font-rb-mono text-[0.58rem] tracking-[0.15em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
+                        className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
                       >
                         Lees →
                       </Link>
@@ -114,7 +114,7 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
 
       <div className="px-6 lg:px-14 py-14 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
         <div>
-          <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
+          <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
             De methode
           </h2>
           <p className="font-rb-sans text-[0.95rem] text-[#2E2B25] leading-[1.8] mb-8 max-w-2xl">
@@ -140,13 +140,13 @@ export function NewRatingsIndex({ ratings }: { ratings: CourseRating[] }) {
         </div>
 
         <aside className="lg:sticky lg:top-28 self-start">
-          <h3 className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+          <h3 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
             Scorelegenda
           </h3>
           <div className="space-y-3">
             {ratingMethodology.legend.map((l) => (
               <div key={l.range} className="border-l-2 border-[#8CB84A] pl-3">
-                <div className="font-rb-mono text-[0.65rem] tracking-[0.1em] uppercase text-[#1C3D2A]">
+                <div className="font-rb-mono text-[0.7rem] tracking-[0.1em] uppercase text-[#1C3D2A]">
                   {l.range} · {l.label}
                 </div>
                 <div className="font-rb-sans text-[0.8rem] text-[#635C4B] mt-0.5">{l.desc}</div>

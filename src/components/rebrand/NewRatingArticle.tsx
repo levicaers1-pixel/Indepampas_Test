@@ -32,7 +32,7 @@ export function NewRatingArticle({
     <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-14 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
       {/* HERO */}
       <header className="max-w-[920px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[#C8BFB0]">
-        <div className="flex items-center gap-4 mb-6 flex-wrap font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase">
+        <div className="flex items-center gap-4 mb-6 flex-wrap font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase">
           <span className="text-[#F2EDE4] bg-[#1A3D2B] px-3 py-1.5">
             Rating #{String(rating.rank).padStart(2, "0")}
           </span>
@@ -83,7 +83,7 @@ export function NewRatingArticle({
               className="uppercase"
               style={{
                 fontFamily: "'DM Mono', ui-monospace, monospace",
-                fontSize: "0.55rem",
+                fontSize: "0.7rem",
                 letterSpacing: "0.15em",
               }}
             >
@@ -111,7 +111,7 @@ export function NewRatingArticle({
                 className="text-[#7A7468] uppercase"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
-                  fontSize: "0.55rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.12em",
                 }}
               >
@@ -121,7 +121,7 @@ export function NewRatingArticle({
           ))}
         </div>
 
-        <div className="mt-8 flex items-center gap-6 flex-wrap font-rb-mono text-[0.65rem] tracking-[0.12em] uppercase">
+        <div className="mt-8 flex items-center gap-6 flex-wrap font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase">
           <span className="text-[#7A7468]">
             Greenfee: <span className="text-[#1A3D2B]">€{rating.greenfee} · {rating.feeBand}</span>
           </span>
@@ -154,7 +154,7 @@ export function NewRatingArticle({
                   className="pt-1 text-[#7A7468] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
-                    fontSize: "0.65rem",
+                    fontSize: "0.7rem",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -208,7 +208,7 @@ export function NewRatingArticle({
                             className="opacity-70 uppercase"
                             style={{
                               fontFamily: "'DM Mono', ui-monospace, monospace",
-                              fontSize: "0.55rem",
+                              fontSize: "0.7rem",
                               letterSpacing: "0.15em",
                             }}
                           >
@@ -327,7 +327,7 @@ export function NewRatingArticle({
           className="text-[#7A7468] uppercase text-center sm:text-left"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
-            fontSize: "0.6rem",
+            fontSize: "0.7rem",
             letterSpacing: "0.1em",
           }}
         >
@@ -338,7 +338,7 @@ export function NewRatingArticle({
           className="text-[#1A3D2B] uppercase px-6 py-3 border border-[#1A3D2B] hover:bg-[#1A3D2B] hover:text-[#F2EDE4] transition-colors"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
-            fontSize: "0.65rem",
+            fontSize: "0.7rem",
             letterSpacing: "0.12em",
           }}
         >
@@ -355,7 +355,7 @@ export function NewRatingArticle({
                 className="text-[#7A7468] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
-                  fontSize: "0.6rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -384,7 +384,7 @@ export function NewRatingArticle({
                 className="text-[#7A7468] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
-                  fontSize: "0.6rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -414,7 +414,7 @@ function SidebarBlock({ label, children }: { label: string; children: React.Reac
         className="text-[#7A7468] uppercase mb-2"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
-          fontSize: "0.6rem",
+          fontSize: "0.7rem",
           letterSpacing: "0.15em",
         }}
       >
@@ -432,7 +432,7 @@ function HostMeta({ label, value }: { label: string; value: string }) {
         className="text-[#7A7468] uppercase mb-1.5"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
-          fontSize: "0.55rem",
+          fontSize: "0.7rem",
           letterSpacing: "0.15em",
         }}
       >

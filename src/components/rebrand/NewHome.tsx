@@ -10,6 +10,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { PampasScoreBadge } from "@/components/ratings/PampasScoreBadge";
 import { useCombinedScore } from "@/lib/useCourseVotes";
 import { buildSlugMap, slugifyName } from "@/lib/courseSlug";
+import { formatDescription } from "@/lib/formatDescription";
+import { ExpandableText } from "@/components/rebrand/ExpandableText";
 
 
 
@@ -152,13 +154,13 @@ export function NewHome() {
       {/* HERO */}
       <section className="grid grid-cols-1 lg:grid-cols-2 border-b border-[rgba(28,61,42,0.15)] min-h-[calc(100vh-92px)]">
         <div className="px-8 lg:px-16 py-16 lg:py-20 flex flex-col justify-center border-r border-[rgba(28,61,42,0.15)]">
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#8FBF4A]">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8 flex items-center gap-4 before:content-[''] before:block before:w-8 before:h-px before:bg-[#8FBF4A]">
             Vol. I — MMXXVI · Belgische golfpassie
           </p>
           <h1 className="font-rb-serif font-light text-[clamp(3rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-[#1C3D2A] mb-4">
             Made on the back nine.
           </h1>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-8">
             Drie vrienden, één microfoon.
           </p>
           <p className="font-rb-sans text-base text-[#635C4B] max-w-md leading-[1.75] mb-12">
@@ -168,13 +170,13 @@ export function NewHome() {
           <div className="flex flex-wrap gap-4 items-center">
             <Link
               to="/afleveringen"
-              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-8 py-[0.9rem] hover:bg-[#2B5C3E] transition-colors"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-8 py-[0.9rem] hover:bg-[#2B5C3E] transition-colors"
             >
               Alle afleveringen
             </Link>
             <Link
               to="/hosts"
-              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline px-8 py-[0.9rem] border border-[rgba(28,61,42,0.3)] hover:border-[#1C3D2A] hover:bg-[#EDE6D9] transition-all"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline px-8 py-[0.9rem] border border-[rgba(28,61,42,0.3)] hover:border-[#1C3D2A] hover:bg-[#EDE6D9] transition-all"
             >
               Maak kennis
             </Link>
@@ -195,19 +197,19 @@ export function NewHome() {
             className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity"
           />
           <div className="relative z-10">
-            <p className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[rgba(244,239,229,0.4)] mb-6">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[rgba(244,239,229,0.4)] mb-6">
               Nieuwste aflevering
             </p>
-            <p className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#8FBF4A] mb-2">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#8FBF4A] mb-2">
               {latestEpisode.season} · E{latestEpisode.number?.toLowerCase().includes("special") || latestEpisode.number === "18" ? "special" : latestEpisode.number}
             </p>
             <h2 className="font-rb-serif text-[2rem] font-normal text-[#F4EFE5] leading-[1.2] mb-4">
               {latestEpisode.title}
             </h2>
             <p className="font-rb-sans text-sm text-[rgba(244,239,229,0.65)] leading-[1.7] max-w-md mb-6 line-clamp-3">
-              {latestEpisode.description}
+              {formatDescription(latestEpisode.description)}
             </p>
-            <div className="flex gap-6 items-center mb-6 font-rb-mono text-[0.6rem] tracking-[0.1em] text-[rgba(244,239,229,0.5)]">
+            <div className="flex gap-6 items-center mb-6 font-rb-mono text-[0.7rem] tracking-[0.1em] text-[rgba(244,239,229,0.5)]">
               <span>{latestEpisode.date}</span>
               <span>{latestEpisode.duration}</span>
             </div>
@@ -215,7 +217,7 @@ export function NewHome() {
               href={`https://open.spotify.com/episode/${latestEpisode.spotifyId}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-block font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-8 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
+              className="inline-block font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-8 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
             >
               ▶ Beluister nu
             </a>
@@ -234,7 +236,7 @@ export function NewHome() {
             key={i}
             className={`px-10 py-12 ${i < 2 ? "border-r border-[rgba(28,61,42,0.15)]" : ""}`}
           >
-            <p className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#635C4B] mb-4">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mb-4">
               {b.label}
             </p>
             <p className="font-rb-serif font-light text-5xl text-[#1C3D2A] leading-none mb-2">
@@ -249,7 +251,7 @@ export function NewHome() {
       <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5]">
         <div className="max-w-[1400px] mx-auto">
           <div className="mb-10">
-            <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-3">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#46701D] mb-3">
               Beoordeeld door onze hosts. Jij stemt mee!
             </p>
             <h2 className="font-rb-serif font-light text-4xl md:text-5xl text-[#1C3D2A] leading-[1]">
@@ -289,13 +291,13 @@ export function NewHome() {
                             <blockquote className="font-rb-serif italic text-base md:text-lg text-[#1C3D2A] leading-[1.6] max-w-2xl">
                               “{course.quote}”
                               {course.quoteHost && (
-                                <footer className="font-rb-mono not-italic text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mt-2">
+                                <footer className="font-rb-mono not-italic text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] mt-2">
                                   — {course.quoteHost}
                                 </footer>
                               )}
                             </blockquote>
                           ) : course.oneWord ? (
-                            <p className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#1C3D2A] border border-[rgba(28,61,42,0.3)] inline-block px-3 py-1.5">
+                            <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] border border-[rgba(28,61,42,0.3)] inline-block px-3 py-1.5">
                               In één woord: {course.oneWord}
                             </p>
                           ) : null}
@@ -304,7 +306,7 @@ export function NewHome() {
                           <Link
                             to="/ratings"
                             search={{ q: course.name } as never}
-                            className="inline-block font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-7 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
+                            className="inline-block font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-7 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
                           >
                             Stem op deze baan →
                           </Link>
@@ -357,7 +359,7 @@ export function NewHome() {
           <div className="mt-8">
             <Link
               to="/ratings"
-              className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#8FBF4A]"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
             >
               Alle golfbanen bekijken →
             </Link>
@@ -370,20 +372,21 @@ export function NewHome() {
       <section className="px-6 lg:px-14 py-16 border-b border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]">
         <div className="grid lg:grid-cols-12 gap-10 items-center max-w-[1400px] mx-auto">
           <div className="lg:col-span-5">
-            <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#8FBF4A] mb-4">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#46701D] mb-4">
               Nu beluisteren
             </p>
             <h2 className="font-rb-serif font-light text-5xl text-[#1C3D2A] leading-[1] mb-6">
               {latestEpisode.title}
             </h2>
-            <p className="font-rb-sans text-[#635C4B] leading-[1.75] mb-6">
-              {latestEpisode.description}
-            </p>
+            <ExpandableText
+              text={formatDescription(latestEpisode.description)}
+              className="font-rb-sans text-[#635C4B] leading-[1.75]"
+            />
             <div className="flex flex-wrap gap-2">
               {latestEpisode.topics.map((t) => (
                 <span
                   key={t}
-                  className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2.5 py-1"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2.5 py-1"
                 >
                   {t}
                 </span>
@@ -408,7 +411,7 @@ export function NewHome() {
           </p>
           <Link
             to="/hosts"
-            className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 self-start hover:text-[#8FBF4A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 self-start hover:text-[#46701D]"
           >
             Leer ze kennen →
           </Link>
@@ -422,7 +425,7 @@ export function NewHome() {
                 i < 2 ? "border-r border-[rgba(28,61,42,0.15)]" : ""
               } border-t lg:border-t-0 border-[rgba(28,61,42,0.15)]`}
             >
-              <p className="font-rb-mono text-[0.55rem] tracking-[0.15em] uppercase text-[#635C4B] mb-3">
+              <p className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B] mb-3">
                 0{i + 1} / Host
               </p>
               <div className="aspect-square overflow-hidden mb-4 bg-[#E2D9C8]">
@@ -432,11 +435,11 @@ export function NewHome() {
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
               </div>
-              <p className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase text-[#8FBF4A] mb-1">
+              <p className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#46701D] mb-1">
                 {h.role}
               </p>
               <h3 className="font-rb-serif font-semibold text-xl text-[#1C3D2A]">{h.name}</h3>
-              <p className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#635C4B] mt-1">
+              <p className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#635C4B] mt-1">
                 HCP {h.handicap}
               </p>
             </Link>
@@ -486,7 +489,7 @@ export function NewHome() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase bg-[#8FBF4A] text-[#1C3D2A] px-6 hover:bg-[#a0d45a] transition-colors font-medium disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase bg-[#8FBF4A] text-[#1C3D2A] px-6 hover:bg-[#a0d45a] transition-colors font-medium disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {status === "loading" ? "Bezig…" : "Inschrijven"}
             </button>

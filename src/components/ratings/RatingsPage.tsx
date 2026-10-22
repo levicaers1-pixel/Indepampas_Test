@@ -65,6 +65,8 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
         return next;
       }) as never,
       replace: true,
+      // Switching tabs/filters must not jump the page back to the top.
+      resetScroll: false,
     });
   };
 
@@ -172,7 +174,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
     <>
       {/* HERO */}
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Onafhankelijke beoordelingen
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -194,7 +196,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
               >
                 <span>{p.icon}</span>
                 <span
-                  className="font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase"
                   style={{ color: p.color }}
                 >
                   {h} · hcp {p.handicap} · {p.tagline}
@@ -214,7 +216,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
               <div className="font-rb-serif font-light text-[2.4rem] text-[#1C3D2A] leading-none">
                 {s.v}
               </div>
-              <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#635C4B] mt-2">
+              <div className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mt-2">
                 {s.l}
               </div>
             </div>
@@ -224,7 +226,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
       {/* MATCH QUIZ */}
       <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]">
-        <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+        <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
           Vind je host
         </h2>
         <MatchQuiz onMatch={setActiveHost} />
@@ -244,14 +246,14 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           }}
         >
           <span
-            className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase"
             style={{ color: HOST_PERSONAS[activeHost].color }}
           >
             Je bekijkt parcours door de ogen van {activeHost} {HOST_PERSONAS[activeHost].icon}
           </span>
           <button
             onClick={() => setActiveHost(null)}
-            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
           >
             Reset
           </button>
@@ -266,7 +268,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className="font-rb-mono text-[0.62rem] tracking-[0.18em] uppercase px-4 py-3 border-b-2 transition whitespace-nowrap"
+              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-4 py-3 border-b-2 transition whitespace-nowrap"
               style={{
                 borderColor: on ? "#1C3D2A" : "transparent",
                 color: on ? "#1C3D2A" : "#635C4B",
@@ -322,7 +324,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                     <button
                       key={h}
                       onClick={() => toggleHost(h)}
-                      className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
+                      className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
                       style={{
                         background: on ? `${p.color}20` : "transparent",
                         color: on ? p.color : "#635C4B",

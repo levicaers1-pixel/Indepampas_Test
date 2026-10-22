@@ -358,9 +358,20 @@ export function CoursesMap({
           algorithmOptions: { maxZoom: 16 },
         });
 
+        // Start on Belgium: fitting every marker zooms out to half the world.
+        // Coordinates outside Belgium's bounding box (e.g. a mis-geocoded
+        // course) are ignored for this initial view; other markers stay on the map.
+        const inBelgium = located.filter(
+          ({ course, lat, lng }) =>
+            countryCode(course.country) === "BE" && lat > 49.4 && lat < 51.6 && lng > 2.4 && lng < 6.5,
+        );
         if (located.length === 1) {
           map.setCenter(bounds.getCenter());
           map.setZoom(11);
+        } else if (inBelgium.length >= 2) {
+          const belgium = new window.google.maps.LatLngBounds();
+          inBelgium.forEach(({ lat, lng }) => belgium.extend({ lat, lng }));
+          map.fitBounds(belgium, 60);
         } else {
           map.fitBounds(bounds, 60);
         }
@@ -379,7 +390,7 @@ export function CoursesMap({
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
-      <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
         Parcours op de kaart
       </h2>
       <div
@@ -387,17 +398,17 @@ export function CoursesMap({
         className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
       />
       {mounted && error && (
-        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#A33]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#A33]">
           {error}
         </p>
       )}
       {mounted && !error && progress && (
-        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Locaties laden… {progress.done}/{progress.total}
         </p>
       )}
       {mounted && !error && !progress && located.length === 0 && ratedCourses.length > 0 && (
-        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
           Geen coördinaten gevonden.
         </p>
       )}

@@ -22,7 +22,7 @@ export function SponsorsBanner() {
     <section className="bg-[#F4EFE5] border-t border-[rgba(28,61,42,0.15)]">
       <div className="px-6 lg:px-14 py-12">
         <div className="text-center mb-8">
-          <div className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#8FBF4A]">
+          <div className="font-rb-mono text-[0.7rem] tracking-[0.22em] uppercase text-[#46701D]">
             Made possible by
           </div>
           <h2 className="font-rb-serif text-2xl md:text-3xl text-[#1C3D2A] mt-2">

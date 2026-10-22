@@ -43,7 +43,7 @@ export function NewGuests() {
   return (
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Gasten aan tafel
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -68,7 +68,7 @@ export function NewGuests() {
               key={g.id}
               className="p-8 lg:p-10 border-b border-[rgba(28,61,42,0.15)] lg:[&:not(:nth-child(3n))]:border-r md:[&:not(:nth-child(2n))]:border-r lg:md:border-r-0 border-[rgba(28,61,42,0.15)] flex flex-col"
             >
-              <p className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#635C4B] mb-5">
+              <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mb-5">
                 {String(i + 1).padStart(2, "0")} / Gast
               </p>
 
@@ -88,7 +88,7 @@ export function NewGuests() {
               </div>
 
               {g.role && (
-                <p className="font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[#8FBF4A] mb-1">
+                <p className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#46701D] mb-1">
                   {g.role}
                 </p>
               )}
@@ -107,10 +107,10 @@ export function NewGuests() {
                     rel="noreferrer"
                     className="block border-t border-[rgba(28,61,42,0.15)] pt-3 no-underline group"
                   >
-                    <span className="font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#635C4B]">
+                    <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
                       Te horen in {g.episodes.number}
                     </span>
-                    <span className="block font-rb-sans text-[0.85rem] text-[#1C3D2A] group-hover:text-[#8FBF4A] transition-colors">
+                    <span className="block font-rb-sans text-[0.85rem] text-[#1C3D2A] group-hover:text-[#46701D] transition-colors">
                       ▶ {g.episodes.title}
                     </span>
                   </a>
@@ -138,7 +138,7 @@ function GuestLink({ href, label }: { href: string; label: string }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase no-underline border border-[rgba(28,61,42,0.25)] text-[#1C3D2A] px-3 py-1.5 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors"
+      className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase no-underline border border-[rgba(28,61,42,0.25)] text-[#1C3D2A] px-3 py-1.5 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors"
     >
       {label}
     </a>

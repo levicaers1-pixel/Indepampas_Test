@@ -5,7 +5,7 @@ export function NewHosts() {
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
             De drie stemmen
           </p>
           <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -25,7 +25,7 @@ export function NewHosts() {
               i < 2 ? "lg:border-r border-[rgba(28,61,42,0.15)]" : ""
             }`}
           >
-            <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B] mb-5">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mb-5">
               0{i + 1} / Host
             </p>
             <div className="aspect-[3/4] mb-6 overflow-hidden bg-[#E2D9C8]">
@@ -35,13 +35,13 @@ export function NewHosts() {
                 className="w-full h-full object-cover grayscale-[0.3]"
               />
             </div>
-            <p className="font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[#8FBF4A] mb-1">
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#46701D] mb-1">
               {h.role}
             </p>
             <h2 className="font-rb-serif font-semibold text-[2rem] text-[#1C3D2A] leading-tight mb-2">
               {h.name}
             </h2>
-            <span className="inline-block font-rb-mono text-[0.6rem] tracking-[0.1em] bg-[#1C3D2A] text-[#8FBF4A] px-3 py-1 mb-6">
+            <span className="inline-block font-rb-mono text-[0.7rem] tracking-[0.1em] bg-[#1C3D2A] text-[#8FBF4A] px-3 py-1 mb-6">
               HCP {h.handicap}
             </span>
             <p className="font-rb-sans text-[0.88rem] text-[#635C4B] leading-[1.75] mb-6 whitespace-pre-line">
@@ -49,13 +49,13 @@ export function NewHosts() {
             </p>
             <dl className="border-t border-[rgba(28,61,42,0.15)]">
               <div className="flex justify-between py-2.5 border-b border-[rgba(28,61,42,0.15)]">
-                <dt className="font-rb-mono text-[0.58rem] tracking-[0.1em] uppercase text-[#635C4B]">
+                <dt className="font-rb-mono text-[0.7rem] tracking-[0.1em] uppercase text-[#635C4B]">
                   Thuisbaan
                 </dt>
                 <dd className="font-rb-sans text-[0.82rem] text-[#1C3D2A]">{h.favoriteCourse}</dd>
               </div>
               <div className="flex justify-between py-2.5">
-                <dt className="font-rb-mono text-[0.58rem] tracking-[0.1em] uppercase text-[#635C4B]">
+                <dt className="font-rb-mono text-[0.7rem] tracking-[0.1em] uppercase text-[#635C4B]">
                   Handicap
                 </dt>
                 <dd className="font-rb-sans text-[0.82rem] text-[#1C3D2A]">{h.handicap}</dd>

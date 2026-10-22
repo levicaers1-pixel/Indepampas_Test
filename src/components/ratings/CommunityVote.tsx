@@ -33,13 +33,13 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
 
   return (
     <section className="border border-[rgba(28,61,42,0.15)] bg-[#FBF8F1] p-5 md:p-6">
-      <h2 className="font-rb-mono text-[0.6rem] tracking-[0.22em] uppercase text-[#635C4B]">
+      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.22em] uppercase text-[#635C4B]">
         Scores
       </h2>
 
       <div className="mt-4 grid gap-6 sm:grid-cols-2">
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B]">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B]">
             Gemiddelde hosts
           </p>
           <p className="font-rb-serif text-4xl text-[#1C3D2A] leading-none mt-1">
@@ -51,7 +51,7 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
           </p>
         </div>
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B]">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B]">
             Gemiddelde community
           </p>
           <p className="font-rb-serif text-4xl text-[#3D7A52] leading-none mt-1">
@@ -105,7 +105,7 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
                 type="button"
                 onClick={submit}
                 disabled={saving}
-                className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
+                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
               >
                 {saving ? "Bezig…" : myVote == null ? "Stem" : "Stem bijwerken"}
               </button>
@@ -116,7 +116,7 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
                     setValue(myVote);
                     setEditing(false);
                   }}
-                  className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
                 >
                   Annuleer
                 </button>
@@ -133,7 +133,7 @@ export function CommunityVote({ course }: { course: CourseWithRatings }) {
             <button
               type="button"
               onClick={() => setEditing(true)}
-              className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] underline"
+              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] underline"
             >
               Wijzig stem
             </button>

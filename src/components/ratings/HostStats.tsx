@@ -48,7 +48,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
+      <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Host-statistieken
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-8">
@@ -84,7 +84,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                     {p.icon} {s.host}
                   </div>
                   <div
-                    className="font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase"
+                    className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase"
                     style={{ color: p.color }}
                   >
                     {p.tagline}
@@ -126,14 +126,14 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
 
       {/* Heatmap */}
       <div>
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-3">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-3">
           Heatmap · host × criterium
         </p>
         <div className="bg-white border border-[rgba(28,61,42,0.15)] overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[rgba(28,61,42,0.1)]">
-                <th className="p-3 font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#635C4B]">
+                <th className="p-3 font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
                   Criterium
                 </th>
                 {HOSTS.map((h) => {
@@ -141,7 +141,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                   return (
                     <th
                       key={h}
-                      className="p-3 font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-center"
+                      className="p-3 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-center"
                       style={{ color: p.color }}
                     >
                       {p.icon} {h}
@@ -208,7 +208,7 @@ function VerdictCard({
       style={{ borderColor: `${p.color}55`, background: `${p.color}10` }}
     >
       <div
-        className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase"
+        className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase"
         style={{ color: p.color }}
       >
         {label}

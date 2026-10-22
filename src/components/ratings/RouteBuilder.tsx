@@ -265,7 +265,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#EDE6D9] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
+      <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Roadtrip optimizer 2.0
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-3">
@@ -278,7 +278,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
 
       <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         <div className="lg:col-span-2">
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Vertrek
           </label>
           <input
@@ -290,7 +290,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
           />
         </div>
         <div className="lg:col-span-2">
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Regio (optioneel)
           </label>
           <select
@@ -311,7 +311,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
           </select>
         </div>
         <div>
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Dagen: {days}
           </label>
           <input
@@ -324,7 +324,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
           />
         </div>
         <div>
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Banen/dag: {perDay}
           </label>
           <input
@@ -337,7 +337,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
           />
         </div>
         <div>
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Max rijtijd/leg: {maxLegMin} min
           </label>
           <input
@@ -351,7 +351,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
           />
         </div>
         <div className="lg:col-span-2">
-          <label className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
+          <label className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] block mb-1.5">
             Budget greenfees: €{budget}
           </label>
           <input
@@ -369,7 +369,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
             type="button"
             onClick={build}
             disabled={loading || !origin.trim()}
-            className="w-full px-4 py-2 bg-[#1C3D2A] text-[#F4EFE5] font-rb-mono text-[0.62rem] tracking-[0.18em] uppercase hover:bg-[#264d36] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 bg-[#1C3D2A] text-[#F4EFE5] font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase hover:bg-[#264d36] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Berekenen…" : "Bouw route"}
           </button>
@@ -403,7 +403,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
 
           {byDay.map(([day, dayStops]) => (
             <div key={day} className="mb-6 last:mb-0">
-              <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
+              <div className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
                 Dag {day}
               </div>
               <ol className="space-y-3">
@@ -412,7 +412,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
                   const { hex } = scoreColor(combinedScore(s.course));
                   return (
                     <li key={s.course.id}>
-                      <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mb-1 pl-14">
+                      <div className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] mb-1 pl-14">
                         {isFirst ? "Vanaf startpunt" : "Rijden"} · {Math.round(s.legKm)} km ·{" "}
                         {Math.round(s.legMin)} min
                       </div>
@@ -439,7 +439,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
                               {combinedScore(s.course)?.toFixed(0)}
                             </span>
                           </div>
-                          <div className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B] mt-0.5">
+                          <div className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] mt-0.5">
                             {s.course.region ?? "—"} · {s.course.type ?? "—"} · €{s.fee} greenfee
                           </div>
                         </div>
@@ -453,14 +453,14 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
 
           {gmapsUrl && (
             <div className="mt-6 pt-5 border-t border-[rgba(28,61,42,0.1)] flex items-center justify-between gap-4 flex-wrap">
-              <div className="font-rb-mono text-[0.55rem] tracking-[0.16em] uppercase text-[#635C4B]">
+              <div className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
                 Rijtijden via Google Routes API · bel altijd vooraf voor startijden.
               </div>
               <a
                 href={gmapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-[#1C3D2A] text-[#F4EFE5] font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase hover:bg-[#264d36]"
+                className="px-4 py-2 bg-[#1C3D2A] text-[#F4EFE5] font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase hover:bg-[#264d36]"
               >
                 Open in Google Maps →
               </a>
@@ -476,7 +476,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div className="font-rb-serif text-[1.6rem] text-[#1C3D2A] leading-none">{value}</div>
-      <div className="font-rb-mono text-[0.55rem] tracking-[0.18em] uppercase text-[#635C4B] mt-1.5">
+      <div className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mt-1.5">
         {label}
       </div>
     </div>

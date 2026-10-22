@@ -71,7 +71,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
         style={{ borderColor: `${p.color}55` }}
       >
         <div
-          className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase mb-2"
+          className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase mb-2"
           style={{ color: p.color }}
         >
           Jouw match
@@ -89,14 +89,14 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
         <div className="flex items-center gap-3 mt-6">
           <button
             onClick={() => onMatch(result)}
-            className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase px-6 py-3 transition"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase px-6 py-3 transition"
             style={{ background: p.color, color: "#F4EFE5" }}
           >
             Toon parcours door {p.name}'s ogen →
           </button>
           <button
             onClick={reset}
-            className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
           >
             Opnieuw
           </button>
@@ -109,7 +109,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
   return (
     <div className="p-6 md:p-8 bg-white border border-[rgba(28,61,42,0.15)]">
       <div className="flex items-center justify-between mb-5">
-        <div className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B]">
+        <div className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B]">
           Vind je host · {step + 1}/{QUESTIONS.length}
         </div>
         <div className="flex gap-1">

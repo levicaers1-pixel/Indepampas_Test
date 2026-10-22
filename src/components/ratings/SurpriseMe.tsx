@@ -90,7 +90,7 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
   return (
     <div className="px-6 lg:px-14 py-10">
       <div className="max-w-3xl">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-3">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-3">
           Verras mij
         </p>
         <h2 className="font-rb-serif font-light text-[2rem] text-[#1C3D2A] leading-tight mb-3">
@@ -146,14 +146,14 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
         <div className="flex gap-3">
           <button
             onClick={() => setSubmitted(true)}
-            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase px-5 py-3 bg-[#1C3D2A] text-[#F4EFE5] hover:bg-[#2a5640] transition"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 bg-[#1C3D2A] text-[#F4EFE5] hover:bg-[#2a5640] transition"
           >
             Verras mij →
           </button>
           {submitted && (
             <button
               onClick={reset}
-              className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase px-5 py-3 border border-[rgba(28,61,42,0.3)] text-[#1C3D2A] hover:bg-[rgba(28,61,42,0.05)] transition"
+              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 border border-[rgba(28,61,42,0.3)] text-[#1C3D2A] hover:bg-[rgba(28,61,42,0.05)] transition"
             >
               Opnieuw
             </button>
@@ -163,7 +163,7 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
 
       {submitted && (
         <div className="mt-12">
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-5">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-5">
             {top3.length ? `Top ${top3.length} voor jou` : "Geen match"}
           </p>
           {top3.length === 0 ? (
@@ -205,7 +205,7 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#635C4B] mb-1.5 block">
+      <span className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mb-1.5 block">
         {label}
       </span>
       {children}

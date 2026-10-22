@@ -14,7 +14,7 @@ export function NewContact() {
   return (
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
           Stuur een bericht
         </p>
         <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -38,7 +38,7 @@ export function NewContact() {
             { label: "Locatie", val: "Antwerpen, BE" },
           ].map((row) => (
             <div key={row.label} className="flex items-start gap-4 mb-6">
-              <span className="font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[rgba(244,239,229,0.4)] pt-1 min-w-[80px]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[rgba(244,239,229,0.4)] pt-1 min-w-[80px]">
                 {row.label}
               </span>
               {row.href ? (
@@ -70,7 +70,7 @@ export function NewContact() {
                 key={r.id}
                 type="button"
                 onClick={() => setReason(r.id)}
-                className={`font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase px-6 py-3 border-b-2 -mb-px transition-colors ${
+                className={`font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase px-6 py-3 border-b-2 -mb-px transition-colors ${
                   reason === r.id
                     ? "text-[#1C3D2A] border-[#8FBF4A]"
                     : "text-[#635C4B] border-transparent hover:text-[#1C3D2A]"
@@ -116,7 +116,7 @@ export function NewContact() {
             </div>
             <RbField label="Onderwerp" name="subject" required />
             <div className="flex flex-col gap-1.5">
-              <label className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
+              <label className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
                 Bericht
               </label>
               <textarea
@@ -129,18 +129,18 @@ export function NewContact() {
 
             <div className="flex justify-between items-center pt-2 gap-4 flex-wrap">
               {sent ? (
-                <p className="font-rb-serif italic text-[#8FBF4A] text-lg">Bedankt — we komen snel bij je terug.</p>
+                <p className="font-rb-serif italic text-[#46701D] text-lg">Bedankt — we komen snel bij je terug.</p>
               ) : error ? (
                 <p className="font-rb-sans text-sm text-red-700">{error}</p>
               ) : (
-                <p className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
+                <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
                   We antwoorden binnen 48u
                 </p>
               )}
               <button
                 type="submit"
                 disabled={sending || sent}
-                className="font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] px-8 py-[0.9rem] hover:bg-[#2B5C3E] transition-colors disabled:opacity-50"
+                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] px-8 py-[0.9rem] hover:bg-[#2B5C3E] transition-colors disabled:opacity-50"
               >
                 {sent ? "Verstuurd" : sending ? "Versturen…" : "Versturen"}
               </button>
@@ -155,7 +155,7 @@ export function NewContact() {
 function RbField({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={name} className="font-rb-mono text-[0.58rem] tracking-[0.14em] uppercase text-[#635C4B]">
+      <label htmlFor={name} className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
         {label}
       </label>
       <input

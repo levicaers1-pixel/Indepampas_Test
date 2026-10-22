@@ -152,7 +152,7 @@ function CourseDetailPage() {
       <div className="px-6 lg:px-14 pt-10 pb-4">
         <nav
           aria-label="Broodkruimels"
-          className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#635C4B] flex flex-wrap gap-2"
+          className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] flex flex-wrap gap-2"
         >
           <Link to="/" className="hover:text-[#1C3D2A]">Home</Link>
           <span>/</span>
@@ -168,7 +168,7 @@ function CourseDetailPage() {
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(28,61,42,0.15)] pt-6">
           <Link
             to="/ratings"
-            className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
           >
             ← Alle parcours
           </Link>
@@ -177,7 +177,7 @@ function CourseDetailPage() {
               <Link
                 to="/courses/$slug"
                 params={{ slug: slugMap.get(prev.id)! }}
-                className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
               >
                 ← {prev.name}
               </Link>
@@ -186,7 +186,7 @@ function CourseDetailPage() {
               <Link
                 to="/courses/$slug"
                 params={{ slug: slugMap.get(next.id)! }}
-                className="font-rb-mono text-[0.65rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
               >
                 {next.name} →
               </Link>

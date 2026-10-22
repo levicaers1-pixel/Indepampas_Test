@@ -59,7 +59,7 @@ export function NewHeader() {
             <Link
               key={n.to}
               to={n.to}
-              className={`font-rb-mono text-[0.62rem] tracking-[0.14em] uppercase no-underline px-[1.1rem] py-2 border-r border-[rgba(28,61,42,0.15)] transition-colors ${
+              className={`font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase no-underline px-[1.1rem] py-2 border-r border-[rgba(28,61,42,0.15)] transition-colors ${
                 i === 0 ? "border-l border-[rgba(28,61,42,0.15)]" : ""
               } ${
                 isActive ? "text-[#1C3D2A] bg-[#EDE6D9]" : "text-[#635C4B] hover:text-[#1C3D2A]"
@@ -76,7 +76,7 @@ export function NewHeader() {
           href="https://open.spotify.com/show/3Mi5qC8RDqL5RDqDxDxYqZ"
           target="_blank"
           rel="noreferrer"
-          className="font-rb-mono text-[0.6rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-[1.2rem] py-[0.55rem] hover:bg-[#2B5C3E] transition-colors"
+          className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-[1.2rem] py-[0.55rem] hover:bg-[#2B5C3E] transition-colors"
         >
           ▶ Listen
         </a>
@@ -128,7 +128,7 @@ export function Ticker() {
         {all.map((t, i) => (
           <span
             key={i}
-            className={`font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase px-10 ${
+            className={`font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-10 ${
               i % items.length === 1 ? "text-[#8FBF4A]" : "text-[rgba(244,239,229,0.6)]"
             }`}
           >

@@ -54,7 +54,7 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
             >
               <ChevronRight size={18} />
             </button>
-            <div className="absolute bottom-2 right-2 font-rb-mono text-[0.6rem] tracking-[0.12em] bg-black/55 text-white px-2 py-1">
+            <div className="absolute bottom-2 right-2 font-rb-mono text-[0.7rem] tracking-[0.12em] bg-black/55 text-white px-2 py-1">
               {index + 1}/{count}
             </div>
           </>
@@ -65,7 +65,7 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
         <p className="font-rb-sans text-[0.72rem] text-[#635C4B] mt-2">
           {current.caption}
           {current.credit && (
-            <span className="font-rb-mono text-[0.6rem] uppercase tracking-[0.12em] text-[#A09684] ml-2">
+            <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684] ml-2">
               © {current.credit}
             </span>
           )}

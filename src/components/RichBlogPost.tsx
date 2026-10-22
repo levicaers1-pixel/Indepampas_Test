@@ -43,13 +43,13 @@ export function RichBlogPost({ post, prev, next }: Props) {
       <header className="max-w-[860px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[#C8BFB0]">
         <div className="flex items-center gap-6 mb-8 flex-wrap">
           <span
-            className="text-[0.6rem] tracking-[0.15em] uppercase text-[#F2EDE4] bg-[#1A3D2B] px-3 py-1.5"
+            className="text-[0.7rem] tracking-[0.15em] uppercase text-[#F2EDE4] bg-[#1A3D2B] px-3 py-1.5"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}
           >
             {post.topics[0] ?? "Blog"}
           </span>
           <span
-            className="text-[0.65rem] tracking-[0.1em] text-[#7A7468] uppercase"
+            className="text-[0.7rem] tracking-[0.1em] text-[#7A7468] uppercase"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}
           >
             {post.date}&nbsp;·&nbsp;{post.readTime} lezen
@@ -166,7 +166,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                         className="text-[#7A7468] uppercase"
                         style={{
                           fontFamily: "'DM Mono', ui-monospace, monospace",
-                          fontSize: "0.55rem",
+                          fontSize: "0.7rem",
                           letterSpacing: "0.12em",
                         }}
                       >
@@ -189,7 +189,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                         className="pt-1 text-[#7A7468] uppercase"
                         style={{
                           fontFamily: "'DM Mono', ui-monospace, monospace",
-                          fontSize: "0.65rem",
+                          fontSize: "0.7rem",
                           letterSpacing: "0.1em",
                         }}
                       >
@@ -231,7 +231,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                             className="px-4 py-3 uppercase"
                             style={{
                               fontFamily: "'DM Mono', ui-monospace, monospace",
-                              fontSize: "0.6rem",
+                              fontSize: "0.7rem",
                               letterSpacing: "0.15em",
                             }}
                           >
@@ -285,7 +285,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                       className="mt-3 text-[#7A7468] uppercase"
                       style={{
                         fontFamily: "'DM Mono', ui-monospace, monospace",
-                        fontSize: "0.6rem",
+                        fontSize: "0.7rem",
                         letterSpacing: "0.1em",
                       }}
                     >
@@ -307,7 +307,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                       className="mt-3 text-[#7A7468] uppercase"
                       style={{
                         fontFamily: "'DM Mono', ui-monospace, monospace",
-                        fontSize: "0.6rem",
+                        fontSize: "0.7rem",
                         letterSpacing: "0.1em",
                       }}
                     >
@@ -324,7 +324,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                   className="mt-12 pt-6 border-t border-[#C8BFB0] text-[#7A7468] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
-                    fontSize: "0.6rem",
+                    fontSize: "0.7rem",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -360,7 +360,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                     className="inline-block mt-3 text-[#1A3D2B] uppercase border-b border-[#8CB84A] pb-px"
                     style={{
                       fontFamily: "'DM Mono', ui-monospace, monospace",
-                      fontSize: "0.6rem",
+                      fontSize: "0.7rem",
                       letterSpacing: "0.1em",
                     }}
                   >
@@ -381,7 +381,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
               className="text-[#7A7468] uppercase mb-3"
               style={{
                 fontFamily: "'DM Mono', ui-monospace, monospace",
-                fontSize: "0.6rem",
+                fontSize: "0.7rem",
                 letterSpacing: "0.15em",
               }}
             >
@@ -394,7 +394,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                   className="px-2.5 py-1 border border-[#C8BFB0] text-[#7A7468] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
-                    fontSize: "0.55rem",
+                    fontSize: "0.7rem",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -412,7 +412,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
           className="text-[#7A7468] uppercase text-center sm:text-left"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
-            fontSize: "0.6rem",
+            fontSize: "0.7rem",
             letterSpacing: "0.1em",
           }}
         >
@@ -423,7 +423,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
           className="text-[#1A3D2B] uppercase px-6 py-3 border border-[#1A3D2B] hover:bg-[#1A3D2B] hover:text-[#F2EDE4] transition-colors"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
-            fontSize: "0.65rem",
+            fontSize: "0.7rem",
             letterSpacing: "0.12em",
           }}
         >
@@ -444,7 +444,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                 className="text-[#7A7468] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
-                  fontSize: "0.6rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -473,7 +473,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                 className="text-[#7A7468] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
-                  fontSize: "0.6rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.15em",
                 }}
               >
@@ -503,7 +503,7 @@ function SidebarBlock({ label, children }: { label: string; children: React.Reac
         className="text-[#7A7468] uppercase mb-3"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
-          fontSize: "0.6rem",
+          fontSize: "0.7rem",
           letterSpacing: "0.15em",
         }}
       >

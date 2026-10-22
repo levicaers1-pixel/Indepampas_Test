@@ -145,7 +145,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
-      <h2 className="font-rb-mono text-[0.65rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
         Op de kaart
       </h2>
       <div
@@ -153,7 +153,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
         className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
       />
       {located.length < ratings.length && (
-        <p className="mt-3 font-rb-mono text-[0.6rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
           {ratings.length - located.length} parcours nog zonder coördinaten.
         </p>
       )}

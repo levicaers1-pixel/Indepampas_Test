@@ -63,7 +63,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
 
   return (
     <div className="px-6 lg:px-14 py-12 bg-[#EDE6D9] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
+      <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
         Banen-vergelijker
       </p>
       <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-6">
@@ -74,7 +74,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
       </p>
 
       <div className="mb-6 max-w-2xl">
-        <p className="font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-2">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-2">
           Selectie ({selected.length}/3)
         </p>
 
@@ -121,7 +121,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                     className="w-full text-left px-3 py-2 hover:bg-[#EDE6D9] flex items-center justify-between gap-3 border-b border-[rgba(28,61,42,0.06)] last:border-b-0"
                   >
                     <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A]">{c.name}</span>
-                    <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B]">
+                    <span className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
                       {c.country}{c.region ? ` · ${c.region}` : ""}
                     </span>
                   </button>
@@ -172,7 +172,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-[rgba(28,61,42,0.1)]">
-                <th className="p-3 font-rb-mono text-[0.58rem] tracking-[0.16em] uppercase text-[#635C4B]">
+                <th className="p-3 font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
                   Criterium
                 </th>
                 {picked.map((c) => {
@@ -183,7 +183,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                       <div className="flex flex-col gap-1">
                         {isWin && (
                           <span
-                            className="self-start font-rb-mono text-[0.5rem] tracking-[0.18em] uppercase px-1.5 py-0.5"
+                            className="self-start font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-1.5 py-0.5"
                             style={{ background: "#1C3D2A", color: "#F4EFE5" }}
                           >
                             ★ Winnaar
@@ -192,7 +192,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                         <span className="font-rb-serif text-[1.05rem] text-[#1C3D2A]">
                           {c.name}
                         </span>
-                        <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#635C4B]">
+                        <span className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
                           {c.region ?? "—"} · {c.fee_category ?? "—"}
                         </span>
                         <span
@@ -243,7 +243,7 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                 );
               })}
               <tr className="bg-[#F4EFE5]">
-                <td className="p-3 font-rb-mono text-[0.6rem] tracking-[0.16em] uppercase text-[#1C3D2A]">
+                <td className="p-3 font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#1C3D2A]">
                   Host-verdicten
                 </td>
                 {picked.map((c) => (
@@ -252,13 +252,13 @@ export function CourseCompare({ courses }: { courses: CourseWithRatings[] }) {
                       const r = c.ratings.find((x) => x.host === h);
                       const p = HOST_PERSONAS[h];
                       if (!r) return (
-                        <div key={h} className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase text-[#bbb]">
+                        <div key={h} className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#bbb]">
                           {p.icon} {h}: nog niet gespeeld
                         </div>
                       );
                       return (
                         <div key={h} className="flex items-center gap-2">
-                          <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase" style={{ color: p.color }}>
+                          <span className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase" style={{ color: p.color }}>
                             {p.icon} {h}
                           </span>
                           <span className="font-rb-mono text-[0.72rem] text-[#1C3D2A] tabular-nums">

@@ -30,7 +30,7 @@ export function PampasScoreBadge({
       {!small && (
         <span
           className="font-rb-mono uppercase tracking-[0.15em]"
-          style={{ fontSize: 9, color: hex }}
+          style={{ fontSize: 11.2, color: hex }}
         >
           {label}
         </span>

@@ -6,7 +6,7 @@ export function NewBlogIndex() {
     <>
       <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="font-rb-mono text-[0.6rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
             Het clubhuis
           </p>
           <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
@@ -34,10 +34,10 @@ export function NewBlogIndex() {
               }`}
             >
               <div className="flex items-center gap-4 mb-6">
-                <span className="font-rb-mono text-[0.55rem] tracking-[0.14em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-2.5 py-1">
+                <span className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-2.5 py-1">
                   {post.topics[0]}
                 </span>
-                <span className="font-rb-mono text-[0.6rem] tracking-[0.1em] text-[#635C4B]">
+                <span className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#635C4B]">
                   {post.date}
                 </span>
               </div>
@@ -47,7 +47,7 @@ export function NewBlogIndex() {
               <p className="font-rb-sans text-[0.9rem] text-[#635C4B] leading-[1.7] mb-6">
                 {post.excerpt}
               </p>
-              <span className="font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#1C3D2A] flex items-center gap-2">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#1C3D2A] flex items-center gap-2">
                 Lees verder →
               </span>
             </Link>
@@ -65,16 +65,16 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
       <div className="max-w-[760px] mx-auto">
         <Link
           to="/blog"
-          className="inline-flex items-center gap-2 font-rb-mono text-[0.6rem] tracking-[0.18em] uppercase text-[#8FBF4A] hover:text-[#1C3D2A] mb-10"
+          className="inline-flex items-center gap-2 font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#46701D] hover:text-[#1C3D2A] mb-10"
         >
           ← Terug naar de blog
         </Link>
 
-        <div className="flex flex-wrap gap-3 items-center mb-6 font-rb-mono text-[0.6rem] tracking-[0.12em] uppercase text-[#635C4B]">
+        <div className="flex flex-wrap gap-3 items-center mb-6 font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#635C4B]">
           <span>{post.date}</span>
-          <span className="text-[#8FBF4A]">·</span>
+          <span className="text-[#46701D]">·</span>
           <span>{post.author}</span>
-          <span className="text-[#8FBF4A]">·</span>
+          <span className="text-[#46701D]">·</span>
           <span>{post.readTime}</span>
         </div>
 
@@ -96,7 +96,7 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
           {post.topics.map((t) => (
             <span
               key={t}
-              className="font-rb-mono text-[0.55rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2 py-0.5"
+              className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2 py-0.5"
             >
               {t}
             </span>
@@ -107,16 +107,16 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
           <nav className="grid sm:grid-cols-2 gap-6 mt-12 pt-8 border-t border-[rgba(28,61,42,0.15)]">
             {prev ? (
               <Link to="/blog/$slug" params={{ slug: prev.slug }} className="group block">
-                <span className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#8FBF4A]">Vorige</span>
-                <span className="block font-rb-serif text-xl text-[#1C3D2A] group-hover:text-[#8FBF4A] mt-1">
+                <span className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#46701D]">Vorige</span>
+                <span className="block font-rb-serif text-xl text-[#1C3D2A] group-hover:text-[#46701D] mt-1">
                   {prev.title}
                 </span>
               </Link>
             ) : <span />}
             {next && (
               <Link to="/blog/$slug" params={{ slug: next.slug }} className="group block sm:text-right">
-                <span className="font-rb-mono text-[0.58rem] tracking-[0.18em] uppercase text-[#8FBF4A]">Volgende</span>
-                <span className="block font-rb-serif text-xl text-[#1C3D2A] group-hover:text-[#8FBF4A] mt-1">
+                <span className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#46701D]">Volgende</span>
+                <span className="block font-rb-serif text-xl text-[#1C3D2A] group-hover:text-[#46701D] mt-1">
                   {next.title}
                 </span>
               </Link>
