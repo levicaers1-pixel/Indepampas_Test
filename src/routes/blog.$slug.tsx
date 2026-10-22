@@ -62,7 +62,7 @@ export const Route = createFileRoute("/blog/$slug")({
   errorComponent: ({ error }) => (
     <section className="pt-36 pb-24 px-6 lg:px-12 text-center">
       <h1 className="font-serif text-3xl text-charcoal mb-4">Er ging iets mis</h1>
-      <p className="text-charcoal/60 mb-6">{error.message}</p>
+      <p className="text-charcoal/60 mb-6">{error instanceof Error ? error.message : String(error)}</p>
       <Link to="/blog" className="text-sage underline">
         Terug naar de blog
       </Link>
