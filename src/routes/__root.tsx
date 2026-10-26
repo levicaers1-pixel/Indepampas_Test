@@ -48,6 +48,7 @@ export const Route = createRootRoute({
       { property: "og:image:alt", content: "PAMPAS — de Belgische golfpodcast" },
       { name: "twitter:image", content: `${SITE_URL}/og-default.jpg` },
       { name: "google-site-verification", content: "9eeBZdMt11552ANhBkJgtZSXNRyZPsHKBTjtA7W9u38" },
+      { name: "google-site-verification", content: "6BWBbJMruLd9lG0hxGrFUS60hrEEO_AtgX6YWUF28tg" },
     ],
     scripts: [
       {
