@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewEpisodes } from "@/components/rebrand/NewEpisodes";
+import { fetchEpisodes } from "@/data/episodes-db";
 
 import { SITE_URL } from "@/lib/site";
 const EPISODES_DESCRIPTION =
   "Het volledige archief van PAMPAS — de Belgische golfpodcast. Beluister elke aflevering rechtstreeks via Spotify, elke dinsdag een nieuwe episode.";
 
 export const Route = createFileRoute("/afleveringen")({
+  loader: () => fetchEpisodes(),
   head: () => ({
     meta: [
       { title: "Afleveringen — PAMPAS Podcast" },

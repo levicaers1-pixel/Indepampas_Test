@@ -1,37 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { episodes as staticEpisodes, mergeEpisodes, type Episode } from "@/data/episodes";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "@tanstack/react-router";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
-import { supabase } from "@/integrations/supabase/client";
 import { formatDescription } from "@/lib/formatDescription";
 
 export function NewEpisodes() {
-  const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
-
-  useEffect(() => {
-    supabase
-      .from("episodes")
-      .select("spotify_id, number, season, title, description, date, duration, topics, image_url, release_date")
-      .order("release_date", { ascending: false, nullsFirst: false })
-      .then(({ data }) => {
-        if (!data) return;
-        setDbEpisodes(
-          data.map((r: any) => ({
-            number: r.number,
-            season: r.season,
-            title: r.title,
-            description: r.description,
-            date: r.date,
-            releaseDate: r.release_date,
-            duration: r.duration,
-            spotifyId: r.spotify_id,
-            imageUrl: r.image_url,
-            topics: r.topics ?? [],
-          })),
-        );
-      });
-  }, []);
-
-  const episodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
+  // Loaded on the server (route loader) so crawlers get the full, current archive in the HTML.
+  const episodes = useLoaderData({ from: "/afleveringen" });
 
   const [openId, setOpenId] = useState<string | null>(episodes[0]?.spotifyId ?? null);
   useEffect(() => {

@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewHome } from "@/components/rebrand/NewHome";
+import { fetchEpisodes } from "@/data/episodes-db";
+import { fetchTopCourses } from "@/data/home-db";
 
 import { SITE_URL } from "@/lib/site";
 const HOME_DESCRIPTION =
   "Drie Belgische vrienden, achttien holes, één microfoon. Beluister PAMPAS — de podcast over Belgische golfcultuur. Wekelijks op Spotify.";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [episodes, topCourses] = await Promise.all([fetchEpisodes(), fetchTopCourses()]);
+    return { episodes, topCourses };
+  },
   head: () => ({
     meta: [
       { title: "PAMPAS — Belgische Golf Podcast" },

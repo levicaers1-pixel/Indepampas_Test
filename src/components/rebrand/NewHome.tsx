@@ -1,15 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { episodes as staticEpisodes, latestEpisode as staticLatestEpisode, mergeEpisodes, type Episode } from "@/data/episodes";
+import { latestEpisode as staticLatestEpisode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
 import hostsWalking from "@/assets/hosts-walking.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
-import { supabase } from "@/integrations/supabase/client";
 import { PampasScoreBadge } from "@/components/ratings/PampasScoreBadge";
 import { useCombinedScore } from "@/lib/useCourseVotes";
-import { buildSlugMap, slugifyName } from "@/lib/courseSlug";
 import { formatDescription } from "@/lib/formatDescription";
 import { ExpandableText } from "@/components/rebrand/ExpandableText";
 
@@ -18,34 +16,14 @@ import { ExpandableText } from "@/components/rebrand/ExpandableText";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CAPTURED_KEY = "emailCaptured";
 
-const TOP_COURSE_NAMES = [
-  "Royal Ternesse Golf Club",
-  "Royal Antwerp Golf Club",
-  "Royal Ostend Golf Club",
-];
-
-type TopRating = { host_score: number; host?: string | null; one_word?: string | null; review?: string | null };
-
-type TopCourse = {
-  id: string;
-  name: string;
-  country: string;
-  region: string | null;
-  slug: string;
-  pampasScore: number | null;
-  ratings: TopRating[];
-  quote: string | null;
-  quoteHost: string | null;
-  oneWord: string | null;
-};
-
 /** Rebranded homepage — bordered editorial grid (cream/green/lime). */
 export function NewHome() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [dbEpisodes, setDbEpisodes] = useState<Episode[]>([]);
-  const [topCourses, setTopCourses] = useState<TopCourse[]>([]);
+  // Episodes and the featured courses are loaded on the server (route loader), so the
+  // server-rendered HTML already contains the newest episode and links to the top courses.
+  const { episodes: siteEpisodes, topCourses } = useLoaderData({ from: "/" });
   const [slide, setSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const getScore = useCombinedScore();
@@ -58,69 +36,6 @@ export function NewHome() {
 
 
   const subscribe = useServerFn(subscribeToBrevo);
-
-  useEffect(() => {
-    supabase
-      .from("episodes")
-      .select("spotify_id, number, season, title, description, date, duration, topics, image_url, release_date")
-      .order("release_date", { ascending: false, nullsFirst: false })
-      .then(({ data }) => {
-        if (!data) return;
-        setDbEpisodes(
-          data.map((r: any) => ({
-            number: r.number,
-            season: r.season,
-            title: r.title,
-            description: r.description,
-            date: r.date,
-            releaseDate: r.release_date,
-            duration: r.duration,
-            spotifyId: r.spotify_id,
-            imageUrl: r.image_url,
-            topics: r.topics ?? [],
-          })),
-        );
-      });
-  }, []);
-
-  useEffect(() => {
-    Promise.all([
-      supabase
-        .from("courses")
-        .select("id,name,country,region,ratings(host_score,host,one_word,review)")
-        .in("name", TOP_COURSE_NAMES),
-      supabase.from("courses").select("id,name"),
-    ]).then(([{ data: topData }, { data: allCourses }]) => {
-      if (!topData || !allCourses) return;
-      const slugMap = buildSlugMap(allCourses);
-      const mapped = TOP_COURSE_NAMES.map((name) => {
-        const c = (topData as any[]).find((x) => x.name === name);
-        if (!c) return null;
-        const ratings = ((c.ratings ?? []) as TopRating[]).filter((r) => r.host_score != null);
-        const withQuote = ratings.find((r) => r.review && r.review.trim().length > 0);
-        const withWord = ratings.find((r) => r.one_word && r.one_word.trim().length > 0);
-        const hostScores = ratings.map((r) => Number(r.host_score)).filter((n) => Number.isFinite(n));
-        const pampasScore = hostScores.length
-          ? Math.round((hostScores.reduce((s, v) => s + v, 0) / hostScores.length) * 10) / 10
-          : null;
-        return {
-          id: c.id,
-          name: c.name,
-          country: c.country,
-          region: c.region,
-          slug: slugMap.get(c.id) ?? slugifyName(c.name),
-          pampasScore,
-          ratings,
-          quote: withQuote?.review?.trim() ?? null,
-          quoteHost: withQuote?.host ?? null,
-          oneWord: withWord?.one_word?.trim() ?? null,
-        };
-      }).filter(Boolean) as TopCourse[];
-      setTopCourses(mapped);
-    });
-  }, []);
-
-  const siteEpisodes = useMemo(() => mergeEpisodes(dbEpisodes, staticEpisodes), [dbEpisodes]);
 
   const latestEpisode = siteEpisodes[0] ?? staticLatestEpisode;
 
@@ -282,7 +197,13 @@ export function NewHome() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="font-rb-serif text-2xl md:text-3xl text-[#1C3D2A] leading-[1.15] mb-2">
-                            {course.name}
+                            <Link
+                              to="/courses/$slug"
+                              params={{ slug: course.slug }}
+                              className="no-underline hover:underline decoration-[#8FBF4A] underline-offset-4"
+                            >
+                              {course.name}
+                            </Link>
                           </h3>
                           <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.6] mb-4">
                             {[course.region, course.country].filter(Boolean).join(", ")}
@@ -304,8 +225,8 @@ export function NewHome() {
                         </div>
                         <div className="shrink-0">
                           <Link
-                            to="/ratings"
-                            search={{ q: course.name } as never}
+                            to="/courses/$slug"
+                            params={{ slug: course.slug }}
                             className="inline-block font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] no-underline px-7 py-[0.9rem] hover:bg-[#a0d45a] transition-colors"
                           >
                             Stem op deze baan →
