@@ -25,6 +25,9 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "route", label: "Route builder" },
 ];
 
+/** Cards rendered up front; the rest is added with "Toon meer" (217 full cards made the page 960 KB). */
+const PAGE_SIZE = 24;
+
 const VALID_SORTS: SortKey[] = ["pampas_desc", "pampas_asc", "name", "recent"];
 const VALID_TABS: Tab[] = ["courses", "compare", "surprise", "hosts", "route"];
 const VALID_HOSTS = new Set<HostName>(HOSTS);
@@ -154,6 +157,18 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
     return out;
   }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost, combinedScore]);
 
+
+  const [visible, setVisible] = useState(PAGE_SIZE);
+  // A new filter or sort starts again from the first page of results.
+  useEffect(() => {
+    setVisible(PAGE_SIZE);
+  }, [search, region, country, type, fee, hostFilter, sort, activeHost]);
+  // The card the map jumped to must be in the DOM, wherever it sits in the list.
+  const shown = useMemo(() => {
+    const page = filtered.slice(0, visible);
+    const focused = focusedCourseId ? filtered.find((c) => c.id === focusedCourseId) : undefined;
+    return focused && !page.includes(focused) ? [...page, focused] : page;
+  }, [filtered, visible, focusedCourseId]);
 
   const totalCourses = courses.length;
   const avgScore =
@@ -356,7 +371,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
               </div>
             ) : (
-              filtered.map((c) => (
+              shown.map((c) => (
                 <div key={c.id} id={`course-${c.id}`} className="scroll-mt-24">
                   <CourseCard
                     course={c}
@@ -367,6 +382,19 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
                 </div>
               ))
+            )}
+            {filtered.length > shown.length && (
+              <div className="pt-6 text-center">
+                <button
+                  onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                  className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] border border-[rgba(28,61,42,0.3)] px-6 py-3 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors"
+                >
+                  Toon meer parcours ({filtered.length - shown.length})
+                </button>
+                <p className="font-rb-sans text-[0.8rem] text-[#635C4B] mt-3">
+                  {shown.length} van {filtered.length} getoond · of zoek hierboven op naam
+                </p>
+              </div>
             )}
           </div>
         </>
