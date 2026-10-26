@@ -17,15 +17,16 @@ import { Route as HostsRouteImport } from './routes/hosts'
 import { Route as GolfbanenRouteImport } from './routes/golfbanen'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
-import { Route as AfleveringenRouteImport } from './routes/afleveringen'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AfleveringenIndexRouteImport } from './routes/afleveringen.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 import { Route as BlogBesteGolfbanenRondAntwerpenRouteImport } from './routes/blog.beste-golfbanen-rond-antwerpen'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AfleveringenSlugRouteImport } from './routes/afleveringen.$slug'
 import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -72,11 +73,6 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AfleveringenRoute = AfleveringenRouteImport.update({
-  id: '/afleveringen',
-  path: '/afleveringen',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -96,6 +92,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BlogRoute,
+} as any)
+const AfleveringenIndexRoute = AfleveringenIndexRouteImport.update({
+  id: '/afleveringen/',
+  path: '/afleveringen/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const RatingsSlugRoute = RatingsSlugRouteImport.update({
   id: '/$slug',
@@ -117,6 +118,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
+} as any)
+const AfleveringenSlugRoute = AfleveringenSlugRouteImport.update({
+  id: '/afleveringen/$slug',
+  path: '/afleveringen/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -150,7 +156,6 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/afleveringen': typeof AfleveringenRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/golfbanen': typeof GolfbanenRoute
@@ -163,10 +168,12 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/afleveringen/$slug': typeof AfleveringenSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
+  '/afleveringen/': typeof AfleveringenIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -174,7 +181,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/afleveringen': typeof AfleveringenRoute
   '/contact': typeof ContactRoute
   '/golfbanen': typeof GolfbanenRoute
   '/hosts': typeof HostsRoute
@@ -185,10 +191,12 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/afleveringen/$slug': typeof AfleveringenSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
+  '/afleveringen': typeof AfleveringenIndexRoute
   '/blog': typeof BlogIndexRoute
   '/ratings': typeof RatingsIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -197,7 +205,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/afleveringen': typeof AfleveringenRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/golfbanen': typeof GolfbanenRoute
@@ -210,10 +217,12 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/reset-password': typeof AdminResetPasswordRoute
+  '/afleveringen/$slug': typeof AfleveringenSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/beste-golfbanen-rond-antwerpen': typeof BlogBesteGolfbanenRondAntwerpenRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/ratings/$slug': typeof RatingsSlugRoute
+  '/afleveringen/': typeof AfleveringenIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/ratings/': typeof RatingsIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -223,7 +232,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/afleveringen'
     | '/blog'
     | '/contact'
     | '/golfbanen'
@@ -236,10 +244,12 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/afleveringen/$slug'
     | '/blog/$slug'
     | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
+    | '/afleveringen/'
     | '/blog/'
     | '/ratings/'
     | '/.mcp/invoke-tool/$tool'
@@ -247,7 +257,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
-    | '/afleveringen'
     | '/contact'
     | '/golfbanen'
     | '/hosts'
@@ -258,10 +267,12 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/afleveringen/$slug'
     | '/blog/$slug'
     | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
+    | '/afleveringen'
     | '/blog'
     | '/ratings'
     | '/.mcp/invoke-tool/$tool'
@@ -269,7 +280,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
-    | '/afleveringen'
     | '/blog'
     | '/contact'
     | '/golfbanen'
@@ -282,10 +292,12 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
     | '/admin/reset-password'
+    | '/afleveringen/$slug'
     | '/blog/$slug'
     | '/blog/beste-golfbanen-rond-antwerpen'
     | '/courses/$slug'
     | '/ratings/$slug'
+    | '/afleveringen/'
     | '/blog/'
     | '/ratings/'
     | '/.mcp/invoke-tool/$tool'
@@ -294,7 +306,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  AfleveringenRoute: typeof AfleveringenRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   GolfbanenRoute: typeof GolfbanenRoute
@@ -305,7 +316,9 @@ export interface RootRouteChildren {
   VriendenRoute: typeof VriendenRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  AfleveringenSlugRoute: typeof AfleveringenSlugRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
+  AfleveringenIndexRoute: typeof AfleveringenIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -367,13 +380,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/afleveringen': {
-      id: '/afleveringen'
-      path: '/afleveringen'
-      fullPath: '/afleveringen'
-      preLoaderRoute: typeof AfleveringenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -402,6 +408,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/afleveringen/': {
+      id: '/afleveringen/'
+      path: '/afleveringen'
+      fullPath: '/afleveringen/'
+      preLoaderRoute: typeof AfleveringenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ratings/$slug': {
       id: '/ratings/$slug'
       path: '/$slug'
@@ -429,6 +442,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
+    }
+    '/afleveringen/$slug': {
+      id: '/afleveringen/$slug'
+      path: '/afleveringen/$slug'
+      fullPath: '/afleveringen/$slug'
+      preLoaderRoute: typeof AfleveringenSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/reset-password': {
       id: '/admin/reset-password'
@@ -510,7 +530,6 @@ const RatingsRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  AfleveringenRoute: AfleveringenRoute,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   GolfbanenRoute: GolfbanenRoute,
@@ -522,7 +541,9 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  AfleveringenSlugRoute: AfleveringenSlugRoute,
   CoursesSlugRoute: CoursesSlugRoute,
+  AfleveringenIndexRoute: AfleveringenIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport

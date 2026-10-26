@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { posts } from "@/data/posts";
 import { buildSlugMap } from "@/lib/courseSlug";
+import { buildEpisodeSlugs, episodeIsoDate } from "@/lib/episodeSlug";
+import { fetchEpisodes } from "@/data/episodes-db";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -48,6 +50,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           rest<Array<{ release_date?: string }>>("episodes?select=release_date&order=release_date.desc&limit=1"),
           rest<Array<{ updated_at?: string }>>("guests?select=updated_at&order=updated_at.desc&limit=1"),
         ]);
+        const episodeList = await fetchEpisodes();
+        const episodeSlugs = buildEpisodeSlugs(episodeList);
         const courseList = courses ?? [];
         const slugMap = buildSlugMap(courseList);
 
@@ -65,6 +69,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/hosts" },
           { path: "/vrienden", lastmod: isoDay(latestGuest?.[0]?.updated_at) },
           { path: "/contact" },
+          ...episodeList.map((e) => ({
+            path: `/afleveringen/${episodeSlugs.get(e.spotifyId)!}`,
+            lastmod: episodeIsoDate(e),
+          })),
           ...posts.map((p) => ({ path: `/blog/${p.slug}`, lastmod: postDay(p.date) })),
           ...courseList.map((c) => ({ path: `/courses/${slugMap.get(c.id)!}`, lastmod: courseDay(c) })),
         ];

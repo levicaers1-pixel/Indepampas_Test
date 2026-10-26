@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "@tanstack/react-router";
+import { Link, useLoaderData } from "@tanstack/react-router";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { formatDescription } from "@/lib/formatDescription";
+import { buildEpisodeSlugs } from "@/lib/episodeSlug";
 
 export function NewEpisodes() {
   // Loaded on the server (route loader) so crawlers get the full, current archive in the HTML.
-  const episodes = useLoaderData({ from: "/afleveringen" });
+  const episodes = useLoaderData({ from: "/afleveringen/" });
+
+  const slugs = buildEpisodeSlugs(episodes);
 
   const [openId, setOpenId] = useState<string | null>(episodes[0]?.spotifyId ?? null);
   useEffect(() => {
@@ -40,7 +43,7 @@ export function NewEpisodes() {
             <div key={ep.spotifyId} className="border-b border-[rgba(28,61,42,0.15)]">
               <button
                 onClick={() => setOpenId(isOpen ? null : ep.spotifyId)}
-                className="w-full grid grid-cols-[100px_1fr_auto] gap-6 lg:gap-10 items-start py-10 text-left hover:bg-[#EDE6D9] transition-colors -mx-2 px-2 lg:-mx-6 lg:px-6"
+                className="w-full grid grid-cols-[100px_1fr_auto] gap-6 lg:gap-10 items-start pt-10 pb-4 text-left hover:bg-[#EDE6D9] transition-colors -mx-2 px-2 lg:-mx-6 lg:px-6"
               >
                 <div>
                   <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] mb-1">
@@ -82,6 +85,16 @@ export function NewEpisodes() {
                   </span>
                 </div>
               </button>
+
+              <p className="pb-8 pl-[calc(100px+1.5rem)] lg:pl-[calc(100px+2.5rem)]">
+                <Link
+                  to="/afleveringen/$slug"
+                  params={{ slug: slugs.get(ep.spotifyId)! }}
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                >
+                  Aflevering bekijken →
+                </Link>
+              </p>
 
               {isOpen && (
                 <div className="pb-10 pl-[calc(100px+1.5rem)] lg:pl-[calc(100px+2.5rem)]">
