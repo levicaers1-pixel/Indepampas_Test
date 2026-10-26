@@ -43,49 +43,93 @@ export type CourseWithRatings = {
   pampasScore: number | null;
 };
 
+const FULL_SELECT =
+  "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*),course_photos(id,image_url,caption,credit,sort_order)";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapCourse(c: any): CourseWithRatings {
+  const ratings = (c.ratings ?? []) as RatingRow[];
+  const avg =
+    ratings.length > 0
+      ? Math.round((ratings.reduce((s, r) => s + Number(r.host_score), 0) / ratings.length) * 10) / 10
+      : null;
+  return {
+    id: c.id,
+    name: c.name,
+    country: c.country,
+    region: c.region,
+    type: c.type,
+    greenfee: c.greenfee != null ? Number(c.greenfee) : null,
+    fee_category: c.fee_category,
+    holes: c.holes,
+    website: c.website,
+    episode_url: c.episode_url,
+    ratings: ratings.map((r) => ({
+      ...r,
+      score_design: Number(r.score_design),
+      score_condition: Number(r.score_condition),
+      score_challenge: Number(r.score_challenge),
+      score_scenery: Number(r.score_scenery),
+      score_facilities: Number(r.score_facilities),
+      score_value: Number(r.score_value),
+      score_hospitality: Number(r.score_hospitality),
+      host_score: Number(r.host_score),
+    })),
+    photos: ((c.course_photos ?? []) as CoursePhoto[])
+      .slice()
+      .sort((a, b) => a.sort_order - b.sort_order),
+    pampasScore: avg,
+  };
+}
+
 export async function fetchCourses(): Promise<CourseWithRatings[]> {
   const { data, error } = await supabase
     .from("courses")
-    .select(
-      "id,name,country,region,type,greenfee,fee_category,holes,website,episode_url,ratings(*),course_photos(id,image_url,caption,credit,sort_order)",
-    )
+    .select(FULL_SELECT)
     .order("name", { ascending: true });
   if (error) throw new Error(error.message);
+  return (data ?? []).map(mapCourse);
+}
 
+/** One course with all its ratings and photos (course detail page). */
+export async function fetchCourseById(id: string): Promise<CourseWithRatings | null> {
+  const { data, error } = await supabase.from("courses").select(FULL_SELECT).eq("id", id).maybeSingle();
+  if (error) throw new Error(error.message);
+  return data ? mapCourse(data) : null;
+}
+
+/** Light-weight row for lists, navigation and slug lookups (no review text, no photos). */
+export type CourseIndexEntry = {
+  id: string;
+  name: string;
+  country: string;
+  region: string | null;
+  type: string | null;
+  holes: number;
+  greenfee: number | null;
+  ratingCount: number;
+  pampasScore: number | null;
+};
+
+export async function fetchCourseIndex(): Promise<CourseIndexEntry[]> {
+  const { data, error } = await supabase
+    .from("courses")
+    .select("id,name,country,region,type,holes,greenfee,ratings(host_score)")
+    .order("name", { ascending: true });
+  if (error) throw new Error(error.message);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (data ?? []).map((c: any) => {
-    const ratings = (c.ratings ?? []) as RatingRow[];
-    const avg =
-      ratings.length > 0
-        ? Math.round(
-            (ratings.reduce((s, r) => s + Number(r.host_score), 0) / ratings.length) * 10,
-          ) / 10
-        : null;
+    const scores = ((c.ratings ?? []) as Array<{ host_score: number | string }>).map((r) => Number(r.host_score));
     return {
       id: c.id,
       name: c.name,
       country: c.country,
       region: c.region,
       type: c.type,
-      greenfee: c.greenfee != null ? Number(c.greenfee) : null,
-      fee_category: c.fee_category,
       holes: c.holes,
-      website: c.website,
-      episode_url: c.episode_url,
-      ratings: ratings.map((r) => ({
-        ...r,
-        score_design: Number(r.score_design),
-        score_condition: Number(r.score_condition),
-        score_challenge: Number(r.score_challenge),
-        score_scenery: Number(r.score_scenery),
-        score_facilities: Number(r.score_facilities),
-        score_value: Number(r.score_value),
-        score_hospitality: Number(r.score_hospitality),
-        host_score: Number(r.host_score),
-      })),
-      photos: ((c.course_photos ?? []) as CoursePhoto[])
-        .slice()
-        .sort((a, b) => a.sort_order - b.sort_order),
-      pampasScore: avg,
+      greenfee: c.greenfee != null ? Number(c.greenfee) : null,
+      ratingCount: scores.length,
+      pampasScore: scores.length ? Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10 : null,
     };
   });
 }

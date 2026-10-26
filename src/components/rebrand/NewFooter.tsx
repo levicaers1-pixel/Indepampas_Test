@@ -24,6 +24,7 @@ export function NewFooter() {
           <ul className="space-y-2 font-rb-sans text-sm text-[rgba(244,239,229,0.75)]">
             <li><Link to="/afleveringen" className="hover:text-[#8FBF4A]">Afleveringen</Link></li>
             <li><Link to="/blog" className="hover:text-[#8FBF4A]">Blog</Link></li>
+            <li><Link to="/golfbanen" className="hover:text-[#8FBF4A]">Golfbanen</Link></li>
             <li><Link to="/hosts" className="hover:text-[#8FBF4A]">De Hosts</Link></li>
             <li><Link to="/contact" className="hover:text-[#8FBF4A]">Contact</Link></li>
           </ul>

@@ -61,6 +61,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/afleveringen", lastmod: isoDay(latestEpisode?.[0]?.release_date) },
           { path: "/blog", lastmod: newestPost },
           { path: "/ratings", lastmod: newestRating },
+          { path: "/golfbanen", lastmod: maxDay(newestRating, ...courseList.map((c) => isoDay(c.updated_at))) },
           { path: "/hosts" },
           { path: "/vrienden", lastmod: isoDay(latestGuest?.[0]?.updated_at) },
           { path: "/contact" },

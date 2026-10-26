@@ -1,16 +1,66 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { fetchCourses } from "@/data/courses-db";
+import { fetchCourseById, fetchCourseIndex, type CourseIndexEntry } from "@/data/courses-db";
+import { COURSE_COORDS } from "@/data/course-coords";
 import { CourseCard } from "@/components/ratings/CourseCard";
 import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
-
 import { SITE_URL } from "@/lib/site";
 
+type CourseLink = { name: string; slug: string; pampasScore: number | null };
+
+const COUNTRY_CODES: Record<string, string> = {
+  "België": "BE",
+  Nederland: "NL",
+  Frankrijk: "FR",
+  Spanje: "ES",
+  "Verenigd Koninkrijk": "GB",
+};
+
+/** Regions that have a dedicated ranking article on the blog. */
+const REGION_POSTS: Record<string, { slug: string; label: string }> = {
+  Antwerpen: { slug: "beste-golfbanen-antwerpen", label: "De beste golfbanen in Antwerpen" },
+  Brussel: { slug: "beste-golfbanen-brussel", label: "De beste golfbanen rond Brussel" },
+  "Vlaams-Brabant": { slug: "beste-golfbanen-brussel", label: "De beste golfbanen rond Brussel" },
+  "Waals-Brabant": { slug: "beste-golfbanen-brussel", label: "De beste golfbanen rond Brussel" },
+};
+
 export const Route = createFileRoute("/courses/$slug")({
+  // Only this course in full; everything else (neighbours, related courses) is
+  // reduced to name + slug, so each page no longer embeds all 217 courses.
   loader: async ({ params }) => {
-    const courses = await fetchCourses();
-    const course = findCourseBySlug(params.slug, courses);
+    const index = await fetchCourseIndex();
+    const entry = findCourseBySlug(params.slug, index);
+    if (!entry) throw notFound();
+    const course = await fetchCourseById(entry.id);
     if (!course) throw notFound();
-    return { course, all: courses };
+
+    const slugMap = buildSlugMap(index);
+    const link = (c: CourseIndexEntry): CourseLink => ({ name: c.name, slug: slugMap.get(c.id)!, pampasScore: c.pampasScore });
+
+    // Previous / next in alphabetical order (same as the list default)
+    const sorted = [...index].sort((a, b) => a.name.localeCompare(b.name));
+    const i = sorted.findIndex((c) => c.id === entry.id);
+    const prev = i > 0 ? link(sorted[i - 1]) : null;
+    const next = i < sorted.length - 1 ? link(sorted[i + 1]) : null;
+
+    // Related: same region (best score first), or same country when the region is small
+    const others = index.filter((c) => c.id !== entry.id && c.country === entry.country);
+    const sameRegion = entry.region ? others.filter((c) => c.region === entry.region) : [];
+    const useRegion = sameRegion.length >= 3;
+    const pool = useRegion ? sameRegion : others;
+    const related = [...pool]
+      .sort((a, b) => (b.pampasScore ?? -1) - (a.pampasScore ?? -1) || a.name.localeCompare(b.name))
+      .slice(0, 8)
+      .map(link);
+
+    return {
+      course,
+      prev,
+      next,
+      related,
+      relatedLabel: useRegion ? (entry.region as string) : entry.country,
+      regionCount: sameRegion.length + 1,
+      regionPost: (entry.region && REGION_POSTS[entry.region]) || null,
+    };
   },
   head: ({ loaderData, params }) => {
     const c = loaderData?.course;
@@ -43,7 +93,14 @@ export const Route = createFileRoute("/courses/$slug")({
       "@type": "GolfCourse",
       name: c.name,
       url,
-      ...(location && { address: location }),
+      address: {
+        "@type": "PostalAddress",
+        ...(c.region && { addressRegion: c.region }),
+        addressCountry: COUNTRY_CODES[c.country] ?? c.country,
+      },
+      ...(COURSE_COORDS[c.id] && {
+        geo: { "@type": "GeoCoordinates", latitude: COURSE_COORDS[c.id].lat, longitude: COURSE_COORDS[c.id].lng },
+      }),
       ...(c.website && { sameAs: c.website }),
       numberOfHoles: c.holes,
     };
@@ -145,14 +202,9 @@ export const Route = createFileRoute("/courses/$slug")({
 });
 
 function CourseDetailPage() {
-  const { course, all } = Route.useLoaderData();
-  const slugMap = buildSlugMap(all);
-
-  // Sibling nav (alphabetical, same as list default)
-  const sorted = [...all].sort((a, b) => a.name.localeCompare(b.name));
-  const idx = sorted.findIndex((c) => c.id === course.id);
-  const prev = idx > 0 ? sorted[idx - 1] : null;
-  const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;
+  const { course, prev, next, related, relatedLabel, regionCount, regionPost } = Route.useLoaderData();
+  const rated = course.ratings.length > 0;
+  const location = [course.region, course.country].filter(Boolean).join(", ");
 
   return (
     <div className="bg-[#F4EFE5] min-h-screen">
@@ -163,7 +215,7 @@ function CourseDetailPage() {
         >
           <Link to="/" className="hover:text-[#1C3D2A]">Home</Link>
           <span>/</span>
-          <Link to="/ratings" className="hover:text-[#1C3D2A]">Parcours</Link>
+          <Link to="/golfbanen" className="hover:text-[#1C3D2A]">Golfbanen</Link>
           <span>/</span>
           <span className="text-[#1C3D2A]">{course.name}</span>
         </nav>
@@ -171,6 +223,74 @@ function CourseDetailPage() {
 
       <div className="px-6 lg:px-14 pb-16">
         <CourseCard course={course} activePersona={null} autoOpen />
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-3 border-t border-[rgba(28,61,42,0.15)] pt-10">
+          <section aria-labelledby="about-heading">
+            <h2 id="about-heading" className="font-rb-serif text-2xl text-[#1C3D2A] mb-4">
+              Over {course.name}
+            </h2>
+            <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.75]">
+              {course.name} is een {course.type ? `${course.type.toLowerCase()}baan` : "golfbaan"} met {course.holes} holes
+              {location ? ` in ${location}` : ""}.
+              {course.greenfee != null ? ` De greenfee ligt rond €${course.greenfee} (indicatief, prijzen kunnen verouderd zijn).` : ""}
+              {rated
+                ? ` Lars, Levi en Niels speelden deze baan en gaven haar een Pampas Score van ${course.pampasScore}/100 — lees hierboven wat elke host ervan vond.`
+                : " Deze baan is nog niet door Lars, Levi en Niels gespeeld; daarom staat er nog geen Pampas Score bij. Jij kan wel al een eigen score geven."}
+              {course.region && regionCount > 1 ? ` Er zijn ${regionCount} golfbanen in ${course.region} in ons overzicht.` : ""}
+            </p>
+            {course.website && (
+              <p className="mt-4">
+                <a
+                  href={course.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                >
+                  Website van de club →
+                </a>
+              </p>
+            )}
+          </section>
+
+          <section aria-labelledby="related-heading" className="lg:col-span-2">
+            <h2 id="related-heading" className="font-rb-serif text-2xl text-[#1C3D2A] mb-4">
+              Andere golfbanen in {relatedLabel}
+            </h2>
+            <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-2">
+              {related.map((c) => (
+                <li key={c.slug} className="flex items-baseline justify-between gap-3 border-b border-[rgba(28,61,42,0.1)] pb-2">
+                  <Link
+                    to="/courses/$slug"
+                    params={{ slug: c.slug }}
+                    className="font-rb-sans text-[0.92rem] text-[#1C3D2A] no-underline hover:text-[#46701D] hover:underline underline-offset-4 decoration-[#8FBF4A]"
+                  >
+                    {c.name}
+                  </Link>
+                  <span className="font-rb-mono text-[0.7rem] tracking-[0.06em] text-[#635C4B] shrink-0">
+                    {c.pampasScore != null ? c.pampasScore : "nog niet beoordeeld"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+              {regionPost && (
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: regionPost.slug }}
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                >
+                  {regionPost.label} →
+                </Link>
+              )}
+              <Link
+                to="/golfbanen"
+                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+              >
+                Alle golfbanen →
+              </Link>
+            </div>
+          </section>
+        </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(28,61,42,0.15)] pt-6">
           <Link
@@ -183,7 +303,7 @@ function CourseDetailPage() {
             {prev && (
               <Link
                 to="/courses/$slug"
-                params={{ slug: slugMap.get(prev.id)! }}
+                params={{ slug: prev.slug }}
                 className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
               >
                 ← {prev.name}
@@ -192,7 +312,7 @@ function CourseDetailPage() {
             {next && (
               <Link
                 to="/courses/$slug"
-                params={{ slug: slugMap.get(next.id)! }}
+                params={{ slug: next.slug }}
                 className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
               >
                 {next.name} →
