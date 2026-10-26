@@ -42,7 +42,12 @@ export const Route = createFileRoute("/afleveringen/$slug")({
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
         ...(published ? [{ property: "article:published_time", content: published }] : []),
-        ...(ep.imageUrl ? [{ property: "og:image", content: ep.imageUrl }] : []),
+        ...(ep.imageUrl
+          ? [
+              { property: "og:image", content: ep.imageUrl },
+              { name: "twitter:image", content: ep.imageUrl },
+            ]
+          : []),
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
