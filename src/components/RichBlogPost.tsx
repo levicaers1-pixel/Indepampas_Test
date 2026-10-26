@@ -10,22 +10,45 @@ declare global {
   }
 }
 
+/**
+ * Instagram's embed script (CSS + images, ~500 KB) is only fetched when the first embed
+ * is about to scroll into view, so it does not slow down the start of the article.
+ */
 function useInstagramEmbeds(enabled: boolean) {
   useEffect(() => {
     if (!enabled || typeof window === "undefined") return;
     const process = () => window.instgrm?.Embeds.process();
-    const existing = document.querySelector<HTMLScriptElement>(
-      'script[src="https://www.instagram.com/embed.js"]',
-    );
-    if (existing) {
-      process();
+    const load = () => {
+      const existing = document.querySelector<HTMLScriptElement>(
+        'script[src="https://www.instagram.com/embed.js"]',
+      );
+      if (existing) {
+        process();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      script.onload = process;
+      document.body.appendChild(script);
+    };
+
+    const target = document.querySelector("[data-lazy-embed]");
+    if (!target || typeof IntersectionObserver === "undefined") {
+      load();
       return;
     }
-    const script = document.createElement("script");
-    script.src = "https://www.instagram.com/embed.js";
-    script.async = true;
-    script.onload = process;
-    document.body.appendChild(script);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          observer.disconnect();
+          load();
+        }
+      },
+      { rootMargin: "600px" },
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
   }, [enabled]);
 }
 
@@ -295,7 +318,10 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                   <img
                     src={block.src}
                     alt={block.alt}
+                    width={block.width}
+                    height={block.height}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-auto border border-[#C8BFB0]"
                   />
                   {block.caption && (
@@ -315,7 +341,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
             }
             if (block.type === "embed") {
               return (
-                <figure key={i} className="my-10 flex flex-col items-center">
+                <figure key={i} data-lazy-embed className="my-10 flex flex-col items-center">
                   <div
                     className="w-full max-w-[540px] [&_blockquote]:!mx-auto [&_iframe]:!mx-auto"
                     dangerouslySetInnerHTML={{ __html: block.html }}

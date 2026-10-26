@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import monogram from "@/assets/monogram.png";
+import monogram from "@/assets/monogram.webp";
 
 const nav = [
   { to: "/", label: "Home" },

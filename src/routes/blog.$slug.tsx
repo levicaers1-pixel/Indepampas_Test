@@ -11,6 +11,12 @@ import { postIsoDate } from "@/lib/postDate";
 import { SITE_URL } from "@/lib/site";
 
 
+/** Site-relative or https URL → absolute https URL; anything else (data: URIs …) → undefined. */
+function absoluteUrl(src: string): string | undefined {
+  if (src.startsWith("https://")) return src;
+  return /^\/(?!\/)/.test(src) ? `${SITE_URL}${src}` : undefined;
+}
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const post = getPostBySlug(params.slug);
@@ -34,10 +40,8 @@ export const Route = createFileRoute("/blog/$slug")({
     // First image of the article if it has one, else the site-wide social card.
     const firstImage = post.richContent?.find((b) => b.type === "image");
     const image =
-      firstImage && firstImage.type === "image" && /^(\/(?!\/)|https:\/\/)/.test(firstImage.src)
-        ? firstImage.src.startsWith("/")
-          ? `${SITE_URL}${firstImage.src}`
-          : firstImage.src
+      firstImage && firstImage.type === "image"
+        ? absoluteUrl(firstImage.social ?? firstImage.src) ?? `${SITE_URL}/og-default.jpg`
         : `${SITE_URL}/og-default.jpg`;
     const isPerson = !/pampas/i.test(post.author);
     return {

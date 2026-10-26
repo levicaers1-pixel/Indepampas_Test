@@ -61,7 +61,7 @@ export const Route = createRootRoute({
               "@id": `${SITE_URL}/#organization`,
               name: "PAMPAS Podcast",
               url: SITE_URL,
-              logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.png`, width: 1024, height: 1024 },
+              logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.png`, width: 256, height: 256 },
               sameAs: [
                 "https://open.spotify.com/show/37wE4nKPeQNjYLYoMFelLP",
                 "https://www.instagram.com/pampas.golfpodcast",

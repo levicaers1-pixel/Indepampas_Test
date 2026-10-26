@@ -1,4 +1,3 @@
-import royalAntwerpAsset from "@/assets/royal-antwerp-golf-club-landscape.jpg.asset.json";
 
 export type RichBlock =
   | { type: "p"; text: string }
@@ -9,7 +8,17 @@ export type RichBlock =
   | { type: "badges"; items: { num: string; title: string; text: string }[] }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "source"; text: string }
-  | { type: "image"; src: string; alt: string; caption?: string }
+  | {
+      type: "image";
+      src: string;
+      alt: string;
+      caption?: string;
+      /** Intrinsic size, so the browser reserves the space before the image loads. */
+      width?: number;
+      height?: number;
+      /** 1200x630 JPEG for og:image when the article has no better one than `src`. */
+      social?: string;
+    }
   | { type: "embed"; html: string; caption?: string };
 
 export type Post = {
@@ -122,7 +131,10 @@ export const posts: Post[] = [
       { type: "p", text: "Heidebaan, 27 holes." },
       {
         type: "image",
-        src: royalAntwerpAsset.url,
+        src: "/blog/royal-antwerp-golf-club-landscape.webp",
+        width: 1400,
+        height: 933,
+        social: "/blog/royal-antwerp-golf-club-social.jpg",
         alt: "Fairway en bunkers van Royal Antwerp Golf Club in Kapellen bij ochtendlicht",
         caption: "Royal Antwerp Golf Club, Kapellen — heidekarakter en smalle fairways.",
       },
