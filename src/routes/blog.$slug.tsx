@@ -4,15 +4,22 @@ import { RichBlogPost } from "@/components/RichBlogPost";
 import { WitbBlogPost } from "@/components/WitbBlogPost";
 import { GolfMediaBlogPost } from "@/components/GolfMediaBlogPost";
 import { NewBlogPost } from "@/components/rebrand/NewBlog";
+import { fetchCourseIndex } from "@/data/courses-db";
+import { courseLinkTargets } from "@/lib/linkCourses";
 
 import { SITE_URL } from "@/lib/site";
 
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const post = getPostBySlug(params.slug);
     if (!post) throw notFound();
-    return { post };
+    // Course names mentioned in the article link to their course page; the article still
+    // renders (without those links) if the database is unreachable.
+    const courseLinks = post.richContent
+      ? await fetchCourseIndex().then((index) => courseLinkTargets(post, index), () => [])
+      : [];
+    return { post, courseLinks };
   },
   head: ({ loaderData }) => {
     const post = loaderData?.post;
@@ -72,7 +79,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPost() {
-  const { post } = Route.useLoaderData();
+  const { post, courseLinks } = Route.useLoaderData();
   const currentIndex = posts.findIndex((p) => p.slug === post.slug);
   const prev = posts[currentIndex + 1];
   const next = posts[currentIndex - 1];
@@ -96,7 +103,7 @@ function BlogPost() {
   if (post.richContent) {
     return (
       <div className="pt-28 sm:pt-36 lg:pt-44 pb-16 px-6 lg:px-12">
-        <RichBlogPost post={post} prev={prev} next={next} />
+        <RichBlogPost post={post} prev={prev} next={next} courseLinks={courseLinks} />
       </div>
     );
   }

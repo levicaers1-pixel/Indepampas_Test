@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Post, RichBlock } from "@/data/posts";
+import { linkifyHtml, linkifyText, type CourseLinkTarget } from "@/lib/linkCourses";
 
 declare global {
   interface Window {
@@ -31,10 +32,13 @@ type Props = {
   post: Post;
   prev?: Post;
   next?: Post;
+  /** Course names in this article that get a link to their course page (first mention only). */
+  courseLinks?: CourseLinkTarget[];
 };
 
-export function RichBlogPost({ post, prev, next }: Props) {
+export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
   const blocks = post.richContent ?? [];
+  const linked = new Set<string>();
   useInstagramEmbeds(blocks.some((b) => b.type === "embed"));
 
   return (
@@ -109,7 +113,7 @@ export function RichBlogPost({ post, prev, next }: Props) {
                   key={i}
                   className="text-[#2E2B25] mb-6 leading-[1.85] [&_strong]:font-semibold [&_strong]:text-[#1A3D2B]"
                   style={{ fontSize: "1.05rem" }}
-                  dangerouslySetInnerHTML={{ __html: block.text }}
+                  dangerouslySetInnerHTML={{ __html: linkifyHtml(block.text, courseLinks, linked) }}
                 />
               );
             }
@@ -123,7 +127,20 @@ export function RichBlogPost({ post, prev, next }: Props) {
                     fontSize: "1.6rem",
                   }}
                 >
-                  {block.text}
+                  {linkifyText(block.text, courseLinks, linked).map((seg, si) =>
+                    typeof seg === "string" ? (
+                      seg
+                    ) : (
+                      <Link
+                        key={si}
+                        to="/courses/$slug"
+                        params={{ slug: seg.slug }}
+                        className="underline decoration-[#8CB84A] underline-offset-4 hover:text-[#3D7A52]"
+                      >
+                        {seg.text}
+                      </Link>
+                    ),
+                  )}
                 </h2>
               );
             }
