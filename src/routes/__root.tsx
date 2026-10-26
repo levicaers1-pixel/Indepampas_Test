@@ -6,7 +6,7 @@ import { EmailPopup } from "@/components/EmailPopup";
 
 import appCss from "../styles.css?url";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -41,6 +41,12 @@ export const Route = createRootRoute({
       { property: "og:site_name", content: "PAMPAS Podcast" },
       { property: "og:locale", content: "nl_BE" },
       { name: "twitter:card", content: "summary_large_image" },
+      // Default social card (1200x630, self-hosted); pages with their own image override these.
+      { property: "og:image", content: `${SITE_URL}/og-default.jpg` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "PAMPAS — de Belgische golfpodcast" },
+      { name: "twitter:image", content: `${SITE_URL}/og-default.jpg` },
       { name: "google-site-verification", content: "9eeBZdMt11552ANhBkJgtZSXNRyZPsHKBTjtA7W9u38" },
     ],
     links: [

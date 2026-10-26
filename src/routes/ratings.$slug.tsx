@@ -1,14 +1,39 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { NewRatingArticle } from "@/components/rebrand/NewRatingArticle";
 import { fetchRatings } from "@/data/ratings-db";
+import { fetchCourses } from "@/data/courses-db";
+import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://indepampas.be";
+/**
+ * These legacy rating pages duplicate /courses/<slug> (same course, different
+ * URL and a different score). Visitors and crawlers are sent to the course page.
+ * Two courses are spelled differently in the legacy data, hence the aliases.
+ */
+const LEGACY_TO_COURSE_SLUG: Record<string, string> = {
+  "ternesse-golf-country-club": "royal-ternesse-golf-club",
+  "golf-de-rignee": "golf-de-rigenee",
+};
+
+const normalizeName = (n: string) => n.trim().toLowerCase().replace(/\s+/g, " ");
 
 export const Route = createFileRoute("/ratings/$slug")({
   loader: async ({ params }) => {
-    const ratings = await fetchRatings();
+    const [ratings, courses] = await Promise.all([fetchRatings(), fetchCourses()]);
     const idx = ratings.findIndex((r) => r.slug === params.slug);
     if (idx === -1) throw notFound();
+
+    const course =
+      findCourseBySlug(LEGACY_TO_COURSE_SLUG[params.slug] ?? "", courses) ??
+      courses.find((c) => normalizeName(c.name) === normalizeName(ratings[idx].name));
+    if (course) {
+      throw redirect({
+        to: "/courses/$slug",
+        params: { slug: buildSlugMap(courses).get(course.id)! },
+        statusCode: 301,
+      });
+    }
+
     return {
       rating: ratings[idx],
       prev: idx > 0 ? ratings[idx - 1] : undefined,

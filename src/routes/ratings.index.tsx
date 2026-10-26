@@ -1,10 +1,10 @@
-import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
+import { createFileRoute, ErrorComponent, stripSearchParams } from "@tanstack/react-router";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
 import { fetchCourses } from "@/data/courses-db";
 
-const SITE_URL = "https://www.indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
   "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
@@ -20,8 +20,22 @@ export const ratingsSearchSchema = z.object({
   tab: fallback(z.string(), "courses").default("courses"),
 });
 
+const ratingsSearchDefaults = {
+  q: "",
+  region: "",
+  country: "",
+  type: "",
+  fee: "",
+  hosts: "",
+  sort: "pampas_desc",
+  tab: "courses",
+};
+
 export const Route = createFileRoute("/ratings/")({
   validateSearch: zodValidator(ratingsSearchSchema),
+  // Keep default filter values out of the URL, so /ratings is served directly
+  // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
+  search: { middlewares: [stripSearchParams(ratingsSearchDefaults)] },
   head: () => ({
     meta: [
       { title: TITLE },

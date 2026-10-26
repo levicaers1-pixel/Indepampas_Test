@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewBlogIndex } from "@/components/rebrand/NewBlog";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const BLOG_DESCRIPTION =
   "De Pampas blog — verdiepende stukken, opinies en analyses bij de onderwerpen uit de Belgische golfpodcast.";
 

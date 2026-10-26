@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { hosts } from "@/data/hosts";
 import { NewHosts } from "@/components/rebrand/NewHosts";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const HOSTS_DESCRIPTION =
   "Maak kennis met Lars, Levi en Niels — drie Belgische vrienden, drie handicaps, één liefde voor golf. De stemmen achter de PAMPAS podcast.";
 

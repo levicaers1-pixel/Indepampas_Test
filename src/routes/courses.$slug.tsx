@@ -3,7 +3,7 @@ import { fetchCourses } from "@/data/courses-db";
 import { CourseCard } from "@/components/ratings/CourseCard";
 import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
 
-const SITE_URL = "https://www.indepampas.be";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/courses/$slug")({
   loader: async ({ params }) => {
@@ -23,12 +23,19 @@ export const Route = createFileRoute("/courses/$slug")({
         ],
       };
     }
+    const rated = c.ratings.length > 0;
     const scoreStr = c.pampasScore != null ? ` — Pampas Score ${c.pampasScore}/100` : "";
-    const title = `${c.name}${scoreStr} — PAMPAS`;
+    const title = rated
+      ? `${c.name}${scoreStr} — PAMPAS`
+      : `${c.name} — golfbaan${c.region ? ` in ${c.region}` : ""} | PAMPAS`;
     const location = [c.region, c.country].filter(Boolean).join(", ");
-    const firstReview =
-      c.ratings.find((r) => r.review)?.review ??
-      `Onafhankelijke beoordeling van ${c.name}${location ? ` (${location})` : ""} door Lars, Levi & Niels.`;
+    // Only claim a review when there is one; unrated courses get a factual description.
+    const fallbackDesc = rated
+      ? `Onafhankelijke beoordeling van ${c.name}${location ? ` (${location})` : ""} door Lars, Levi & Niels.`
+      : `${c.name} is een golfbaan met ${c.holes} holes${location ? ` in ${location}` : ""}${
+          c.greenfee != null ? `, greenfee ca. €${c.greenfee}` : ""
+        }. Nog niet beoordeeld door Lars, Levi & Niels.`;
+    const firstReview = c.ratings.find((r) => r.review)?.review ?? fallbackDesc;
     const desc = firstReview.length > 158 ? firstReview.slice(0, 155) + "…" : firstReview;
 
     const jsonLd: Record<string, unknown> = {

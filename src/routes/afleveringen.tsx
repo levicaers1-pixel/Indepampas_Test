@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewEpisodes } from "@/components/rebrand/NewEpisodes";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const EPISODES_DESCRIPTION =
   "Het volledige archief van PAMPAS — de Belgische golfpodcast. Beluister elke aflevering rechtstreeks via Spotify, elke dinsdag een nieuwe episode.";
 

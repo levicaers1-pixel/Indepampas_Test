@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewContact } from "@/components/rebrand/NewContact";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const CONTACT_DESCRIPTION =
   "Neem contact op met de PAMPAS podcast. Voor sponsoring, samenwerkingen of een goed verhaal van op de baan.";
 

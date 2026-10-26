@@ -5,7 +5,7 @@ import { WitbBlogPost } from "@/components/WitbBlogPost";
 import { GolfMediaBlogPost } from "@/components/GolfMediaBlogPost";
 import { NewBlogPost } from "@/components/rebrand/NewBlog";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 
 
 export const Route = createFileRoute("/blog/$slug")({

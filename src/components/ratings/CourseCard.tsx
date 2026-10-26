@@ -224,6 +224,8 @@ export function CourseCard({
   useEffect(() => {
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
+  // On a course's own page (autoOpen) the name is the page's h1; in lists it stays an h3.
+  const TitleTag: "h1" | "h3" = autoOpen ? "h1" : "h3";
 
   const { scores: communityScores, myVote, vote } = useCourseVotes(course.id);
   const [voteOpen, setVoteOpen] = useState(false);
@@ -297,9 +299,9 @@ export function CourseCard({
               </span>
             )}
           </div>
-          <h3 className="font-rb-serif text-[1.6rem] md:text-[1.85rem] text-[#1C3D2A] leading-tight">
+          <TitleTag className="font-rb-serif text-[1.6rem] md:text-[1.85rem] text-[#1C3D2A] leading-tight">
             {course.name}
-          </h3>
+          </TitleTag>
           <div className="flex items-center gap-1.5 mt-3 flex-wrap">
             {HOSTS.map((h) => {
               const r = course.ratings.find((x) => x.host === h);

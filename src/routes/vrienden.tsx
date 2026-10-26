@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewGuests } from "@/components/rebrand/NewGuests";
 
-const SITE_URL = "https://indepampas.be";
+import { SITE_URL } from "@/lib/site";
 const TITLE = "Vrienden van de show — PAMPAS Podcast";
 const DESCRIPTION =
   "De gasten en vrienden van de PAMPAS podcast: pro's, clubmensen en golfvrienden die mee aan tafel schoven in het 19e hole.";
