@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewGuests } from "@/components/rebrand/NewGuests";
+import { fetchGuests } from "@/data/guests-db";
 
 import { SITE_URL } from "@/lib/site";
 const TITLE = "Vrienden van de show — PAMPAS Podcast";
@@ -7,6 +8,7 @@ const DESCRIPTION =
   "De gasten en vrienden van de PAMPAS podcast: pro's, clubmensen en golfvrienden die mee aan tafel schoven in het 19e hole.";
 
 export const Route = createFileRoute("/vrienden")({
+  loader: () => fetchGuests(),
   head: () => ({
     meta: [
       { title: TITLE },

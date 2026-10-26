@@ -1,18 +1,4 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-type GuestRow = {
-  id: string;
-  name: string;
-  role: string | null;
-  bio: string;
-  image_url: string | null;
-  website_url: string | null;
-  instagram_url: string | null;
-  linkedin_url: string | null;
-  sort_order: number;
-  episodes: { title: string; number: string; spotify_id: string } | null;
-};
+import { Link, useLoaderData } from "@tanstack/react-router";
 
 function initials(name: string) {
   return name
@@ -23,22 +9,8 @@ function initials(name: string) {
 }
 
 export function NewGuests() {
-  const [guests, setGuests] = useState<GuestRow[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase
-      .from("guests")
-      .select(
-        "id,name,role,bio,image_url,website_url,instagram_url,linkedin_url,sort_order,episodes(title,number,spotify_id)",
-      )
-      .eq("active", true)
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
-        setGuests((data as unknown as GuestRow[]) ?? []);
-        setLoading(false);
-      });
-  }, []);
+  // Loaded on the server (route loader) so crawlers get the guests in the HTML.
+  const guests = useLoaderData({ from: "/vrienden" });
 
   return (
     <>
@@ -55,9 +27,7 @@ export function NewGuests() {
         </p>
       </div>
 
-      {loading ? (
-        <div className="px-6 lg:px-14 py-20 font-rb-sans text-sm text-[#635C4B]">Laden…</div>
-      ) : guests.length === 0 ? (
+      {guests.length === 0 ? (
         <div className="px-6 lg:px-14 py-20 font-rb-sans text-sm text-[#635C4B]">
           Binnenkort stellen we hier onze gasten voor.
         </div>
@@ -101,19 +71,14 @@ export function NewGuests() {
 
               <div className="mt-auto space-y-3">
                 {g.episodes && (
-                  <a
-                    href={`https://open.spotify.com/episode/${g.episodes.spotify_id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block border-t border-[rgba(28,61,42,0.15)] pt-3 no-underline group"
-                  >
+                  <EpisodeLink slug={g.episodeSlug} spotifyId={g.episodes.spotify_id}>
                     <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
                       Te horen in {g.episodes.number}
                     </span>
                     <span className="block font-rb-sans text-[0.85rem] text-[#1C3D2A] group-hover:text-[#46701D] transition-colors">
                       ▶ {g.episodes.title}
                     </span>
-                  </a>
+                  </EpisodeLink>
                 )}
 
                 {(g.website_url || g.instagram_url || g.linkedin_url) && (
@@ -141,6 +106,20 @@ function GuestLink({ href, label }: { href: string; label: string }) {
       className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase no-underline border border-[rgba(28,61,42,0.25)] text-[#1C3D2A] px-3 py-1.5 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors"
     >
       {label}
+    </a>
+  );
+}
+
+const EPISODE_LINK_CLASS = "block border-t border-[rgba(28,61,42,0.15)] pt-3 no-underline group";
+
+function EpisodeLink({ slug, spotifyId, children }: { slug: string | null; spotifyId: string; children: React.ReactNode }) {
+  return slug ? (
+    <Link to="/afleveringen/$slug" params={{ slug }} className={EPISODE_LINK_CLASS}>
+      {children}
+    </Link>
+  ) : (
+    <a href={`https://open.spotify.com/episode/${spotifyId}`} target="_blank" rel="noreferrer" className={EPISODE_LINK_CLASS}>
+      {children}
     </a>
   );
 }
