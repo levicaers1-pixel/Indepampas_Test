@@ -3,6 +3,7 @@ import { fetchCourseById, fetchCourseIndex, type CourseIndexEntry } from "@/data
 import { COURSE_COORDS } from "@/data/course-coords";
 import { CourseCard } from "@/components/ratings/CourseCard";
 import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
+import { courseSeoTitle } from "@/lib/seoTitle";
 import { SITE_URL } from "@/lib/site";
 
 type CourseLink = { name: string; slug: string; pampasScore: number | null };
@@ -74,10 +75,7 @@ export const Route = createFileRoute("/courses/$slug")({
       };
     }
     const rated = c.ratings.length > 0;
-    const scoreStr = c.pampasScore != null ? ` — Pampas Score ${c.pampasScore}/100` : "";
-    const title = rated
-      ? `${c.name}${scoreStr} — PAMPAS`
-      : `${c.name} — golfbaan${c.region ? ` in ${c.region}` : ""} | PAMPAS`;
+    const title = courseSeoTitle({ name: c.name, region: c.region, pampasScore: c.pampasScore, rated });
     const location = [c.region, c.country].filter(Boolean).join(", ");
     // Only claim a review when there is one; unrated courses get a factual description.
     const fallbackDesc = rated

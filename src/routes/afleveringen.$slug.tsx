@@ -3,6 +3,7 @@ import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { fetchEpisodes } from "@/data/episodes-db";
 import { buildEpisodeSlugs, episodeIsoDate, isoDuration } from "@/lib/episodeSlug";
 import { formatDescription } from "@/lib/formatDescription";
+import { episodeSeoTitle } from "@/lib/seoTitle";
 import { SITE_URL } from "@/lib/site";
 
 type EpisodeLink = { title: string; slug: string };
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/afleveringen/$slug")({
     const ep = loaderData?.episode;
     if (!ep) return { meta: [{ title: "Aflevering niet gevonden — PAMPAS" }] };
     const url = `${SITE_URL}/afleveringen/${loaderData.slug}`;
-    const title = `${ep.title} — PAMPAS Podcast`;
+    const title = episodeSeoTitle(ep.title);
     const text = formatDescription(ep.description).replace(/\s+/g, " ");
     const description = text.length > 160 ? `${text.slice(0, 157).replace(/\s+\S*$/, "")}…` : text;
     const published = episodeIsoDate(ep);

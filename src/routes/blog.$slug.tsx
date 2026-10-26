@@ -29,6 +29,7 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const url = `${SITE_URL}/blog/${post.slug}`;
     const description = post.seoDescription ?? post.excerpt;
+    const pageTitle = post.seoTitle ?? post.title;
     const published = postIsoDate(post.date);
     // First image of the article if it has one, else the site-wide social card.
     const firstImage = post.richContent?.find((b) => b.type === "image");
@@ -41,16 +42,16 @@ export const Route = createFileRoute("/blog/$slug")({
     const isPerson = !/pampas/i.test(post.author);
     return {
       meta: [
-        { title: post.title },
+        { title: pageTitle },
         { name: "description", content: description },
-        { property: "og:title", content: post.title },
+        { property: "og:title", content: pageTitle },
         { property: "og:description", content: description },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
         ...(published ? [{ property: "article:published_time", content: published }] : []),
         { property: "og:image", content: image },
         { name: "twitter:image", content: image },
-        { name: "twitter:title", content: post.title },
+        { name: "twitter:title", content: pageTitle },
         { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: url }],
