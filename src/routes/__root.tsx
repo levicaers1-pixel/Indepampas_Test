@@ -49,6 +49,35 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: `${SITE_URL}/og-default.jpg` },
       { name: "google-site-verification", content: "9eeBZdMt11552ANhBkJgtZSXNRyZPsHKBTjtA7W9u38" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": `${SITE_URL}/#organization`,
+              name: "PAMPAS Podcast",
+              url: SITE_URL,
+              logo: { "@type": "ImageObject", url: `${SITE_URL}/favicon.png`, width: 1024, height: 1024 },
+              sameAs: [
+                "https://open.spotify.com/show/37wE4nKPeQNjYLYoMFelLP",
+                "https://www.instagram.com/pampas.golfpodcast",
+              ],
+            },
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_URL}/#website`,
+              name: "PAMPAS — de Belgische golfpodcast",
+              url: SITE_URL,
+              inLanguage: "nl-BE",
+              publisher: { "@id": `${SITE_URL}/#organization` },
+            },
+          ],
+        }),
+      },
+    ],
     links: [
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

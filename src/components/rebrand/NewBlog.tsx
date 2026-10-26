@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { posts, type Post } from "@/data/posts";
+import { postIsoDate } from "@/lib/postDate";
 
 export function NewBlogIndex() {
   return (
@@ -71,7 +72,7 @@ export function NewBlogPost({ post, prev, next }: { post: Post; prev?: Post; nex
         </Link>
 
         <div className="flex flex-wrap gap-3 items-center mb-6 font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#635C4B]">
-          <span>{post.date}</span>
+          <time dateTime={postIsoDate(post.date)}>{post.date}</time>
           <span className="text-[#46701D]">·</span>
           <span>{post.author}</span>
           <span className="text-[#46701D]">·</span>

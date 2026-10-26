@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Post } from "@/data/posts";
+import { postIsoDate } from "@/lib/postDate";
 import { hosts } from "@/data/hosts";
 
 const hostByName = (name: string) => hosts.find((h) => name.toLowerCase().includes(h.name.split(" ")[0].toLowerCase()));
@@ -223,7 +224,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
         <div className="hidden lg:flex bg-[#1C3D2A] px-10 py-12 flex-col justify-between">
           <div>
             <MetaLabel>Datum</MetaLabel>
-            <MetaVal>{post.date}</MetaVal>
+            <MetaVal><time dateTime={postIsoDate(post.date)}>{post.date}</time></MetaVal>
             <MetaLabel>Categorie</MetaLabel>
             <MetaVal>Equipment · WITB</MetaVal>
             <MetaLabel>Leestijd</MetaLabel>

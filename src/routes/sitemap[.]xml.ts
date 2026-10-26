@@ -4,6 +4,7 @@ import { posts } from "@/data/posts";
 import { buildSlugMap } from "@/lib/courseSlug";
 import { buildEpisodeSlugs, episodeIsoDate } from "@/lib/episodeSlug";
 import { fetchEpisodes } from "@/data/episodes-db";
+import { postIsoDate } from "@/lib/postDate";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -21,11 +22,7 @@ type CourseRow = { id: string; name: string; updated_at?: string; ratings?: Arra
 const isoDay = (v?: string | null) => (v && /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : undefined);
 const maxDay = (...days: Array<string | undefined>) => days.filter(Boolean).sort().pop();
 
-/** Posts store dates as dd/mm/yyyy. */
-function postDay(date: string): string | undefined {
-  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(date);
-  return m ? `${m[3]}-${m[2]}-${m[1]}` : isoDay(date);
-}
+const postDay = postIsoDate;
 
 async function rest<T>(path: string): Promise<T | null> {
   const url = process.env.SUPABASE_URL;

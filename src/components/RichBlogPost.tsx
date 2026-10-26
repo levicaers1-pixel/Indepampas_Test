@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import type { Post, RichBlock } from "@/data/posts";
+import { postIsoDate } from "@/lib/postDate";
 import { linkifyHtml, linkifyText, type CourseLinkTarget } from "@/lib/linkCourses";
 
 declare global {
@@ -56,7 +57,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
             className="text-[0.7rem] tracking-[0.1em] text-[#7A7468] uppercase"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}
           >
-            {post.date}&nbsp;·&nbsp;{post.readTime} lezen
+            <time dateTime={postIsoDate(post.date)}>{post.date}</time>&nbsp;·&nbsp;{post.readTime} lezen
           </span>
         </div>
 

@@ -6,6 +6,7 @@ import { GolfMediaBlogPost } from "@/components/GolfMediaBlogPost";
 import { NewBlogPost } from "@/components/rebrand/NewBlog";
 import { fetchCourseIndex } from "@/data/courses-db";
 import { courseLinkTargets } from "@/lib/linkCourses";
+import { postIsoDate } from "@/lib/postDate";
 
 import { SITE_URL } from "@/lib/site";
 
@@ -28,6 +29,16 @@ export const Route = createFileRoute("/blog/$slug")({
     }
     const url = `${SITE_URL}/blog/${post.slug}`;
     const description = post.seoDescription ?? post.excerpt;
+    const published = postIsoDate(post.date);
+    // First image of the article if it has one, else the site-wide social card.
+    const firstImage = post.richContent?.find((b) => b.type === "image");
+    const image =
+      firstImage && firstImage.type === "image" && /^(\/(?!\/)|https:\/\/)/.test(firstImage.src)
+        ? firstImage.src.startsWith("/")
+          ? `${SITE_URL}${firstImage.src}`
+          : firstImage.src
+        : `${SITE_URL}/og-default.jpg`;
+    const isPerson = !/pampas/i.test(post.author);
     return {
       meta: [
         { title: post.title },
@@ -36,6 +47,9 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: description },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
+        ...(published ? [{ property: "article:published_time", content: published }] : []),
+        { property: "og:image", content: image },
+        { name: "twitter:image", content: image },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: description },
       ],
@@ -48,8 +62,27 @@ export const Route = createFileRoute("/blog/$slug")({
             "@type": "BlogPosting",
             headline: post.title,
             description: post.excerpt,
-            author: { "@type": "Person", name: post.author },
+            inLanguage: "nl-BE",
+            ...(published && { datePublished: published, dateModified: published }),
+            image,
+            author: isPerson
+              ? { "@type": "Person", name: post.author }
+              : { "@type": "Organization", name: "PAMPAS Podcast", url: SITE_URL },
+            publisher: { "@id": `${SITE_URL}/#organization` },
+            mainEntityOfPage: { "@type": "WebPage", "@id": url },
             url,
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+              { "@type": "ListItem", position: 3, name: post.title, item: url },
+            ],
           }),
         },
       ],
