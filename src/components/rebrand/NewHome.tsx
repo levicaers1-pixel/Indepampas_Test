@@ -115,11 +115,11 @@ export function NewHome() {
           src={heroPhoto}
           alt=""
           aria-hidden="true"
-          width={1800}
-          height={982}
+          width={1920}
+          height={1047}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-[50%_38%]"
+          className="absolute inset-0 h-full w-full object-cover object-[50%_55%]"
         />
         <div
           aria-hidden="true"
