@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { latestEpisode as staticLatestEpisode, type Episode } from "@/data/episodes";
 import { hosts } from "@/data/hosts";
-import heroPhoto from "@/assets/pampas-grass.webp";
+import heroPhoto from "@/assets/hero-belgian-course.webp";
 import detailPhoto from "@/assets/golf-detail.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
@@ -115,15 +115,19 @@ export function NewHome() {
           src={heroPhoto}
           alt=""
           aria-hidden="true"
-          width={1024}
-          height={768}
+          width={1800}
+          height={982}
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover object-[40%_40%]"
+          className="absolute inset-0 h-full w-full object-cover object-[50%_38%]"
         />
         <div
           aria-hidden="true"
           className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,26,18,0.55)_0%,rgba(12,26,18,0.15)_35%,rgba(12,26,18,0.92)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,26,18,0.62)_0%,rgba(12,26,18,0.3)_40%,transparent_65%)]"
         />
         <div
           aria-hidden="true"

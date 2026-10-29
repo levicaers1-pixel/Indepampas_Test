@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewHome } from "@/components/rebrand/NewHome";
-import heroPhoto from "@/assets/pampas-grass.webp";
+import heroPhoto from "@/assets/hero-belgian-course.webp";
 import { fetchEpisodes } from "@/data/episodes-db";
 import { fetchCourseCount, fetchTopCourses } from "@/data/home-db";
 
