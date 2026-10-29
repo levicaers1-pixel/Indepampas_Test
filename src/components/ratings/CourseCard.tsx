@@ -451,7 +451,7 @@ export function CourseCard({
                         style={{ color: p.color }}
                       >
                         {r.host_score.toFixed(0)}
-                        <span className="text-[0.75rem] opacity-80 ml-0.5">/100</span>
+                        <span className="text-[0.75rem] text-[var(--rb-muted)] ml-0.5">/100</span>
                       </span>
                     </div>
 
