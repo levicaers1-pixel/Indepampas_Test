@@ -1,5 +1,5 @@
-import { createFileRoute, ErrorComponent, stripSearchParams } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
+import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
+import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
 import { fetchCourses } from "@/data/courses-db";
@@ -9,33 +9,24 @@ const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
   "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
 
+// Every filter is optional on purpose: a schema without defaults is what keeps
+// /ratings free of ?q=&region=&… (search middlewares break this route's typing).
 export const ratingsSearchSchema = z.object({
-  q: fallback(z.string(), "").default(""),
-  region: fallback(z.string(), "").default(""),
-  country: fallback(z.string(), "").default(""),
-  type: fallback(z.string(), "").default(""),
-  fee: fallback(z.string(), "").default(""),
-  hosts: fallback(z.string(), "").default(""), // comma-separated
-  sort: fallback(z.string(), "pampas_desc").default("pampas_desc"),
-  tab: fallback(z.string(), "courses").default("courses"),
+  q: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+  type: z.string().optional(),
+  fee: z.string().optional(),
+  hosts: z.string().optional(), // comma-separated
+  sort: z.string().optional(),
+  tab: z.string().optional(),
 });
 
-const ratingsSearchDefaults = {
-  q: "",
-  region: "",
-  country: "",
-  type: "",
-  fee: "",
-  hosts: "",
-  sort: "pampas_desc",
-  tab: "courses",
-};
 
 export const Route = createFileRoute("/ratings/")({
   validateSearch: zodValidator(ratingsSearchSchema),
-  // Keep default filter values out of the URL, so /ratings is served directly
-  // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
-  search: { middlewares: [stripSearchParams(ratingsSearchDefaults)] },
+  // Empty filters and default-valued ones are stripped by RatingsPage.update(),
+  // so /ratings is served directly (200) without a ?q=&region=&… rewrite.
   head: () => ({
     meta: [
       { title: TITLE },
