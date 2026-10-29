@@ -1,4 +1,4 @@
-import { createFileRoute, ErrorComponent, stripSearchParams } from "@tanstack/react-router";
+import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
@@ -35,7 +35,6 @@ export const Route = createFileRoute("/ratings/")({
   validateSearch: zodValidator(ratingsSearchSchema),
   // Keep default filter values out of the URL, so /ratings is served directly
   // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
-  search: { middlewares: [stripSearchParams(ratingsSearchDefaults)] },
   head: () => ({
     meta: [
       { title: TITLE },
