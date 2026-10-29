@@ -374,6 +374,24 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limits: {
+        Row: {
+          hits: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          hits?: number
+          key: string
+          window_start: string
+        }
+        Update: {
+          hits?: number
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       ratings: {
         Row: {
           course_id: string
@@ -558,6 +576,10 @@ export type Database = {
           source_id: string
           source_type: string
         }[]
+      }
+      rate_limit_hit: {
+        Args: { _key: string; _max: number; _window_seconds: number }
+        Returns: boolean
       }
     }
     Enums: {
