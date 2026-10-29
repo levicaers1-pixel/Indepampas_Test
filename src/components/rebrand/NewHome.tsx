@@ -142,6 +142,10 @@ export function NewHome() {
           className="rb-grid absolute inset-0 opacity-80 [mask-image:linear-gradient(180deg,transparent,#000_35%,transparent_85%)]"
         />
 
+        <p className="rb-mono absolute bottom-4 right-6 z-[3] m-0 text-[0.6rem] text-[var(--rb-ink-2)] lg:right-14">
+          Foto: La Marache · Royal Waterloo Golf Club
+        </p>
+
         <div className="relative z-[3] mt-auto mx-auto flex w-full max-w-[1320px] flex-wrap items-end justify-between gap-10 px-6 pb-14 pt-[120px] lg:px-14 lg:pb-[72px]">
           <div className="min-w-0 flex-1 basis-[480px]">
             <p className="rb-mono mb-5 text-[var(--rb-lime)]">Belgische golfpodcast · Elke dinsdag</p>
