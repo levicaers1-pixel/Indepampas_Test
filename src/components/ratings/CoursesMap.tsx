@@ -189,16 +189,41 @@ export function CoursesMap({
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
   const [apiKey, setApiKey] = useState<string>("");
+  // The map sits below the fold: load the Maps script (200+ KB) only when it is about to be seen.
+  const [nearViewport, setNearViewport] = useState(false);
   const fetchKey = useServerFn(getMapsBrowserKey);
 
   // Load client cache after mount to avoid hydration mismatch.
   useEffect(() => {
     setMounted(true);
     setCoords({ ...loadCache(), ...COURSE_COORDS });
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setNearViewport(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNearViewport(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "700px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!nearViewport) return;
     fetchKey()
       .then((r) => setApiKey(r?.key || ""))
       .catch(() => setApiKey(import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY || ""));
-  }, [fetchKey]);
+  }, [fetchKey, nearViewport]);
 
 
   // Geocode any rated courses missing from cache.

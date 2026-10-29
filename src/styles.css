@@ -187,7 +187,7 @@
   --rb-rule-strong: rgba(242, 239, 230, 0.3);
   --rb-lars: #4a9edb;
   --rb-levi: #2dbf7e;
-  --rb-niels: #db6b4a;
+  --rb-niels: #ec7b5c;
 
   background: var(--rb-ground);
   color: var(--rb-ink);
@@ -312,9 +312,10 @@
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(40px, -30px) scale(1.12); }
 }
+/* Transform only: text stays visible from the first paint, so the entrance never delays LCP. */
 @keyframes rb-rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(24px); }
+  to { transform: none; }
 }
 @keyframes rb-wave {
   0%, 100% { transform: scaleY(0.35); }

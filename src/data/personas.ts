@@ -78,7 +78,7 @@ export const HOST_PERSONAS: Record<HostName, Persona> = {
     tagline: "De Pragmaticus",
     description:
       "Niels kijkt naar de totaalscore voor zijn geld. Prijs-kwaliteit is heilig. Een eerlijke, goed onderhouden baan die niet overdreef met haar greenfee — dat is zijn maatstaf.",
-    color: "#DB6B4A",
+    color: "#EC7B5C",
     bgLight: "#2E1810",
     affinities: {
       score_design: 1.0,

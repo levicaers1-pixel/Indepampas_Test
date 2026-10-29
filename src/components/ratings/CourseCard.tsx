@@ -17,7 +17,7 @@ import { weightedCommunityScore } from "@/lib/communityVotes";
 import { PampasScoreBadge } from "./PampasScoreBadge";
 
 
-const COMMUNITY_COLOR = "#9B6AD4";
+const COMMUNITY_COLOR = "#B895F2";
 
 function HostDot({
   host,
@@ -47,7 +47,7 @@ function HostDot({
       />
       {host}
       {rated && score != null && (
-        <span className="opacity-80 font-rb-mono text-[0.7rem]">{score.toFixed(0)}</span>
+        <span className="font-rb-mono text-[0.7rem]">{score.toFixed(0)}</span>
       )}
     </div>
   );
@@ -79,7 +79,7 @@ function CommunityDot({
       />
       <span>Community</span>
       {rated && (
-        <span className="opacity-80 font-rb-mono text-[0.7rem]">
+        <span className="font-rb-mono text-[0.7rem]">
           {avg.toFixed(0)} ({count} {count === 1 ? "stem" : "stemmen"})
         </span>
       )}
@@ -224,6 +224,8 @@ export function CourseCard({
   variant?: "list" | "page";
 }) {
   const isPage = variant === "page";
+  // On a course page the sections sit directly under the hero h1, so they are h2s; in lists they stay h4s.
+  const SubTag: "h2" | "h4" = isPage ? "h2" : "h4";
   const [open, setOpen] = useState(!!autoOpen || variant === "page");
   useEffect(() => {
     if (autoOpen) setOpen(true);
@@ -400,18 +402,18 @@ export function CourseCard({
           {/* PHOTOS */}
           {course.photos.length > 0 && (
             <div>
-              <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-3">
+              <SubTag className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-3">
                 Foto's
-              </h4>
+              </SubTag>
               <PhotoCarousel photos={course.photos} alt={course.name} />
             </div>
           )}
 
           {/* PER HOST */}
           <div>
-            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
+            <SubTag className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
               Per host
-            </h4>
+            </SubTag>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {HOSTS.map((h) => {
                 const r = course.ratings.find((x) => x.host === h);
@@ -449,7 +451,7 @@ export function CourseCard({
                         style={{ color: p.color }}
                       >
                         {r.host_score.toFixed(0)}
-                        <span className="text-[0.75rem] opacity-50 ml-0.5">/100</span>
+                        <span className="text-[0.75rem] opacity-80 ml-0.5">/100</span>
                       </span>
                     </div>
 
@@ -487,9 +489,9 @@ export function CourseCard({
 
           {/* CRITERIA AVG */}
           <div>
-            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
+            <SubTag className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
               Gemiddelde per criterium
-            </h4>
+            </SubTag>
             <CriteriaBars ratings={course.ratings} />
           </div>
 

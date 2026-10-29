@@ -323,25 +323,25 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 placeholder="Zoek een parcours..."
                 className="bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.25)] px-3 py-2 text-[0.82rem] font-rb-sans text-[var(--rb-ink)] placeholder:text-[var(--rb-dim)] w-full md:w-64 focus:outline-none focus:border-[var(--rb-lime)]"
               />
-              <select value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
+              <select aria-label="Regio" value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
                 <option value="">Regio</option>
                 {regions.map((r) => (
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
-              <select value={country} onChange={(e) => { setCountry(e.target.value); setRegion(""); }} className="select-cream">
+              <select aria-label="Land" value={country} onChange={(e) => { setCountry(e.target.value); setRegion(""); }} className="select-cream">
                 <option value="">Land</option>
                 {countries.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
-              <select value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
+              <select aria-label="Type baan" value={type} onChange={(e) => setType(e.target.value)} className="select-cream">
                 <option value="">Type</option>
                 {types.map((t) => (
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
-              <select value={fee} onChange={(e) => setFee(e.target.value)} className="select-cream">
+              <select aria-label="Greenfee-categorie" value={fee} onChange={(e) => setFee(e.target.value)} className="select-cream">
                 <option value="">Fee</option>
                 <option value="€">€</option>
                 <option value="€€">€€</option>
@@ -369,6 +369,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 })}
               </div>
               <select
+                aria-label="Sorteren"
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
                 className="select-cream ml-auto"
