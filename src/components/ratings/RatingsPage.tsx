@@ -188,60 +188,75 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   return (
     <>
       {/* HERO */}
-      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
-          Onafhankelijke beoordelingen
-        </p>
-        <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
-          Parcours <em className="italic">Beoordelingen</em>.
-        </h1>
-        <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-4 max-w-2xl leading-[1.7] whitespace-pre-line">
-          Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi &amp; Niels.
-          {"\n"}Greenfee prijzen zijn indicatief en kunnen mogelijks verouderd zijn. 
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-7">
-          {HOSTS.map((h) => {
-            const p = HOST_PERSONAS[h];
-            return (
-              <div
-                key={h}
-                className="inline-flex items-center gap-2 px-3 py-1.5 border"
-                style={{ borderColor: `${p.color}55`, background: `${p.color}10` }}
-              >
-                <span>{p.icon}</span>
-                <span
-                  className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase"
-                  style={{ color: p.color }}
-                >
-                  {h} · hcp {p.handicap} · {p.tagline}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-3 gap-6 mt-10 max-w-2xl">
-          {[
-            { v: totalCourses, l: "Parcours" },
-            { v: avgScore || "—", l: "Gem. PAMPAS Score" },
-            { v: fullySampled, l: "Door alle 3 gespeeld" },
-          ].map((s) => (
-            <div key={s.l}>
-              <div className="font-rb-serif font-light text-[2.4rem] text-[#1C3D2A] leading-none">
-                {s.v}
-              </div>
-              <div className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mt-2">
-                {s.l}
-              </div>
+      <section className="rb-noise relative -mt-[64px] overflow-hidden border-b border-[var(--rb-rule)] pt-[64px]">
+        <div
+          aria-hidden="true"
+          className="rb-blob rb-drift -left-40 -bottom-52 h-[700px] w-[700px] bg-[radial-gradient(circle,rgba(182,240,74,0.3)_0%,rgba(182,240,74,0)_65%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="rb-blob rb-drift -right-32 -top-24 h-[560px] w-[560px] bg-[radial-gradient(circle,rgba(74,158,219,0.24)_0%,rgba(74,158,219,0)_65%)] [animation-direction:reverse] [animation-duration:18s]"
+        />
+        <div
+          aria-hidden="true"
+          className="rb-grid absolute inset-0 [mask-image:linear-gradient(180deg,#000,transparent)]"
+        />
+        <div className="relative mx-auto flex max-w-[1320px] flex-wrap items-end justify-between gap-10 px-6 pb-12 pt-14 lg:px-14">
+          <div className="min-w-0 flex-1 basis-[520px]">
+            <p className="rb-mono mb-5 text-[var(--rb-lime)]">Onafhankelijke beoordelingen</p>
+            <h1 className="rb-disp rb-rise !font-black text-[clamp(3.2rem,11vw,9.5rem)] !leading-[0.88]">
+              <span className="rb-outline">Par</span>
+              <span className="rb-glow text-[var(--rb-lime)]">cours</span>
+              <span className="mt-2 block text-[clamp(1.2rem,3vw,2.2rem)] tracking-[0.02em] text-[var(--rb-ink)]">
+                Beoordelingen
+              </span>
+            </h1>
+            <p className="mt-6 max-w-2xl whitespace-pre-line text-[0.95rem] leading-[1.7] text-[var(--rb-muted)]">
+              Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi &amp; Niels.
+              {"\n"}Greenfee prijzen zijn indicatief en kunnen mogelijks verouderd zijn.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {HOSTS.map((h) => {
+                const p = HOST_PERSONAS[h];
+                return (
+                  <div
+                    key={h}
+                    className="inline-flex items-center gap-2 border px-3 py-1.5"
+                    style={{ borderColor: `${p.color}66`, background: `${p.color}14` }}
+                  >
+                    <span aria-hidden="true">{p.icon}</span>
+                    <span
+                      className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em]"
+                      style={{ color: p.color }}
+                    >
+                      {h} · hcp {p.handicap} · {p.tagline}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          <dl className="m-0 flex gap-8 sm:gap-12">
+            {[
+              { v: totalCourses, l: "Parcours" },
+              { v: avgScore || "—", l: "Gem. PAMPAS Score", lime: true },
+              { v: fullySampled, l: "Door alle 3 gespeeld" },
+            ].map((s) => (
+              <div key={s.l}>
+                <dd className={`rb-disp rb-num m-0 text-[clamp(2.2rem,5vw,3.5rem)] ${s.lime ? "text-[var(--rb-lime)]" : ""}`}>
+                  {s.v}
+                </dd>
+                <dt className="rb-mono mt-2 max-w-[9rem] text-[0.62rem] text-[var(--rb-muted)] sm:text-[0.7rem]">{s.l}</dt>
+              </div>
+            ))}
+          </dl>
         </div>
-      </div>
+      </section>
 
       {/* MATCH QUIZ */}
-      <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]">
-        <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+      <div className="px-6 lg:px-14 py-14 border-b border-[rgba(242,239,230,0.15)] bg-[var(--rb-surface)]">
+        <h2 className="rb-mono text-[var(--rb-lime)] mb-6">
           Vind je host
         </h2>
         <MatchQuiz onMatch={setActiveHost} />
@@ -268,7 +283,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           </span>
           <button
             onClick={() => setActiveHost(null)}
-            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)] hover:text-[var(--rb-ink)]"
           >
             Reset
           </button>
@@ -276,17 +291,19 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       )}
 
       {/* TABS */}
-      <div className="px-6 lg:px-14 border-b border-[rgba(28,61,42,0.15)] bg-[#F4EFE5] flex flex-wrap gap-1 overflow-x-auto">
+      <div role="tablist" aria-label="Weergave" className="px-6 lg:px-14 border-b border-[rgba(242,239,230,0.15)] bg-[var(--rb-ground)] flex gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {TABS.map((t) => {
           const on = tab === t.key;
           return (
             <button
               key={t.key}
+              role="tab"
+              aria-selected={on}
               onClick={() => setTab(t.key)}
-              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-4 py-3 border-b-2 transition whitespace-nowrap"
+              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-4 py-4 border-b-2 transition whitespace-nowrap"
               style={{
-                borderColor: on ? "#1C3D2A" : "transparent",
-                color: on ? "#1C3D2A" : "#635C4B",
+                borderColor: on ? "#B6F04A" : "transparent",
+                color: on ? "#B6F04A" : "#B9C4BC",
               }}
             >
               {t.label}
@@ -298,13 +315,13 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       {tab === "courses" && (
         <>
           {/* FILTERS */}
-          <div className="sticky top-0 z-10 bg-[#F4EFE5]/95 backdrop-blur px-6 lg:px-14 py-4 border-b border-[rgba(28,61,42,0.15)]">
+          <div className="sticky top-[64px] z-10 bg-[rgba(12,26,18,0.92)] backdrop-blur px-6 lg:px-14 py-4 border-b border-[rgba(242,239,230,0.15)]">
             <div className="flex flex-wrap items-center gap-2">
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Zoek een parcours..."
-                className="bg-white border border-[rgba(28,61,42,0.2)] px-3 py-2 text-[0.82rem] font-rb-sans text-[#1C3D2A] placeholder:text-[#635C4B] w-full md:w-64 focus:outline-none focus:border-[#1C3D2A]"
+                className="bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.25)] px-3 py-2 text-[0.82rem] font-rb-sans text-[var(--rb-ink)] placeholder:text-[var(--rb-dim)] w-full md:w-64 focus:outline-none focus:border-[var(--rb-lime)]"
               />
               <select value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">
                 <option value="">Regio</option>
@@ -342,8 +359,8 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                       className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase px-2.5 py-1.5 transition border"
                       style={{
                         background: on ? `${p.color}20` : "transparent",
-                        color: on ? p.color : "#635C4B",
-                        borderColor: on ? p.color : "rgba(28,61,42,0.2)",
+                        color: on ? p.color : "#B9C4BC",
+                        borderColor: on ? p.color : "rgba(242,239,230,0.25)",
                       }}
                     >
                       {p.icon} {h}
@@ -365,9 +382,9 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
           </div>
 
           {/* COURSE LIST */}
-          <div ref={listRef} className="px-6 lg:px-14 py-10 space-y-4">
+          <div ref={listRef} className="px-6 lg:px-14 py-10 space-y-3">
             {filtered.length === 0 ? (
-              <div className="text-center py-20 font-rb-sans text-[#635C4B]">
+              <div className="text-center py-20 font-rb-sans text-[var(--rb-muted)]">
                 ⛳ Geen parcours gevonden. Lars, Levi en Niels moeten hier nog naartoe.
               </div>
             ) : (
@@ -387,11 +404,11 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
               <div className="pt-6 text-center">
                 <button
                   onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                  className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] border border-[rgba(28,61,42,0.3)] px-6 py-3 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors"
+                  className="rb-btn rb-btn-line"
                 >
                   Toon meer parcours ({filtered.length - shown.length})
                 </button>
-                <p className="font-rb-sans text-[0.8rem] text-[#635C4B] mt-3">
+                <p className="font-rb-sans text-[0.8rem] text-[var(--rb-muted)] mt-3">
                   {shown.length} van {filtered.length} getoond · of zoek hierboven op naam
                 </p>
               </div>
@@ -408,14 +425,14 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
       <style>{`
         .select-cream {
-          background: #ffffff;
-          border: 1px solid rgba(28,61,42,0.2);
-          color: #1C3D2A;
+          background: #12261a;
+          border: 1px solid rgba(242,239,230,0.25);
+          color: #f2efe6;
           font-family: inherit;
           font-size: 0.78rem;
           padding: 0.55rem 0.75rem;
         }
-        .select-cream:focus { outline: none; border-color: #1C3D2A; }
+        .select-cream:focus { outline: none; border-color: #b6f04a; }
       `}</style>
     </>
   );

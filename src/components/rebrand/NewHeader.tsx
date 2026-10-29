@@ -18,22 +18,31 @@ export function NewHeader() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile menu after a navigation.
+  useEffect(() => setOpen(false), [location.pathname]);
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 h-[60px] flex items-center justify-between px-4 sm:px-6 lg:px-14 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)] transition-shadow ${
-        scrolled ? "shadow-[0_2px_24px_rgba(28,61,42,0.08)]" : ""
+      className={`fixed top-0 left-0 right-0 z-40 h-[64px] flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-14 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
+        scrolled || open
+          ? "bg-[rgba(12,26,18,0.88)] backdrop-blur-md shadow-[0_1px_0_var(--rb-rule)]"
+          : "bg-transparent"
       }`}
     >
-      <Link to="/" className="font-rb-serif text-[1.1rem] sm:text-[1.3rem] font-bold tracking-[0.1em] uppercase text-[#1C3D2A] no-underline shrink-0 flex items-center gap-2">
+      <Link
+        to="/"
+        aria-label="PAMPAS — naar de homepagina"
+        className="shrink-0 flex items-center gap-2.5 no-underline text-[var(--rb-ink)]"
+      >
         <span
           aria-hidden="true"
-          className="inline-block h-7 sm:h-8 w-7 sm:w-8 bg-[#1C3D2A]"
+          className="inline-block h-7 w-7 bg-[var(--rb-lime)]"
           style={{
             WebkitMaskImage: `url(${monogram})`,
             maskImage: `url(${monogram})`,
@@ -45,24 +54,24 @@ export function NewHeader() {
             maskSize: "contain",
           }}
         />
-        PAMPAS
-        <span className="hidden sm:inline font-rb-serif italic font-light text-[0.75rem] tracking-[0.05em] text-[#635C4B] ml-1.5 align-middle normal-case">
-          / Belgian Golf Community
+        <span className="font-rb-serif font-black text-[1.15rem] sm:text-[1.3rem] tracking-[0.18em] uppercase">
+          PAMPAS
         </span>
       </Link>
 
-      <nav className="hidden md:flex items-stretch">
-        {nav.map((n, i) => {
+      <nav aria-label="Hoofdmenu" className="hidden xl:flex items-center gap-1">
+        {nav.map((n) => {
           const isActive =
             n.to === "/" ? location.pathname === "/" : location.pathname.startsWith(n.to);
           return (
             <Link
               key={n.to}
               to={n.to}
-              className={`font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase no-underline px-[1.1rem] py-2 border-r border-[rgba(28,61,42,0.15)] transition-colors ${
-                i === 0 ? "border-l border-[rgba(28,61,42,0.15)]" : ""
-              } ${
-                isActive ? "text-[#1C3D2A] bg-[#EDE6D9]" : "text-[#635C4B] hover:text-[#1C3D2A]"
+              aria-current={isActive ? "page" : undefined}
+              className={`font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase whitespace-nowrap no-underline px-3 py-2 border-b-2 transition-colors ${
+                isActive
+                  ? "text-[var(--rb-lime)] border-[var(--rb-lime)]"
+                  : "text-[var(--rb-ink)] border-transparent hover:text-[var(--rb-lime)]"
               }`}
             >
               {n.label}
@@ -71,37 +80,38 @@ export function NewHeader() {
         })}
       </nav>
 
-      <div className="hidden md:flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <a
-          href="https://open.spotify.com/show/3Mi5qC8RDqL5RDqDxDxYqZ"
+          href="https://open.spotify.com/show/37wE4nKPeQNjYLYoMFelLP"
           target="_blank"
           rel="noreferrer"
-          className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] no-underline px-[1.2rem] py-[0.55rem] hover:bg-[#2B5C3E] transition-colors"
+          className="rb-btn rb-btn-lime !py-[0.65rem] !px-[1.1rem] !text-[0.72rem]"
         >
-          ▶ Listen
+          Luister nu
         </a>
-      </div>
-
-      <div className="md:hidden flex items-center gap-2">
         <button
-          aria-label="Menu"
+          type="button"
+          aria-label={open ? "Menu sluiten" : "Menu openen"}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex flex-col gap-1 p-2"
+          className="xl:hidden flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-[1.5px] border-[rgba(242,239,230,0.5)] bg-[rgba(12,26,18,0.4)]"
         >
-          <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`} />
-          <span className={`block h-px w-6 bg-[#1C3D2A] transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span className={`block h-px w-6 bg-[#1C3D2A] transition-transform ${open ? "-translate-y-1.5 -rotate-45" : ""}`} />
+          <span className={`block h-[2px] w-5 bg-[var(--rb-ink)] transition-transform ${open ? "translate-y-[7px] rotate-45" : ""}`} />
+          <span className={`block h-[2px] w-5 bg-[var(--rb-ink)] transition-opacity ${open ? "opacity-0" : ""}`} />
+          <span className={`block h-[2px] w-5 bg-[var(--rb-ink)] transition-transform ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
         </button>
       </div>
 
       {open && (
-        <nav className="md:hidden absolute top-[60px] left-0 right-0 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)] flex flex-col">
+        <nav
+          aria-label="Mobiel menu"
+          className="xl:hidden absolute top-[64px] left-0 right-0 bg-[rgba(12,26,18,0.97)] backdrop-blur-md border-t border-[var(--rb-rule)] flex flex-col"
+        >
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              onClick={() => setOpen(false)}
-              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] px-6 py-4 border-b border-[rgba(28,61,42,0.1)] no-underline"
+              className="font-rb-serif font-extrabold text-xl uppercase tracking-[-0.01em] text-[var(--rb-ink)] px-6 py-4 border-b border-[var(--rb-rule)] no-underline"
             >
               {n.label}
             </Link>
@@ -109,33 +119,5 @@ export function NewHeader() {
         </nav>
       )}
     </header>
-  );
-}
-
-export function Ticker() {
-  const items = [
-    "Belgian Golf Community",
-    "Vol. I — MMXXVI",
-    "Antwerpen · BE",
-    "Onafhankelijk geproduceerd",
-    "Drie vrienden, één microfoon",
-    "Wekelijks op Spotify",
-  ];
-  const all = [...items, ...items];
-  return (
-    <div className="fixed top-[60px] left-0 right-0 z-30 h-8 bg-[#1C3D2A] border-b border-[rgba(28,61,42,0.15)] flex items-center overflow-hidden">
-      <div className="rb-ticker flex whitespace-nowrap">
-        {all.map((t, i) => (
-          <span
-            key={i}
-            className={`font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-10 ${
-              i % items.length === 1 ? "text-[#8FBF4A]" : "text-[rgba(244,239,229,0.6)]"
-            }`}
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-    </div>
   );
 }

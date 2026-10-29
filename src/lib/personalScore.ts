@@ -22,9 +22,9 @@ export function personalScore(
 }
 
 export function scoreColor(score: number | null) {
-  if (score == null) return { hex: "#5C5C58", label: "—" };
-  if (score >= 80) return { hex: "#1D9E75", label: "Topklasse" };
+  if (score == null) return { hex: "#8FA297", label: "—" };
+  if (score >= 80) return { hex: "#B6F04A", label: "Topklasse" };
   if (score >= 70) return { hex: "#378ADD", label: "Sterk" };
   if (score >= 55) return { hex: "#BA7517", label: "Degelijk" };
-  return { hex: "#A32D2D", label: "Matig" };
+  return { hex: "#E0574A", label: "Matig" };
 }

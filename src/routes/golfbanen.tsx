@@ -99,37 +99,37 @@ function GolfbanenPage() {
 
   return (
     <>
-      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(242,239,230,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">Het overzicht</p>
-          <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-4">Het overzicht</p>
+          <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[var(--rb-ink)] leading-none">
             Golfbanen<em className="italic">.</em>
           </h1>
-          <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 max-w-2xl leading-[1.7]">
+          <p className="font-rb-sans text-[0.95rem] text-[var(--rb-muted)] mt-3 max-w-2xl leading-[1.7]">
             Alle {rows.length} golfbanen in onze database, per land en regio. Voor {rated} ervan staat er een eerlijke
             beoordeling van Lars, Levi &amp; Niels (de Pampas Score); de andere zijn nog niet door ons gespeeld.{" "}
-            <Link to="/ratings" className="text-[#1C3D2A] border-b border-[#8FBF4A] no-underline hover:text-[#46701D]">
+            <Link to="/ratings" className="text-[var(--rb-ink)] border-b border-[var(--rb-lime)] no-underline hover:text-[var(--rb-lime)]">
               Vergelijk en filter alle parcours →
             </Link>
           </p>
         </div>
-        <nav aria-label="Landen" className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#635C4B] leading-[2] md:text-right">
+        <nav aria-label="Landen" className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[var(--rb-muted)] leading-[2] md:text-right">
           {countries.map((c) => (
             <div key={c.id}>
-              <a href={`#${c.id}`} className="text-[#1C3D2A] no-underline hover:text-[#46701D]">
+              <a href={`#${c.id}`} className="text-[var(--rb-ink)] no-underline hover:text-[var(--rb-lime)]">
                 {c.name}
               </a>{" "}
-              <span className="text-[#46701D]">{c.total}</span>
+              <span className="text-[var(--rb-lime)]">{c.total}</span>
             </div>
           ))}
         </nav>
       </div>
 
       {countries.map((country) => (
-        <section key={country.id} id={country.id} className="px-6 lg:px-14 py-12 border-b border-[rgba(28,61,42,0.15)] scroll-mt-24">
+        <section key={country.id} id={country.id} className="px-6 lg:px-14 py-12 border-b border-[rgba(242,239,230,0.15)] scroll-mt-24">
           <div className="flex flex-wrap items-baseline justify-between gap-3 mb-8">
-            <h2 className="font-rb-serif font-light text-[2.2rem] text-[#1C3D2A] leading-none">{country.name}</h2>
-            <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
+            <h2 className="font-rb-serif font-light text-[2.2rem] text-[var(--rb-ink)] leading-none">{country.name}</h2>
+            <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
               {country.total} banen · {country.rated} beoordeeld
             </p>
           </div>
@@ -137,8 +137,8 @@ function GolfbanenPage() {
           <div className="grid gap-x-12 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
             {country.regions.map((region) => (
               <div key={region.name}>
-                <h3 className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#46701D] mb-3 border-b border-[rgba(28,61,42,0.15)] pb-2">
-                  {region.name} <span className="text-[#635C4B]">· {region.courses.length}</span>
+                <h3 className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[var(--rb-lime)] mb-3 border-b border-[rgba(242,239,230,0.15)] pb-2">
+                  {region.name} <span className="text-[var(--rb-muted)]">· {region.courses.length}</span>
                 </h3>
                 <ul className="space-y-2">
                   {region.courses.map((c) => (
@@ -146,13 +146,13 @@ function GolfbanenPage() {
                       <Link
                         to="/courses/$slug"
                         params={{ slug: c.slug }}
-                        className="font-rb-sans text-[0.92rem] text-[#1C3D2A] no-underline hover:text-[#46701D] hover:underline underline-offset-4 decoration-[#8FBF4A]"
+                        className="font-rb-sans text-[0.92rem] text-[var(--rb-ink)] no-underline hover:text-[var(--rb-lime)] hover:underline underline-offset-4 decoration-[var(--rb-lime)]"
                       >
                         {c.name}
                       </Link>
-                      <span className="font-rb-mono text-[0.7rem] tracking-[0.06em] text-[#635C4B] shrink-0">
+                      <span className="font-rb-mono text-[0.7rem] tracking-[0.06em] text-[var(--rb-muted)] shrink-0">
                         {c.pampasScore != null ? (
-                          <span className="text-[#1C3D2A]">{c.pampasScore}</span>
+                          <span className="text-[var(--rb-ink)]">{c.pampasScore}</span>
                         ) : (
                           `${c.holes} holes`
                         )}

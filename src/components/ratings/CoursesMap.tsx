@@ -10,6 +10,7 @@ import { getMapsBrowserKey } from "@/lib/mapsKey.functions";
 import { buildSlugMap } from "@/lib/courseSlug";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { COURSE_COORDS } from "@/data/course-coords";
+import { DARK_MAP_STYLE } from "@/lib/mapStyle";
 
 
 declare global {
@@ -109,10 +110,10 @@ function loadMaps(apiKey: string): Promise<void> {
 
 
 function tierColor(score: number) {
-  if (score >= 80) return "#1A3D2B";
-  if (score >= 70) return "#3D7A52";
-  if (score >= 55) return "#8CB84A";
-  return "#635C4B";
+  if (score >= 80) return "#B6F04A";
+  if (score >= 70) return "#6FD6A8";
+  if (score >= 55) return "#E0A23A";
+  return "#8FA297";
 }
 
 const clusterRenderer: Renderer = {
@@ -130,9 +131,9 @@ const clusterRenderer: Renderer = {
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: count > 25 ? 25 : count > 9 ? 22 : 19,
-        fillColor: "#1C3D2A",
+        fillColor: "#0C1A12",
         fillOpacity: 0.94,
-        strokeColor: "#8FBF4A",
+        strokeColor: "#B6F04A",
         strokeWeight: 3,
       },
       zIndex: 1000 + count,
@@ -267,6 +268,8 @@ export function CoursesMap({
             streetViewControl: false,
             fullscreenControl: false,
             clickableIcons: false,
+            styles: DARK_MAP_STYLE,
+            backgroundColor: "#12261a",
           });
         }
         const map = mapRef.current;
@@ -296,7 +299,7 @@ export function CoursesMap({
             title: c.name,
             label: {
               text: score ? String(Math.round(score)) : "—",
-              color: "#F4EFE5",
+              color: "#0C1A12",
               fontSize: "11px",
               fontWeight: "700",
             },
@@ -305,7 +308,7 @@ export function CoursesMap({
               scale: 16,
               fillColor: tierColor(score),
               fillOpacity: 1,
-              strokeColor: "#F4EFE5",
+              strokeColor: "#0C1A12",
               strokeWeight: 2,
             },
           });
@@ -395,26 +398,26 @@ export function CoursesMap({
   }, [apiKey, located.map((l) => `${l.course.id}:${l.lat},${l.lng}`).join("|")]);
 
   return (
-    <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
-      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+    <div className="px-6 lg:px-14 py-14 border-b border-[rgba(242,239,230,0.15)]">
+      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-6">
         Parcours op de kaart
       </h2>
       <div
         ref={ref}
-        className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
+        className="w-full h-[500px] border border-[rgba(242,239,230,0.15)] bg-[var(--rb-surface)]"
       />
       {mounted && error && (
-        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#A33]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-danger)]">
           {error}
         </p>
       )}
       {mounted && !error && progress && (
-        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-muted)]">
           Locaties laden… {progress.done}/{progress.total}
         </p>
       )}
       {mounted && !error && !progress && located.length === 0 && ratedCourses.length > 0 && (
-        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-muted)]">
           Geen coördinaten gevonden.
         </p>
       )}

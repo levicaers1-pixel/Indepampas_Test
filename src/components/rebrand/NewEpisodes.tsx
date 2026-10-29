@@ -17,22 +17,22 @@ export function NewEpisodes() {
 
   return (
     <>
-      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(242,239,230,0.15)] flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-4">
             Het archief
           </p>
-          <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
+          <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[var(--rb-ink)] leading-none">
             Afleveringen<em className="italic">.</em>
           </h1>
-          <p className="font-rb-sans text-[0.95rem] text-[#635C4B] mt-3 whitespace-pre-line">
+          <p className="font-rb-sans text-[0.95rem] text-[var(--rb-muted)] mt-3 whitespace-pre-line">
             Elke dinsdag een nieuwe episode.{"\n"}
             Tijdens de zomermaanden doen we het net iets rustiger aan, verwacht enkele specials maar niets wekelijks!
           </p>
         </div>
-        <div className="text-right font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#635C4B] leading-[2]">
+        <div className="text-right font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[var(--rb-muted)] leading-[2]">
           <div>Seizoen 01 / 2026</div>
-          <div className="text-[#46701D]">{episodes.length.toString().padStart(2, "0")} afleveringen</div>
+          <div className="text-[var(--rb-lime)]">{episodes.length.toString().padStart(2, "0")} afleveringen</div>
         </div>
       </div>
 
@@ -40,31 +40,31 @@ export function NewEpisodes() {
         {episodes.map((ep) => {
           const isOpen = openId === ep.spotifyId;
           return (
-            <div key={ep.spotifyId} className="border-b border-[rgba(28,61,42,0.15)]">
+            <div key={ep.spotifyId} className="border-b border-[rgba(242,239,230,0.15)]">
               <button
                 onClick={() => setOpenId(isOpen ? null : ep.spotifyId)}
-                className="w-full grid grid-cols-[100px_1fr_auto] gap-6 lg:gap-10 items-start pt-10 pb-4 text-left hover:bg-[#EDE6D9] transition-colors -mx-2 px-2 lg:-mx-6 lg:px-6"
+                className="w-full grid grid-cols-[100px_1fr_auto] gap-6 lg:gap-10 items-start pt-10 pb-4 text-left hover:bg-[var(--rb-surface)] transition-colors -mx-2 px-2 lg:-mx-6 lg:px-6"
               >
                 <div>
-                  <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] mb-1">
+                  <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)] mb-1">
                     {ep.season}
                   </p>
-                  <p className="font-rb-serif font-light text-[2.8rem] text-[#E2D9C8] leading-none">
+                  <p className="font-rb-serif font-light text-[2.8rem] text-[var(--rb-ink-2)] leading-none">
                     {ep.number?.toLowerCase().includes("special") || ep.number === "18" ? "special" : ep.number}
                   </p>
                 </div>
                 <div>
-                  <h2 className="font-rb-serif text-[1.5rem] font-normal text-[#1C3D2A] leading-[1.25] mb-2">
+                  <h2 className="font-rb-serif text-[1.5rem] font-normal text-[var(--rb-ink)] leading-[1.25] mb-2">
                     {ep.title}
                   </h2>
-                  <p className="font-rb-sans text-[0.9rem] text-[#635C4B] leading-[1.65] max-w-2xl mb-3 line-clamp-2">
+                  <p className="font-rb-sans text-[0.9rem] text-[var(--rb-muted)] leading-[1.65] max-w-2xl mb-3 line-clamp-2">
                     {formatDescription(ep.description)}
                   </p>
                   <div className="flex flex-wrap gap-1.5">
                     {ep.topics.map((t) => (
                       <span
                         key={t}
-                        className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase border border-[rgba(28,61,42,0.3)] text-[#635C4B] px-2 py-0.5"
+                        className="font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase border border-[rgba(242,239,230,0.3)] text-[var(--rb-muted)] px-2 py-0.5"
                       >
                         {t}
                       </span>
@@ -72,13 +72,13 @@ export function NewEpisodes() {
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-1">
-                  <span className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#635C4B]">{ep.date}</span>
-                  <span className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[#46701D]">{ep.duration}</span>
+                  <span className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[var(--rb-muted)]">{ep.date}</span>
+                  <span className="font-rb-mono text-[0.7rem] tracking-[0.1em] text-[var(--rb-lime)]">{ep.duration}</span>
                   <span
                     className={`mt-3 w-10 h-10 flex items-center justify-center border transition-all ${
                       isOpen
-                        ? "bg-[#1C3D2A] text-[#F4EFE5] border-[#1C3D2A]"
-                        : "border-[rgba(28,61,42,0.3)] text-[#1C3D2A]"
+                        ? "bg-[var(--rb-surface)] text-[var(--rb-ink)] border-[rgba(242,239,230,0.5)]"
+                        : "border-[rgba(242,239,230,0.3)] text-[var(--rb-ink)]"
                     }`}
                   >
                     <span className={`transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
@@ -90,7 +90,7 @@ export function NewEpisodes() {
                 <Link
                   to="/afleveringen/$slug"
                   params={{ slug: slugs.get(ep.spotifyId)! }}
-                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
                 >
                   Aflevering bekijken →
                 </Link>
@@ -106,8 +106,8 @@ export function NewEpisodes() {
         })}
       </div>
 
-      <div className="px-6 lg:px-14 py-8 border-t border-[rgba(28,61,42,0.15)] flex flex-wrap items-center gap-0">
-        <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B] mr-8">
+      <div className="px-6 lg:px-14 py-8 border-t border-[rgba(242,239,230,0.15)] flex flex-wrap items-center gap-0">
+        <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[var(--rb-muted)] mr-8">
           Ook op
         </span>
         {[
@@ -120,7 +120,7 @@ export function NewEpisodes() {
             href={p.href}
             target="_blank"
             rel="noreferrer"
-            className={`font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[#1C3D2A] no-underline px-6 py-2.5 border border-[rgba(28,61,42,0.15)] hover:bg-[#1C3D2A] hover:text-[#F4EFE5] transition-colors ${
+            className={`font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase text-[var(--rb-ink)] no-underline px-6 py-2.5 border border-[rgba(242,239,230,0.15)] hover:bg-[var(--rb-surface)] hover:text-[var(--rb-ink)] transition-colors ${
               i > 0 ? "border-l-0" : ""
             }`}
           >

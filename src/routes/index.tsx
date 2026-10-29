@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { NewHome } from "@/components/rebrand/NewHome";
+import heroPhoto from "@/assets/pampas-grass.webp";
 import { fetchEpisodes } from "@/data/episodes-db";
-import { fetchTopCourses } from "@/data/home-db";
+import { fetchCourseCount, fetchTopCourses } from "@/data/home-db";
 
 import { SITE_URL } from "@/lib/site";
 const HOME_DESCRIPTION =
@@ -9,8 +10,12 @@ const HOME_DESCRIPTION =
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [episodes, topCourses] = await Promise.all([fetchEpisodes(), fetchTopCourses()]);
-    return { episodes, topCourses };
+    const [episodes, topCourses, courseCount] = await Promise.all([
+      fetchEpisodes(),
+      fetchTopCourses(),
+      fetchCourseCount().catch(() => null),
+    ]);
+    return { episodes, topCourses, courseCount };
   },
   head: () => ({
     meta: [
@@ -24,6 +29,8 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE_URL + "/" },
+      // The hero photo is the largest element above the fold: start fetching it before React hydrates.
+      { rel: "preload", as: "image", href: heroPhoto, fetchPriority: "high" },
       { rel: "preconnect", href: "https://open.spotify.com" },
     ],
     scripts: [

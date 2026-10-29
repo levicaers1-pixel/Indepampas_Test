@@ -36,7 +36,7 @@ export function SpotifyEmbed({ uri, type = "episode", height = 232, title = "Spo
   return (
     <div
       ref={containerRef}
-      className="rounded-xl overflow-hidden border border-charcoal/10 bg-white shadow-sm"
+      className="rounded-xl overflow-hidden border border-charcoal/10 bg-[var(--rb-surface)] shadow-sm"
       style={{ minHeight: height }}
     >
       {shouldLoad ? (

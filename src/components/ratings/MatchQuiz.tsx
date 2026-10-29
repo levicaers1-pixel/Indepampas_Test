@@ -67,7 +67,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
     const p = HOST_PERSONAS[result];
     return (
       <div
-        className="p-6 md:p-8 bg-white border"
+        className="p-6 md:p-8 bg-[var(--rb-surface)] border"
         style={{ borderColor: `${p.color}55` }}
       >
         <div
@@ -83,7 +83,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
           {p.icon} {p.name}{" "}
           <span className="italic opacity-70">— {p.tagline}</span>
         </h3>
-        <p className="font-rb-sans text-[0.92rem] text-[#2E2B25] mt-3 max-w-2xl leading-[1.7]">
+        <p className="font-rb-sans text-[0.92rem] text-[var(--rb-ink-2)] mt-3 max-w-2xl leading-[1.7]">
           {p.description}
         </p>
         <div className="flex items-center gap-3 mt-6">
@@ -96,7 +96,7 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
           </button>
           <button
             onClick={reset}
-            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)] hover:text-[var(--rb-ink)]"
           >
             Opnieuw
           </button>
@@ -107,9 +107,9 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
 
   const cur = QUESTIONS[step];
   return (
-    <div className="p-6 md:p-8 bg-white border border-[rgba(28,61,42,0.15)]">
+    <div className="p-6 md:p-8 bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)]">
       <div className="flex items-center justify-between mb-5">
-        <div className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B]">
+        <div className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)]">
           Vind je host · {step + 1}/{QUESTIONS.length}
         </div>
         <div className="flex gap-1">
@@ -117,12 +117,12 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
             <div
               key={i}
               className="h-[3px] w-8"
-              style={{ background: i <= step ? "#1C3D2A" : "rgba(28,61,42,0.15)" }}
+              style={{ background: i <= step ? "#B6F04A" : "rgba(242,239,230,0.15)" }}
             />
           ))}
         </div>
       </div>
-      <h3 className="font-rb-serif font-light text-[1.5rem] md:text-[1.85rem] text-[#1C3D2A] mb-6 leading-tight">
+      <h3 className="font-rb-serif font-light text-[1.5rem] md:text-[1.85rem] text-[var(--rb-ink)] mb-6 leading-tight">
         {cur.q}
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -130,10 +130,10 @@ export function MatchQuiz({ onMatch }: { onMatch: (host: HostName) => void }) {
           <button
             key={o.label}
             onClick={() => handlePick(o.map)}
-            className="text-left p-4 bg-[#F4EFE5] hover:bg-[#EDE6D9] border border-[rgba(28,61,42,0.15)] hover:border-[#1C3D2A] transition"
+            className="text-left p-4 bg-[var(--rb-ground)] hover:bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] hover:border-[rgba(242,239,230,0.5)] transition"
           >
             <div className="text-2xl mb-2">{o.icon}</div>
-            <div className="font-rb-sans text-[0.88rem] text-[#1C3D2A] leading-[1.4]">
+            <div className="font-rb-sans text-[0.88rem] text-[var(--rb-ink)] leading-[1.4]">
               {o.label}
             </div>
           </button>

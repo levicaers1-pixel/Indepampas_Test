@@ -13,18 +13,18 @@ export function NewContact() {
 
   return (
     <>
-      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(28,61,42,0.15)]">
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-4">
+      <div className="px-6 lg:px-14 pt-16 pb-12 border-b border-[rgba(242,239,230,0.15)]">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-4">
           Stuur een bericht
         </p>
-        <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[#1C3D2A] leading-none">
+        <h1 className="font-rb-serif font-light text-[clamp(2.8rem,5vw,4.5rem)] text-[var(--rb-ink)] leading-none">
           <em className="italic">Contact</em>.
         </h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="bg-[#1C3D2A] px-8 lg:px-14 py-14 lg:border-r border-[rgba(28,61,42,0.15)]">
-          <h2 className="font-rb-serif font-light text-[2.5rem] text-[#F4EFE5] leading-[1.2] mb-3">
+        <div className="bg-[var(--rb-surface)] px-8 lg:px-14 py-14 lg:border-r border-[rgba(242,239,230,0.15)]">
+          <h2 className="font-rb-serif font-light text-[2.5rem] text-[var(--rb-ink)] leading-[1.2] mb-3">
             Een verhaal, een baan, een <em className="italic">sponsor</em>?
           </h2>
           <p className="font-rb-sans text-[0.9rem] text-[rgba(244,239,229,0.6)] leading-[1.7] max-w-md mb-12">
@@ -46,21 +46,21 @@ export function NewContact() {
                   href={row.href}
                   target={row.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="font-rb-sans text-[0.9rem] text-[#F4EFE5] hover:text-[#8FBF4A]"
+                  className="font-rb-sans text-[0.9rem] text-[var(--rb-ink)] hover:text-[var(--rb-lime)]"
                 >
                   {row.val}
                 </a>
               ) : (
-                <span className="font-rb-sans text-[0.9rem] text-[#F4EFE5]">{row.val}</span>
+                <span className="font-rb-sans text-[0.9rem] text-[var(--rb-ink)]">{row.val}</span>
               )}
             </div>
           ))}
         </div>
 
         <div className="px-8 lg:px-14 py-14">
-          <h3 className="font-rb-serif text-[1.5rem] text-[#1C3D2A] mb-8">Schrijf ons.</h3>
+          <h3 className="font-rb-serif text-[1.5rem] text-[var(--rb-ink)] mb-8">Schrijf ons.</h3>
 
-          <div className="flex border-b border-[rgba(28,61,42,0.15)] mb-10">
+          <div className="flex border-b border-[rgba(242,239,230,0.15)] mb-10">
             {[
               { id: "hello", label: "Algemeen" },
               { id: "sponsor", label: "Sponsoring" },
@@ -72,8 +72,8 @@ export function NewContact() {
                 onClick={() => setReason(r.id)}
                 className={`font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase px-6 py-3 border-b-2 -mb-px transition-colors ${
                   reason === r.id
-                    ? "text-[#1C3D2A] border-[#8FBF4A]"
-                    : "text-[#635C4B] border-transparent hover:text-[#1C3D2A]"
+                    ? "text-[var(--rb-ink)] border-[var(--rb-lime)]"
+                    : "text-[var(--rb-muted)] border-transparent hover:text-[var(--rb-ink)]"
                 }`}
               >
                 {r.label}
@@ -116,31 +116,31 @@ export function NewContact() {
             </div>
             <RbField label="Onderwerp" name="subject" required />
             <div className="flex flex-col gap-1.5">
-              <label className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
+              <label className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
                 Bericht
               </label>
               <textarea
                 required
                 rows={6}
                 name="message"
-                className="px-4 py-3 bg-[#EDE6D9] border border-[rgba(28,61,42,0.15)] font-rb-sans text-[0.9rem] text-[#18180F] outline-none focus:border-[#1C3D2A] resize-none"
+                className="px-4 py-3 bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] font-rb-sans text-[0.9rem] text-[var(--rb-ink)] outline-none focus:border-[var(--rb-lime)] resize-none"
               />
             </div>
 
             <div className="flex justify-between items-center pt-2 gap-4 flex-wrap">
               {sent ? (
-                <p className="font-rb-serif italic text-[#46701D] text-lg">Bedankt — we komen snel bij je terug.</p>
+                <p className="font-rb-serif italic text-[var(--rb-lime)] text-lg">Bedankt — we komen snel bij je terug.</p>
               ) : error ? (
                 <p className="font-rb-sans text-sm text-red-700">{error}</p>
               ) : (
-                <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
+                <p className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
                   We antwoorden binnen 48u
                 </p>
               )}
               <button
                 type="submit"
                 disabled={sending || sent}
-                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#F4EFE5] bg-[#1C3D2A] px-8 py-[0.9rem] hover:bg-[#2B5C3E] transition-colors disabled:opacity-50"
+                className="rb-btn rb-btn-lime disabled:opacity-50"
               >
                 {sent ? "Verstuurd" : sending ? "Versturen…" : "Versturen"}
               </button>
@@ -155,7 +155,7 @@ export function NewContact() {
 function RbField({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={name} className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#635C4B]">
+      <label htmlFor={name} className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
         {label}
       </label>
       <input
@@ -163,7 +163,7 @@ function RbField({ label, name, type = "text", required }: { label: string; name
         name={name}
         type={type}
         required={required}
-        className="px-4 py-3 bg-[#EDE6D9] border border-[rgba(28,61,42,0.15)] font-rb-sans text-[0.9rem] text-[#18180F] outline-none focus:border-[#1C3D2A]"
+        className="px-4 py-3 bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] font-rb-sans text-[0.9rem] text-[var(--rb-ink)] outline-none focus:border-[var(--rb-lime)]"
       />
     </div>
   );

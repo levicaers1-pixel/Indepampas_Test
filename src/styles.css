@@ -2,43 +2,34 @@
 @source "../src";
 @import "tw-animate-css";
 
-/* ─── Rebrand fonts (new version) ─── */
+/* Self-hosted fonts (latin subset): same origin, no extra DNS/TLS handshake, cacheable. */
 @font-face {
-  font-family: "Instrument Sans";
+  font-family: "Archivo";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 500 900;
   font-display: swap;
-  src: url("https://fonts.gstatic.com/s/instrumentsans/v4/pximypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr-yp2JGEJOH9npSTF-Qf1.ttf") format("truetype");
+  src: url("/fonts/archivo-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
 }
 @font-face {
   font-family: "DM Mono";
   font-style: normal;
-  font-weight: 300 500;
+  font-weight: 400;
   font-display: swap;
-  src: url("https://fonts.gstatic.com/s/dmmono/v14/aFTU7PB1QTsUX8KYthqQBK6PYK0.woff2") format("woff2");
+  src: url("/fonts/dm-mono-400-latin.woff2") format("woff2");
 }
-
-/* Inline font-face declarations to eliminate critical request chain via fonts.googleapis.com */
 @font-face {
-  font-family: "DM Sans";
+  font-family: "DM Mono";
   font-style: normal;
-  font-weight: 300 600;
+  font-weight: 500;
   font-display: swap;
-  src: url("https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtKky2F7g.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-style: italic;
-  font-weight: 400 500;
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSqn7B6D.woff2") format("woff2");
+  src: url("/fonts/dm-mono-500-latin.woff2") format("woff2");
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -73,41 +64,41 @@
   --color-sage: var(--sage);
   --color-charcoal: var(--charcoal);
   --color-pampas-gold: var(--pampas-gold);
-  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-display: "Playfair Display", ui-serif, Georgia, serif;
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.25rem;
 
-  /* PAMPAS palette — editorial dune mist */
-  --mist: oklch(0.967 0.005 85);
-  --sand: oklch(0.93 0.012 85);
-  --dune: oklch(0.86 0.025 80);
-  --sage: oklch(0.62 0.025 130);
-  --charcoal: oklch(0.18 0.005 60);
-  --pampas-gold: oklch(0.78 0.07 78);
+  /* PAMPAS palette — dark and sporty (the site is dark by default) */
+  --mist: #f2efe6;
+  --sand: #1b3324;
+  --dune: #2f5a41;
+  --sage: #b6f04a;
+  --charcoal: #0c1a12;
+  --pampas-gold: #b6f04a;
 
-  --background: var(--mist);
-  --foreground: var(--charcoal);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--charcoal);
-  --popover: oklch(1 0 0);
-  --popover-foreground: var(--charcoal);
-  --primary: var(--charcoal);
-  --primary-foreground: var(--mist);
-  --secondary: var(--sand);
-  --secondary-foreground: var(--charcoal);
-  --muted: var(--sand);
-  --muted-foreground: oklch(0.45 0.01 80);
-  --accent: var(--sage);
-  --accent-foreground: var(--mist);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.88 0.012 80);
-  --input: oklch(0.88 0.012 80);
-  --ring: var(--sage);
+  --background: #0c1a12;
+  --foreground: #f2efe6;
+  --card: #12261a;
+  --card-foreground: #f2efe6;
+  --popover: #12261a;
+  --popover-foreground: #f2efe6;
+  --primary: #b6f04a;
+  --primary-foreground: #0c1a12;
+  --secondary: #1b3324;
+  --secondary-foreground: #f2efe6;
+  --muted: #1b3324;
+  --muted-foreground: #b9c4bc;
+  --accent: #b6f04a;
+  --accent-foreground: #0c1a12;
+  --destructive: #ff7a6b;
+  --destructive-foreground: #0c1a12;
+  --border: rgba(242, 239, 230, 0.15);
+  --input: rgba(242, 239, 230, 0.25);
+  --ring: #b6f04a;
 }
 
 .dark {
@@ -134,8 +125,8 @@
     -webkit-font-smoothing: antialiased;
   }
   ::selection {
-    background-color: var(--dune);
-    color: var(--charcoal);
+    background-color: #b6f04a;
+    color: #0c1a12;
   }
   .font-serif {
     font-family: var(--font-serif);
@@ -174,35 +165,174 @@
 }
 
 /* ============================================================
-   REBRAND THEME — scoped to .theme-new
-   Editorial cream + green + lime palette from uploaded HTML
+   PAMPAS THEME — dark and sporty. Scoped to .theme-new.
+   Tokens are CSS variables so components can use bg-[var(--rb-…)].
    ============================================================ */
 .theme-new {
-  --rb-cream: #F4EFE5;
-  --rb-cream-2: #EDE6D9;
-  --rb-cream-3: #E2D9C8;
-  --rb-green: #1C3D2A;
-  --rb-green-2: #2B5C3E;
-  --rb-green-3: #3A7A52;
-  --rb-lime: #8FBF4A;
-  --rb-lime-pale: #D6EBBA;
-  --rb-text: #18180F;
-  --rb-muted: #635C4B;
-  --rb-rule: rgba(28, 61, 42, 0.15);
-  --rb-rule-strong: rgba(28, 61, 42, 0.3);
+  --rb-ground: #0c1a12;
+  --rb-ground-2: #081209;
+  --rb-surface: #12261a;
+  --rb-surface-2: #1b3324;
+  --rb-ink: #f2efe6;
+  --rb-ink-2: #d8ded3;
+  --rb-muted: #b9c4bc;
+  --rb-dim: #8fa297;
+  --rb-lime: #b6f04a;
+  --rb-lime-hover: #c8f76f;
+  --rb-lime-dim: #6f8f5c;
+  --rb-amber: #e0a23a;
+  --rb-amber-hover: #f0b550;
+  --rb-danger: #ff7a6b;
+  --rb-rule: rgba(242, 239, 230, 0.15);
+  --rb-rule-strong: rgba(242, 239, 230, 0.3);
+  --rb-lars: #4a9edb;
+  --rb-levi: #2dbf7e;
+  --rb-niels: #db6b4a;
 
-  background: var(--rb-cream);
-  color: var(--rb-text);
-  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
+  background: var(--rb-ground);
+  color: var(--rb-ink);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
 }
-.theme-new .font-rb-serif { font-family: "Cormorant Garamond", ui-serif, Georgia, serif; }
+.theme-new .font-rb-serif,
+.theme-new .font-serif,
+.theme-new .font-display {
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+  font-feature-settings: normal;
+}
 .theme-new .font-rb-mono { font-family: "DM Mono", ui-monospace, monospace; }
-.theme-new .font-rb-sans { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+.theme-new .font-rb-sans { font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+.theme-new em, .theme-new .italic { font-style: normal; }
+.theme-new h1 em, .theme-new h2 em { color: var(--rb-lime); }
+.theme-new h1.font-rb-serif,
+.theme-new h2.font-rb-serif,
+.theme-new h3.font-rb-serif {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
 
+/* ---------- building blocks ---------- */
+.theme-new .rb-disp {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+.theme-new .rb-mono {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.theme-new .rb-num { font-variant-numeric: tabular-nums; }
+.theme-new .rb-outline { color: transparent; -webkit-text-stroke: 2px var(--rb-ink); }
+.theme-new .rb-outline-lime { color: transparent; -webkit-text-stroke: 1.5px var(--rb-lime); }
+.theme-new .rb-glow { text-shadow: 0 0 28px rgba(182, 240, 74, 0.55), 0 0 2px rgba(182, 240, 74, 0.9); }
+.theme-new .rb-grid {
+  background-image:
+    linear-gradient(rgba(242, 239, 230, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 239, 230, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.theme-new .rb-cut {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.theme-new .rb-btn {
+  display: inline-block;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 1.6rem;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+}
+.theme-new .rb-btn-lime { background: var(--rb-lime); color: var(--rb-ground); }
+.theme-new .rb-btn-lime:hover { background: var(--rb-lime-hover); }
+.theme-new .rb-btn-line { background: transparent; color: var(--rb-ink); box-shadow: inset 0 0 0 2px var(--rb-ink); clip-path: none; }
+.theme-new .rb-btn-line:hover { background: var(--rb-ink); color: var(--rb-ground); }
+.theme-new .rb-chip {
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.9rem;
+  border: 1.5px solid rgba(242, 239, 230, 0.3);
+  background: transparent;
+  color: var(--rb-ink);
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.theme-new .rb-chip:hover { border-color: var(--rb-lime); }
+.theme-new .rb-chip[aria-pressed="true"],
+.theme-new .rb-chip.on { background: var(--rb-lime); border-color: var(--rb-lime); color: var(--rb-ground); }
+.theme-new .rb-idx { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.1rem; }
+.theme-new .rb-idx i { flex: 1; height: 1px; background: rgba(242, 239, 230, 0.2); }
+.theme-new .rb-scale { position: relative; display: block; height: 4px; background: var(--rb-surface-2); margin-top: 10px; }
+.theme-new .rb-scale b { position: absolute; left: 0; top: 0; bottom: 0; background: var(--rb-lime); }
+.theme-new .rb-scale u { position: absolute; top: -3px; bottom: -3px; width: 1px; background: rgba(242, 239, 230, 0.35); }
+.theme-new .rb-row { position: relative; }
+.theme-new .rb-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--rb-lime); transition: width 0.2s; }
+.theme-new .rb-row:hover::before { width: 5px; }
+.theme-new .rb-tile { background: var(--rb-ground); clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.theme-new .rb-photo { overflow: hidden; position: relative; }
+.theme-new .rb-photo img { transition: transform 0.6s ease; }
+.theme-new .rb-photo:hover img { transform: scale(1.06); }
+.theme-new .rb-photo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: var(--rb-lime); transition: height 0.25s ease; }
+.theme-new .rb-photo:hover::after { height: 6px; }
+.theme-new .rb-noise { position: relative; }
+.theme-new .rb-noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.theme-new .rb-cv { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.theme-new .rb-blob { position: absolute; border-radius: 9999px; pointer-events: none; filter: blur(30px); }
+
+/* ---------- motion ---------- */
 @keyframes rb-ticker {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+@keyframes rb-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(182, 240, 74, 0.55); }
+  100% { box-shadow: 0 0 0 26px rgba(182, 240, 74, 0); }
+}
+@keyframes rb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.12); }
+}
+@keyframes rb-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rb-wave {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
 .theme-new .rb-ticker { animation: rb-ticker 28s linear infinite; }
+.theme-new .rb-pulse { animation: rb-pulse 1.8s ease-out infinite; }
+.theme-new .rb-drift { animation: rb-drift 14s ease-in-out infinite; }
+.theme-new .rb-rise { animation: rb-rise 0.9s ease both; }
+.theme-new .rb-wave rect { transform-box: fill-box; transform-origin: center; animation: rb-wave 1.3s ease-in-out infinite; }
+.theme-new .rb-wave rect:nth-child(3n) { animation-delay: -0.45s; }
+.theme-new .rb-wave rect:nth-child(3n + 1) { animation-delay: -0.9s; }
+.theme-new .rb-wave rect:nth-child(5n) { animation-duration: 0.9s; }
+@media (prefers-reduced-motion: reduce) {
+  .theme-new .rb-ticker,
+  .theme-new .rb-pulse,
+  .theme-new .rb-drift,
+  .theme-new .rb-rise,
+  .theme-new .rb-wave rect { animation: none; }
+  .theme-new .rb-photo img { transition: none; }
+}

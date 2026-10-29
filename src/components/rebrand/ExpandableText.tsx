@@ -24,7 +24,7 @@ export function ExpandableText({
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
-          className="mt-4 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] border-b border-[#46701D] pb-1 hover:text-[#46701D]"
+          className="mt-4 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
         >
           {open ? "Minder tonen ↑" : "Lees meer ↓"}
         </button>

@@ -28,7 +28,7 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
 
   return (
     <div>
-      <div className="relative bg-[#EDE6D9] overflow-hidden group">
+      <div className="relative bg-[var(--rb-surface)] overflow-hidden group">
         <img
           src={current.image_url}
           alt={current.caption ? `${alt} — ${current.caption}` : `Foto van ${alt}`}
@@ -42,7 +42,7 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
               type="button"
               aria-label="Vorige foto"
               onClick={(e) => { e.stopPropagation(); go(-1); }}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-[#1C3D2A] p-2 rounded-full"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-[rgba(12,26,18,0.8)] hover:bg-[var(--rb-lime)] hover:text-[var(--rb-ground)] text-[var(--rb-ink)] p-2 rounded-full"
             >
               <ChevronLeft size={18} />
             </button>
@@ -50,7 +50,7 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
               type="button"
               aria-label="Volgende foto"
               onClick={(e) => { e.stopPropagation(); go(1); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/85 hover:bg-white text-[#1C3D2A] p-2 rounded-full"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[rgba(12,26,18,0.8)] hover:bg-[var(--rb-lime)] hover:text-[var(--rb-ground)] text-[var(--rb-ink)] p-2 rounded-full"
             >
               <ChevronRight size={18} />
             </button>
@@ -62,10 +62,10 @@ export function PhotoCarousel({ photos, alt }: { photos: CoursePhoto[]; alt: str
       </div>
 
       {(current.caption || current.credit) && (
-        <p className="font-rb-sans text-[0.72rem] text-[#635C4B] mt-2">
+        <p className="font-rb-sans text-[0.72rem] text-[var(--rb-muted)] mt-2">
           {current.caption}
           {current.credit && (
-            <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684] ml-2">
+            <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--rb-dim)] ml-2">
               © {current.credit}
             </span>
           )}

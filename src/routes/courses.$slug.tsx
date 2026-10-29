@@ -1,6 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { fetchCourseById, fetchCourseIndex, type CourseIndexEntry } from "@/data/courses-db";
 import { COURSE_COORDS } from "@/data/course-coords";
+import { CourseHero } from "@/components/ratings/CourseHero";
 import { CourseCard } from "@/components/ratings/CourseCard";
 import { buildSlugMap, findCourseBySlug } from "@/lib/courseSlug";
 import { courseSeoTitle } from "@/lib/seoTitle";
@@ -184,16 +185,16 @@ export const Route = createFileRoute("/courses/$slug")({
   },
   notFoundComponent: () => (
     <div className="px-6 lg:px-14 py-24 text-center">
-      <h1 className="font-rb-serif text-3xl text-[#1C3D2A]">Parcours niet gevonden</h1>
-      <p className="font-rb-sans text-[#635C4B] mt-3">
+      <h1 className="font-rb-serif text-3xl text-[var(--rb-ink)]">Parcours niet gevonden</h1>
+      <p className="font-rb-sans text-[var(--rb-muted)] mt-3">
         <Link to="/ratings" className="underline">Terug naar alle parcours</Link>
       </p>
     </div>
   ),
   errorComponent: ({ error }) => (
     <div className="px-6 lg:px-14 py-24 text-center">
-      <h1 className="font-rb-serif text-3xl text-[#1C3D2A]">Er ging iets mis</h1>
-      <p className="font-rb-sans text-[#635C4B] mt-2">{error instanceof Error ? error.message : String(error)}</p>
+      <h1 className="font-rb-serif text-3xl text-[var(--rb-ink)]">Er ging iets mis</h1>
+      <p className="font-rb-sans text-[var(--rb-muted)] mt-2">{error instanceof Error ? error.message : String(error)}</p>
     </div>
   ),
   component: CourseDetailPage,
@@ -205,29 +206,18 @@ function CourseDetailPage() {
   const location = [course.region, course.country].filter(Boolean).join(", ");
 
   return (
-    <div className="bg-[#F4EFE5] min-h-screen">
-      <div className="px-6 lg:px-14 pt-10 pb-4">
-        <nav
-          aria-label="Broodkruimels"
-          className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] flex flex-wrap gap-2"
-        >
-          <Link to="/" className="hover:text-[#1C3D2A]">Home</Link>
-          <span>/</span>
-          <Link to="/golfbanen" className="hover:text-[#1C3D2A]">Golfbanen</Link>
-          <span>/</span>
-          <span className="text-[#1C3D2A]">{course.name}</span>
-        </nav>
-      </div>
+    <div className="bg-[var(--rb-ground)] min-h-screen">
+      <CourseHero course={course} />
 
-      <div className="px-6 lg:px-14 pb-16">
-        <CourseCard course={course} activePersona={null} autoOpen />
+      <div className="mx-auto max-w-[1320px] px-6 pb-16 pt-10 lg:px-14">
+        <CourseCard course={course} activePersona={null} autoOpen variant="page" />
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-3 border-t border-[rgba(28,61,42,0.15)] pt-10">
+        <div className="mt-12 grid gap-10 lg:grid-cols-3 border-t border-[rgba(242,239,230,0.15)] pt-10">
           <section aria-labelledby="about-heading">
-            <h2 id="about-heading" className="font-rb-serif text-2xl text-[#1C3D2A] mb-4">
+            <h2 id="about-heading" className="font-rb-serif text-2xl text-[var(--rb-ink)] mb-4 !normal-case">
               Over {course.name}
             </h2>
-            <p className="font-rb-sans text-sm text-[#635C4B] leading-[1.75]">
+            <p className="font-rb-sans text-sm text-[var(--rb-muted)] leading-[1.75]">
               {course.name} is een {course.type ? `${course.type.toLowerCase()}baan` : "golfbaan"} met {course.holes} holes
               {location ? ` in ${location}` : ""}.
               {course.greenfee != null ? ` De greenfee ligt rond €${course.greenfee} (indicatief, prijzen kunnen verouderd zijn).` : ""}
@@ -242,7 +232,7 @@ function CourseDetailPage() {
                   href={course.website}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
                 >
                   Website van de club →
                 </a>
@@ -251,20 +241,20 @@ function CourseDetailPage() {
           </section>
 
           <section aria-labelledby="related-heading" className="lg:col-span-2">
-            <h2 id="related-heading" className="font-rb-serif text-2xl text-[#1C3D2A] mb-4">
+            <h2 id="related-heading" className="font-rb-serif text-2xl text-[var(--rb-ink)] mb-4 !normal-case">
               Andere golfbanen in {relatedLabel}
             </h2>
             <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-2">
               {related.map((c) => (
-                <li key={c.slug} className="flex items-baseline justify-between gap-3 border-b border-[rgba(28,61,42,0.1)] pb-2">
+                <li key={c.slug} className="flex items-baseline justify-between gap-3 border-b border-[rgba(242,239,230,0.1)] pb-2">
                   <Link
                     to="/courses/$slug"
                     params={{ slug: c.slug }}
-                    className="font-rb-sans text-[0.92rem] text-[#1C3D2A] no-underline hover:text-[#46701D] hover:underline underline-offset-4 decoration-[#8FBF4A]"
+                    className="font-rb-sans text-[0.92rem] text-[var(--rb-ink)] no-underline hover:text-[var(--rb-lime)] hover:underline underline-offset-4 decoration-[var(--rb-lime)]"
                   >
                     {c.name}
                   </Link>
-                  <span className="font-rb-mono text-[0.7rem] tracking-[0.06em] text-[#635C4B] shrink-0">
+                  <span className="font-rb-mono text-[0.7rem] tracking-[0.06em] text-[var(--rb-muted)] shrink-0">
                     {c.pampasScore != null ? c.pampasScore : "nog niet beoordeeld"}
                   </span>
                 </li>
@@ -275,14 +265,14 @@ function CourseDetailPage() {
                 <Link
                   to="/blog/$slug"
                   params={{ slug: regionPost.slug }}
-                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
                 >
                   {regionPost.label} →
                 </Link>
               )}
               <Link
                 to="/golfbanen"
-                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] no-underline border-b border-[#8FBF4A] pb-1 hover:text-[#46701D]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
               >
                 Alle golfbanen →
               </Link>
@@ -290,10 +280,10 @@ function CourseDetailPage() {
           </section>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(28,61,42,0.15)] pt-6">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(242,239,230,0.15)] pt-6">
           <Link
             to="/ratings"
-            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#3D7A52] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-lime)] hover:text-[var(--rb-ink)]"
           >
             ← Alle parcours
           </Link>
@@ -302,7 +292,7 @@ function CourseDetailPage() {
               <Link
                 to="/courses/$slug"
                 params={{ slug: prev.slug }}
-                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-muted)] hover:text-[var(--rb-ink)]"
               >
                 ← {prev.name}
               </Link>
@@ -311,7 +301,7 @@ function CourseDetailPage() {
               <Link
                 to="/courses/$slug"
                 params={{ slug: next.slug }}
-                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-muted)] hover:text-[var(--rb-ink)]"
               >
                 {next.name} →
               </Link>

@@ -64,3 +64,9 @@ export async function fetchTopCourses(): Promise<TopCourse[]> {
     } satisfies TopCourse;
   }).filter((c): c is TopCourse => c !== null);
 }
+
+/** Number of courses in the database, for the stats band. Null if the query fails. */
+export async function fetchCourseCount(): Promise<number | null> {
+  const { count, error } = await supabase.from("courses").select("id", { count: "exact", head: true });
+  return error ? null : count;
+}

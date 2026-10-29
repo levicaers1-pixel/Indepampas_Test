@@ -66,18 +66,18 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
   useInstagramEmbeds(blocks.some((b) => b.type === "embed"));
 
   return (
-    <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
+    <article className="bg-[var(--rb-ground)] text-[var(--rb-ink)] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
       {/* HERO */}
-      <header className="max-w-[860px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[#C8BFB0]">
+      <header className="max-w-[860px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[var(--rb-rule-strong)]">
         <div className="flex items-center gap-6 mb-8 flex-wrap">
           <span
-            className="text-[0.7rem] tracking-[0.15em] uppercase text-[#F2EDE4] bg-[#1A3D2B] px-3 py-1.5"
+            className="text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-ink)] bg-[var(--rb-surface)] px-3 py-1.5"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}
           >
             {post.topics[0] ?? "Blog"}
           </span>
           <span
-            className="text-[0.7rem] tracking-[0.1em] text-[#7A7468] uppercase"
+            className="text-[0.7rem] tracking-[0.1em] text-[var(--rb-dim)] uppercase"
             style={{ fontFamily: "'DM Mono', ui-monospace, monospace" }}
           >
             <time dateTime={postIsoDate(post.date)}>{post.date}</time>&nbsp;·&nbsp;{post.readTime} lezen
@@ -86,18 +86,18 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
 
         {post.titleHtml ? (
           <h1
-            className="font-serif font-bold leading-[1.1] text-[#1A3D2B] mb-4 [&_em]:italic [&_em]:font-normal [&_em]:text-[#3D7A52]"
+            className="font-serif font-bold leading-[1.1] text-[var(--rb-ink)] mb-4 [&_em]:italic [&_em]:font-normal [&_em]:text-[var(--rb-lime)]"
             style={{
-              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+              fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
               fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
             }}
             dangerouslySetInnerHTML={{ __html: post.titleHtml }}
           />
         ) : (
           <h1
-            className="font-serif font-bold leading-[1.1] text-[#1A3D2B] mb-4"
+            className="font-serif font-bold leading-[1.1] text-[var(--rb-ink)] mb-4"
             style={{
-              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+              fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
               fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
             }}
           >
@@ -112,9 +112,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
           const subText = sub?.text ?? post.excerpt;
           return (
             <p
-              className="italic text-[#7A7468] max-w-[560px] mb-10 leading-[1.6]"
+              className="italic text-[var(--rb-dim)] max-w-[560px] mb-10 leading-[1.6]"
               style={{
-                fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                 fontSize: "1.15rem",
               }}
             >
@@ -123,7 +123,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
           );
         })()}
 
-        <div className="w-12 h-0.5 bg-[#8CB84A]" />
+        <div className="w-12 h-0.5 bg-[var(--rb-lime)]" />
       </header>
 
       {/* ARTICLE BODY + SIDEBAR */}
@@ -135,7 +135,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               return (
                 <p
                   key={i}
-                  className="text-[#2E2B25] mb-6 leading-[1.85] [&_strong]:font-semibold [&_strong]:text-[#1A3D2B]"
+                  className="text-[var(--rb-ink-2)] mb-6 leading-[1.85] [&_strong]:font-semibold [&_strong]:text-[var(--rb-ink)]"
                   style={{ fontSize: "1.05rem" }}
                   dangerouslySetInnerHTML={{ __html: linkifyHtml(block.text, courseLinks, linked) }}
                 />
@@ -145,9 +145,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               return (
                 <h2
                   key={i}
-                  className="text-[#1A3D2B] font-semibold mt-12 mb-4 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
+                  className="text-[var(--rb-ink)] font-semibold mt-12 mb-4 leading-[1.25] before:content-['—'] before:text-[var(--rb-lime)] before:mr-2 before:font-normal"
                   style={{
-                    fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                    fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                     fontSize: "1.6rem",
                   }}
                 >
@@ -159,7 +159,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                         key={si}
                         to="/courses/$slug"
                         params={{ slug: seg.slug }}
-                        className="underline decoration-[#8CB84A] underline-offset-4 hover:text-[#3D7A52]"
+                        className="underline decoration-[var(--rb-lime)] underline-offset-4 hover:text-[var(--rb-lime)]"
                       >
                         {seg.text}
                       </Link>
@@ -172,12 +172,12 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               return (
                 <blockquote
                   key={i}
-                  className="my-12 px-8 py-8 sm:px-10 border-l-[3px] border-[#8CB84A] bg-[#E8E0D3]"
+                  className="my-12 px-8 py-8 sm:px-10 border-l-[3px] border-[var(--rb-lime)] bg-[var(--rb-surface)]"
                 >
                   <p
-                    className="italic text-[#1A3D2B] m-0 leading-[1.5]"
+                    className="italic text-[var(--rb-ink)] m-0 leading-[1.5]"
                     style={{
-                      fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                      fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                       fontSize: "1.25rem",
                     }}
                   >
@@ -190,21 +190,21 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               return (
                 <div
                   key={i}
-                  className="my-12 grid grid-cols-2 sm:grid-cols-4 border border-[#C8BFB0] divide-x-0 sm:divide-x divide-y sm:divide-y-0 divide-[#C8BFB0]"
+                  className="my-12 grid grid-cols-2 sm:grid-cols-4 border border-[var(--rb-rule-strong)] divide-x-0 sm:divide-x divide-y sm:divide-y-0 divide-[var(--rb-rule-strong)]"
                 >
                   {block.items.map((s, si) => (
                     <div key={si} className="p-6 text-center">
                       <span
-                        className="block text-[#1A3D2B] font-bold leading-none mb-2"
+                        className="block text-[var(--rb-ink)] font-bold leading-none mb-2"
                         style={{
-                          fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                          fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                           fontSize: "2rem",
                         }}
                       >
                         {s.num}
                       </span>
                       <span
-                        className="text-[#7A7468] uppercase"
+                        className="text-[var(--rb-dim)] uppercase"
                         style={{
                           fontFamily: "'DM Mono', ui-monospace, monospace",
                           fontSize: "0.7rem",
@@ -220,14 +220,14 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
             }
             if (block.type === "badges") {
               return (
-                <div key={i} className="my-10 border-t border-[#C8BFB0]">
+                <div key={i} className="my-10 border-t border-[var(--rb-rule-strong)]">
                   {block.items.map((b, bi) => (
                     <div
                       key={bi}
-                      className="grid grid-cols-[56px_1fr] gap-6 items-start py-7 border-b border-[#C8BFB0]"
+                      className="grid grid-cols-[56px_1fr] gap-6 items-start py-7 border-b border-[var(--rb-rule-strong)]"
                     >
                       <div
-                        className="pt-1 text-[#7A7468] uppercase"
+                        className="pt-1 text-[var(--rb-dim)] uppercase"
                         style={{
                           fontFamily: "'DM Mono', ui-monospace, monospace",
                           fontSize: "0.7rem",
@@ -238,18 +238,18 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                       </div>
                       <div>
                         <div
-                          className="text-[#1A3D2B] font-medium mb-2 flex items-center gap-2.5 uppercase"
+                          className="text-[var(--rb-ink)] font-medium mb-2 flex items-center gap-2.5 uppercase"
                           style={{
                             fontFamily: "'DM Mono', ui-monospace, monospace",
                             fontSize: "0.7rem",
                             letterSpacing: "0.2em",
                           }}
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#8CB84A] shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--rb-lime)] shrink-0" />
                           {b.title}
                         </div>
                         <p
-                          className="text-[#2E2B25] leading-[1.7]"
+                          className="text-[var(--rb-ink-2)] leading-[1.7]"
                           style={{ fontSize: "0.95rem" }}
                         >
                           {b.text}
@@ -262,9 +262,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
             }
             if (block.type === "table") {
               return (
-                <div key={i} className="my-12 overflow-x-auto border border-[#C8BFB0]">
+                <div key={i} className="my-12 overflow-x-auto border border-[var(--rb-rule-strong)]">
                   <table className="w-full border-collapse text-left">
-                    <thead className="bg-[#1A3D2B] text-[#F2EDE4]">
+                    <thead className="bg-[var(--rb-surface)] text-[var(--rb-ink)]">
                       <tr>
                         {block.headers.map((h, hi) => (
                           <th
@@ -285,21 +285,21 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                       {block.rows.map((row, ri) => (
                         <tr
                           key={ri}
-                          className={ri % 2 === 0 ? "bg-[#F2EDE4]" : "bg-[#E8E0D3]"}
+                          className={ri % 2 === 0 ? "bg-[var(--rb-surface)]" : "bg-[var(--rb-surface)]"}
                         >
                           {row.map((cell, ci) => (
                             <td
                               key={ci}
-                              className="px-4 py-3 align-middle border-t border-[#C8BFB0] text-[#2E2B25]"
+                              className="px-4 py-3 align-middle border-t border-[var(--rb-rule-strong)] text-[var(--rb-ink-2)]"
                               style={{
                                 fontFamily:
                                   ci === 0 || ci === 2
-                                    ? "'Cormorant Garamond', ui-serif, Georgia, serif"
+                                    ? "'Archivo', ui-sans-serif, system-ui, sans-serif"
                                     : undefined,
                                 fontSize:
                                   ci === 0 || ci === 2 ? "1.05rem" : "0.9rem",
                                 fontWeight: ci === 0 ? 600 : undefined,
-                                color: ci === 0 ? "#1A3D2B" : undefined,
+                                color: ci === 0 ? "#F2EFE6" : undefined,
                               }}
                             >
                               {cell}
@@ -322,11 +322,11 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                     height={block.height}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-auto border border-[#C8BFB0]"
+                    className="w-full h-auto border border-[var(--rb-rule-strong)]"
                   />
                   {block.caption && (
                     <figcaption
-                      className="mt-3 text-[#7A7468] uppercase"
+                      className="mt-3 text-[var(--rb-dim)] uppercase"
                       style={{
                         fontFamily: "'DM Mono', ui-monospace, monospace",
                         fontSize: "0.7rem",
@@ -348,7 +348,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                   />
                   {block.caption && (
                     <figcaption
-                      className="mt-3 text-[#7A7468] uppercase"
+                      className="mt-3 text-[var(--rb-dim)] uppercase"
                       style={{
                         fontFamily: "'DM Mono', ui-monospace, monospace",
                         fontSize: "0.7rem",
@@ -365,7 +365,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               return (
                 <p
                   key={i}
-                  className="mt-12 pt-6 border-t border-[#C8BFB0] text-[#7A7468] uppercase"
+                  className="mt-12 pt-6 border-t border-[var(--rb-rule-strong)] text-[var(--rb-dim)] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
                     fontSize: "0.7rem",
@@ -401,7 +401,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                     href={post.sourceUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-block mt-3 text-[#1A3D2B] uppercase border-b border-[#8CB84A] pb-px"
+                    className="inline-block mt-3 text-[var(--rb-ink)] uppercase border-b border-[var(--rb-lime)] pb-px"
                     style={{
                       fontFamily: "'DM Mono', ui-monospace, monospace",
                       fontSize: "0.7rem",
@@ -422,7 +422,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
           </SidebarBlock>
           <div>
             <div
-              className="text-[#7A7468] uppercase mb-3"
+              className="text-[var(--rb-dim)] uppercase mb-3"
               style={{
                 fontFamily: "'DM Mono', ui-monospace, monospace",
                 fontSize: "0.7rem",
@@ -435,7 +435,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               {post.topics.map((t) => (
                 <span
                   key={t}
-                  className="px-2.5 py-1 border border-[#C8BFB0] text-[#7A7468] uppercase"
+                  className="px-2.5 py-1 border border-[var(--rb-rule-strong)] text-[var(--rb-dim)] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
                     fontSize: "0.7rem",
@@ -451,9 +451,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
       </div>
 
       {/* ARTICLE FOOTER */}
-      <div className="max-w-[860px] mx-auto px-6 sm:px-12 py-12 border-t border-[#C8BFB0] flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="max-w-[860px] mx-auto px-6 sm:px-12 py-12 border-t border-[var(--rb-rule-strong)] flex flex-col sm:flex-row items-center justify-between gap-6">
         <span
-          className="text-[#7A7468] uppercase text-center sm:text-left"
+          className="text-[var(--rb-dim)] uppercase text-center sm:text-left"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
             fontSize: "0.7rem",
@@ -464,7 +464,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
         </span>
         <Link
           to="/blog"
-          className="text-[#1A3D2B] uppercase px-6 py-3 border border-[#1A3D2B] hover:bg-[#1A3D2B] hover:text-[#F2EDE4] transition-colors"
+          className="text-[var(--rb-ink)] uppercase px-6 py-3 border border-[rgba(242,239,230,0.3)] hover:bg-[var(--rb-surface)] hover:text-[var(--rb-ink)] transition-colors"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
             fontSize: "0.7rem",
@@ -477,7 +477,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
 
       {/* PREV / NEXT */}
       {(prev || next) && (
-        <nav className="max-w-[860px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[#C8BFB0]">
+        <nav className="max-w-[860px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[var(--rb-rule-strong)]">
           {prev ? (
             <Link
               to="/blog/$slug"
@@ -485,7 +485,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               className="group block"
             >
               <span
-                className="text-[#7A7468] uppercase block"
+                className="text-[var(--rb-dim)] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
                   fontSize: "0.7rem",
@@ -495,9 +495,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                 Vorige
               </span>
               <span
-                className="block text-[#1A3D2B] mt-1 group-hover:text-[#3D7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "1.4rem",
                 }}
               >
@@ -514,7 +514,7 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
               className="group block sm:text-right"
             >
               <span
-                className="text-[#7A7468] uppercase block"
+                className="text-[var(--rb-dim)] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
                   fontSize: "0.7rem",
@@ -524,9 +524,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                 Volgende
               </span>
               <span
-                className="block text-[#1A3D2B] mt-1 group-hover:text-[#3D7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "1.4rem",
                 }}
               >
@@ -542,9 +542,9 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
 
 function SidebarBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="pb-8 border-b border-[#C8BFB0]">
+    <div className="pb-8 border-b border-[var(--rb-rule-strong)]">
       <div
-        className="text-[#7A7468] uppercase mb-3"
+        className="text-[var(--rb-dim)] uppercase mb-3"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
           fontSize: "0.7rem",
@@ -553,7 +553,7 @@ function SidebarBlock({ label, children }: { label: string; children: React.Reac
       >
         {label}
       </div>
-      <div className="text-[#1A1A18] text-sm leading-[1.65]">{children}</div>
+      <div className="text-[var(--rb-ink)] text-sm leading-[1.65]">{children}</div>
     </div>
   );
 }

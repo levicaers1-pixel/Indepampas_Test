@@ -47,11 +47,11 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
     courses.find((c) => c.ratings.some((r) => r.id === id))?.name ?? "—";
 
   return (
-    <div className="px-6 lg:px-14 py-12 bg-[#F4EFE5] border-b border-[rgba(28,61,42,0.15)]">
-      <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-2">
+    <div className="px-6 lg:px-14 py-12 bg-[var(--rb-ground)] border-b border-[rgba(242,239,230,0.15)]">
+      <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-2">
         Host-statistieken
       </p>
-      <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[#1C3D2A] leading-none mb-8">
+      <h2 className="font-rb-serif font-light text-[clamp(1.8rem,3vw,2.6rem)] text-[var(--rb-ink)] leading-none mb-8">
         Wie geeft <em className="italic">welke punten</em>?
       </h2>
 
@@ -75,12 +75,12 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
           return (
             <div
               key={s.host}
-              className="bg-white border p-5"
+              className="bg-[var(--rb-surface)] border p-5"
               style={{ borderColor: `${p.color}55` }}
             >
               <div className="flex items-baseline justify-between mb-3">
                 <div>
-                  <div className="font-rb-serif text-[1.4rem] text-[#1C3D2A]">
+                  <div className="font-rb-serif text-[1.4rem] text-[var(--rb-ink)]">
                     {p.icon} {s.host}
                   </div>
                   <div
@@ -97,14 +97,14 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                   {s.avg?.toFixed(1) ?? "—"}
                 </div>
               </div>
-              <div className="space-y-1 font-rb-sans text-[0.75rem] text-[#1C3D2A]">
-                <div className="flex justify-between border-b border-[rgba(28,61,42,0.06)] py-1">
-                  <span className="text-[#635C4B]">Parcours gespeeld</span>
+              <div className="space-y-1 font-rb-sans text-[0.75rem] text-[var(--rb-ink)]">
+                <div className="flex justify-between border-b border-[rgba(242,239,230,0.06)] py-1">
+                  <span className="text-[var(--rb-muted)]">Parcours gespeeld</span>
                   <span className="tabular-nums">{s.count}</span>
                 </div>
                 {s.highest && (
-                  <div className="flex justify-between border-b border-[rgba(28,61,42,0.06)] py-1">
-                    <span className="text-[#635C4B]">Hoogste</span>
+                  <div className="flex justify-between border-b border-[rgba(242,239,230,0.06)] py-1">
+                    <span className="text-[var(--rb-muted)]">Hoogste</span>
                     <span className="truncate ml-2 text-right">
                       {courseName(s.highest.id)} ({Number(s.highest.host_score).toFixed(0)})
                     </span>
@@ -112,7 +112,7 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                 )}
                 {s.lowest && (
                   <div className="flex justify-between py-1">
-                    <span className="text-[#635C4B]">Laagste</span>
+                    <span className="text-[var(--rb-muted)]">Laagste</span>
                     <span className="truncate ml-2 text-right">
                       {courseName(s.lowest.id)} ({Number(s.lowest.host_score).toFixed(0)})
                     </span>
@@ -126,14 +126,14 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
 
       {/* Heatmap */}
       <div>
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#1C3D2A] mb-3">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-ink)] mb-3">
           Heatmap · host × criterium
         </p>
-        <div className="bg-white border border-[rgba(28,61,42,0.15)] overflow-x-auto">
+        <div className="bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-[rgba(28,61,42,0.1)]">
-                <th className="p-3 font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[#635C4B]">
+              <tr className="border-b border-[rgba(242,239,230,0.1)]">
+                <th className="p-3 font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[var(--rb-muted)]">
                   Criterium
                 </th>
                 {HOSTS.map((h) => {
@@ -154,8 +154,8 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
               {CRITERIA.map((cr) => {
                 const range = ranges.find((r) => r.key === cr.key)!;
                 return (
-                  <tr key={cr.key} className="border-b border-[rgba(28,61,42,0.06)]">
-                    <td className="p-3 font-rb-sans text-[0.78rem] text-[#1C3D2A]">{cr.label}</td>
+                  <tr key={cr.key} className="border-b border-[rgba(242,239,230,0.06)]">
+                    <td className="p-3 font-rb-sans text-[0.78rem] text-[var(--rb-ink)]">{cr.label}</td>
                     {stats.map((s) => {
                       const v = s.perCrit[cr.key];
                       const intensity =
@@ -168,8 +168,8 @@ export function HostStats({ courses }: { courses: CourseWithRatings[] }) {
                           <div
                             className="font-rb-mono text-[0.78rem] tabular-nums py-2"
                             style={{
-                              background: v == null ? "#EDE6D9" : `${p.color}${Math.round(intensity * 255).toString(16).padStart(2, "0")}`,
-                              color: intensity > 0.7 ? "#fff" : "#1C3D2A",
+                              background: v == null ? "#12261A" : `${p.color}${Math.round(intensity * 255).toString(16).padStart(2, "0")}`,
+                              color: intensity > 0.7 ? "#fff" : "#F2EFE6",
                             }}
                           >
                             {v != null ? v.toFixed(1) : "—"}
@@ -213,10 +213,10 @@ function VerdictCard({
       >
         {label}
       </div>
-      <div className="font-rb-serif text-[1.6rem] text-[#1C3D2A] mt-1">
+      <div className="font-rb-serif text-[1.6rem] text-[var(--rb-ink)] mt-1">
         {p.icon} {host}
       </div>
-      <div className="font-rb-sans text-[0.78rem] text-[#635C4B] mt-1">
+      <div className="font-rb-sans text-[0.78rem] text-[var(--rb-muted)] mt-1">
         {value != null ? (integer ? value : value.toFixed(1)) : "—"} {suffix}
       </div>
     </div>

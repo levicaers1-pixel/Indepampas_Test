@@ -84,13 +84,13 @@ export const Route = createFileRoute("/ratings/$slug")({
   },
   notFoundComponent: () => (
     <div className="px-6 lg:px-14 py-24 text-center">
-      <h1 className="font-rb-serif text-3xl text-[#1C3D2A]">Rating niet gevonden</h1>
+      <h1 className="font-rb-serif text-3xl text-[var(--rb-ink)]">Rating niet gevonden</h1>
     </div>
   ),
   errorComponent: ({ error }) => (
     <div className="px-6 lg:px-14 py-24 text-center">
-      <h1 className="font-rb-serif text-3xl text-[#1C3D2A]">Er ging iets mis</h1>
-      <p className="font-rb-sans text-[#635C4B] mt-2">{error instanceof Error ? error.message : String(error)}</p>
+      <h1 className="font-rb-serif text-3xl text-[var(--rb-ink)]">Er ging iets mis</h1>
+      <p className="font-rb-sans text-[var(--rb-muted)] mt-2">{error instanceof Error ? error.message : String(error)}</p>
     </div>
   ),
   component: RatingPage,

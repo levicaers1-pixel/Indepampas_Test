@@ -29,28 +29,28 @@ export function NewRatingArticle({
 }) {
 
   return (
-    <article className="bg-[#F2EDE4] text-[#1A1A18] -mx-6 lg:-mx-14 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
+    <article className="bg-[var(--rb-ground)] text-[var(--rb-ink)] -mx-6 lg:-mx-14 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16 pb-16">
       {/* HERO */}
-      <header className="max-w-[920px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[#C8BFB0]">
+      <header className="max-w-[920px] mx-auto px-6 sm:px-12 pt-32 sm:pt-40 lg:pt-48 pb-12 border-b border-[var(--rb-rule-strong)]">
         <div className="flex items-center gap-4 mb-6 flex-wrap font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase">
-          <span className="text-[#F2EDE4] bg-[#1A3D2B] px-3 py-1.5">
+          <span className="text-[var(--rb-ink)] bg-[var(--rb-surface)] px-3 py-1.5">
             Rating #{String(rating.rank).padStart(2, "0")}
           </span>
-          <span className="text-[#7A7468]">{rating.region}</span>
-          <span className="text-[#7A7468]">·</span>
-          <span className="text-[#7A7468]">{rating.type}</span>
+          <span className="text-[var(--rb-dim)]">{rating.region}</span>
+          <span className="text-[var(--rb-dim)]">·</span>
+          <span className="text-[var(--rb-dim)]">{rating.type}</span>
           {rating.playedOn && (
             <>
-              <span className="text-[#7A7468]">·</span>
-              <span className="text-[#7A7468]">Gespeeld {rating.playedOn}</span>
+              <span className="text-[var(--rb-dim)]">·</span>
+              <span className="text-[var(--rb-dim)]">Gespeeld {rating.playedOn}</span>
             </>
           )}
         </div>
 
         <h1
-          className="font-serif font-bold leading-[1.05] text-[#1A3D2B] mb-6"
+          className="font-serif font-bold leading-[1.05] text-[var(--rb-ink)] mb-6"
           style={{
-            fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+            fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
             fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
           }}
         >
@@ -58,9 +58,9 @@ export function NewRatingArticle({
         </h1>
 
         <p
-          className="italic text-[#7A7468] max-w-[640px] mb-10 leading-[1.6]"
+          className="italic text-[var(--rb-dim)] max-w-[640px] mb-10 leading-[1.6]"
           style={{
-            fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+            fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
             fontSize: "1.15rem",
           }}
         >
@@ -68,12 +68,12 @@ export function NewRatingArticle({
         </p>
 
         {/* SCORE BLOCK */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 border border-[#C8BFB0]">
-          <div className="p-6 bg-[#1A3D2B] text-[#F2EDE4]">
+        <div className="grid grid-cols-2 sm:grid-cols-4 border border-[var(--rb-rule-strong)]">
+          <div className="p-6 bg-[var(--rb-surface)] text-[var(--rb-ink)]">
             <span
               className="block font-bold leading-none mb-2"
               style={{
-                fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                 fontSize: "3rem",
               }}
             >
@@ -97,18 +97,18 @@ export function NewRatingArticle({
               ["Niels (2.4)", rating.hostScores.niels],
             ] as const
           ).map(([label, val]) => (
-            <div key={label} className="p-6 border-l border-[#C8BFB0]">
+            <div key={label} className="p-6 border-l border-[var(--rb-rule-strong)]">
               <span
-                className="block text-[#1A3D2B] font-bold leading-none mb-2"
+                className="block text-[var(--rb-ink)] font-bold leading-none mb-2"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "2rem",
                 }}
               >
                 {val}
               </span>
               <span
-                className="text-[#7A7468] uppercase"
+                className="text-[var(--rb-dim)] uppercase"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
                   fontSize: "0.7rem",
@@ -122,11 +122,11 @@ export function NewRatingArticle({
         </div>
 
         <div className="mt-8 flex items-center gap-6 flex-wrap font-rb-mono text-[0.7rem] tracking-[0.12em] uppercase">
-          <span className="text-[#7A7468]">
-            Greenfee: <span className="text-[#1A3D2B]">€{rating.greenfee} · {rating.feeBand}</span>
+          <span className="text-[var(--rb-dim)]">
+            Greenfee: <span className="text-[var(--rb-ink)]">€{rating.greenfee} · {rating.feeBand}</span>
           </span>
-          <span className="text-[#7A7468]">
-            Terugkomen?: <span className="text-[#1A3D2B]">{rating.verdict}</span>
+          <span className="text-[var(--rb-dim)]">
+            Terugkomen?: <span className="text-[var(--rb-ink)]">{rating.verdict}</span>
           </span>
         </div>
       </header>
@@ -135,9 +135,9 @@ export function NewRatingArticle({
       <div className="max-w-[920px] mx-auto px-6 sm:px-12 py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-12 lg:gap-16 items-start">
         <main className="min-w-0">
           <h2
-            className="text-[#1A3D2B] font-semibold mb-4 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
+            className="text-[var(--rb-ink)] font-semibold mb-4 leading-[1.25] before:content-['—'] before:text-[var(--rb-lime)] before:mr-2 before:font-normal"
             style={{
-              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+              fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
               fontSize: "1.6rem",
             }}
           >
@@ -148,10 +148,10 @@ export function NewRatingArticle({
             {rating.findings.map((f, i) => (
               <li
                 key={i}
-                className="grid grid-cols-[32px_1fr] gap-4 items-start pb-5 border-b border-[#C8BFB0]"
+                className="grid grid-cols-[32px_1fr] gap-4 items-start pb-5 border-b border-[var(--rb-rule-strong)]"
               >
                 <span
-                  className="pt-1 text-[#7A7468] uppercase"
+                  className="pt-1 text-[var(--rb-dim)] uppercase"
                   style={{
                     fontFamily: "'DM Mono', ui-monospace, monospace",
                     fontSize: "0.7rem",
@@ -161,7 +161,7 @@ export function NewRatingArticle({
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <p
-                  className="text-[#2E2B25] leading-[1.75] m-0"
+                  className="text-[var(--rb-ink-2)] leading-[1.75] m-0"
                   style={{ fontSize: "1rem" }}
                 >
                   {f}
@@ -173,9 +173,9 @@ export function NewRatingArticle({
           {rating.hostDetails && (rating.hostDetails.lars || rating.hostDetails.levi || rating.hostDetails.niels) && (
             <>
               <h2
-                className="text-[#1A3D2B] font-semibold mt-12 mb-6 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
+                className="text-[var(--rb-ink)] font-semibold mt-12 mb-6 leading-[1.25] before:content-['—'] before:text-[var(--rb-lime)] before:mr-2 before:font-normal"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "1.6rem",
                 }}
               >
@@ -193,12 +193,12 @@ export function NewRatingArticle({
                   const d = rating.hostDetails?.[key];
                   if (!d || (!d.review && !d.holeOfDay && !d.oneWord && !d.wouldReturn)) return null;
                   return (
-                    <div key={key} className="border border-[#C8BFB0] bg-[#F2EDE4]">
-                      <div className="flex items-baseline justify-between gap-4 px-5 sm:px-6 py-3 bg-[#1A3D2B] text-[#F2EDE4]">
+                    <div key={key} className="border border-[var(--rb-rule-strong)] bg-[var(--rb-surface)]">
+                      <div className="flex items-baseline justify-between gap-4 px-5 sm:px-6 py-3 bg-[var(--rb-surface)] text-[var(--rb-ink)]">
                         <div className="flex items-baseline gap-3">
                           <span
                             style={{
-                              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                              fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                               fontSize: "1.5rem",
                             }}
                           >
@@ -218,7 +218,7 @@ export function NewRatingArticle({
                         <span
                           className="tabular-nums"
                           style={{
-                            fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                            fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                             fontSize: "1.6rem",
                           }}
                         >
@@ -229,7 +229,7 @@ export function NewRatingArticle({
 
                       {d.review && (
                         <p
-                          className="text-[#2E2B25] leading-[1.75] px-5 sm:px-6 pt-5"
+                          className="text-[var(--rb-ink-2)] leading-[1.75] px-5 sm:px-6 pt-5"
                           style={{ fontSize: "1rem" }}
                         >
                           {d.review}
@@ -237,7 +237,7 @@ export function NewRatingArticle({
                       )}
 
                       {(d.oneWord || d.holeOfDay || d.wouldReturn) && (
-                        <dl className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#C8BFB0] mt-5 border-t border-[#C8BFB0]">
+                        <dl className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[var(--rb-rule-strong)] mt-5 border-t border-[var(--rb-rule-strong)]">
                           {d.oneWord && (
                             <HostMeta label="In één woord" value={d.oneWord} />
                           )}
@@ -258,50 +258,50 @@ export function NewRatingArticle({
 
 
           <h2
-            className="text-[#1A3D2B] font-semibold mt-10 mb-4 leading-[1.25] before:content-['—'] before:text-[#8CB84A] before:mr-2 before:font-normal"
+            className="text-[var(--rb-ink)] font-semibold mt-10 mb-4 leading-[1.25] before:content-['—'] before:text-[var(--rb-lime)] before:mr-2 before:font-normal"
             style={{
-              fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+              fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
               fontSize: "1.6rem",
             }}
           >
             Score per criterium
           </h2>
 
-          <div className="border border-[#C8BFB0]">
+          <div className="border border-[var(--rb-rule-strong)]">
             {CRITERIA.map((c, i) => {
               const val = rating.criteria[c.key];
               return (
                 <div
                   key={c.key}
                   className={`grid grid-cols-[1fr_60px_120px] gap-3 sm:gap-6 items-center px-4 sm:px-6 py-3.5 ${
-                    i % 2 === 0 ? "bg-[#F2EDE4]" : "bg-[#E8E0D3]"
+                    i % 2 === 0 ? "bg-[var(--rb-surface)]" : "bg-[var(--rb-surface)]"
                   }`}
                 >
                   <span
-                    className="text-[#1A3D2B]"
+                    className="text-[var(--rb-ink)]"
                     style={{
-                      fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                      fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                       fontSize: "1.05rem",
                     }}
                   >
                     {c.label}
                   </span>
                   <span
-                    className="text-right font-bold text-[#1A3D2B] tabular-nums"
+                    className="text-right font-bold text-[var(--rb-ink)] tabular-nums"
                     style={{
-                      fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                      fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                       fontSize: "1.3rem",
                     }}
                   >
                     {val}
-                    <span className="text-[#7A7468] text-[0.7rem] ml-0.5">/10</span>
+                    <span className="text-[var(--rb-dim)] text-[0.7rem] ml-0.5">/10</span>
                   </span>
                   <span
-                    className="block h-1.5 bg-[#E8E0D3] relative overflow-hidden"
+                    className="block h-1.5 bg-[var(--rb-surface)] relative overflow-hidden"
                     aria-hidden
                   >
                     <span
-                      className="absolute inset-y-0 left-0 bg-[#8CB84A]"
+                      className="absolute inset-y-0 left-0 bg-[var(--rb-lime)]"
                       style={{ width: `${val * 10}%` }}
                     />
                   </span>
@@ -322,9 +322,9 @@ export function NewRatingArticle({
       </div>
 
       {/* FOOTER */}
-      <div className="max-w-[920px] mx-auto px-6 sm:px-12 py-10 border-t border-[#C8BFB0] flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="max-w-[920px] mx-auto px-6 sm:px-12 py-10 border-t border-[var(--rb-rule-strong)] flex flex-col sm:flex-row items-center justify-between gap-6">
         <span
-          className="text-[#7A7468] uppercase text-center sm:text-left"
+          className="text-[var(--rb-dim)] uppercase text-center sm:text-left"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
             fontSize: "0.7rem",
@@ -335,7 +335,7 @@ export function NewRatingArticle({
         </span>
         <Link
           to="/ratings"
-          className="text-[#1A3D2B] uppercase px-6 py-3 border border-[#1A3D2B] hover:bg-[#1A3D2B] hover:text-[#F2EDE4] transition-colors"
+          className="text-[var(--rb-ink)] uppercase px-6 py-3 border border-[rgba(242,239,230,0.3)] hover:bg-[var(--rb-surface)] hover:text-[var(--rb-ink)] transition-colors"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
             fontSize: "0.7rem",
@@ -348,11 +348,11 @@ export function NewRatingArticle({
 
       {/* PREV / NEXT */}
       {(prev || next) && (
-        <nav className="max-w-[920px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[#C8BFB0]">
+        <nav className="max-w-[920px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[var(--rb-rule-strong)]">
           {prev ? (
             <Link to="/ratings/$slug" params={{ slug: prev.slug }} className="group block">
               <span
-                className="text-[#7A7468] uppercase block"
+                className="text-[var(--rb-dim)] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
                   fontSize: "0.7rem",
@@ -362,9 +362,9 @@ export function NewRatingArticle({
                 Vorige
               </span>
               <span
-                className="block text-[#1A3D2B] mt-1 group-hover:text-[#3D7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "1.4rem",
                 }}
               >
@@ -381,7 +381,7 @@ export function NewRatingArticle({
               className="group block sm:text-right"
             >
               <span
-                className="text-[#7A7468] uppercase block"
+                className="text-[var(--rb-dim)] uppercase block"
                 style={{
                   fontFamily: "'DM Mono', ui-monospace, monospace",
                   fontSize: "0.7rem",
@@ -391,9 +391,9 @@ export function NewRatingArticle({
                 Volgende
               </span>
               <span
-                className="block text-[#1A3D2B] mt-1 group-hover:text-[#3D7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{
-                  fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+                  fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
                   fontSize: "1.4rem",
                 }}
               >
@@ -409,9 +409,9 @@ export function NewRatingArticle({
 
 function SidebarBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="pb-6 border-b border-[#C8BFB0]">
+    <div className="pb-6 border-b border-[var(--rb-rule-strong)]">
       <div
-        className="text-[#7A7468] uppercase mb-2"
+        className="text-[var(--rb-dim)] uppercase mb-2"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
           fontSize: "0.7rem",
@@ -420,16 +420,16 @@ function SidebarBlock({ label, children }: { label: string; children: React.Reac
       >
         {label}
       </div>
-      <div className="text-[#1A1A18] text-sm leading-[1.65]">{children}</div>
+      <div className="text-[var(--rb-ink)] text-sm leading-[1.65]">{children}</div>
     </div>
   );
 }
 
 function HostMeta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-[#F2EDE4] px-5 sm:px-6 py-4">
+    <div className="bg-[var(--rb-surface)] px-5 sm:px-6 py-4">
       <dt
-        className="text-[#7A7468] uppercase mb-1.5"
+        className="text-[var(--rb-dim)] uppercase mb-1.5"
         style={{
           fontFamily: "'DM Mono', ui-monospace, monospace",
           fontSize: "0.7rem",
@@ -439,9 +439,9 @@ function HostMeta({ label, value }: { label: string; value: string }) {
         {label}
       </dt>
       <dd
-        className="text-[#1A3D2B] m-0"
+        className="text-[var(--rb-ink)] m-0"
         style={{
-          fontFamily: "'Cormorant Garamond', ui-serif, Georgia, serif",
+          fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
           fontSize: "1.05rem",
         }}
       >

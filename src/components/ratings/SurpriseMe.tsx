@@ -90,13 +90,13 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
   return (
     <div className="px-6 lg:px-14 py-10">
       <div className="max-w-3xl">
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-3">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-3">
           Verras mij
         </p>
-        <h2 className="font-rb-serif font-light text-[2rem] text-[#1C3D2A] leading-tight mb-3">
+        <h2 className="font-rb-serif font-light text-[2rem] text-[var(--rb-ink)] leading-tight mb-3">
           Beantwoord een paar vragen, wij kiezen <em className="italic">drie banen</em> voor jou.
         </h2>
-        <p className="font-rb-sans text-[0.9rem] text-[#635C4B] leading-[1.7] mb-8">
+        <p className="font-rb-sans text-[0.9rem] text-[var(--rb-muted)] leading-[1.7] mb-8">
           Laat een veld leeg als je geen voorkeur hebt. We wegen je antwoorden tegen de scores en reviews van Lars, Levi &amp; Niels.
         </p>
 
@@ -146,14 +146,14 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
         <div className="flex gap-3">
           <button
             onClick={() => setSubmitted(true)}
-            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 bg-[#1C3D2A] text-[#F4EFE5] hover:bg-[#2a5640] transition"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 bg-[var(--rb-lime)] text-[var(--rb-ground)] hover:bg-[var(--rb-lime-hover)] transition"
           >
             Verras mij →
           </button>
           {submitted && (
             <button
               onClick={reset}
-              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 border border-[rgba(28,61,42,0.3)] text-[#1C3D2A] hover:bg-[rgba(28,61,42,0.05)] transition"
+              className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase px-5 py-3 border border-[rgba(242,239,230,0.3)] text-[var(--rb-ink)] hover:bg-[rgba(242,239,230,0.05)] transition"
             >
               Opnieuw
             </button>
@@ -163,18 +163,18 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
 
       {submitted && (
         <div className="mt-12">
-          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B] mb-5">
+          <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)] mb-5">
             {top3.length ? `Top ${top3.length} voor jou` : "Geen match"}
           </p>
           {top3.length === 0 ? (
-            <div className="font-rb-sans text-[#635C4B] py-8">
+            <div className="font-rb-sans text-[var(--rb-muted)] py-8">
               Geen passende banen gevonden met deze filters. Probeer minder strikt te zijn.
             </div>
           ) : (
             <div className="space-y-4">
               {top3.map((t, i) => (
                 <div key={t.course.id} className="relative">
-                  <div className="absolute -left-2 -top-2 z-10 w-9 h-9 rounded-full bg-[#1C3D2A] text-[#F4EFE5] font-rb-serif text-[1.1rem] flex items-center justify-center shadow">
+                  <div className="absolute -left-2 -top-2 z-10 w-9 h-9 rounded-full bg-[var(--rb-surface)] text-[var(--rb-ink)] font-rb-serif text-[1.1rem] flex items-center justify-center shadow">
                     {i + 1}
                   </div>
                   <CourseCard course={t.course} activePersona={null} />
@@ -187,15 +187,15 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
 
       <style>{`
         .quiz-select {
-          background: #ffffff;
-          border: 1px solid rgba(28,61,42,0.25);
-          color: #1C3D2A;
+          background: #12261a;
+          border: 1px solid rgba(242,239,230,0.25);
+          color: #f2efe6;
           font-family: inherit;
           font-size: 0.88rem;
           padding: 0.7rem 0.85rem;
           width: 100%;
         }
-        .quiz-select:focus { outline: none; border-color: #1C3D2A; }
+        .quiz-select:focus { outline: none; border-color: #b6f04a; }
         .quiz-select:disabled { opacity: 0.5; }
       `}</style>
     </div>
@@ -205,7 +205,7 @@ export function SurpriseMe({ courses }: { courses: CourseWithRatings[] }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] mb-1.5 block">
+      <span className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-muted)] mb-1.5 block">
         {label}
       </span>
       {children}

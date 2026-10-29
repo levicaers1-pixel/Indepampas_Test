@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { NewHeader, Ticker } from "@/components/rebrand/NewHeader";
+import { NewHeader } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
 import { SponsorsBanner } from "@/components/SponsorsBanner";
 import { EmailPopup } from "@/components/EmailPopup";
@@ -36,7 +36,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "author", content: "PAMPAS Podcast" },
-      { name: "theme-color", content: "#1a1a1a" },
+      { name: "theme-color", content: "#0c1a12" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PAMPAS Podcast" },
       { property: "og:locale", content: "nl_BE" },
@@ -80,14 +80,8 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "preload",
-        as: "font",
-        type: "font/woff2",
-        href: "https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSqn7B6D.woff2",
-        crossOrigin: "anonymous",
-      },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/archivo-latin.woff2", crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/inter-latin.woff2", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
@@ -116,8 +110,7 @@ function RootComponent() {
   return (
     <div className="theme-new min-h-screen flex flex-col">
       <NewHeader />
-      <Ticker />
-      <main className="flex-1 pt-[92px]">
+      <main className="flex-1 pt-[64px]">
         <Outlet />
       </main>
       <SponsorsBanner />

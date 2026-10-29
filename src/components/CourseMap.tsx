@@ -1,4 +1,5 @@
 /// <reference types="google.maps" />
+import { DARK_MAP_STYLE } from "@/lib/mapStyle";
 import { useEffect, useRef } from "react";
 
 import type { CourseRating } from "@/data/ratings";
@@ -40,10 +41,10 @@ function loadMaps(): Promise<void> {
 }
 
 function tierColor(score: number) {
-  if (score >= 80) return "#1A3D2B";
-  if (score >= 70) return "#3D7A52";
-  if (score >= 55) return "#8CB84A";
-  return "#635C4B";
+  if (score >= 80) return "#B6F04A";
+  if (score >= 70) return "#6FD6A8";
+  if (score >= 55) return "#E0A23A";
+  return "#8FA297";
 }
 
 export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
@@ -67,6 +68,8 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl: false,
+            styles: DARK_MAP_STYLE,
+            backgroundColor: "#12261a",
           });
         }
 
@@ -85,7 +88,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
             title: r.name,
             label: {
               text: String(r.pampasScore),
-              color: "#F4EFE5",
+              color: "#0C1A12",
               fontSize: "11px",
               fontWeight: "700",
             },
@@ -94,7 +97,7 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
               scale: 16,
               fillColor: tierColor(r.pampasScore),
               fillOpacity: 1,
-              strokeColor: "#F4EFE5",
+              strokeColor: "#0C1A12",
               strokeWeight: 2,
             },
           });
@@ -144,16 +147,16 @@ export function CourseMap({ ratings }: { ratings: CourseRating[] }) {
   }, [located.map((r) => `${r.slug}:${r.latitude},${r.longitude}:${r.pampasScore}`).join("|")]);
 
   return (
-    <div className="px-6 lg:px-14 py-14 border-b border-[rgba(28,61,42,0.15)]">
-      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-6">
+    <div className="px-6 lg:px-14 py-14 border-b border-[rgba(242,239,230,0.15)]">
+      <h2 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-6">
         Op de kaart
       </h2>
       <div
         ref={ref}
-        className="w-full h-[500px] border border-[rgba(28,61,42,0.15)] bg-[#EDE6D9]"
+        className="w-full h-[500px] border border-[rgba(242,239,230,0.15)] bg-[var(--rb-surface)]"
       />
       {located.length < ratings.length && (
-        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B]">
+        <p className="mt-3 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-muted)]">
           {ratings.length - located.length} parcours nog zonder coördinaten.
         </p>
       )}

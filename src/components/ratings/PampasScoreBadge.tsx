@@ -1,5 +1,6 @@
 import { scoreColor } from "@/lib/personalScore";
 
+/** Pampas Score as a glowing scoreboard number (0–100), coloured by tier. */
 export function PampasScoreBadge({
   score,
   small,
@@ -8,30 +9,25 @@ export function PampasScoreBadge({
   small?: boolean;
 }) {
   const { hex, label } = scoreColor(score);
-  const size = small ? 56 : 88;
+  const text =
+    score == null ? "—" : Number.isInteger(score) ? score.toFixed(0) : score.toFixed(1);
   return (
-    <div className="flex flex-col items-center gap-1">
-      <div
-        className="relative flex items-center justify-center rounded-full"
+    <div
+      className="flex flex-col items-end gap-1"
+      aria-label={score == null ? "Nog geen score" : `Pampas Score ${text} op 100`}
+    >
+      <span
+        className="rb-disp rb-num leading-none"
         style={{
-          width: size,
-          height: size,
-          background: `radial-gradient(circle at 30% 30%, ${hex}18, transparent 70%)`,
-          border: `2px solid ${hex}`,
+          color: hex,
+          fontSize: small ? 30 : 56,
+          textShadow: `0 0 26px ${hex}88`,
         }}
       >
-        <span
-          className="font-rb-serif leading-none"
-          style={{ color: hex, fontSize: small ? 20 : 30 }}
-        >
-          {score != null ? score.toFixed(0) : "—"}
-        </span>
-      </div>
+        {text}
+      </span>
       {!small && (
-        <span
-          className="font-rb-mono uppercase tracking-[0.15em]"
-          style={{ fontSize: 11.2, color: hex }}
-        >
+        <span className="rb-mono" style={{ color: hex, fontSize: "0.62rem" }}>
           {label}
         </span>
       )}

@@ -34,15 +34,15 @@ function HostDot({
       className="inline-flex items-center gap-1.5 px-2 py-1 text-[0.7rem] font-rb-sans border"
       style={{
         background: rated ? `${p.color}14` : "transparent",
-        color: rated ? p.color : "#A09684",
-        borderColor: rated ? `${p.color}55` : "rgba(28,61,42,0.15)",
+        color: rated ? p.color : "#8FA297",
+        borderColor: rated ? `${p.color}55` : "rgba(242,239,230,0.15)",
       }}
     >
       <span
         className="inline-block w-2 h-2 rounded-full"
         style={{
           background: rated ? p.color : "transparent",
-          border: rated ? "none" : "1.5px solid #A09684",
+          border: rated ? "none" : "1.5px solid #8FA297",
         }}
       />
       {host}
@@ -66,15 +66,15 @@ function CommunityDot({
       className="inline-flex items-center gap-1.5 px-2 py-1 text-[0.7rem] font-rb-sans border"
       style={{
         background: rated ? `${COMMUNITY_COLOR}14` : "transparent",
-        color: rated ? COMMUNITY_COLOR : "#A09684",
-        borderColor: rated ? `${COMMUNITY_COLOR}55` : "rgba(28,61,42,0.15)",
+        color: rated ? COMMUNITY_COLOR : "#8FA297",
+        borderColor: rated ? `${COMMUNITY_COLOR}55` : "rgba(242,239,230,0.15)",
       }}
     >
       <span
         className="inline-block w-2 h-2 rounded-full"
         style={{
           background: rated ? COMMUNITY_COLOR : "transparent",
-          border: rated ? "none" : "1.5px solid #A09684",
+          border: rated ? "none" : "1.5px solid #8FA297",
         }}
       />
       <span>Community</span>
@@ -118,17 +118,17 @@ function QuickVoteModal({
       role="presentation"
     >
       <div
-        className="w-full max-w-md bg-[#FBF8F1] border border-[rgba(28,61,42,0.2)] p-6"
+        className="w-full max-w-md bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.2)] p-6"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={`Stem op ${courseName}`}
       >
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.22em] uppercase text-[#635C4B]">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.22em] uppercase text-[var(--rb-muted)]">
           Stem nu
         </p>
-        <h3 className="font-rb-serif text-2xl text-[#1C3D2A] mt-1">{courseName}</h3>
-        <p className="font-rb-sans text-sm text-[#2E2B25] mt-3">
+        <h3 className="font-rb-serif text-2xl text-[var(--rb-ink)] mt-1">{courseName}</h3>
+        <p className="font-rb-sans text-sm text-[var(--rb-ink-2)] mt-3">
           Geef deze baan een score van 0 tot 100
         </p>
         <div className="mt-3 flex items-center gap-4">
@@ -140,7 +140,7 @@ function QuickVoteModal({
             value={value}
             aria-label="Score (0-100)"
             onChange={(e) => setValue(Number(e.target.value))}
-            className="flex-1 accent-[#3D7A52]"
+            className="flex-1 accent-[var(--rb-lime)]"
           />
           <input
             type="number"
@@ -152,23 +152,23 @@ function QuickVoteModal({
             onChange={(e) =>
               setValue(Math.max(0, Math.min(100, Math.round(Number(e.target.value) || 0))))
             }
-            className="w-20 border border-[rgba(28,61,42,0.25)] bg-white px-2 py-1 font-rb-mono text-sm text-[#1C3D2A]"
+            className="w-20 border border-[rgba(242,239,230,0.25)] bg-[var(--rb-surface)] px-2 py-1 font-rb-mono text-sm text-[var(--rb-ink)]"
           />
         </div>
-        {error && <p className="font-rb-sans text-sm text-[#A32D2D] mt-3">{error}</p>}
+        {error && <p className="font-rb-sans text-sm text-[var(--rb-danger)] mt-3">{error}</p>}
         <div className="mt-5 flex items-center gap-3">
           <button
             type="button"
             onClick={() => onSubmit(value)}
             disabled={saving}
-            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase bg-[#1C3D2A] text-[#F4EFE5] px-5 py-2.5 disabled:opacity-60"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase bg-[var(--rb-lime)] text-[var(--rb-ground)] px-5 py-2.5 disabled:opacity-60"
           >
             {saving ? "Bezig…" : initial == null ? "Stem" : "Stem bijwerken"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[#635C4B] hover:text-[#1C3D2A]"
+            className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-muted)] hover:text-[var(--rb-ink)]"
           >
             Annuleer
           </button>
@@ -189,17 +189,17 @@ function CriteriaBars({
         const vals = ratings.map((r) => r[key]);
         const avg = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
         const pct = (avg / 10) * 100;
-        const col = avg >= 8 ? "#3D7A52" : avg >= 7 ? "#8FBF4A" : avg >= 5.5 ? "#BA7517" : "#A32D2D";
+        const col = avg >= 8 ? "#B6F04A" : avg >= 7 ? "#6FD6A8" : avg >= 5.5 ? "#E0A23A" : "#FF7A6B";
         return (
           <div key={key} className="grid grid-cols-[90px_1fr_56px] md:grid-cols-[140px_1fr_60px] items-center gap-2 md:gap-3">
-            <span className="font-rb-sans text-[0.72rem] md:text-[0.78rem] text-[#2E2B25] truncate">{label}</span>
-            <div className="h-[6px] bg-[#EDE6D9] rounded-full overflow-hidden">
+            <span className="font-rb-sans text-[0.72rem] md:text-[0.78rem] text-[var(--rb-ink-2)] truncate">{label}</span>
+            <div className="h-[6px] bg-[var(--rb-surface)] rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${pct}%`, background: col }}
               />
             </div>
-            <span className="font-rb-mono text-[0.7rem] md:text-[0.7rem] text-[#635C4B] text-right whitespace-nowrap">
+            <span className="font-rb-mono text-[0.7rem] md:text-[0.7rem] text-[var(--rb-muted)] text-right whitespace-nowrap">
               {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
@@ -214,18 +214,22 @@ export function CourseCard({
   activePersona,
   autoOpen,
   detailSlug,
+  variant = "list",
 }: {
   course: CourseWithRatings;
   activePersona: Persona | null;
   autoOpen?: boolean;
   detailSlug?: string;
+  /** "page": on the course's own page (hero above shows name and score), so only the details render, always open. */
+  variant?: "list" | "page";
 }) {
-  const [open, setOpen] = useState(!!autoOpen);
+  const isPage = variant === "page";
+  const [open, setOpen] = useState(!!autoOpen || variant === "page");
   useEffect(() => {
     if (autoOpen) setOpen(true);
   }, [autoOpen]);
   // On a course's own page (autoOpen) the name is the page's h1; in lists it stays an h3.
-  const TitleTag: "h1" | "h3" = autoOpen ? "h1" : "h3";
+  const TitleTag: "h1" | "h3" = autoOpen && !isPage ? "h1" : "h3";
 
   const { scores: communityScores, myVote, vote } = useCourseVotes(course.id);
   const [voteOpen, setVoteOpen] = useState(false);
@@ -265,9 +269,59 @@ export function CourseCard({
 
 
 
+  const chips = (
+    <div className="flex items-center gap-1.5 mt-3 flex-wrap">
+      {HOSTS.map((h) => {
+        const r = course.ratings.find((x) => x.host === h);
+        return <HostDot key={h} host={h} rated={ratedHosts.has(h)} score={r?.host_score} />;
+      })}
+      <CommunityDot
+        avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
+        count={communityScores.length}
+      />
+      <span
+        role="button"
+        tabIndex={0}
+        onClick={(e) => {
+          e.stopPropagation();
+          setVoteError(null);
+          setVoteOpen(true);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            e.stopPropagation();
+            setVoteError(null);
+            setVoteOpen(true);
+          }
+        }}
+        className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase cursor-pointer border"
+        style={{
+          color: COMMUNITY_COLOR,
+          borderColor: `${COMMUNITY_COLOR}55`,
+          background: `${COMMUNITY_COLOR}0D`,
+        }}
+      >
+        {myVote == null ? "Stem nu" : `Jouw stem: ${myVote}`}
+      </span>
+      {course.episode_url && (
+        <a
+          href={course.episode_url}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-lime)] hover:text-[var(--rb-ink)] ml-1"
+        >
+          <Play size={10} /> Episode
+        </a>
+      )}
+    </div>
+  );
+
   return (
-    <div className="bg-white border border-[rgba(28,61,42,0.15)] hover:border-[rgba(28,61,42,0.35)] transition-colors">
-      {/* COLLAPSED HEADER */}
+    <div className="rb-row bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] hover:border-[rgba(242,239,230,0.35)] transition-colors">
+      {/* COLLAPSED HEADER (not on a course's own page: the hero shows it there) */}
+      {!isPage && (
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full text-left p-4 md:p-6 grid grid-cols-[minmax(0,1fr)_auto] gap-3 md:gap-6 items-start md:items-center"
@@ -275,81 +329,36 @@ export function CourseCard({
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
             {course.region && (
-              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#635C4B]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-muted)]">
                 {course.region}
                 {course.country !== "België" ? ` · ${course.country}` : ""}
               </span>
             )}
             {course.type && (
-              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[#EDE6D9] text-[#1C3D2A]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase px-2 py-0.5 bg-[var(--rb-surface)] text-[var(--rb-ink)]">
                 {course.type}
               </span>
             )}
             {course.fee_category && (
-              <span className="font-rb-mono text-[0.7rem] text-[#BA7517]">{course.fee_category}</span>
+              <span className="font-rb-mono text-[0.7rem] text-[var(--rb-amber)]">{course.fee_category}</span>
             )}
             {disagree && (
-              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#A32D2D] bg-[#F5E4DC] px-2 py-0.5">
+              <span className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-danger)] bg-[rgba(255,122,107,0.15)] px-2 py-0.5">
                 <Flame size={10} /> Verdeeld oordeel
               </span>
             )}
             {onlyOneRated && (
-              <span className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[#635C4B] bg-[#EDE6D9] px-2 py-0.5">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--rb-muted)] bg-[var(--rb-surface)] px-2 py-0.5">
                 Enkel door {course.ratings[0].host}
               </span>
             )}
           </div>
-          <TitleTag className="font-rb-serif text-[1.6rem] md:text-[1.85rem] text-[#1C3D2A] leading-tight">
+          <TitleTag className="font-rb-serif text-[1.4rem] md:text-[1.75rem] text-[var(--rb-ink)] !normal-case !font-extrabold !tracking-normal !leading-[1.1]">
             {course.name}
           </TitleTag>
-          <div className="flex items-center gap-1.5 mt-3 flex-wrap">
-            {HOSTS.map((h) => {
-              const r = course.ratings.find((x) => x.host === h);
-              return <HostDot key={h} host={h} rated={ratedHosts.has(h)} score={r?.host_score} />;
-            })}
-            <CommunityDot
-              avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
-              count={communityScores.length}
-            />
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={(e) => {
-                e.stopPropagation();
-                setVoteError(null);
-                setVoteOpen(true);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setVoteError(null);
-                  setVoteOpen(true);
-                }
-              }}
-              className="inline-flex items-center gap-1 px-2 py-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase cursor-pointer border"
-              style={{
-                color: COMMUNITY_COLOR,
-                borderColor: `${COMMUNITY_COLOR}55`,
-                background: `${COMMUNITY_COLOR}0D`,
-              }}
-            >
-              {myVote == null ? "Stem nu" : `Jouw stem: ${myVote}`}
-            </span>
-            {course.episode_url && (
-              <a
-                href={course.episode_url}
-                target="_blank"
-                rel="noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1 font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#3D7A52] hover:text-[#1C3D2A] ml-1"
-              >
-                <Play size={10} /> Episode
-              </a>
-            )}
-          </div>
+          {chips}
           {reviewSnippet && (
-            <p className="font-rb-sans text-[0.8rem] md:text-[0.85rem] text-[#635C4B] mt-3 line-clamp-3 md:line-clamp-2 max-w-2xl italic">
+            <p className="font-rb-sans text-[0.8rem] md:text-[0.85rem] text-[var(--rb-muted)] mt-3 line-clamp-3 md:line-clamp-2 max-w-2xl italic">
               "{reviewSnippet}"
             </p>
           )}
@@ -377,19 +386,21 @@ export function CourseCard({
           </div>
           <ChevronDown
             size={20}
-            className="text-[#635C4B] transition-transform"
+            className="text-[var(--rb-muted)] transition-transform"
             style={{ transform: open ? "rotate(180deg)" : "rotate(0)" }}
           />
         </div>
       </button>
+      )}
 
       {/* EXPANDED */}
       {open && (
-        <div className="border-t border-[rgba(28,61,42,0.15)] p-4 md:p-6 space-y-6 md:space-y-8 bg-[#F4EFE5]">
+        <div className={`${isPage ? "" : "border-t border-[rgba(242,239,230,0.15)] "}p-4 md:p-6 space-y-6 md:space-y-8 bg-[var(--rb-ground)]`}>
+          {isPage && chips}
           {/* PHOTOS */}
           {course.photos.length > 0 && (
             <div>
-              <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-3">
+              <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-3">
                 Foto's
               </h4>
               <PhotoCarousel photos={course.photos} alt={course.name} />
@@ -398,7 +409,7 @@ export function CourseCard({
 
           {/* PER HOST */}
           <div>
-            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
+            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
               Per host
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -409,12 +420,12 @@ export function CourseCard({
                   return (
                     <div
                       key={h}
-                      className="p-4 border border-dashed border-[rgba(28,61,42,0.2)] bg-white/40"
+                      className="p-4 border border-dashed border-[rgba(242,239,230,0.2)] bg-white/[0.03]"
                     >
-                      <div className="font-rb-mono text-[0.7rem] uppercase tracking-[0.15em] text-[#A09684]">
+                      <div className="font-rb-mono text-[0.7rem] uppercase tracking-[0.15em] text-[var(--rb-dim)]">
                         {p.icon} {h}
                       </div>
-                      <div className="font-rb-sans text-[0.78rem] text-[#A09684] mt-1.5">
+                      <div className="font-rb-sans text-[0.78rem] text-[var(--rb-dim)] mt-1.5">
                         Nog niet gespeeld
                       </div>
                     </div>
@@ -423,7 +434,7 @@ export function CourseCard({
                 return (
                   <div
                     key={h}
-                    className="p-4 bg-white flex flex-col"
+                    className="p-4 bg-[var(--rb-surface)] flex flex-col"
                     style={{ border: `1px solid ${p.color}44` }}
                   >
                     <div className="flex items-baseline justify-between mb-3">
@@ -443,28 +454,28 @@ export function CourseCard({
                     </div>
 
                     {r.review && (
-                      <p className="font-rb-sans text-[0.82rem] text-[#2E2B25] leading-[1.6] italic mb-3 flex-1">
+                      <p className="font-rb-sans text-[0.82rem] text-[var(--rb-ink-2)] leading-[1.6] italic mb-3 flex-1">
                         “{r.review}”
                       </p>
                     )}
 
-                    <div className="mt-auto space-y-2 pt-3 border-t border-[rgba(28,61,42,0.1)]">
+                    <div className="mt-auto space-y-2 pt-3 border-t border-[rgba(242,239,230,0.1)]">
                       {r.one_word && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">In één woord</span>
-                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.one_word}</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--rb-dim)]">In één woord</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[var(--rb-ink)] break-words">{r.one_word}</span>
                         </div>
                       )}
                       {r.hole_of_day && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">Hole van de dag</span>
-                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.hole_of_day}</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--rb-dim)]">Hole van de dag</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[var(--rb-ink)] break-words">{r.hole_of_day}</span>
                         </div>
                       )}
                       {r.would_return && (
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#A09684]">Terugkomen?</span>
-                          <span className="font-rb-sans text-[0.8rem] text-[#1C3D2A] break-words">{r.would_return}</span>
+                          <span className="font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--rb-dim)]">Terugkomen?</span>
+                          <span className="font-rb-sans text-[0.8rem] text-[var(--rb-ink)] break-words">{r.would_return}</span>
                         </div>
                       )}
                     </div>
@@ -476,7 +487,7 @@ export function CourseCard({
 
           {/* CRITERIA AVG */}
           <div>
-            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[#1C3D2A] mb-4">
+            <h4 className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-ink)] mb-4">
               Gemiddelde per criterium
             </h4>
             <CriteriaBars ratings={course.ratings} />
@@ -488,21 +499,21 @@ export function CourseCard({
 
 
           {/* DETAILS */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#635C4B]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-rb-mono text-[0.7rem] uppercase tracking-[0.12em] text-[var(--rb-muted)]">
             {course.greenfee != null && (
               <span>
-                Greenfee · <span className="text-[#1C3D2A]">€{course.greenfee}</span>
+                Greenfee · <span className="text-[var(--rb-ink)]">€{course.greenfee}</span>
               </span>
             )}
             <span>
-              Holes · <span className="text-[#1C3D2A]">{course.holes}</span>
+              Holes · <span className="text-[var(--rb-ink)]">{course.holes}</span>
             </span>
             {course.website && (
               <a
                 href={course.website}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-[#3D7A52] hover:text-[#1C3D2A]"
+                className="inline-flex items-center gap-1 text-[var(--rb-lime)] hover:text-[var(--rb-ink)]"
               >
                 Website <ExternalLink size={10} />
               </a>
@@ -511,7 +522,7 @@ export function CourseCard({
               <Link
                 to="/courses/$slug"
                 params={{ slug: detailSlug }}
-                className="inline-flex items-center gap-1 text-[#3D7A52] hover:text-[#1C3D2A] ml-auto"
+                className="inline-flex items-center gap-1 text-[var(--rb-lime)] hover:text-[var(--rb-ink)] ml-auto"
               >
                 Volledige pagina →
               </Link>

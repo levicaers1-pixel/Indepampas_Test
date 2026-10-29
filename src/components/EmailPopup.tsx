@@ -79,11 +79,11 @@ export function EmailPopup() {
         onClick={close}
         className="absolute inset-0 w-full h-full bg-black/70 backdrop-blur-sm cursor-default"
       />
-      <div className="relative bg-[#1C3D2A] border border-[rgba(244,239,229,0.15)] shadow-[0_20px_60px_rgba(0,0,0,0.5)] w-full max-w-[520px] p-8 sm:p-10 animate-scale-in">
+      <div className="relative bg-[var(--rb-surface)] border border-[rgba(244,239,229,0.15)] shadow-[0_20px_60px_rgba(0,0,0,0.5)] w-full max-w-[520px] p-8 sm:p-10 animate-scale-in">
         <button
           onClick={close}
           aria-label="Sluiten"
-          className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 flex items-center justify-center text-[#F4EFE5] hover:bg-[rgba(244,239,229,0.08)] transition-colors font-rb-serif text-2xl leading-none"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 flex items-center justify-center text-[var(--rb-ink)] hover:bg-[rgba(244,239,229,0.08)] transition-colors font-rb-serif text-2xl leading-none"
         >
           ×
         </button>
@@ -93,7 +93,7 @@ export function EmailPopup() {
         </p>
         <h2
           id="email-popup-title"
-          className="font-rb-serif font-light text-[2rem] sm:text-[2.4rem] text-[#F4EFE5] leading-[1.1] mb-3"
+          className="font-rb-serif font-light text-[2rem] sm:text-[2.4rem] text-[var(--rb-ink)] leading-[1.1] mb-3"
         >
           Mis geen <em className="italic">aflevering</em>.
         </h2>
@@ -103,7 +103,7 @@ export function EmailPopup() {
         </p>
 
         {status === "success" ? (
-          <p className="font-rb-serif italic text-[#8FBF4A] text-lg">
+          <p className="font-rb-serif italic text-[var(--rb-lime)] text-lg">
             Bedankt! Je hoort het als eerste.
           </p>
         ) : (
@@ -126,12 +126,12 @@ export function EmailPopup() {
               }}
               placeholder="jouw@email.com"
               maxLength={255}
-              className="flex-1 px-4 py-3 bg-[rgba(244,239,229,0.06)] border border-[rgba(244,239,229,0.15)] font-rb-sans text-[0.9rem] text-[#F4EFE5] placeholder:text-[rgba(244,239,229,0.35)] outline-none focus:border-[#8FBF4A] transition-colors"
+              className="flex-1 px-4 py-3 bg-[rgba(244,239,229,0.06)] border border-[rgba(244,239,229,0.15)] font-rb-sans text-[0.9rem] text-[var(--rb-ink)] placeholder:text-[rgba(244,239,229,0.35)] outline-none focus:border-[var(--rb-lime)] transition-colors"
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#1C3D2A] bg-[#8FBF4A] px-7 py-3 hover:bg-[#A3D255] transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+              className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ground)] bg-[var(--rb-lime)] px-7 py-3 hover:bg-[var(--rb-lime-hover)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {status === "loading" ? "Bezig…" : "Inschrijven"}
             </button>
@@ -139,7 +139,7 @@ export function EmailPopup() {
         )}
 
         {status === "error" && error && (
-          <p className="mt-3 font-rb-sans text-[0.8rem] text-[#E89B8B]">{error}</p>
+          <p className="mt-3 font-rb-sans text-[0.8rem] text-[var(--rb-danger)]">{error}</p>
         )}
       </div>
     </div>

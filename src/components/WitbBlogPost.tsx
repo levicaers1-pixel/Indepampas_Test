@@ -176,26 +176,26 @@ const PILLS = [
 ];
 
 const MONO = "'DM Mono', ui-monospace, monospace";
-const SERIF = "'Cormorant Garamond', ui-serif, Georgia, serif";
+const SERIF = "'Archivo', ui-sans-serif, system-ui, sans-serif";
 
 export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; next?: Post }) {
   return (
-    <article className="bg-[#F4EFE5] text-[#18180F] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16">
+    <article className="bg-[var(--rb-ground)] text-[var(--rb-ink)] -mx-6 lg:-mx-12 -mt-28 sm:-mt-36 lg:-mt-44 -mb-16">
       {/* HERO */}
-      <header className="grid grid-cols-1 lg:grid-cols-[1fr_340px] border-b border-[#1C3D2A]/15 pt-28 sm:pt-32 lg:pt-24">
-        <div className="px-6 sm:px-12 lg:px-16 py-12 lg:py-20 border-r-0 lg:border-r border-[#1C3D2A]/15 flex flex-col justify-end">
+      <header className="grid grid-cols-1 lg:grid-cols-[1fr_340px] border-b border-[rgba(242,239,230,0.5)]/15 pt-28 sm:pt-32 lg:pt-24">
+        <div className="px-6 sm:px-12 lg:px-16 py-12 lg:py-20 border-r-0 lg:border-r border-[rgba(242,239,230,0.5)]/15 flex flex-col justify-end">
           <div
-            className="flex items-center gap-3 mb-8 text-[#635C4B] uppercase"
+            className="flex items-center gap-3 mb-8 text-[var(--rb-muted)] uppercase"
             style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.16em" }}
           >
-            <Link to="/blog" className="text-[#635C4B] hover:text-[#1C3D2A]">
+            <Link to="/blog" className="text-[var(--rb-muted)] hover:text-[var(--rb-ink)]">
               Blog
             </Link>
-            <span className="text-[#1C3D2A]/30">/</span>
+            <span className="text-[var(--rb-ink)]/30">/</span>
             <span>Equipment</span>
           </div>
           <span
-            className="self-start mb-5 text-[#F4EFE5] bg-[#1C3D2A] uppercase"
+            className="self-start mb-5 text-[var(--rb-ink)] bg-[var(--rb-surface)] uppercase"
             style={{
               fontFamily: MONO,
               fontSize: "0.7rem",
@@ -206,7 +206,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             What's In The Bag
           </span>
           <h1
-            className="font-light text-[#1C3D2A] leading-[1.05] mb-5 [&_em]:italic"
+            className="font-light text-[var(--rb-ink)] leading-[1.05] mb-5 [&_em]:italic"
             style={{
               fontFamily: SERIF,
               fontSize: "clamp(2.8rem, 4.5vw, 4.2rem)",
@@ -216,12 +216,12 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             WITB —<br />
             <em>Team Pampas.</em>
           </h1>
-          <p className="text-[#635C4B] max-w-[520px] leading-[1.75]" style={{ fontSize: "1rem" }}>
+          <p className="text-[var(--rb-muted)] max-w-[520px] leading-[1.75]" style={{ fontSize: "1rem" }}>
             {post.excerpt}
           </p>
         </div>
 
-        <div className="hidden lg:flex bg-[#1C3D2A] px-10 py-12 flex-col justify-between">
+        <div className="hidden lg:flex bg-[var(--rb-surface)] px-10 py-12 flex-col justify-between">
           <div>
             <MetaLabel>Datum</MetaLabel>
             <MetaVal><time dateTime={postIsoDate(post.date)}>{post.date}</time></MetaVal>
@@ -230,10 +230,10 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
             <MetaLabel>Leestijd</MetaLabel>
             <MetaVal>{post.readTime}</MetaVal>
           </div>
-          <div className="h-px bg-[#F4EFE5]/10 my-6" />
+          <div className="h-px bg-[var(--rb-ground)]/10 my-6" />
           <div>
             <div
-              className="text-[#F4EFE5]/35 uppercase mb-3"
+              className="text-[var(--rb-ink)]/35 uppercase mb-3"
               style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
             >
               Hosts in deze post
@@ -243,11 +243,11 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                 <div
                   key={p.name}
                   className={`flex items-center gap-3.5 px-3.5 py-2.5 border ${
-                    p.active ? "border-[#8FBF4A] bg-[#8FBF4A]/[0.08]" : "border-[#F4EFE5]/12"
+                    p.active ? "border-[var(--rb-lime)] bg-[var(--rb-lime)]/[0.08]" : "border-[var(--rb-ink)]/12"
                   }`}
                 >
                   <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-[#F4EFE5]"
+                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-[var(--rb-ink)]"
                     style={{
                       fontFamily: SERIF,
                       fontSize: "0.85rem",
@@ -257,7 +257,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                     {p.initials}
                   </div>
                   <span
-                    className="flex-1 text-[#F4EFE5] uppercase"
+                    className="flex-1 text-[var(--rb-ink)] uppercase"
                     style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em" }}
                   >
                     {p.name}
@@ -280,11 +280,11 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
 
       {/* CONTENT */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] items-start">
-        <main className="border-r-0 lg:border-r border-[#1C3D2A]/15">
+        <main className="border-r-0 lg:border-r border-[rgba(242,239,230,0.5)]/15">
           {/* Intro */}
-          <div className="px-6 sm:px-12 lg:px-16 py-10 lg:py-14 border-b border-[#1C3D2A]/15">
+          <div className="px-6 sm:px-12 lg:px-16 py-10 lg:py-14 border-b border-[rgba(242,239,230,0.5)]/15">
             <p
-              className="text-[#2E2B25] max-w-[640px] leading-[1.85] [&::first-letter]:font-bold [&::first-letter]:text-[#1C3D2A] [&::first-letter]:float-left [&::first-letter]:leading-[0.8] [&::first-letter]:mr-2 [&::first-letter]:mt-1 [&::first-letter]:text-[4.5rem]"
+              className="text-[var(--rb-ink-2)] max-w-[640px] leading-[1.85] [&::first-letter]:font-bold [&::first-letter]:text-[var(--rb-ink)] [&::first-letter]:float-left [&::first-letter]:leading-[0.8] [&::first-letter]:mr-2 [&::first-letter]:mt-1 [&::first-letter]:text-[4.5rem]"
               style={{ fontSize: "1.05rem" }}
             >
               <span style={{ fontFamily: SERIF }} className="contents">
@@ -297,29 +297,29 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           </div>
 
           {HOSTS.map((host) => (
-            <section key={host.num} className="border-b border-[#1C3D2A]/15">
+            <section key={host.num} className="border-b border-[rgba(242,239,230,0.5)]/15">
               {/* Host header */}
-              <div className="grid grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] border-b border-[#1C3D2A]/15 bg-[#EDE6D9]">
+              <div className="grid grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] border-b border-[rgba(242,239,230,0.5)]/15 bg-[var(--rb-surface)]">
                 <div
-                  className="flex items-center justify-center border-r border-[#1C3D2A]/15 text-[#E2D9C8] py-6"
+                  className="flex items-center justify-center border-r border-[rgba(242,239,230,0.5)]/15 text-[var(--rb-ink-2)] py-6"
                   style={{ fontFamily: SERIF, fontSize: "2.5rem", fontWeight: 300 }}
                 >
                   {host.num}
                 </div>
                 <div className="px-5 sm:px-10 py-5 flex items-center justify-between gap-4">
                   <div>
-                    <div className="text-[#1C3D2A]" style={{ fontFamily: SERIF, fontSize: "1.6rem", fontWeight: 600 }}>
+                    <div className="text-[var(--rb-ink)]" style={{ fontFamily: SERIF, fontSize: "1.6rem", fontWeight: 600 }}>
                       {host.name}
                     </div>
                     <div
-                      className="text-[#46701D] uppercase mt-0.5"
+                      className="text-[var(--rb-lime)] uppercase mt-0.5"
                       style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.16em" }}
                     >
                       {host.role}
                     </div>
                   </div>
                   <div
-                    className="hidden sm:inline-block bg-[#1C3D2A] text-[#8FBF4A]"
+                    className="hidden sm:inline-block bg-[var(--rb-surface)] text-[var(--rb-lime)]"
                     style={{
                       fontFamily: MONO,
                       fontSize: "0.7rem",
@@ -333,11 +333,11 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
               </div>
 
               {/* Header row */}
-              <div className="grid grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr_1fr] bg-[#1C3D2A] pointer-events-none">
+              <div className="grid grid-cols-[120px_1fr] sm:grid-cols-[160px_1fr_1fr] bg-[var(--rb-surface)] pointer-events-none">
                 {["Club", "Model", "Shaft"].map((h, i) => (
                   <div
                     key={h}
-                    className={`px-4 sm:px-6 py-3 text-[#F4EFE5]/45 uppercase border-r border-[#F4EFE5]/10 last:border-r-0 ${
+                    className={`px-4 sm:px-6 py-3 text-[var(--rb-ink)]/45 uppercase border-r border-[var(--rb-ink)]/10 last:border-r-0 ${
                       i === 2 ? "hidden sm:flex" : "flex"
                     } items-center`}
                     style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
@@ -352,11 +352,11 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                 const isBall = row.variant === "ball";
                 const isHi = row.variant === "highlight";
                 const rowBg = isBall
-                  ? "bg-[#1C3D2A] hover:bg-[#2B5C3E]"
+                  ? "bg-[var(--rb-surface)] hover:bg-[var(--rb-surface-2)]"
                   : isHi
-                    ? "bg-[#8FBF4A]/[0.06] hover:bg-[#EDE6D9]"
-                    : "hover:bg-[#EDE6D9]";
-                const borderC = isBall ? "border-[#F4EFE5]/10" : "border-[#1C3D2A]/15";
+                    ? "bg-[var(--rb-lime)]/[0.06] hover:bg-[var(--rb-surface)]"
+                    : "hover:bg-[var(--rb-surface)]";
+                const borderC = isBall ? "border-[var(--rb-ink)]/10" : "border-[rgba(242,239,230,0.5)]/15";
                 return (
                   <div
                     key={ri}
@@ -368,7 +368,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                         fontFamily: MONO,
                         fontSize: "0.7rem",
                         letterSpacing: "0.12em",
-                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#46701D" : "#635C4B",
+                        color: isBall ? "rgba(244,239,229,0.45)" : isHi ? "#B6F04A" : "#B9C4BC",
                       }}
                     >
                       {row.category}
@@ -379,13 +379,13 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                         style={{
                           fontFamily: SERIF,
                           fontSize: isBall ? "1.1rem" : "1.05rem",
-                          color: isBall ? "#F4EFE5" : "#1C3D2A",
+                          color: isBall ? "#F4EFE5" : "#F2EFE6",
                         }}
                       >
                         {row.club}
                         {row.clubSmall && (
                           <small
-                            className="block text-[#635C4B] mt-1 not-italic"
+                            className="block text-[var(--rb-muted)] mt-1 not-italic"
                             style={{
                               fontFamily: MONO,
                               fontSize: "0.7rem",
@@ -404,13 +404,13 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
                           fontFamily: MONO,
                           fontSize: "0.7rem",
                           letterSpacing: "0.04em",
-                          color: isBall ? "#8FBF4A" : "#635C4B",
+                          color: isBall ? "#B6F04A" : "#B9C4BC",
                         }}
                       >
                         {row.shaftBrand && (
                           <strong
                             className="block font-medium mb-0.5"
-                            style={{ color: isBall ? "#8FBF4A" : "#1C3D2A" }}
+                            style={{ color: isBall ? "#B6F04A" : "#F2EFE6" }}
                           >
                             {row.shaftBrand}
                           </strong>
@@ -424,14 +424,14 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
 
               {/* Pull quote */}
               {host.quote && (
-                <div className="flex items-start gap-6 px-6 sm:px-12 lg:px-16 py-10 border-b border-[#1C3D2A]/15 bg-[#EDE6D9]">
+                <div className="flex items-start gap-6 px-6 sm:px-12 lg:px-16 py-10 border-b border-[rgba(242,239,230,0.5)]/15 bg-[var(--rb-surface)]">
                   <div
-                    className="text-[#8FBF4A] shrink-0"
+                    className="text-[var(--rb-lime)] shrink-0"
                     style={{ fontFamily: SERIF, fontSize: "5rem", lineHeight: 0.6, marginTop: "0.5rem" }}
                   >
                     "
                   </div>
-                  <p className="italic text-[#1C3D2A] leading-[1.5]" style={{ fontFamily: SERIF, fontSize: "1.35rem" }}>
+                  <p className="italic text-[var(--rb-ink)] leading-[1.5]" style={{ fontFamily: SERIF, fontSize: "1.35rem" }}>
                     {host.quote}
                   </p>
                 </div>
@@ -440,22 +440,22 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           ))}
 
           {/* Coming soon */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 px-6 sm:px-12 lg:px-16 py-12 border-b border-[#1C3D2A]/15">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-12 px-6 sm:px-12 lg:px-16 py-12 border-b border-[rgba(242,239,230,0.5)]/15">
             <div className="flex-1">
               <div
-                className="text-[#46701D] uppercase mb-3"
+                className="text-[var(--rb-lime)] uppercase mb-3"
                 style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
               >
                 Volgende editie
               </div>
               <h3
-                className="text-[#1C3D2A] leading-[1.2] [&_em]:italic"
+                className="text-[var(--rb-ink)] leading-[1.2] [&_em]:italic"
                 style={{ fontFamily: SERIF, fontSize: "1.8rem", fontWeight: 300 }}
               >
                 Lars Masyn —<br />
                 <em>zijn tas volgt binnenkort.</em>
               </h3>
-              <p className="text-[#635C4B] mt-2" style={{ fontSize: "0.9rem" }}>
+              <p className="text-[var(--rb-muted)] mt-2" style={{ fontSize: "0.9rem" }}>
                 De laatste tas van Team Pampas — wordt binnenkort opengetrokken.
               </p>
             </div>
@@ -466,12 +466,12 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
               ].map((h, idx) => (
                 <div
                   key={idx}
-                  className="w-13 h-13 border-2 border-[#F4EFE5] rounded-full flex items-center justify-center -ml-3 first:ml-0"
+                  className="w-13 h-13 border-2 border-[var(--rb-ink)] rounded-full flex items-center justify-center -ml-3 first:ml-0"
                   style={{
                     width: 52,
                     height: 52,
-                    background: h.placeholder ? "#1C3D2A" : "#E2D9C8",
-                    color: h.placeholder ? "#F4EFE5" : "#635C4B",
+                    background: h.placeholder ? "#1B3324" : "#12261A",
+                    color: h.placeholder ? "#F2EFE6" : "#B9C4BC",
                     fontFamily: h.placeholder ? MONO : SERIF,
                     fontSize: h.placeholder ? "0.65rem" : "1rem",
                   }}
@@ -483,16 +483,16 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           </div>
 
           {/* Article footer */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-6 sm:px-12 lg:px-16 py-10 border-t border-[#1C3D2A]/15">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-6 sm:px-12 lg:px-16 py-10 border-t border-[rgba(242,239,230,0.5)]/15">
             <span
-              className="text-[#635C4B] uppercase"
+              className="text-[var(--rb-muted)] uppercase"
               style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em" }}
             >
               Bron: Team Pampas · Vol. I · 2026
             </span>
             <Link
               to="/blog"
-              className="text-[#1C3D2A] uppercase border border-[#1C3D2A]/30 hover:bg-[#1C3D2A] hover:text-[#F4EFE5] hover:border-[#1C3D2A] transition-colors"
+              className="text-[var(--rb-ink)] uppercase border border-[rgba(242,239,230,0.5)]/30 hover:bg-[var(--rb-surface)] hover:text-[var(--rb-ink)] hover:border-[rgba(242,239,230,0.5)] transition-colors"
               style={{
                 fontFamily: MONO,
                 fontSize: "0.7rem",
@@ -509,7 +509,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
         <aside className="hidden lg:block sticky top-20 px-10 py-12">
           <SidebarSection label="In de tas — Levi">
             <span
-              className="block text-[#1C3D2A] leading-none mb-1"
+              className="block text-[var(--rb-ink)] leading-none mb-1"
               style={{ fontFamily: SERIF, fontSize: "2.5rem", fontWeight: 300 }}
             >
               14
@@ -530,7 +530,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
               {FLEX_TAGS.map((t) => (
                 <span
                   key={t}
-                  className="border border-[#1C3D2A]/15 text-[#635C4B] uppercase"
+                  className="border border-[rgba(242,239,230,0.5)]/15 text-[var(--rb-muted)] uppercase"
                   style={{
                     fontFamily: MONO,
                     fontSize: "0.7rem",
@@ -552,17 +552,17 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
 
       {/* PREV / NEXT */}
       {(prev || next) && (
-        <nav className="max-w-[1100px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[#1C3D2A]/15">
+        <nav className="max-w-[1100px] mx-auto px-6 sm:px-12 py-10 grid sm:grid-cols-2 gap-6 border-t border-[rgba(242,239,230,0.5)]/15">
           {prev ? (
             <Link to="/blog/$slug" params={{ slug: prev.slug }} className="group block">
               <span
-                className="text-[#635C4B] uppercase block"
+                className="text-[var(--rb-muted)] uppercase block"
                 style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em" }}
               >
                 Vorige
               </span>
               <span
-                className="block text-[#1C3D2A] mt-1 group-hover:text-[#3A7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{ fontFamily: SERIF, fontSize: "1.4rem" }}
               >
                 {prev.title}
@@ -574,13 +574,13 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
           {next && (
             <Link to="/blog/$slug" params={{ slug: next.slug }} className="group block sm:text-right">
               <span
-                className="text-[#635C4B] uppercase block"
+                className="text-[var(--rb-muted)] uppercase block"
                 style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em" }}
               >
                 Volgende
               </span>
               <span
-                className="block text-[#1C3D2A] mt-1 group-hover:text-[#3A7A52] transition-colors"
+                className="block text-[var(--rb-ink)] mt-1 group-hover:text-[var(--rb-lime)] transition-colors"
                 style={{ fontFamily: SERIF, fontSize: "1.4rem" }}
               >
                 {next.title}
@@ -596,7 +596,7 @@ export function WitbBlogPost({ post, prev, next }: { post: Post; prev?: Post; ne
 function MetaLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="text-[#F4EFE5]/35 uppercase mb-1"
+      className="text-[var(--rb-ink)]/35 uppercase mb-1"
       style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
     >
       {children}
@@ -606,7 +606,7 @@ function MetaLabel({ children }: { children: React.ReactNode }) {
 
 function MetaVal({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[#F4EFE5] mb-6" style={{ fontFamily: SERIF, fontSize: "1.05rem" }}>
+    <div className="text-[var(--rb-ink)] mb-6" style={{ fontFamily: SERIF, fontSize: "1.05rem" }}>
       {children}
     </div>
   );
@@ -614,14 +614,14 @@ function MetaVal({ children }: { children: React.ReactNode }) {
 
 function SidebarSection({ label, children, last }: { label: string; children: React.ReactNode; last?: boolean }) {
   return (
-    <div className={`mb-8 pb-8 ${last ? "" : "border-b border-[#1C3D2A]/15"}`}>
+    <div className={`mb-8 pb-8 ${last ? "" : "border-b border-[rgba(242,239,230,0.5)]/15"}`}>
       <div
-        className="text-[#635C4B] uppercase mb-3"
+        className="text-[var(--rb-muted)] uppercase mb-3"
         style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.18em" }}
       >
         {label}
       </div>
-      <div className="text-[#18180F]">{children}</div>
+      <div className="text-[var(--rb-ink)]">{children}</div>
     </div>
   );
 }
@@ -632,12 +632,12 @@ function BrandList({ items }: { items: { name: string; count: string }[] }) {
       {items.map((b) => (
         <div
           key={b.name}
-          className="flex justify-between items-center py-2 border-b border-[#1C3D2A]/15 last:border-b-0"
+          className="flex justify-between items-center py-2 border-b border-[rgba(242,239,230,0.5)]/15 last:border-b-0"
           style={{ fontSize: "0.82rem" }}
         >
-          <span className="text-[#1C3D2A]">{b.name}</span>
+          <span className="text-[var(--rb-ink)]">{b.name}</span>
           <span
-            className="bg-[#EDE6D9] text-[#635C4B]"
+            className="bg-[var(--rb-surface)] text-[var(--rb-muted)]"
             style={{
               fontFamily: MONO,
               fontSize: "0.7rem",
