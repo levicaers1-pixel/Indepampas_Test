@@ -31,17 +31,19 @@ const PAGE_SIZE = 24;
 const VALID_SORTS: SortKey[] = ["pampas_desc", "pampas_asc", "name", "recent"];
 const VALID_TABS: Tab[] = ["courses", "compare", "surprise", "hosts", "route"];
 const VALID_HOSTS = new Set<HostName>(HOSTS);
+/** Values that stay out of the URL: a filter left at its default is not a filter. */
+const DEFAULT_SEARCH: Record<string, string> = { sort: "pampas_desc", tab: "courses" };
 
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const rawSearch = useSearch({ from: "/ratings/" });
   const navigate = useNavigate({ from: "/ratings/" });
 
   // Derive strictly-typed values from URL state (with safe fallbacks).
-  const search = rawSearch.q;
-  const region = rawSearch.region;
-  const country = rawSearch.country;
-  const type = rawSearch.type;
-  const fee = rawSearch.fee;
+  const search = rawSearch.q ?? "";
+  const region = rawSearch.region ?? "";
+  const country = rawSearch.country ?? "";
+  const type = rawSearch.type ?? "";
+  const fee = rawSearch.fee ?? "";
   const sort: SortKey = VALID_SORTS.includes(rawSearch.sort as SortKey)
     ? (rawSearch.sort as SortKey)
     : "pampas_desc";
@@ -61,9 +63,10 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       search: ((prev: any) => {
         const next = { ...prev, ...patch };
-        // Strip empties to keep URLs clean.
+        // Keep URLs clean: drop empty filters and anything still at its default.
         for (const k of Object.keys(next)) {
-          if (next[k] === "" || next[k] == null) delete next[k];
+          const v = next[k];
+          if (v === "" || v == null || DEFAULT_SEARCH[k] === v) delete next[k];
         }
         return next;
       }) as never,

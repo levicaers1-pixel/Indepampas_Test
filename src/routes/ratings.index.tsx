@@ -9,22 +9,24 @@ const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
   "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
 
+// Every filter is optional on purpose: a schema without defaults is what keeps
+// /ratings free of ?q=&region=&… (search middlewares break this route's typing).
 export const ratingsSearchSchema = z.object({
-  q: z.string().default(""),
-  region: z.string().default(""),
-  country: z.string().default(""),
-  type: z.string().default(""),
-  fee: z.string().default(""),
-  hosts: z.string().default(""), // comma-separated
-  sort: z.string().default("pampas_desc"),
-  tab: z.string().default("courses"),
+  q: z.string().optional(),
+  region: z.string().optional(),
+  country: z.string().optional(),
+  type: z.string().optional(),
+  fee: z.string().optional(),
+  hosts: z.string().optional(), // comma-separated
+  sort: z.string().optional(),
+  tab: z.string().optional(),
 });
 
 
 export const Route = createFileRoute("/ratings/")({
   validateSearch: zodValidator(ratingsSearchSchema),
-  // Keep default filter values out of the URL, so /ratings is served directly
-  // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
+  // Empty filters and default-valued ones are stripped by RatingsPage.update(),
+  // so /ratings is served directly (200) without a ?q=&region=&… rewrite.
   head: () => ({
     meta: [
       { title: TITLE },
