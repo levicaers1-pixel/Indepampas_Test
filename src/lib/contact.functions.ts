@@ -31,6 +31,8 @@ export const sendContactMessage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => schema.parse(data))
   .handler(async ({ data }) => {
     if (data.website) return { ok: true as const };
+    const { enforceRateLimit } = await import("@/lib/rateLimit.server");
+    await enforceRateLimit("contact", 5);
 
     const lovableKey = process.env.LOVABLE_API_KEY;
     const brevoKey = process.env.BREVO_API_KEY;

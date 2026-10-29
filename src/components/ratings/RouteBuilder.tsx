@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { useCombinedScore } from "@/lib/useCourseVotes";
 import { scoreColor } from "@/lib/personalScore";
+import { COURSE_COORDS } from "@/data/course-coords";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import { computeDriveMatrix } from "@/lib/routes.functions";
 
@@ -119,7 +120,7 @@ export function RouteBuilder({ courses }: { courses: CourseWithRatings[] }) {
         .filter((c) => (regionKey ? c.country === selCountry && c.region === selRegion : true));
 
       // Ensure coords for pool: use cache; geocode any missing (best-effort, capped).
-      const cache = { ...loadCoordCache() };
+      const cache = { ...loadCoordCache(), ...COURSE_COORDS };
       const missing = pool.filter((c) => !cache[c.id]).slice(0, 20);
       for (const c of missing) {
         try {

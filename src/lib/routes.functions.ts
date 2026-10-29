@@ -14,6 +14,9 @@ type Cell = { originIndex: number; destinationIndex: number; distanceMeters: num
 export const computeDriveMatrix = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
+    const { enforceRateLimit } = await import("@/lib/rateLimit.server");
+    await enforceRateLimit("route-matrix", 30);
+
     const LOVABLE_API_KEY = process.env.LOVABLE_API_KEY;
     const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");

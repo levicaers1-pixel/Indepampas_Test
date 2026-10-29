@@ -14,7 +14,8 @@ export const subscribeToBrevo = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => schema.parse(data))
   .handler(async ({ data }) => {
     if (data.website) return { ok: true as const };
-
+    const { enforceRateLimit } = await import("@/lib/rateLimit.server");
+    await enforceRateLimit("newsletter", 5);
 
     // 1. Always persist in our own database first, so no signup is ever lost.
     let stored = false;

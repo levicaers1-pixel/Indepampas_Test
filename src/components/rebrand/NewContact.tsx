@@ -103,8 +103,8 @@ export function NewContact() {
                 });
                 setSent(true);
                 formEl.reset();
-              } catch {
-                setError("Oeps, iets ging mis. Probeer het opnieuw.");
+              } catch (err) {
+                setError(err instanceof Error && err.message.includes("Te veel verzoeken") ? err.message : "Oeps, iets ging mis. Probeer het opnieuw.");
               } finally {
                 setSending(false);
               }

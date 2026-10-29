@@ -73,6 +73,8 @@ async function geocode(query: string, countryCode?: string): Promise<LatLng | nu
 export const geocodeAddress = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
+    const { enforceRateLimit } = await import("@/lib/rateLimit.server");
+    await enforceRateLimit("geocode", 60);
     // 1) Try Places Text Search (POI-aware, handles "Golfclub …" names well).
     let loc = await placesTextSearch(data.query, data.countryCode);
     // 2) Fallback to the geocoder.
