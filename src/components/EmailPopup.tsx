@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
+import { Honeypot, honeypotValue } from "@/components/Honeypot";
 
 const STORAGE_KEY = "emailPopupSeen";
 const CAPTURED_KEY = "emailCaptured";
@@ -46,6 +47,7 @@ export function EmailPopup() {
     e.preventDefault();
     if (status === "loading") return;
     setError(null);
+    const website = honeypotValue(e.currentTarget as HTMLFormElement);
 
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed) || trimmed.length > 255) {
@@ -56,7 +58,7 @@ export function EmailPopup() {
 
     setStatus("loading");
     try {
-      await subscribe({ data: { email: trimmed, source: "scroll-popup" } });
+      await subscribe({ data: { email: trimmed, source: "scroll-popup", website } });
       localStorage.setItem(CAPTURED_KEY, "true");
       setStatus("success");
     } catch {
@@ -108,6 +110,7 @@ export function EmailPopup() {
           </p>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <Honeypot />
             <label htmlFor="popup-email" className="sr-only">
               E-mailadres
             </label>

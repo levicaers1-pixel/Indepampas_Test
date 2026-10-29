@@ -30,8 +30,8 @@ async function getAccessToken(): Promise<string> {
     body: "grant_type=client_credentials",
   });
   if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(`Spotify token error (${res.status}): ${txt}`);
+    console.error(`Spotify token error (${res.status}): ${(await res.text()).slice(0, 200)}`);
+    throw new Error("Spotify token error");
   }
   const json = (await res.json()) as { access_token: string; expires_in: number };
   cachedToken = {
@@ -42,10 +42,12 @@ async function getAccessToken(): Promise<string> {
 }
 
 export const fetchSpotifyShowEpisodes = createServerFn({ method: "GET" })
-  .inputValidator((input: { showId: string; limit?: number }) => ({
-    showId: String(input.showId),
-    limit: Math.min(Math.max(Number(input.limit) || 30, 1), 50),
-  }))
+  .inputValidator((input: { showId: string; limit?: number }) => {
+    // A Spotify id is 22 base-62 characters; anything else would end up in the API path.
+    const showId = String(input.showId);
+    if (!/^[A-Za-z0-9]{22}$/.test(showId)) throw new Error("Invalid Spotify show id");
+    return { showId, limit: Math.min(Math.max(Number(input.limit) || 30, 1), 50) };
+  })
   .handler(async ({ data }) => {
     const token = await getAccessToken();
     const url = `https://api.spotify.com/v1/shows/${data.showId}/episodes?limit=${data.limit}&market=BE`;
@@ -53,8 +55,8 @@ export const fetchSpotifyShowEpisodes = createServerFn({ method: "GET" })
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) {
-      const txt = await res.text();
-      throw new Error(`Spotify API error (${res.status}): ${txt}`);
+      console.error(`Spotify API error (${res.status}): ${(await res.text()).slice(0, 200)}`);
+      throw new Error("Spotify API error");
     }
     const json = (await res.json()) as { items: SpotifyEpisode[] };
     return {

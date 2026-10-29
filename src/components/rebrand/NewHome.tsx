@@ -7,6 +7,7 @@ import heroPhoto from "@/assets/hero-belgian-course.webp";
 import detailPhoto from "@/assets/golf-detail.webp";
 import { SpotifyEmbed } from "@/components/SpotifyEmbed";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
+import { Honeypot, honeypotValue } from "@/components/Honeypot";
 import { useCombinedScore } from "@/lib/useCourseVotes";
 import { formatDescription } from "@/lib/formatDescription";
 import { buildEpisodeSlugs } from "@/lib/episodeSlug";
@@ -77,6 +78,7 @@ export function NewHome() {
     e.preventDefault();
     if (status === "loading") return;
     setError(null);
+    const website = honeypotValue(e.currentTarget as HTMLFormElement);
 
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed) || trimmed.length > 255) {
@@ -87,7 +89,7 @@ export function NewHome() {
 
     setStatus("loading");
     try {
-      await subscribe({ data: { email: trimmed, source: "home-newsletter" } });
+      await subscribe({ data: { email: trimmed, source: "home-newsletter", website } });
       if (typeof window !== "undefined") {
         localStorage.setItem(CAPTURED_KEY, "true");
       }
@@ -461,6 +463,7 @@ export function NewHome() {
             <p className="rb-disp text-2xl">Bedankt! Je hoort het als eerste.</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex w-full max-w-[560px] flex-col gap-2.5 sm:flex-row sm:gap-0 lg:flex-1 lg:basis-[420px]">
+              <Honeypot />
               <label htmlFor="home-email" className="sr-only">
                 E-mailadres
               </label>

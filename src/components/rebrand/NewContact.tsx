@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { sendContactMessage } from "@/lib/contact.functions";
+import { Honeypot } from "@/components/Honeypot";
 
 
 export function NewContact() {
@@ -97,6 +98,7 @@ export function NewContact() {
                     subject: String(fd.get("subject") ?? "").trim(),
                     message: String(fd.get("message") ?? "").trim(),
                     reason: reason as "hello" | "sponsor" | "guest",
+                    website: String(fd.get("website") ?? ""),
                   },
                 });
                 setSent(true);
@@ -109,6 +111,7 @@ export function NewContact() {
             }}
             className="flex flex-col gap-5"
           >
+            <Honeypot />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <RbField label="Naam" name="name" required />

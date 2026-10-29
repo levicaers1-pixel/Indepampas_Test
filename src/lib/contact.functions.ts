@@ -9,6 +9,8 @@ const schema = z.object({
   subject: z.string().trim().min(1).max(200),
   message: z.string().trim().min(1).max(5000),
   reason: z.enum(["hello", "sponsor", "guest"]),
+  // Honeypot: filled in by bots only.
+  website: z.string().max(200).optional(),
 });
 
 const REASON_LABEL: Record<string, string> = {
@@ -28,6 +30,8 @@ const escapeHtml = (s: string) =>
 export const sendContactMessage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => schema.parse(data))
   .handler(async ({ data }) => {
+    if (data.website) return { ok: true as const };
+
     const lovableKey = process.env.LOVABLE_API_KEY;
     const brevoKey = process.env.BREVO_API_KEY;
     if (!lovableKey || !brevoKey) {
@@ -71,7 +75,9 @@ export const sendContactMessage = createServerFn({ method: "POST" })
 
     if (!res.ok) {
       const body = await res.text().catch(() => "");
-      throw new Error(`Brevo error ${res.status}: ${body.slice(0, 200)}`);
+      // Keep the upstream response in the server log, not in the error the visitor receives.
+      console.error(`Brevo error ${res.status}: ${body.slice(0, 200)}`);
+      throw new Error("Bericht versturen mislukt");
     }
 
     return { ok: true as const };

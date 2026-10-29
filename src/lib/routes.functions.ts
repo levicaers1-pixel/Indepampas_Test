@@ -43,7 +43,8 @@ export const computeDriveMatrix = createServerFn({ method: "POST" })
 
     const text = await res.text();
     if (!res.ok) {
-      throw new Error(`Routes API ${res.status}: ${text.slice(0, 300)}`);
+      console.error(`Routes API ${res.status}: ${text.slice(0, 300)}`);
+      throw new Error("Routes API request failed");
     }
     // Response is a JSON array of elements.
     let rows: Array<{
@@ -56,7 +57,8 @@ export const computeDriveMatrix = createServerFn({ method: "POST" })
     try {
       rows = JSON.parse(text);
     } catch {
-      throw new Error(`Routes API parse error: ${text.slice(0, 200)}`);
+      console.error(`Routes API parse error: ${text.slice(0, 200)}`);
+      throw new Error("Routes API request failed");
     }
 
     const cells: Cell[] = rows.map((r) => ({

@@ -6,11 +6,16 @@ const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 const schema = z.object({
   email: z.string().trim().toLowerCase().email().max(255),
   source: z.string().trim().max(120).optional(),
+  // Honeypot: filled in by bots only.
+  website: z.string().max(200).optional(),
 });
 
 export const subscribeToBrevo = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => schema.parse(data))
   .handler(async ({ data }) => {
+    if (data.website) return { ok: true as const };
+
+
     // 1. Always persist in our own database first, so no signup is ever lost.
     let stored = false;
     try {
@@ -53,7 +58,9 @@ export const subscribeToBrevo = createServerFn({ method: "POST" })
       if (res.status === 400 && body.includes("already")) {
         return { ok: true as const, alreadySubscribed: true };
       }
-      throw new Error(`Brevo error ${res.status}: ${body.slice(0, 200)}`);
+      // Keep the upstream response in the server log, not in the error the visitor receives.
+      console.error(`Brevo error ${res.status}: ${body.slice(0, 200)}`);
+      throw new Error("Aanmelden mislukt");
     }
 
     return { ok: true as const };
