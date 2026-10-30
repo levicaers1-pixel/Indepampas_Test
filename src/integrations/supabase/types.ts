@@ -587,10 +587,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      admin_vote_stats: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
       cast_community_vote: {
         Args: { _course_id: string; _score: number; _voter_id: string }
         Returns: number
