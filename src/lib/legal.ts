@@ -11,6 +11,8 @@ export const LEGAL_CONTROLLER = {
   name: "PAMPAS Podcast",
   /** Legal form, e.g. "VOF" or "eenmanszaak van …". Leave empty if there is none. */
   form: "",
+  /** Full names of the private persons behind the site. Leave empty until known. */
+  people: [] as string[],
   /** Ondernemingsnummer (KBO), e.g. "BE 0123.456.789". Leave empty if there is none. */
   companyNumber: "",
   /** Postal address. Leave empty if there is none. */

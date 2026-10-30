@@ -15,9 +15,11 @@ const sections: LegalSection[] = [
           Verantwoordelijk voor de verwerking van je persoonsgegevens op deze website is{" "}
           <strong>{LEGAL_CONTROLLER.name}</strong>
           {LEGAL_CONTROLLER.form ? ` (${LEGAL_CONTROLLER.form})` : ""}, een onafhankelijke Belgische
-          golfpodcast van Lars, Levi en Niels.
+          golfpodcast van Lars, Levi en Niels. PAMPAS is geen bedrijf, maar een project van drie
+          privépersonen en heeft geen ondernemingsnummer.
         </p>
         <ul>
+          {LEGAL_CONTROLLER.people.length > 0 && <li>Uitgevers: {LEGAL_CONTROLLER.people.join(", ")}</li>}
           {LEGAL_CONTROLLER.companyNumber && <li>Ondernemingsnummer: {LEGAL_CONTROLLER.companyNumber}</li>}
           {LEGAL_CONTROLLER.address && <li>Adres: {LEGAL_CONTROLLER.address}</li>}
           <li>E-mail: {mail}</li>
@@ -222,9 +224,12 @@ const sections: LegalSection[] = [
           Voor het verwerken van gegevens in opdracht van ons werken we met de volgende
           verwerkers: <strong>Supabase</strong> (database), <strong>Cloudflare</strong> (hosting en
           beveiliging), <strong>Lovable</strong> (ontwikkel- en hostingplatform) en{" "}
-          <strong>Brevo</strong> (e-mail en nieuwsbrief). Waar gegevens buiten de Europese Economische
-          Ruimte worden verwerkt, gebeurt dat met passende waarborgen, zoals de modelcontractbepalingen
-          van de Europese Commissie.
+          <strong>Brevo</strong> (e-mail en nieuwsbrief). Onze database staat in Ierland, dus binnen de
+          Europese Unie. Onze server functions draaien op het wereldwijde netwerk van Cloudflare: een
+          verzoek wordt afgehandeld in een datacenter dicht bij de bezoeker, voor bezoekers in België
+          vrijwel altijd in de EU. Een garantie dat dit nooit buiten de EU gebeurt, is er niet. Waar
+          gegevens buiten de Europese Economische Ruimte worden verwerkt, gebeurt dat met passende
+          waarborgen, zoals de modelcontractbepalingen van de Europese Commissie.
         </p>
         <p>We verkopen je gegevens niet en delen ze niet met adverteerders of sponsors.</p>
       </>
