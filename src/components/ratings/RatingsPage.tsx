@@ -13,6 +13,7 @@ import { HostStats } from "./HostStats";
 import { RouteBuilder } from "./RouteBuilder";
 import { SurpriseMe } from "./SurpriseMe";
 import { CoursesMap } from "./CoursesMap";
+import { ratingsSearchDefaults } from "@/lib/ratingsSearch";
 
 type SortKey = "pampas_desc" | "pampas_asc" | "name" | "recent";
 type Tab = "courses" | "compare" | "surprise" | "hosts" | "route";
@@ -33,7 +34,7 @@ const VALID_TABS: Tab[] = ["courses", "compare", "surprise", "hosts", "route"];
 const VALID_HOSTS = new Set<HostName>(HOSTS);
 
 export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
-  const rawSearch = useSearch({ from: "/ratings/" });
+  const rawSearch = { ...ratingsSearchDefaults, ...useSearch({ from: "/ratings/" }) };
   const navigate = useNavigate({ from: "/ratings/" });
 
   // Derive strictly-typed values from URL state (with safe fallbacks).

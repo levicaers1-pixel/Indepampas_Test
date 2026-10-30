@@ -1,6 +1,5 @@
-import { createFileRoute, ErrorComponent, stripSearchParams } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
+import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
+import { ratingsSearchSchema, ratingsSearchDefaults, type RatingsSearch } from "@/lib/ratingsSearch";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
 import { fetchCourses } from "@/data/courses-db";
 
@@ -9,33 +8,17 @@ const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
   "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
 
-export const ratingsSearchSchema = z.object({
-  q: fallback(z.string(), "").default(""),
-  region: fallback(z.string(), "").default(""),
-  country: fallback(z.string(), "").default(""),
-  type: fallback(z.string(), "").default(""),
-  fee: fallback(z.string(), "").default(""),
-  hosts: fallback(z.string(), "").default(""), // comma-separated
-  sort: fallback(z.string(), "pampas_desc").default("pampas_desc"),
-  tab: fallback(z.string(), "courses").default("courses"),
-});
-
-const ratingsSearchDefaults = {
-  q: "",
-  region: "",
-  country: "",
-  type: "",
-  fee: "",
-  hosts: "",
-  sort: "pampas_desc",
-  tab: "courses",
-};
 
 export const Route = createFileRoute("/ratings/")({
-  validateSearch: zodValidator(ratingsSearchSchema),
-  // Keep default filter values out of the URL, so /ratings is served directly
-  // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
-  search: { middlewares: [stripSearchParams(ratingsSearchDefaults)] },
+  // Only non-default values are kept, so /ratings stays clean (no ?q=&region=…).
+  validateSearch: (raw: Record<string, unknown>): Partial<RatingsSearch> => {
+    const parsed = ratingsSearchSchema.parse(raw);
+    const out: Partial<RatingsSearch> = {};
+    for (const k of Object.keys(ratingsSearchDefaults) as (keyof RatingsSearch)[]) {
+      if (parsed[k] !== ratingsSearchDefaults[k]) out[k] = parsed[k];
+    }
+    return out;
+  },
   head: () => ({
     meta: [
       { title: TITLE },

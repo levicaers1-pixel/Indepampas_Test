@@ -190,6 +190,7 @@ export type Database = {
         Row: {
           country: string
           created_at: string
+          dog_override: string | null
           episode_url: string | null
           fee_category: string | null
           greenfee: number | null
@@ -204,6 +205,7 @@ export type Database = {
         Insert: {
           country?: string
           created_at?: string
+          dog_override?: string | null
           episode_url?: string | null
           fee_category?: string | null
           greenfee?: number | null
@@ -218,6 +220,7 @@ export type Database = {
         Update: {
           country?: string
           created_at?: string
+          dog_override?: string | null
           episode_url?: string | null
           fee_category?: string | null
           greenfee?: number | null
@@ -230,6 +233,44 @@ export type Database = {
           website?: string | null
         }
         Relationships: []
+      }
+      dog_votes: {
+        Row: {
+          answer: string
+          course_id: string
+          created_at: string
+          id: string
+          ip_hash: string
+          updated_at: string
+          voter_id: string
+        }
+        Insert: {
+          answer: string
+          course_id: string
+          created_at?: string
+          id?: string
+          ip_hash: string
+          updated_at?: string
+          voter_id: string
+        }
+        Update: {
+          answer?: string
+          course_id?: string
+          created_at?: string
+          id?: string
+          ip_hash?: string
+          updated_at?: string
+          voter_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dog_votes_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       episodes: {
         Row: {
@@ -371,6 +412,24 @@ export type Database = {
           metadata?: Json
           source_id?: string
           source_type?: string
+        }
+        Relationships: []
+      }
+      rate_limits: {
+        Row: {
+          hits: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          hits?: number
+          key: string
+          window_start: string
+        }
+        Update: {
+          hits?: number
+          key?: string
+          window_start?: string
         }
         Relationships: []
       }
@@ -532,11 +591,39 @@ export type Database = {
         Args: { _course_id: string; _score: number; _voter_id: string }
         Returns: number
       }
+      cast_dog_vote: {
+        Args: {
+          _answer: string
+          _course_id: string
+          _ip_hash: string
+          _voter_id: string
+        }
+        Returns: undefined
+      }
+      get_dog_status: {
+        Args: never
+        Returns: {
+          course_id: string
+          host_confirmed: boolean
+          status: string
+          votes_clubhouse: number
+          votes_course: number
+          votes_no: number
+          votes_total: number
+        }[]
+      }
       get_my_community_votes: {
         Args: { _voter_id: string }
         Returns: {
           course_id: string
           score: number
+        }[]
+      }
+      get_my_dog_votes: {
+        Args: { _voter_id: string }
+        Returns: {
+          answer: string
+          course_id: string
         }[]
       }
       has_role: {
@@ -558,6 +645,10 @@ export type Database = {
           source_id: string
           source_type: string
         }[]
+      }
+      rate_limit_hit: {
+        Args: { _key: string; _max: number; _window_seconds: number }
+        Returns: boolean
       }
     }
     Enums: {
