@@ -33,6 +33,31 @@ const canonicalPath = createMiddleware().server(async ({ next, request }) => {
 
 const PRODUCTION_HOST = /(^|\.)indepampas\.be$/;
 
+/**
+ * Enforced: directives the site can never need, so they cannot break anything.
+ * No plugins, no <base> hijacking, and forms only post to this site.
+ */
+const ENFORCED_CSP = ["object-src 'none'", "base-uri 'self'", "form-action 'self'"];
+
+/**
+ * Report-only: the full policy the site is measured against. Violations show up in the
+ * browser console without blocking anything; once the live site is clean it can move to
+ * ENFORCED_CSP. 'unsafe-inline' stays for scripts because the SSR hydration and JSON-LD
+ * blocks are inline.
+ */
+const REPORT_ONLY_CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://www.instagram.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.instagram.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https:",
+  "media-src 'self' https:",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://maps.googleapis.com",
+  "frame-src https://open.spotify.com https://www.instagram.com",
+  "worker-src 'self' blob:",
+  ...ENFORCED_CSP,
+];
+
 const securityHeaders = createMiddleware().server(async ({ next, request }) => {
   const result = await next();
 
@@ -41,9 +66,12 @@ const securityHeaders = createMiddleware().server(async ({ next, request }) => {
   const response = new Response(result.response.body, result.response);
   response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
 
-  if (PRODUCTION_HOST.test(new URL(request.url).hostname)) {
+  const production = PRODUCTION_HOST.test(new URL(request.url).hostname);
+  const enforced = production ? ["frame-ancestors 'self'", ...ENFORCED_CSP] : ENFORCED_CSP;
+  response.headers.set("Content-Security-Policy", enforced.join("; "));
+  if (production) {
     response.headers.set("X-Frame-Options", "SAMEORIGIN");
-    response.headers.set("Content-Security-Policy", "frame-ancestors 'self'");
+    response.headers.set("Content-Security-Policy-Report-Only", REPORT_ONLY_CSP.join("; "));
   }
 
   return response;
