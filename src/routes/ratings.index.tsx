@@ -1,5 +1,4 @@
-import { createFileRoute, ErrorComponent, stripSearchParams } from "@tanstack/react-router";
-import { zodValidator } from "@tanstack/zod-adapter";
+import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
 import { z } from "zod";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
 import { fetchCourses } from "@/data/courses-db";
@@ -20,7 +19,9 @@ export const ratingsSearchSchema = z.object({
   tab: z.string().default("courses").catch("courses"),
 });
 
-const ratingsSearchDefaults = {
+export type RatingsSearch = z.output<typeof ratingsSearchSchema>;
+
+const ratingsSearchDefaults: RatingsSearch = {
   q: "",
   region: "",
   country: "",
@@ -32,10 +33,20 @@ const ratingsSearchDefaults = {
 };
 
 export const Route = createFileRoute("/ratings/")({
-  validateSearch: zodValidator(ratingsSearchSchema),
+  validateSearch: (raw: Record<string, unknown>): RatingsSearch => ratingsSearchSchema.parse(raw),
   // Keep default filter values out of the URL, so /ratings is served directly
   // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
-  search: { middlewares: [stripSearchParams<z.input<typeof ratingsSearchSchema>>(ratingsSearchDefaults)] },
+  search: {
+    middlewares: [
+      ({ search, next }: { search: RatingsSearch; next: (s: RatingsSearch) => RatingsSearch }) => {
+        const out = { ...next(search) } as Record<string, unknown>;
+        for (const k of Object.keys(ratingsSearchDefaults) as (keyof RatingsSearch)[]) {
+          if (out[k] === ratingsSearchDefaults[k]) delete out[k];
+        }
+        return out as RatingsSearch;
+      },
+    ],
+  },
   head: () => ({
     meta: [
       { title: TITLE },
