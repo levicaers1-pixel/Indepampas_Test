@@ -8,6 +8,13 @@
       "when": 1793387428200,
       "tag": "0000_dog_votes",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793387625834,
+      "tag": "0001_restrict_cast_community_vote_to_service_role",
+      "breakpoints": true
     }
   ]
 }
