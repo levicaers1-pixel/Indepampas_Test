@@ -49,7 +49,10 @@ export function NewFooter() {
 
       <div className="relative px-6 lg:px-14 py-6 border-t border-[var(--rb-rule)] flex flex-col md:flex-row justify-between gap-3 rb-mono text-[var(--rb-dim)]">
         <div>© {new Date().getFullYear()} PAMPAS — Onafhankelijk geproduceerd in België</div>
-        <div className="text-[var(--rb-lime)]">Made on the back nine</div>
+        <nav aria-label="Juridisch" className="flex gap-5">
+          <Link to="/privacy" className={linkClass}>Privacy</Link>
+          <Link to="/disclaimer" className={linkClass}>Disclaimer</Link>
+        </nav>
       </div>
     </footer>
   );

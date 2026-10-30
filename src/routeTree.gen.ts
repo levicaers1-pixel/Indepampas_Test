@@ -9,68 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as GolfbanenRouteImport } from './routes/golfbanen'
-import { Route as HostsRouteImport } from './routes/hosts'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as RatingsRouteImport } from './routes/ratings'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VriendenRouteImport } from './routes/vrienden'
-import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
-import { Route as AdminLoginRouteImport } from './routes/admin.login'
-import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
-import { Route as AfleveringenIndexRouteImport } from './routes/afleveringen.index'
-import { Route as AfleveringenSlugRouteImport } from './routes/afleveringen.$slug'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as BlogBesteGolfbanenRondAntwerpenRouteImport } from './routes/blog.beste-golfbanen-rond-antwerpen'
-import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RatingsRouteImport } from './routes/ratings'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as HostsRouteImport } from './routes/hosts'
+import { Route as GolfbanenRouteImport } from './routes/golfbanen'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as RatingsIndexRouteImport } from './routes/ratings.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AfleveringenIndexRouteImport } from './routes/afleveringen.index'
 import { Route as RatingsSlugRouteImport } from './routes/ratings.$slug'
+import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
+import { Route as BlogBesteGolfbanenRondAntwerpenRouteImport } from './routes/blog.beste-golfbanen-rond-antwerpen'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AfleveringenSlugRouteImport } from './routes/afleveringen.$slug'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin.reset-password'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GolfbanenRoute = GolfbanenRouteImport.update({
-  id: '/golfbanen',
-  path: '/golfbanen',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HostsRoute = HostsRouteImport.update({
-  id: '/hosts',
-  path: '/hosts',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RatingsRoute = RatingsRouteImport.update({
-  id: '/ratings',
-  path: '/ratings',
+const VriendenRoute = VriendenRouteImport.update({
+  id: '/vrienden',
+  path: '/vrienden',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -78,62 +45,54 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VriendenRoute = VriendenRouteImport.update({
-  id: '/vrienden',
-  path: '/vrienden',
+const RatingsRoute = RatingsRouteImport.update({
+  id: '/ratings',
+  path: '/ratings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AfleveringenIndexRoute = AfleveringenIndexRouteImport.update({
-  id: '/afleveringen/',
-  path: '/afleveringen/',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AfleveringenSlugRoute = AfleveringenSlugRouteImport.update({
-  id: '/afleveringen/$slug',
-  path: '/afleveringen/$slug',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
+const HostsRoute = HostsRouteImport.update({
+  id: '/hosts',
+  path: '/hosts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GolfbanenRoute = GolfbanenRouteImport.update({
+  id: '/golfbanen',
+  path: '/golfbanen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => BlogRoute,
-} as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
-} as any)
-const BlogBesteGolfbanenRondAntwerpenRoute =
-  BlogBesteGolfbanenRondAntwerpenRouteImport.update({
-    id: '/beste-golfbanen-rond-antwerpen',
-    path: '/beste-golfbanen-rond-antwerpen',
-    getParentRoute: () => BlogRoute,
-  } as any)
-const CoursesSlugRoute = CoursesSlugRouteImport.update({
-  id: '/courses/$slug',
-  path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RatingsIndexRoute = RatingsIndexRouteImport.update({
@@ -141,11 +100,64 @@ const RatingsIndexRoute = RatingsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => RatingsRoute,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
+const AfleveringenIndexRoute = AfleveringenIndexRouteImport.update({
+  id: '/afleveringen/',
+  path: '/afleveringen/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RatingsSlugRoute = RatingsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => RatingsRoute,
 } as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogBesteGolfbanenRondAntwerpenRoute =
+  BlogBesteGolfbanenRondAntwerpenRouteImport.update({
+    id: '/beste-golfbanen-rond-antwerpen',
+    path: '/beste-golfbanen-rond-antwerpen',
+    getParentRoute: () => BlogRoute,
+  } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
+const AfleveringenSlugRoute = AfleveringenSlugRouteImport.update({
+  id: '/afleveringen/$slug',
+  path: '/afleveringen/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -158,9 +170,11 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/golfbanen': typeof GolfbanenRoute
   '/hosts': typeof HostsRoute
   '/mcp': typeof McpRoute
+  '/privacy': typeof PrivacyRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vrienden': typeof VriendenRoute
@@ -182,9 +196,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/golfbanen': typeof GolfbanenRoute
   '/hosts': typeof HostsRoute
   '/mcp': typeof McpRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vrienden': typeof VriendenRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -207,9 +223,11 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
   '/golfbanen': typeof GolfbanenRoute
   '/hosts': typeof HostsRoute
   '/mcp': typeof McpRoute
+  '/privacy': typeof PrivacyRoute
   '/ratings': typeof RatingsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/vrienden': typeof VriendenRoute
@@ -234,9 +252,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/contact'
+    | '/disclaimer'
     | '/golfbanen'
     | '/hosts'
     | '/mcp'
+    | '/privacy'
     | '/ratings'
     | '/sitemap.xml'
     | '/vrienden'
@@ -258,9 +278,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/contact'
+    | '/disclaimer'
     | '/golfbanen'
     | '/hosts'
     | '/mcp'
+    | '/privacy'
     | '/sitemap.xml'
     | '/vrienden'
     | '/.mcp/list-tools'
@@ -282,9 +304,11 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/contact'
+    | '/disclaimer'
     | '/golfbanen'
     | '/hosts'
     | '/mcp'
+    | '/privacy'
     | '/ratings'
     | '/sitemap.xml'
     | '/vrienden'
@@ -308,9 +332,11 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
+  DisclaimerRoute: typeof DisclaimerRoute
   GolfbanenRoute: typeof GolfbanenRoute
   HostsRoute: typeof HostsRoute
   McpRoute: typeof McpRoute
+  PrivacyRoute: typeof PrivacyRoute
   RatingsRoute: typeof RatingsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VriendenRoute: typeof VriendenRoute
@@ -324,60 +350,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/golfbanen': {
-      id: '/golfbanen'
-      path: '/golfbanen'
-      fullPath: '/golfbanen'
-      preLoaderRoute: typeof GolfbanenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hosts': {
-      id: '/hosts'
-      path: '/hosts'
-      fullPath: '/hosts'
-      preLoaderRoute: typeof HostsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ratings': {
-      id: '/ratings'
-      path: '/ratings'
-      fullPath: '/ratings'
-      preLoaderRoute: typeof RatingsRouteImport
+    '/vrienden': {
+      id: '/vrienden'
+      path: '/vrienden'
+      fullPath: '/vrienden'
+      preLoaderRoute: typeof VriendenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -387,81 +364,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vrienden': {
-      id: '/vrienden'
-      path: '/vrienden'
-      fullPath: '/vrienden'
-      preLoaderRoute: typeof VriendenRouteImport
+    '/ratings': {
+      id: '/ratings'
+      path: '/ratings'
+      fullPath: '/ratings'
+      preLoaderRoute: typeof RatingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/login': {
-      id: '/admin/login'
-      path: '/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/reset-password': {
-      id: '/admin/reset-password'
-      path: '/reset-password'
-      fullPath: '/admin/reset-password'
-      preLoaderRoute: typeof AdminResetPasswordRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/afleveringen/': {
-      id: '/afleveringen/'
-      path: '/afleveringen'
-      fullPath: '/afleveringen/'
-      preLoaderRoute: typeof AfleveringenIndexRouteImport
+    '/hosts': {
+      id: '/hosts'
+      path: '/hosts'
+      fullPath: '/hosts'
+      preLoaderRoute: typeof HostsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/afleveringen/$slug': {
-      id: '/afleveringen/$slug'
-      path: '/afleveringen/$slug'
-      fullPath: '/afleveringen/$slug'
-      preLoaderRoute: typeof AfleveringenSlugRouteImport
+    '/golfbanen': {
+      id: '/golfbanen'
+      path: '/golfbanen'
+      fullPath: '/golfbanen'
+      preLoaderRoute: typeof GolfbanenRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/': {
-      id: '/blog/'
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
       path: '/'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/blog/beste-golfbanen-rond-antwerpen': {
-      id: '/blog/beste-golfbanen-rond-antwerpen'
-      path: '/beste-golfbanen-rond-antwerpen'
-      fullPath: '/blog/beste-golfbanen-rond-antwerpen'
-      preLoaderRoute: typeof BlogBesteGolfbanenRondAntwerpenRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/courses/$slug': {
-      id: '/courses/$slug'
-      path: '/courses/$slug'
-      fullPath: '/courses/$slug'
-      preLoaderRoute: typeof CoursesSlugRouteImport
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ratings/': {
@@ -471,12 +441,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RatingsIndexRouteImport
       parentRoute: typeof RatingsRoute
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/afleveringen/': {
+      id: '/afleveringen/'
+      path: '/afleveringen'
+      fullPath: '/afleveringen/'
+      preLoaderRoute: typeof AfleveringenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ratings/$slug': {
       id: '/ratings/$slug'
       path: '/$slug'
       fullPath: '/ratings/$slug'
       preLoaderRoute: typeof RatingsSlugRouteImport
       parentRoute: typeof RatingsRoute
+    }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/beste-golfbanen-rond-antwerpen': {
+      id: '/blog/beste-golfbanen-rond-antwerpen'
+      path: '/beste-golfbanen-rond-antwerpen'
+      fullPath: '/blog/beste-golfbanen-rond-antwerpen'
+      preLoaderRoute: typeof BlogBesteGolfbanenRondAntwerpenRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/afleveringen/$slug': {
+      id: '/afleveringen/$slug'
+      path: '/afleveringen/$slug'
+      fullPath: '/afleveringen/$slug'
+      preLoaderRoute: typeof AfleveringenSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reset-password': {
+      id: '/admin/reset-password'
+      path: '/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
@@ -532,9 +572,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
+  DisclaimerRoute: DisclaimerRoute,
   GolfbanenRoute: GolfbanenRoute,
   HostsRoute: HostsRoute,
   McpRoute: McpRoute,
+  PrivacyRoute: PrivacyRoute,
   RatingsRoute: RatingsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VriendenRoute: VriendenRoute,

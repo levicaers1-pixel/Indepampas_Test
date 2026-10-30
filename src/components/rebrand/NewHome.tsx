@@ -498,6 +498,12 @@ export function NewHome() {
               {error}
             </p>
           )}
+          {status !== "success" && (
+            <p className="w-full text-xs text-[var(--rb-ground)] opacity-80">
+              Door in te schrijven ga je akkoord met onze{" "}
+              <Link to="/privacy" className="underline">privacyverklaring</Link>. Uitschrijven kan altijd.
+            </p>
+          )}
         </div>
       </section>
     </>

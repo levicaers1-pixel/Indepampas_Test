@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
 import { Honeypot, honeypotValue } from "@/components/Honeypot";
@@ -143,6 +144,16 @@ export function EmailPopup() {
 
         {status === "error" && error && (
           <p className="mt-3 font-rb-sans text-[0.8rem] text-[var(--rb-danger)]">{error}</p>
+        )}
+
+        {status !== "success" && (
+          <p className="mt-4 font-rb-sans text-[0.75rem] text-[rgba(244,239,229,0.5)]">
+            Door in te schrijven ga je akkoord met onze{" "}
+            <Link to="/privacy" onClick={close} className="underline hover:text-[var(--rb-lime)]">
+              privacyverklaring
+            </Link>
+            . Uitschrijven kan altijd.
+          </p>
         )}
       </div>
     </div>

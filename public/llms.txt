@@ -9,6 +9,8 @@
 - [Blog](/blog): Verdiepende stukken, opinies en analyses.
 - [De Hosts](/hosts): Maak kennis met Lars, Levi en Niels.
 - [Contact](/contact): Contact, sponsoring en samenwerkingen.
+- [Privacy](/privacy): Privacyverklaring en cookies.
+- [Disclaimer](/disclaimer): Gebruiksvoorwaarden, meningen en ratings.
 
 ## Blog
 

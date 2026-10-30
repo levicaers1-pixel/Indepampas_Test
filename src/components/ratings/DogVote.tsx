@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import type { CourseWithRatings } from "@/data/courses-db";
 import {
   DOG_ANSWER_LABEL,
@@ -128,7 +129,8 @@ export function DogVote({ course }: { course: CourseWithRatings }) {
             )
           </>
         )}
-        .
+        . Zie ook de{" "}
+        <Link to="/disclaimer" hash="hond" className="underline">disclaimer</Link>.
       </p>
     </section>
   );

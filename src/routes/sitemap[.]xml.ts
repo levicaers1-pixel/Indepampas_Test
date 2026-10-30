@@ -66,6 +66,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/hosts" },
           { path: "/vrienden", lastmod: isoDay(latestGuest?.[0]?.updated_at) },
           { path: "/contact" },
+          { path: "/privacy" },
+          { path: "/disclaimer" },
           ...episodeList.map((e) => ({
             path: `/afleveringen/${episodeSlugs.get(e.spotifyId)!}`,
             lastmod: episodeIsoDate(e),

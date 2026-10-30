@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { sendContactMessage } from "@/lib/contact.functions";
@@ -129,6 +130,11 @@ export function NewContact() {
                 className="px-4 py-3 bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.15)] font-rb-sans text-[0.9rem] text-[var(--rb-ink)] outline-none focus:border-[var(--rb-lime)] resize-none"
               />
             </div>
+
+            <p className="font-rb-sans text-[0.75rem] text-[var(--rb-muted)]">
+              Je gegevens gebruiken we enkel om je te antwoorden. Meer in onze{" "}
+              <Link to="/privacy" className="text-[var(--rb-lime)] underline">privacyverklaring</Link>.
+            </p>
 
             <div className="flex justify-between items-center pt-2 gap-4 flex-wrap">
               {sent ? (
