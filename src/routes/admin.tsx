@@ -259,6 +259,9 @@ function CoursesTab() {
   );
 }
 
+const DOG_OPTIONS = ["Volgens de community", "Ja, ook op de baan", "Alleen clubhuis en terras", "Nee"];
+const DOG_VALUES: (string | null)[] = [null, "course", "clubhouse", "no"];
+
 function CourseDrawer({ initial, onClose, onSaved }: { initial: Course | null; onClose: () => void; onSaved: () => void }) {
   const [form, setForm] = useState<CourseInsert>(
     initial ?? { name: "", country: "België", region: "", type: "Parkland", greenfee: null, holes: 18, website: "", episode_url: "" }
@@ -317,6 +320,16 @@ function CourseDrawer({ initial, onClose, onSaved }: { initial: Course | null; o
         </Field>
         <Field label="Episode link (Spotify)">
           <Input type="url" value={form.episode_url ?? ""} onChange={(v) => setForm({ ...form, episode_url: v })} placeholder="https://open.spotify.com/..." />
+        </Field>
+        <Field label="Honden mee? (beslissing PAMPAS)">
+          <Select
+            value={DOG_OPTIONS[Math.max(0, DOG_VALUES.indexOf(form.dog_override ?? null))]}
+            onChange={(v) => setForm({ ...form, dog_override: DOG_VALUES[DOG_OPTIONS.indexOf(v)] ?? null })}
+            options={DOG_OPTIONS}
+          />
+          <p className="text-[11px] text-[#8A8270]">
+            "Volgens de community" laat de stemmen beslissen. Een keuze hier gaat erboven (bv. na bevestiging door de club).
+          </p>
         </Field>
         <DrawerActions saving={saving} onClose={onClose} />
       </form>

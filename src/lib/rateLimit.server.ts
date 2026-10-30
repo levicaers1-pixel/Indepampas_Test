@@ -8,7 +8,7 @@ type RpcClient = {
 };
 
 /** One key per function and visitor. The IP is hashed (with a server secret), never stored. */
-async function visitorKey(name: string): Promise<string | null> {
+export async function visitorKey(name: string): Promise<string | null> {
   const headers = getRequest()?.headers;
   const ip =
     headers?.get("cf-connecting-ip") ?? headers?.get("x-forwarded-for")?.split(",")[0]?.trim();

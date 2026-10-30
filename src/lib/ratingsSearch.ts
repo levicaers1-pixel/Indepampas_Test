@@ -7,6 +7,7 @@ export const ratingsSearchSchema = z.object({
   type: z.string().default("").catch(""),
   fee: z.string().default("").catch(""),
   hosts: z.string().default("").catch(""), // comma-separated
+  dog: z.string().default("").catch(""), // "ja" = only dog-friendly courses
   sort: z.string().default("pampas_desc").catch("pampas_desc"),
   tab: z.string().default("courses").catch("courses"),
 });
@@ -20,6 +21,7 @@ export const ratingsSearchDefaults: RatingsSearch = {
   type: "",
   fee: "",
   hosts: "",
+  dog: "",
   sort: "pampas_desc",
   tab: "courses",
 };

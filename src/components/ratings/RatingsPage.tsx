@@ -3,6 +3,8 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 import { HOSTS, HOST_PERSONAS, type HostName } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
 import { useCombinedScore } from "@/lib/useCourseVotes";
+import { useDogStatuses } from "@/lib/dogVotes";
+import { PawIcon } from "./DogPaw";
 
 import type { CourseWithRatings } from "@/data/courses-db";
 import { buildSlugMap } from "@/lib/courseSlug";
@@ -43,6 +45,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   const country = rawSearch.country;
   const type = rawSearch.type;
   const fee = rawSearch.fee;
+  const dogOnly = rawSearch.dog === "ja";
   const sort: SortKey = VALID_SORTS.includes(rawSearch.sort as SortKey)
     ? (rawSearch.sort as SortKey)
     : "pampas_desc";
@@ -56,7 +59,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
 
   const update = (patch: Partial<{
     q: string; region: string; country: string; type: string;
-    fee: string; hosts: string; sort: string; tab: string;
+    fee: string; hosts: string; dog: string; sort: string; tab: string;
   }>) => {
     navigate({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -99,6 +102,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       type: "",
       fee: "",
       hosts: "",
+      dog: "",
       sort: "pampas_desc",
       tab: "courses",
     });
@@ -127,9 +131,11 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
   );
 
   const combinedScore = useCombinedScore();
+  const dogStatus = useDogStatuses();
 
   const filtered = useMemo(() => {
     let out = courses.filter((c) => {
+      if (dogOnly && dogStatus(c.id).status !== "course") return false;
       if (search && !`${c.name} ${c.region ?? ""}`.toLowerCase().includes(search.toLowerCase()))
         return false;
       if (region && c.region !== region) return false;
@@ -156,14 +162,14 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
       out = [...out].sort((a, b) => recent(b) - recent(a));
     }
     return out;
-  }, [courses, search, region, country, type, fee, hostFilter, sort, activeHost, combinedScore]);
+  }, [courses, search, region, country, type, fee, hostFilter, dogOnly, dogStatus, sort, activeHost, combinedScore]);
 
 
   const [visible, setVisible] = useState(PAGE_SIZE);
   // A new filter or sort starts again from the first page of results.
   useEffect(() => {
     setVisible(PAGE_SIZE);
-  }, [search, region, country, type, fee, hostFilter, sort, activeHost]);
+  }, [search, region, country, type, fee, hostFilter, dogOnly, sort, activeHost]);
   // The card the map jumped to must be in the DOM, wherever it sits in the list.
   const shown = useMemo(() => {
     const page = filtered.slice(0, visible);
@@ -349,6 +355,19 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 <option value="€€€">€€€</option>
                 <option value="€€€€">€€€€</option>
               </select>
+              <button
+                type="button"
+                aria-pressed={dogOnly}
+                onClick={() => update({ dog: dogOnly ? "" : "ja" })}
+                className="inline-flex items-center gap-1.5 border px-2.5 py-1.5 font-rb-mono text-[0.7rem] uppercase tracking-[0.14em] transition"
+                style={{
+                  background: dogOnly ? "rgba(182,240,74,0.14)" : "transparent",
+                  color: dogOnly ? "#B6F04A" : "#B9C4BC",
+                  borderColor: dogOnly ? "#B6F04A" : "rgba(242,239,230,0.25)",
+                }}
+              >
+                <PawIcon size={12} /> Hondvriendelijk
+              </button>
               <div className="flex items-center gap-1.5">
                 {HOSTS.map((h) => {
                   const p = HOST_PERSONAS[h];

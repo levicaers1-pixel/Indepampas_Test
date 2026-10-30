@@ -12,6 +12,8 @@ import { personalScore } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { PhotoCarousel } from "@/components/ratings/PhotoCarousel";
 import { CommunityVote } from "@/components/ratings/CommunityVote";
+import { DogBadge } from "@/components/ratings/DogPaw";
+import { DogVote } from "@/components/ratings/DogVote";
 import { useCourseVotes } from "@/lib/useCourseVotes";
 import { weightedCommunityScore } from "@/lib/communityVotes";
 import { PampasScoreBadge } from "./PampasScoreBadge";
@@ -281,6 +283,7 @@ export function CourseCard({
         avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
         count={communityScores.length}
       />
+      <DogBadge courseId={course.id} />
       <span
         role="button"
         tabIndex={0}
@@ -497,6 +500,9 @@ export function CourseCard({
 
           {/* COMMUNITY VOTE */}
           <CommunityVote course={course} />
+
+          {/* DOG FRIENDLY */}
+          <DogVote course={course} />
 
 
 
