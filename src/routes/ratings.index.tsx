@@ -1,5 +1,5 @@
 import { createFileRoute, ErrorComponent } from "@tanstack/react-router";
-import { z } from "zod";
+import { ratingsSearchSchema, ratingsSearchDefaults, type RatingsSearch } from "@/lib/ratingsSearch";
 import { RatingsPage } from "@/components/ratings/RatingsPage";
 import { fetchCourses } from "@/data/courses-db";
 
@@ -8,29 +8,6 @@ const TITLE = "Parcours Beoordelingen — PAMPAS";
 const DESCRIPTION =
   "Gespeeld, beoordeeld en eerlijk besproken door Lars, Levi & Niels. Vind je host en ontdek welke baan bij jou past.";
 
-export const ratingsSearchSchema = z.object({
-  q: z.string().default("").catch(""),
-  region: z.string().default("").catch(""),
-  country: z.string().default("").catch(""),
-  type: z.string().default("").catch(""),
-  fee: z.string().default("").catch(""),
-  hosts: z.string().default("").catch(""), // comma-separated
-  sort: z.string().default("pampas_desc").catch("pampas_desc"),
-  tab: z.string().default("courses").catch("courses"),
-});
-
-export type RatingsSearch = z.output<typeof ratingsSearchSchema>;
-
-const ratingsSearchDefaults: RatingsSearch = {
-  q: "",
-  region: "",
-  country: "",
-  type: "",
-  fee: "",
-  hosts: "",
-  sort: "pampas_desc",
-  tab: "courses",
-};
 
 export const Route = createFileRoute("/ratings/")({
   // Only non-default values are kept, so /ratings stays clean (no ?q=&region=…).
