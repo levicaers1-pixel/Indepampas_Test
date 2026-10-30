@@ -15,6 +15,13 @@
       "when": 1793387625834,
       "tag": "0001_restrict_cast_community_vote_to_service_role",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793394690608,
+      "tag": "0002_admin_vote_stats",
+      "breakpoints": true
     }
   ]
 }
