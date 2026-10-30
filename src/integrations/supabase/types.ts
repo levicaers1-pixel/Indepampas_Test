@@ -647,6 +647,7 @@ export type Database = {
           source_type: string
         }[]
       }
+      purge_old_rate_limits: { Args: never; Returns: number }
       rate_limit_hit: {
         Args: { _key: string; _max: number; _window_seconds: number }
         Returns: boolean
