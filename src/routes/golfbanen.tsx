@@ -108,7 +108,7 @@ function GolfbanenPage() {
           <p className="font-rb-sans text-[0.95rem] text-[var(--rb-muted)] mt-3 max-w-2xl leading-[1.7]">
             Alle {rows.length} golfbanen in onze database, per land en regio. Voor {rated} ervan staat er een eerlijke
             beoordeling van Lars, Levi &amp; Niels (de Pampas Score); de andere zijn nog niet door ons gespeeld.{" "}
-            <Link to="/ratings" className="text-[var(--rb-ink)] border-b border-[var(--rb-lime)] no-underline hover:text-[var(--rb-lime)]">
+            <Link to="/ratings" search={{}} className="text-[var(--rb-ink)] border-b border-[var(--rb-lime)] no-underline hover:text-[var(--rb-lime)]">
               Vergelijk en filter alle parcours →
             </Link>
           </p>
