@@ -47,12 +47,12 @@ const ENFORCED_CSP = ["object-src 'none'", "base-uri 'self'", "form-action 'self
  */
 const REPORT_ONLY_CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://www.instagram.com",
+  "script-src 'self' 'unsafe-inline' https://maps.googleapis.com https://maps.gstatic.com https://www.instagram.com blob:",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.instagram.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob: https:",
   "media-src 'self' https:",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://maps.googleapis.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://maps.googleapis.com https://maps.gstatic.com data: blob:",
   "frame-src https://open.spotify.com https://www.instagram.com",
   "worker-src 'self' blob:",
   ...ENFORCED_CSP,
