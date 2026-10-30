@@ -397,7 +397,7 @@ export function NewHome() {
                 Beoordeeld door onze hosts. Jij stemt mee! De Pampas Score is het gemiddelde van de
                 scores van Lars, Levi en Niels op 100.
               </p>
-              <Link to="/ratings" search={{}} className="rb-btn rb-btn-lime mt-8">
+              <Link to="/ratings" className="rb-btn rb-btn-lime mt-8">
                 {courseCount ? `Alle ${courseCount} golfbanen` : "Alle golfbanen"}
               </Link>
             </div>

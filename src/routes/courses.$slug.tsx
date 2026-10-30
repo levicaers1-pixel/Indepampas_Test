@@ -187,7 +187,7 @@ export const Route = createFileRoute("/courses/$slug")({
     <div className="px-6 lg:px-14 py-24 text-center">
       <h1 className="font-rb-serif text-3xl text-[var(--rb-ink)]">Parcours niet gevonden</h1>
       <p className="font-rb-sans text-[var(--rb-muted)] mt-3">
-        <Link to="/ratings" search={{}} className="underline">Terug naar alle parcours</Link>
+        <Link to="/ratings" className="underline">Terug naar alle parcours</Link>
       </p>
     </div>
   ),
@@ -282,7 +282,7 @@ function CourseDetailPage() {
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(242,239,230,0.15)] pt-6">
           <Link
-            to="/ratings" search={{}}
+            to="/ratings"
             className="font-rb-mono text-[0.7rem] tracking-[0.18em] uppercase text-[var(--rb-lime)] hover:text-[var(--rb-ink)]"
           >
             ← Alle parcours

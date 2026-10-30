@@ -334,7 +334,7 @@ export function NewRatingArticle({
           PAMPAS Ratings · Vol. I — 2026
         </span>
         <Link
-          to="/ratings" search={{}}
+          to="/ratings"
           className="text-[var(--rb-ink)] uppercase px-6 py-3 border border-[rgba(242,239,230,0.3)] hover:bg-[var(--rb-surface)] hover:text-[var(--rb-ink)] transition-colors"
           style={{
             fontFamily: "'DM Mono', ui-monospace, monospace",
