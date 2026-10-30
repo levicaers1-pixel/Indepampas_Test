@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { castCommunityVote } from "@/lib/votes.functions";
 
 const STORAGE_KEY = "pampas_voter_id";
 
@@ -34,13 +35,8 @@ export async function fetchCourseVotes(courseId: string): Promise<CommunityVote[
 
 export async function castVote(courseId: string, voterId: string, score: number) {
   const clean = Math.max(0, Math.min(100, Math.round(score)));
-  const { data, error } = await supabase.rpc("cast_community_vote", {
-    _course_id: courseId,
-    _voter_id: voterId,
-    _score: clean,
-  });
-  if (error) throw new Error(error.message);
-  return typeof data === "number" ? data : clean;
+  const result = await castCommunityVote({ data: { courseId, voterId, score: clean } });
+  return result.score;
 }
 
 export async function fetchMyVotes(voterId: string): Promise<Map<string, number>> {
