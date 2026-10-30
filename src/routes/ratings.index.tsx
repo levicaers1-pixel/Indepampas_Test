@@ -33,7 +33,7 @@ const ratingsSearchDefaults: RatingsSearch = {
 };
 
 export const Route = createFileRoute("/ratings/")({
-  validateSearch: (raw: Record<string, unknown>): RatingsSearch => ratingsSearchSchema.parse(raw),
+  validateSearch: (raw: Partial<RatingsSearch>): RatingsSearch => ratingsSearchSchema.parse(raw),
   // Keep default filter values out of the URL, so /ratings is served directly
   // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
   search: {
