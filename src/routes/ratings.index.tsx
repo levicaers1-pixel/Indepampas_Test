@@ -38,12 +38,12 @@ export const Route = createFileRoute("/ratings/")({
   // (200) instead of redirecting to /ratings?q=&region=&…&tab=courses.
   search: {
     middlewares: [
-      ({ search, next }: { search: RatingsSearch; next: (s: RatingsSearch) => RatingsSearch }) => {
+      ({ search, next }: { search: Partial<RatingsSearch>; next: (s: Partial<RatingsSearch>) => Partial<RatingsSearch> }) => {
         const out = { ...next(search) } as Record<string, unknown>;
         for (const k of Object.keys(ratingsSearchDefaults) as (keyof RatingsSearch)[]) {
           if (out[k] === ratingsSearchDefaults[k]) delete out[k];
         }
-        return out as RatingsSearch;
+        return out as Partial<RatingsSearch>;
       },
     ],
   },
