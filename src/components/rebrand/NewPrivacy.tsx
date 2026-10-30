@@ -130,7 +130,7 @@ const sections: LegalSection[] = [
           </li>
           <li>
             <strong>Bewaartermijn:</strong> de stem en het stem-ID blijven bewaard zolang de stem
-            meetelt. De tellers die het aantal stemmen beperken zijn enkel voor korte tijd relevant. Wil
+            meetelt. De tellers die het aantal stemmen beperken worden na twee dagen automatisch verwijderd. Wil
             je dat een stem verdwijnt, mail ons dan het stem-ID uit je browser; zonder dat nummer kunnen
             we je stem niet terugvinden, want we weten niet wie je bent.
           </li>
@@ -139,7 +139,7 @@ const sections: LegalSection[] = [
         <h3 className="font-rb-serif text-lg text-[var(--rb-ink)] pt-4">Veiligheid en misbruik</h3>
         <p>
           Ook bij het contactformulier en de nieuwsbrief tellen we met een versleutelde afdruk van je
-          IP-adres hoeveel verzoeken één bezoeker doet, om spam en aanvallen tegen te gaan. Daarnaast
+          IP-adres hoeveel verzoeken één bezoeker doet, om spam en aanvallen tegen te gaan. Die tellers worden na twee dagen automatisch verwijderd. Daarnaast
           verwerkt onze hostingpartij (Cloudflare) technische gegevens zoals je IP-adres en browsertype
           om de site te leveren en te beveiligen.
         </p>
