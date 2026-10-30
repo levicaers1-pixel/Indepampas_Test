@@ -21,6 +21,12 @@ export const DOG_ANSWER_LABEL: Record<DogAnswer, string> = {
   no: "Nee",
 };
 
+export const DOG_ANSWER_SHORT: Record<DogAnswer, string> = {
+  course: "ja",
+  clubhouse: "terras",
+  no: "nee",
+};
+
 export type DogInfo = {
   status: DogStatus;
   /** Decided by the hosts in the admin; goes above the votes. */

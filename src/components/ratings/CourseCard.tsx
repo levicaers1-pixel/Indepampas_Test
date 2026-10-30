@@ -12,7 +12,7 @@ import { personalScore } from "@/lib/personalScore";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { PhotoCarousel } from "@/components/ratings/PhotoCarousel";
 import { CommunityVote } from "@/components/ratings/CommunityVote";
-import { DogBadge } from "@/components/ratings/DogPaw";
+import { DogChip, DogQuickModal } from "@/components/ratings/DogQuickVote";
 import { DogVote } from "@/components/ratings/DogVote";
 import { useCourseVotes } from "@/lib/useCourseVotes";
 import { weightedCommunityScore } from "@/lib/communityVotes";
@@ -239,6 +239,7 @@ export function CourseCard({
   const [voteOpen, setVoteOpen] = useState(false);
   const [voteSaving, setVoteSaving] = useState(false);
   const [voteError, setVoteError] = useState<string | null>(null);
+  const [dogOpen, setDogOpen] = useState(false);
 
   async function submitQuickVote(score: number) {
     setVoteSaving(true);
@@ -283,7 +284,7 @@ export function CourseCard({
         avg={communityScores.length > 0 ? communityScores.reduce((a, b) => a + b, 0) / communityScores.length : null}
         count={communityScores.length}
       />
-      <DogBadge courseId={course.id} />
+      <DogChip courseId={course.id} onOpen={() => setDogOpen(true)} />
       <span
         role="button"
         tabIndex={0}
@@ -548,6 +549,7 @@ export function CourseCard({
           onSubmit={submitQuickVote}
         />
       )}
+      {dogOpen && <DogQuickModal course={course} onClose={() => setDogOpen(false)} />}
     </div>
   );
 }
