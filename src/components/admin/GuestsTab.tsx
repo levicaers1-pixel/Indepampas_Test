@@ -2,9 +2,52 @@ import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { toast } from "sonner";
+import { episodes as staticEpisodes, type Episode } from "@/data/episodes";
 
 type Guest = Tables<"guests">;
-type EpisodeOption = { id: string; number: string; title: string };
+type EpisodeOption = { id: string; number: string; title: string; spotify_id: string };
+
+const fetchEpisodeOptions = () =>
+  supabase.from("episodes").select("id,number,title,spotify_id").order("release_date", { ascending: false });
+
+/** Midnight UTC of the release day, like the rows already in the table (never shifted by the admin's time zone). */
+function releaseDateUtc(e: Episode): string | null {
+  if (e.releaseDate) return new Date(e.releaseDate).toISOString();
+  const [day, month, year] = e.date.split("/");
+  if (!day || !month || !year) return null;
+  return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day))).toISOString();
+}
+
+/**
+ * The older episodes only exist in src/data/episodes.ts, and a guest can only be linked to a row
+ * in the episodes table. Copy the ones that are missing into the table (existing rows are left
+ * alone), so the dropdown always offers every episode the site shows.
+ */
+async function syncStaticEpisodes(inDb: EpisodeOption[]): Promise<boolean> {
+  const have = new Set(inDb.map((e) => e.spotify_id));
+  const missing = staticEpisodes.filter((e) => !have.has(e.spotifyId));
+  if (missing.length === 0) return false;
+  const { error } = await supabase.from("episodes").upsert(
+    missing.map((e) => ({
+      spotify_id: e.spotifyId,
+      number: e.number,
+      season: e.season,
+      title: e.title,
+      description: e.description,
+      date: e.date,
+      duration: e.duration,
+      topics: e.topics,
+      image_url: e.imageUrl ?? null,
+      release_date: releaseDateUtc(e),
+    })),
+    { onConflict: "spotify_id", ignoreDuplicates: true },
+  );
+  if (error) {
+    console.error("episodes sync failed", error.message);
+    return false;
+  }
+  return true;
+}
 
 export function GuestsTab() {
   const [items, setItems] = useState<Guest[]>([]);
@@ -16,11 +59,16 @@ export function GuestsTab() {
     setLoading(true);
     const [{ data, error }, eps] = await Promise.all([
       supabase.from("guests").select("*").order("sort_order", { ascending: true }),
-      supabase.from("episodes").select("id,number,title").order("release_date", { ascending: false }),
+      fetchEpisodeOptions(),
     ]);
     if (error) toast.error(error.message);
     setItems(data ?? []);
-    setEpisodes((eps.data as EpisodeOption[]) ?? []);
+    let options = (eps.data as EpisodeOption[]) ?? [];
+    if (!eps.error && (await syncStaticEpisodes(options))) {
+      const refreshed = await fetchEpisodeOptions();
+      options = (refreshed.data as EpisodeOption[]) ?? options;
+    }
+    setEpisodes(options);
     setLoading(false);
   }
   useEffect(() => {
