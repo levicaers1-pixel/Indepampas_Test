@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { CourseWithRatings } from "@/data/courses-db";
 import {
   DOG_ANSWER_LABEL,
@@ -7,6 +7,7 @@ import {
   useDogInfo,
   type DogAnswer,
 } from "@/lib/dogVotes";
+import { useDialog } from "@/lib/useDialog";
 import { DogBadge, PawIcon } from "./DogPaw";
 
 const ANSWERS: DogAnswer[] = ["course", "clubhouse", "no"];
@@ -55,13 +56,7 @@ export function DogQuickModal({ course, onClose }: { course: CourseWithRatings; 
   const [saving, setSaving] = useState<DogAnswer | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const dialogRef = useDialog<HTMLDivElement>(onClose);
 
   async function pick(answer: DogAnswer) {
     setSaving(answer);
@@ -83,6 +78,8 @@ export function DogQuickModal({ course, onClose }: { course: CourseWithRatings; 
     >
       <div
         className="w-full max-w-md border border-[rgba(242,239,230,0.2)] bg-[var(--rb-surface)] p-6"
+        ref={dialogRef}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

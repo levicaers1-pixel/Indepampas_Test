@@ -9,6 +9,7 @@ import {
   type Persona,
 } from "@/data/personas";
 import { personalScore } from "@/lib/personalScore";
+import { useDialog } from "@/lib/useDialog";
 import type { CourseWithRatings } from "@/data/courses-db";
 import { PhotoCarousel } from "@/components/ratings/PhotoCarousel";
 import { CommunityVote } from "@/components/ratings/CommunityVote";
@@ -105,13 +106,7 @@ function QuickVoteModal({
   onSubmit: (score: number) => void;
 }) {
   const [value, setValue] = useState(initial ?? 75);
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const dialogRef = useDialog<HTMLDivElement>(onClose);
 
   return (
     <div
@@ -121,6 +116,8 @@ function QuickVoteModal({
     >
       <div
         className="w-full max-w-md bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.2)] p-6"
+        ref={dialogRef}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -202,7 +199,7 @@ function CriteriaBars({
               />
             </div>
             <span className="font-rb-mono text-[0.7rem] md:text-[0.7rem] text-[var(--rb-muted)] text-right whitespace-nowrap">
-              {avg.toFixed(1)} <span className="opacity-60">· {Math.round(weight * 100)}%</span>
+              {avg.toFixed(1)} <span className="text-[var(--rb-dim)]">· {Math.round(weight * 100)}%</span>
             </span>
           </div>
         );
@@ -330,6 +327,7 @@ export function CourseCard({
       {!isPage && (
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
         className="w-full text-left p-4 md:p-6 grid grid-cols-[minmax(0,1fr)_auto] gap-3 md:gap-6 items-start md:items-center"
       >
         <div className="min-w-0">
@@ -522,7 +520,7 @@ export function CourseCard({
                 href={course.website}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-[var(--rb-lime)] hover:text-[var(--rb-ink)]"
+                className="inline-flex min-h-6 items-center gap-1 text-[var(--rb-lime)] hover:text-[var(--rb-ink)]"
               >
                 Website <ExternalLink size={10} />
               </a>

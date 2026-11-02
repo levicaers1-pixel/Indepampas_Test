@@ -110,8 +110,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <div className="theme-new min-h-screen flex flex-col">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-[var(--rb-lime)] focus:px-4 focus:py-2 focus:font-rb-mono focus:text-xs focus:uppercase focus:tracking-[0.14em] focus:text-[var(--rb-ground)]"
+      >
+        Ga naar de inhoud
+      </a>
       <NewHeader />
-      <main className="flex-1 pt-[64px]">
+      <main id="main-content" tabIndex={-1} className="flex-1 pt-[64px] focus:outline-none">
         <Outlet />
       </main>
       <SponsorsBanner />

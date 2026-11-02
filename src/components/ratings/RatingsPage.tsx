@@ -328,6 +328,7 @@ export function RatingsPage({ courses }: { courses: CourseWithRatings[] }) {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Zoek een parcours..."
+                aria-label="Zoek een parcours"
                 className="bg-[var(--rb-surface)] border border-[rgba(242,239,230,0.25)] px-3 py-2 text-[0.82rem] font-rb-sans text-[var(--rb-ink)] placeholder:text-[var(--rb-dim)] w-full md:w-64 focus:outline-none focus:border-[var(--rb-lime)]"
               />
               <select aria-label="Regio" value={region} onChange={(e) => setRegion(e.target.value)} className="select-cream">

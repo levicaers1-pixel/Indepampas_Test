@@ -223,7 +223,7 @@ export function NewRatingArticle({
                           }}
                         >
                           {score}
-                          <span className="opacity-60 text-[0.7rem] ml-1">/100</span>
+                          <span className="text-[var(--rb-dim)] text-[0.7rem] ml-1">/100</span>
                         </span>
                       </div>
 

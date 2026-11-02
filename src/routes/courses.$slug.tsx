@@ -232,7 +232,7 @@ function CourseDetailPage() {
                   href={course.website}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] py-1.5 hover:text-[var(--rb-lime)]"
                 >
                   Website van de club →
                 </a>
@@ -265,14 +265,14 @@ function CourseDetailPage() {
                 <Link
                   to="/blog/$slug"
                   params={{ slug: regionPost.slug }}
-                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
+                  className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] py-1.5 hover:text-[var(--rb-lime)]"
                 >
                   {regionPost.label} →
                 </Link>
               )}
               <Link
                 to="/golfbanen"
-                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] pb-1 hover:text-[var(--rb-lime)]"
+                className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-ink)] no-underline border-b border-[var(--rb-lime)] py-1.5 hover:text-[var(--rb-lime)]"
               >
                 Alle golfbanen →
               </Link>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { useDialog } from "@/lib/useDialog";
 import { useServerFn } from "@tanstack/react-start";
 import { subscribeToBrevo } from "@/lib/brevo.functions";
 import { Honeypot, honeypotValue } from "@/components/Honeypot";
@@ -68,10 +69,14 @@ export function EmailPopup() {
     }
   };
 
+  const dialogRef = useDialog<HTMLDivElement>(close, "#popup-email", open);
+
   if (!open) return null;
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="fixed inset-0 z-[100] flex items-center justify-center px-4 animate-fade-in"
       role="dialog"
       aria-modal="true"
@@ -79,6 +84,7 @@ export function EmailPopup() {
     >
       <button
         aria-label="Sluiten"
+        tabIndex={-1}
         onClick={close}
         className="absolute inset-0 w-full h-full bg-black/70 backdrop-blur-sm cursor-default"
       />
@@ -91,7 +97,7 @@ export function EmailPopup() {
           ×
         </button>
 
-        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[rgba(244,239,229,0.5)] mb-4">
+        <p className="font-rb-mono text-[0.7rem] tracking-[0.2em] uppercase text-[var(--rb-dim)] mb-4">
           Nieuwsbrief
         </p>
         <h2
@@ -147,7 +153,7 @@ export function EmailPopup() {
         )}
 
         {status !== "success" && (
-          <p className="mt-4 font-rb-sans text-[0.75rem] text-[rgba(244,239,229,0.5)]">
+          <p className="mt-4 font-rb-sans text-[0.75rem] text-[var(--rb-dim)]">
             Door in te schrijven ga je akkoord met onze{" "}
             <Link to="/privacy" onClick={close} className="underline hover:text-[var(--rb-lime)]">
               privacyverklaring

@@ -40,7 +40,7 @@ export function NewContact() {
             { label: "Locatie", val: "Antwerpen, BE" },
           ].map((row) => (
             <div key={row.label} className="flex items-start gap-4 mb-6">
-              <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[rgba(244,239,229,0.4)] pt-1 min-w-[80px]">
+              <span className="font-rb-mono text-[0.7rem] tracking-[0.16em] uppercase text-[var(--rb-dim)] pt-1 min-w-[80px]">
                 {row.label}
               </span>
               {row.href ? (
@@ -120,10 +120,11 @@ export function NewContact() {
             </div>
             <RbField label="Onderwerp" name="subject" required />
             <div className="flex flex-col gap-1.5">
-              <label className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
+              <label htmlFor="message" className="font-rb-mono text-[0.7rem] tracking-[0.14em] uppercase text-[var(--rb-muted)]">
                 Bericht
               </label>
               <textarea
+                id="message"
                 required
                 rows={6}
                 name="message"

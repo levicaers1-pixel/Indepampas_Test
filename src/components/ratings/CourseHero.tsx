@@ -59,9 +59,9 @@ export function CourseHero({ course }: { course: CourseWithRatings }) {
           aria-label="Broodkruimels"
           className="rb-mono mb-8 flex flex-wrap gap-2 text-[var(--rb-ink-2)]"
         >
-          <Link to="/" className="no-underline hover:text-[var(--rb-lime)]">Home</Link>
+          <Link to="/" className="inline-block py-1 no-underline hover:text-[var(--rb-lime)]">Home</Link>
           <span aria-hidden="true">/</span>
-          <Link to="/golfbanen" className="no-underline hover:text-[var(--rb-lime)]">Golfbanen</Link>
+          <Link to="/golfbanen" className="inline-block py-1 no-underline hover:text-[var(--rb-lime)]">Golfbanen</Link>
           <span aria-hidden="true">/</span>
           <span className="text-[var(--rb-lime)]">{course.name}</span>
         </nav>
