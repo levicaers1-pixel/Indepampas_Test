@@ -29,6 +29,13 @@
       "when": 1793395741700,
       "tag": "0003_purge_old_rate_limits",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793711899943,
+      "tag": "0004_site_stats_analytics",
+      "breakpoints": true
     }
   ]
 }
