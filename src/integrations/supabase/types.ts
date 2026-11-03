@@ -504,6 +504,66 @@ export type Database = {
           },
         ]
       }
+      site_stats_daily: {
+        Row: {
+          country: string
+          day: string
+          device: string
+          path: string
+          source: string
+          views: number
+        }
+        Insert: {
+          country: string
+          day: string
+          device: string
+          path: string
+          source: string
+          views?: number
+        }
+        Update: {
+          country?: string
+          day?: string
+          device?: string
+          path?: string
+          source?: string
+          views?: number
+        }
+        Relationships: []
+      }
+      site_stats_totals: {
+        Row: {
+          day: string
+          views: number
+          visitors: number
+        }
+        Insert: {
+          day: string
+          views?: number
+          visitors?: number
+        }
+        Update: {
+          day?: string
+          views?: number
+          visitors?: number
+        }
+        Relationships: []
+      }
+      site_visitors_daily: {
+        Row: {
+          day: string
+          visitor_hash: string
+        }
+        Insert: {
+          day: string
+          visitor_hash: string
+        }
+        Update: {
+          day?: string
+          visitor_hash?: string
+        }
+        Relationships: []
+      }
       sponsors: {
         Row: {
           active: boolean
@@ -587,6 +647,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_site_stats: { Args: { _days?: number }; Returns: Json }
       admin_vote_stats: { Args: never; Returns: Json }
       cast_community_vote: {
         Args: { _course_id: string; _score: number; _voter_id: string }
@@ -648,9 +709,20 @@ export type Database = {
         }[]
       }
       purge_old_rate_limits: { Args: never; Returns: number }
+      purge_old_site_visitors: { Args: never; Returns: number }
       rate_limit_hit: {
         Args: { _key: string; _max: number; _window_seconds: number }
         Returns: boolean
+      }
+      track_pageview: {
+        Args: {
+          _country: string
+          _device: string
+          _path: string
+          _source: string
+          _visitor_hash: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
