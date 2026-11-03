@@ -53,7 +53,7 @@ function weekStart(d: Date): string {
 const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 const fmt = (n: number | null, digits = 1) => (n == null ? "—" : n.toFixed(digits).replace(".", ","));
 
-function Card({ label, value, hint }: { label: string; value: ReactNode; hint?: string }) {
+export function Card({ label, value, hint }: { label: string; value: ReactNode; hint?: string }) {
   return (
     <div className="border border-[#2A2A26] bg-[#1A1A18] p-4">
       <div className="text-[10px] uppercase tracking-[0.15em] text-[#8A8270]">{label}</div>
@@ -63,7 +63,7 @@ function Card({ label, value, hint }: { label: string; value: ReactNode; hint?: 
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+export function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="mt-8">
       <h3 className="mb-3 text-[10px] uppercase tracking-[0.2em] text-[#BA7517]">{title}</h3>
@@ -72,7 +72,7 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-function Table({ head, rows }: { head: string[]; rows: ReactNode[][] }) {
+export function Table({ head, rows }: { head: string[]; rows: ReactNode[][] }) {
   return (
     <div className="overflow-x-auto border border-[#2A2A26]">
       <table className="w-full min-w-[480px] text-left text-sm">

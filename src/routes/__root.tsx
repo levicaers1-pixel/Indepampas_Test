@@ -3,6 +3,7 @@ import { NewHeader } from "@/components/rebrand/NewHeader";
 import { NewFooter } from "@/components/rebrand/NewFooter";
 import { SponsorsBanner } from "@/components/SponsorsBanner";
 import { EmailPopup } from "@/components/EmailPopup";
+import { PageviewTracker } from "@/components/PageviewTracker";
 
 import appCss from "../styles.css?url";
 
@@ -123,6 +124,7 @@ function RootComponent() {
       <SponsorsBanner />
       <NewFooter />
       <EmailPopup />
+      <PageviewTracker />
     </div>
   );
 }

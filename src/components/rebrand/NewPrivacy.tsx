@@ -41,6 +41,7 @@ const sections: LegalSection[] = [
         </li>
         <li>
           We gebruiken <strong>geen advertentie- of trackingcookies</strong> en geen Google Analytics.
+          Bezoekcijfers tellen we zelf, anoniem en zonder cookies.
         </li>
         <li>
           Persoonsgegevens verzamelen we alleen als je ze zelf geeft (contactformulier, nieuwsbrief) of
@@ -140,7 +141,7 @@ const sections: LegalSection[] = [
 
         <h3 className="font-rb-serif text-lg text-[var(--rb-ink)] pt-4">Veiligheid en misbruik</h3>
         <p>
-          Ook bij het contactformulier en de nieuwsbrief tellen we met een versleutelde afdruk van je
+          Ook bij het contactformulier, de nieuwsbrief en de bezoekteller tellen we met een versleutelde afdruk van je
           IP-adres hoeveel verzoeken één bezoeker doet, om spam en aanvallen tegen te gaan. Die tellers worden na twee dagen automatisch verwijderd. Daarnaast
           verwerkt onze hostingpartij (Cloudflare) technische gegevens zoals je IP-adres en browsertype
           om de site te leveren en te beveiligen.
@@ -148,12 +149,45 @@ const sections: LegalSection[] = [
 
         <h3 className="font-rb-serif text-lg text-[var(--rb-ink)] pt-4">Statistieken</h3>
         <p>
-          We meten het bezoek met de eigen statistieken van ons platform. Daarmee zien we het aantal
-          bezoeken en bekeken pagina's, zonder je over andere websites te volgen en zonder dat gegevens
-          voor reclame worden gebruikt. We gebruiken op dit moment <strong>geen Google Analytics</strong>.
-          Zouden we dat later toevoegen, dan passen we deze verklaring aan en vragen we vooraf je
-          toestemming.
+          We tellen het bezoek zelf, in onze eigen database, zonder tussenkomst van een externe
+          statistiekdienst. Er worden <strong>geen cookies</strong> geplaatst en niets in de opslag van
+          je browser bewaard. We gebruiken <strong>geen Google Analytics</strong> en we volgen je niet
+          over andere websites.
         </p>
+        <ul>
+          <li>
+            <strong>Wat we tellen:</strong> per dag hoeveel keer een pagina werd bekeken, hoe je op de
+            site kwam (de website of zoekmachine waarvan je doorklikte, of de naam van een campagnelink
+            zoals "nieuwsbrief"), uit welk land je ongeveer komt (afgeleid door Cloudflare) en of je een
+            gsm, tablet of computer gebruikt. Dit zijn totalen: er staat geen IP-adres, geen browsertype
+            en geen paginabezoek van een individuele persoon in.
+          </li>
+          <li>
+            <strong>Unieke bezoekers:</strong> om te weten hoeveel verschillende mensen op één dag de
+            site bezoeken, maken we van je IP-adres en browsertype, samen met een geheime sleutel en
+            de datum, een onomkeerbare code (een "hash"). Die code verandert elke dag, zodat we je niet
+            van dag tot dag kunnen herkennen. Omdat ze een bezoeker op die dag kan herkennen,
+            beschouwen we ze als persoonsgegeven (gepseudonimiseerd).
+          </li>
+          <li>
+            <strong>Wie we niet tellen:</strong> bezoekers die in hun browser "Do Not Track" of "Global
+            Privacy Control" aanzetten, het beheergedeelte en bezoekers die zich als robot of
+            zoekmachine kenbaar maken.
+          </li>
+          <li>
+            <strong>Doel:</strong> weten welke pagina's en banen gelezen worden en hoe bezoekers ons
+            vinden, om de site te verbeteren en onze reikwijdte te kunnen tonen aan samenwerkingspartners.
+          </li>
+          <li>
+            <strong>Rechtsgrond:</strong> ons gerechtvaardigd belang om te weten hoe de site gebruikt
+            wordt. Omdat we geen cookies of opslag in je browser gebruiken en de dagcode niet buiten die
+            dag bruikbaar is, is de impact op je privacy zeer beperkt.
+          </li>
+          <li>
+            <strong>Bewaartermijn:</strong> de dagcodes worden na twee dagen automatisch verwijderd. De
+            totalen bewaren we langer; die bevatten geen persoonsgegevens.
+          </li>
+        </ul>
 
         <h3 className="font-rb-serif text-lg text-[var(--rb-ink)] pt-4">Beheer van de site</h3>
         <p>

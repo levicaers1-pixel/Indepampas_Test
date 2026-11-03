@@ -5,7 +5,7 @@
 export const LEGAL_CONTACT_EMAIL = "pampas.podcast@gmail.com";
 
 /** Date of the last substantive change to the texts. */
-export const LEGAL_UPDATED = "30 oktober 2026";
+export const LEGAL_UPDATED = "3 november 2026";
 
 export const LEGAL_CONTROLLER = {
   name: "PAMPAS Podcast",
