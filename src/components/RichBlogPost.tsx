@@ -260,6 +260,31 @@ export function RichBlogPost({ post, prev, next, courseLinks = [] }: Props) {
                 </div>
               );
             }
+            if (block.type === "list") {
+              return (
+                <ul
+                  key={i}
+                  className="my-10 border-t border-[var(--rb-rule-strong)] sm:columns-2 sm:gap-x-10"
+                >
+                  {block.items.map((item, li) => (
+                    <li
+                      key={li}
+                      className="flex items-center gap-3 py-3 border-b border-[var(--rb-rule-strong)] break-inside-avoid text-[var(--rb-ink)]"
+                      style={{
+                        fontFamily: "'Archivo', ui-sans-serif, system-ui, sans-serif",
+                        fontSize: "1.05rem",
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="w-1.5 h-1.5 rounded-full bg-[var(--rb-lime)] shrink-0"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              );
+            }
             if (block.type === "table") {
               return (
                 <div key={i} className="my-12 overflow-x-auto border border-[var(--rb-rule-strong)]">

@@ -6,6 +6,7 @@ export type RichBlock =
   | { type: "quote"; text: string }
   | { type: "stats"; items: { num: string; label: string }[] }
   | { type: "badges"; items: { num: string; title: string; text: string }[] }
+  | { type: "list"; items: string[] }
   | { type: "table"; headers: string[]; rows: string[][] }
   | { type: "source"; text: string }
   | {
@@ -51,6 +52,128 @@ export type Post = {
 };
 
 export const posts: Post[] = [
+  {
+    slug: "van-liv-naar-europa-dp-world-tour-2027",
+    title: "Van LIV naar Europa: wie komt er allemaal naar de DP World Tour?",
+    titleHtml: "Van LIV naar Europa:<br/>wie komt er allemaal<br/><em>naar de DP World Tour?</em>",
+    seoTitle: "Van LIV naar de DP World Tour: wie speelt er in 2027?",
+    excerpt:
+      "Vijf jaar lang leefde het profgolf in twee kampen. Begin november trok LIV Golf de stekker eruit, en op 17 november maakte de DP World Tour bekend wie er in 2027 mag spelen. Wij zetten op een rij wie er komt, op welke voorwaarden, en waarom niet iedereen staat te juichen.",
+    seoDescription:
+      "De DP World Tour maakte bekend wie er in 2027 mag spelen: DeChambeau, Rahm, Hatton, ex-LIV-spelers en de Belgen Pieters en Detry. Wie komt er, en waarom?",
+    date: "18/11/2026",
+    author: "PAMPAS Redactie",
+    readTime: "5 min",
+    topics: ["DP World Tour", "LIV Golf", "DeChambeau", "Pieters", "Detry", "Ryder Cup"],
+    category: "Tours · Profgolf · DP World Tour · LIV",
+    content:
+      "Vijf jaar lang leefde het profgolf in twee kampen. Begin november trok LIV Golf de stekker eruit, en op dinsdag 17 november maakte de DP World Tour bekend wie er in 2027 mag spelen.",
+    richContent: [
+      {
+        type: "subtitle",
+        text: "Vijf jaar lang leefde het profgolf in twee kampen. Begin november trok LIV Golf de stekker eruit, en op dinsdag 17 november maakte de DP World Tour bekend wie er in 2027 mag spelen.",
+      },
+      {
+        type: "p",
+        text: "Het resultaat: de Europese tour krijgt de grootste injectie sterrenkracht in jaren. Wij zetten op een rij wie er komt, op welke voorwaarden, en waarom niet iedereen staat te juichen.",
+      },
+      {
+        type: "stats",
+        items: [
+          { num: "9", label: "spelers op invitatie" },
+          { num: "12 mnd", label: "wachttijd PGA Tour na LIV" },
+          { num: "2", label: "Belgen terug" },
+          { num: "55 jaar", label: "geschiedenis van de tour" },
+        ],
+      },
+      { type: "h2", text: "Waarom Europa en niet Amerika?" },
+      {
+        type: "p",
+        text: "Het plan voor een tweede versie van LIV viel uit elkaar omdat te weinig spelers erin meegingen. Daarmee stond een hele groep toppers plots zonder tour.",
+      },
+      {
+        type: "p",
+        text: "De PGA Tour blijft voorlopig dicht. Wie op LIV speelde, moet minstens twaalf maanden wachten na zijn laatste LIV-start. Eerder dit jaar was er een eenmalige terugweg, maar daar maakte enkel Brooks Koepka gebruik van. Patrick Reed is het voorbeeld dat iedereen nu volgt: hij speelde heel 2026 op de DP World Tour en heeft voor volgend seizoen opnieuw zijn PGA Tour-kaart.",
+      },
+      {
+        type: "p",
+        text: 'De DP World Tour had in oktober al de toon gezet: geen dubbele lidmaatschappen meer in 2027. CEO Guy Kinnings vatte het samen in drie woorden: "Players need to make a choice." Met LIV weg is die keuze snel gemaakt.',
+      },
+      { type: "h2", text: "De headliner: Bryson DeChambeau" },
+      {
+        type: "p",
+        text: "De grootste naam komt met de sterkste status. DeChambeau neemt Category One-lidmaatschap en mag dus elk toernooi spelen dat hij wil. Dat is geen toeval: via zijn US Open-zege van 2024 was 2027 zijn laatste kans om die vrijstelling te activeren. Elk jaar dat hij wachtte, kromp zijn venster van vijf jaar met een seizoen.",
+      },
+      { type: "h2", text: "De invitatieclub: negen spelers op uitnodiging" },
+      {
+        type: "p",
+        text: "Een tweede groep krijgt geen volledige kaart, maar een afspraak voor een vast aantal invitaties:",
+      },
+      {
+        type: "list",
+        items: [
+          "Dustin Johnson",
+          "Cameron Smith",
+          "Bubba Watson",
+          "Abraham Ancer",
+          "Lucas Herbert",
+          "Michael La Sasso",
+          "Joaquin Niemann",
+          "Carlos Ortiz",
+          "Thomas Pieters",
+        ],
+      },
+      {
+        type: "p",
+        text: 'De Rolex Series-toernooien zitten niet in die deals. De tour koos zelf events waar deze spelers "waarde toevoegen", en zegt dat het de speelkansen van de eigen leden wil beschermen. Volgens berichten mag Niemann tot 20 toernooien spelen en Herbert 15. Er hangt ook een mooie wortel aan: wie een DP World Tour-toernooi wint, zou zijn kaart tot en met 2029 veiligstellen.',
+      },
+      { type: "h2", text: "De oude garde via het geldklassement" },
+      {
+        type: "p",
+        text: "Een reeks bekende veertigers komt binnen via hun carrièreverdiensten. In categorie 11a: Lee Westwood, Sergio Garcia, Henrik Stenson, Martin Kaymer, Paul Casey en Graeme McDowell. Net daaronder volgen Ian Poulter, Louis Oosthuizen, Charl Schwartzel en Branden Grace. Een flink stuk Ryder Cup-geschiedenis dat terug op de range staat.",
+      },
+      { type: "h2", text: "De Europese Ryder Cup-kern" },
+      {
+        type: "p",
+        text: "Voor Jon Rahm, Tyrrell Hatton en Tom McKibbin verandert er minder: zij hadden al status op de Europese tour, maar mogen niet langer op twee paarden wedden. Ook Adrian Meronk en David Puig keerden LIV de rug toe.",
+      },
+      {
+        type: "p",
+        text: "Dat is belangrijk voor Luke Donald. Wie in september 2027 in Adare Manor voor Europa wil spelen, moet lid zijn van de DP World Tour. Met Rahm en Hatton volledig terug in het Europese circuit ziet de Ryder Cup-ploeg er plots een pak steviger uit.",
+      },
+      { type: "h2", text: "De Belgische hoek: Pieters en Detry" },
+      {
+        type: "p",
+        text: "Voor ons natuurlijk het interessantste stuk. Twee Belgen, twee heel verschillende routes.",
+      },
+      {
+        type: "p",
+        text: "Thomas Detry deed het op de harde manier. Hij behoorde tot de acht LIV-spelers die dit jaar een akkoord hadden om hun Europese kaart te houden, maar moest nog punten sprokkelen. Acht weken lang speelde hij toernooi na toernooi, en met een 17de plaats in Zuid-Korea zijn zijn speelrechten voor 2027 binnen.",
+      },
+      {
+        type: "p",
+        text: "Thomas Pieters had het moeilijker. Toen hij in 2023 naar LIV trok, verloor hij zijn Europese status, en op de finale van de Q-School viel hij net uit de boot. Hij heeft wel status op de HotelPlanner Tour, en krijgt nu dus ook invitaties. De eerste is al binnen: samen met La Sasso en Ortiz staat hij in het veld van de BMW Australian PGA Championship, de seizoensopener.",
+      },
+      {
+        type: "p",
+        text: "Opvallend: Pieters zei in de zomer nog dat hij geen cadeautje wilde. Hij wilde zijn plek terugverdienen, zodat niemand kon zeggen dat hij zomaar zijn status terugkreeg. Nu gaat hij dus toch langs de invitatieroute. Met zes Europese zeges op zijn naam en de Olympische Spelen van 2028 als doel, is het aan hem om te bewijzen dat hij die plaats waard is.",
+      },
+      { type: "h2", text: "Niet iedereen applaudisseert" },
+      {
+        type: "p",
+        text: 'Voor de kijker is dit goed nieuws, voor een deel van de spelers minder. Elke invitatie voor een ex-LIV-speler is een plek minder voor een speler die altijd trouw bleef aan de tour. Paul McGinley zegt dat er "geen echte winnaars" zijn in dit verhaal, en heeft vooral medelijden met de spelers die bleven. Joost Luiten was nog scherper: volgens hem trokken deze spelers zich vier jaar geleden niets aan van de DP World Tour.',
+      },
+      {
+        type: "p",
+        text: "Kinnings zelf kijkt vooral vooruit en noemt 2027 een van de meest beladen seizoenen in de 55-jarige geschiedenis van de tour.",
+      },
+      { type: "h2", text: "Onze take" },
+      {
+        type: "p",
+        text: "De golfwereld begint eindelijk weer aan elkaar te groeien, en Europa is daar voorlopig de grote winnaar van. Een veld met McIlroy, Rahm, DeChambeau, Hatton en twee Belgen in topvorm: daar tekenen wij voor. Wij dromen alvast hardop van een Soudal Open waar Pieters en Detry samen op de leaderboard staan.",
+      },
+    ],
+  },
   {
     slug: "beste-golfbanen-antwerpen",
     title: "Beste Golfbanen in Antwerpen (2026): De Pampas-Ranking van 7 Banen",
